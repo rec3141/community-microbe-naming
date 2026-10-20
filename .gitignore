@@ -1,0 +1,15 @@
+# assembled sites (scripts/build/assemble_site.sh)
+dist/
+# secrets: the API key lives in .env or ~/.<env_slug>.env, never in the repo
+.env
+*.env
+# private or licensed inputs (see docs/ethics-and-data.md)
+communities/*/dictionary.js
+communities/*/private/
+*metadata*.tsv
+*.xlsx
+# scratch
+*.bak*
+__pycache__/
+*.pyc
+.DS_Store

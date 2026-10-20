@@ -1,0 +1,494 @@
+{
+ "title": "Chesterfield Inlet Bacterial Naming Workshop",
+ "inputs_dir": "~/.gemini/antigravity-cli/brain/0b4364d2-aabf-4063-b107-e5609226a4da/scratch",
+ "out_js": "site_data.js",
+ "reference_tree": "bac120_r226.tree",
+ "min_breadth": 0.3,
+ "coassembly_label": {
+  "marine": "Arctic Marine MAG",
+  "marine_accession": "Arctic Marine Co-Assembly MAG"
+ },
+ "candidates": {
+  "marine": [
+   "dastool-lorbin_055",
+   "dastool-lorbin_162",
+   "dastool-metabat_11223",
+   "dastool-semibin_075",
+   "dastool-lorbin_002",
+   "dastool-lorbin_051"
+  ],
+  "freshwater": [
+   "dastool-comebin_6520",
+   "dastool-comebin_4228",
+   "dastool-comebin_3630"
+  ]
+ },
+ "tree_specs": {
+  "dastool-lorbin_055": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "Thioglobus_A sp028352435",
+    "GCA_028352435.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-lorbin_055",
+    "nickname": "Harbour Thioglobus_A",
+    "ani": 97.07,
+    "lineage": "g__Thioglobus_A; s__Thioglobus_A sp028352435"
+   }
+  },
+  "dastool-lorbin_162": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.2.tree",
+   "queries": [
+    "dastool-lorbin_162"
+   ],
+   "ani_sister": null
+  },
+  "dastool-metabat_11223": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.2.tree",
+   "queries": [
+    "TMED14 sp963925545",
+    "GCA_963925545.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-metabat_11223",
+    "nickname": "Coastal TMED14",
+    "ani": 99.76,
+    "lineage": "f__Schleiferiaceae; g__TMED14; s__TMED14 sp963925545"
+   }
+  },
+  "dastool-semibin_075": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "dastool-semibin_075"
+   ],
+   "ani_sister": null
+  },
+  "dastool-lorbin_002": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "ASP10-02a sp002470565",
+    "GCA_002470565.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-lorbin_002",
+    "nickname": "Itivia ASP10-02a",
+    "ani": 99.08,
+    "lineage": "f__Balneatricaceae; g__ASP10-02a; s__ASP10-02a sp002470565"
+   }
+  },
+  "dastool-lorbin_051": {
+   "habitat": "marine",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "BACL14 sp913058475",
+    "GCA_913058475.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-lorbin_051",
+    "nickname": "Itivia BACL14",
+    "ani": 99.07,
+    "lineage": "f__Methylophilaceae; g__BACL14; s__BACL14 sp913058475"
+   }
+  },
+  "dastool-comebin_6520": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.2.tree",
+   "queries": [
+    "comebin_6520",
+    "dastool-comebin_6520"
+   ],
+   "ani_sister": null
+  },
+  "dastool-comebin_832": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.8.tree",
+   "queries": [
+    "comebin_832",
+    "dastool-comebin_832"
+   ],
+   "ani_sister": null
+  },
+  "dastool-comebin_4228": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "GCA_037139315.1",
+    "GCA_903918115.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-comebin_4228",
+    "nickname": "Lake Polynucleobacter",
+    "ani": 98.06,
+    "lineage": "f__Burkholderiaceae; g__Polynucleobacter; s__Polynucleobacter sp037139315"
+   }
+  },
+  "dastool-lorbin_069": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.8.tree",
+   "queries": [
+    "GCA_003669615.1",
+    "GCA_947085455.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-lorbin_069",
+    "nickname": "Lake SXXK01 Planctomycete",
+    "ani": 98.49,
+    "lineage": "f__Planctomycetaceae; g__SXXK01; s__SXXK01 sp003669615"
+   }
+  },
+  "dastool-comebin_3630": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "GCA_002470125.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-comebin_3630",
+    "nickname": "Under-Ice Nitrotoga",
+    "ani": 98.59,
+    "lineage": "f__Gallionellaceae; g__Nitrotoga; s__Nitrotoga sp002470125"
+   }
+  },
+  "dastool-lorbin_054": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.2.tree",
+   "queries": [
+    "GCA_945887955.1",
+    "GCA_005787585.1"
+   ],
+   "ani_sister": {
+    "mag_id": "dastool-lorbin_054",
+    "nickname": "Lake Aurantibacillus",
+    "ani": 96.42,
+    "lineage": "f__Aurantibacillaceae; g__Aurantibacillus; s__Aurantibacillus sp945887955"
+   }
+  }
+ },
+ "stations": [
+  {
+   "name": "Chesterfield Inlet (Igluligaarjuk, NU)",
+   "lat": 63.3389,
+   "lon": -90.7044,
+   "region": "Kivalliq Region, Nunavut (63.3°N)",
+   "is_ci": true,
+   "desc": "Community-based marine inlet & tundra lake sampling at Chesterfield Inlet (Igluligaarjuk) across May, September & October 2025."
+  },
+  {
+   "name": "Queen Elizabeth Islands (High Arctic, NU)",
+   "lat": 74.6973,
+   "lon": -94.8297,
+   "region": "High Arctic Archipelago, Nunavut (74.7°N)",
+   "is_ci": false,
+   "desc": "High Arctic marine & sea-ice stations across Barrow Strait / Resolute / Queen Elizabeth Islands."
+  },
+  {
+   "name": "Churchill Marine Observatory (Hudson Bay, MB)",
+   "lat": 58.7845,
+   "lon": -94.1993,
+   "region": "SW Hudson Bay, Manitoba (58.8°N)",
+   "is_ci": false,
+   "desc": "Churchill Marine Observatory (CMO) coastal Hudson Bay seawater and sea-ice time series."
+  },
+  {
+   "name": "Goose Creek (Churchill, MB)",
+   "lat": 58.665407,
+   "lon": -94.159767,
+   "region": "Goose Creek, Churchill, MB (58.7°N)",
+   "is_ci": false,
+   "desc": "Goose Creek, a tributary of the lower Churchill River.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Churchill River Weir (MB)",
+   "lat": 58.675599,
+   "lon": -94.164696,
+   "region": "Churchill River at the weir, MB (58.7°N)",
+   "is_ci": false,
+   "desc": "Churchill River water sampled at the weir, upstream of the estuary (CMO river and CEP freshwater samples).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Churchill Estuary Project (Hudson Bay, MB)",
+   "lat": 58.846938,
+   "lon": -94.126517,
+   "region": "Churchill River estuary, Hudson Bay, MB (58.8°N)",
+   "is_ci": false,
+   "desc": "Churchill Estuary Project (CEP): water from the Churchill River estuary, where the river meets Hudson Bay."
+  },
+  {
+   "name": "Other marine samples (site not recorded)",
+   "lat": null,
+   "lon": null,
+   "region": "No site in the sample sheet",
+   "is_ci": false,
+   "desc": "Marine samples whose run is not in the sample sheet yet, so they have no location."
+  },
+  {
+   "name": "Nelson River / Split & Assean Lakes (Northern MB)",
+   "lat": 56.1851,
+   "lon": -96.5961,
+   "region": "Sub-Arctic Boreal Shield, MB (56.2°N)",
+   "is_ci": false,
+   "desc": "Northern Manitoba watershed lakes along the Nelson River corridor (Split Lake, Assean Lake, Kelsey).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Cross Lake / Pimicikamak (Northern MB)",
+   "lat": 54.623,
+   "lon": -97.781,
+   "region": "Northern Boreal Shield, MB (54.6°N)",
+   "is_ci": false,
+   "desc": "Community water monitoring stations at Cross Lake (Pimicikamak) on the Nelson River system.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Clearwater & Rocky Lakes / The Pas (Boreal MB)",
+   "lat": 54.05,
+   "lon": -101.25,
+   "region": "Northwestern Boreal Shield, MB (54.1°N)",
+   "is_ci": false,
+   "desc": "Oligotrophic shield and limestone lakes (Clearwater Lake, Rocky Lake, Saskatchewan River).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Winnipeg North Basin (Sub-Arctic Shield, MB)",
+   "lat": 52.85,
+   "lon": -98.1,
+   "region": "North Basin Research Vessel Namao (52.9°N)",
+   "is_ci": false,
+   "desc": "Open-water pelagic stations in the North Basin of Lake Winnipeg.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Manitoba & Interlake Region (MB)",
+   "lat": 51.35,
+   "lon": -99.25,
+   "region": "Interlake Basin, Manitoba (51.4°N)",
+   "is_ci": false,
+   "desc": "Lake Manitoba, Ebb & Flow Lake, and Kaweenakumik Lake.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Winnipeg South Basin (MB)",
+   "lat": 50.65,
+   "lon": -96.65,
+   "region": "South Basin & Winnipeg River (50.7°N)",
+   "is_ci": false,
+   "desc": "Southern basin coastal and offshore stations (Victoria Beach, Gimli, Beaconia, Lac du Bonnet).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Red & Assiniboine Watershed Lakes (Southern MB)",
+   "lat": 49.895,
+   "lon": -98.5,
+   "region": "Southern Prairie Watershed, MB (49.9°N)",
+   "is_ci": false,
+   "desc": "Lake of the Prairies, Pelican Lake, and Red/Assiniboine river tributaries.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Boreal Shield Freshwater Lakes (MB)",
+   "lat": 53.5,
+   "lon": -97.0,
+   "region": "Canadian Shield Lakes, MB (53.5°N)",
+   "is_ci": false,
+   "desc": "Regional Canadian Shield freshwater monitoring survey.",
+   "habitat": "freshwater"
+  }
+ ],
+ "local": {
+  "station": "Chesterfield Inlet (Igluligaarjuk, NU)",
+  "label": "Chesterfield",
+  "novel_label": "Chesterfield Inlet Novel Species",
+  "metadata_tsv": "~/Downloads/metadata_2026-10-20.tsv",
+  "site_names": {
+   "Itivia": "Itivia",
+   "Dock": "Dock",
+   "Tuktuttaa": "Tuktuttaa",
+   "Tuktuttaa algae": "Tuktuttaa",
+   "1st_Lake": "1st Lake",
+   "2nd_Lake": "2nd Lake",
+   "3rd_Lake": "3rd Lake"
+  },
+  "freshwater_sites": [
+   "1st Lake",
+   "2nd Lake",
+   "3rd Lake"
+  ],
+  "exclude_samples": {
+   "FAZ28565_barcode09": "extraction control"
+  }
+ },
+ "sample_sheet": {
+  "xlsx": "~/Downloads/Nanopore_Record_Master(3).xlsx",
+  "samples_tab": "2025",
+  "failed_runs_tab": "missing runs",
+  "barcodes_tab": "barcodes",
+  "min_mb": 25
+ },
+ "station_rules": [
+  {
+   "station": "Chesterfield Inlet (Igluligaarjuk, NU)",
+   "any": [
+    "CHESTERFIELD",
+    "CDIT",
+    "ITIVIA",
+    "1ST_LAKE",
+    "2ND_LAKE",
+    "3RD_LAKE"
+   ]
+  },
+  {
+   "station": "Queen Elizabeth Islands (High Arctic, NU)",
+   "any": [
+    "QEI",
+    "QUEEN ELIZABETH",
+    "RESOLUTE"
+   ]
+  },
+  {
+   "station": "Goose Creek (Churchill, MB)",
+   "any": [
+    "GOOSE CREEK"
+   ]
+  },
+  {
+   "station": "Churchill River Weir (MB)",
+   "any": [
+    "CEP"
+   ],
+   "and_regex": "(^|[_ -])FW([_ -]|$)"
+  },
+  {
+   "station": "Churchill Estuary Project (Hudson Bay, MB)",
+   "any": [
+    "CEP"
+   ]
+  },
+  {
+   "station": "Churchill River Weir (MB)",
+   "any": [
+    "CMO_RIVER",
+    "CHURCHILL RIVER"
+   ]
+  },
+  {
+   "station": "Churchill Marine Observatory (Hudson Bay, MB)",
+   "any": [
+    "CMO",
+    "SERF"
+   ],
+   "or_project": "GENICE"
+  },
+  {
+   "station": "Nelson River / Split & Assean Lakes (Northern MB)",
+   "any": [
+    "SPLIT",
+    "ASSEAN",
+    "KELSEY"
+   ]
+  },
+  {
+   "station": "Cross Lake / Pimicikamak (Northern MB)",
+   "any": [
+    "CROSS",
+    "NATIMEEK",
+    "COLOMBES"
+   ]
+  },
+  {
+   "station": "Clearwater & Rocky Lakes / The Pas (Boreal MB)",
+   "any": [
+    "CLEARWATER",
+    "ROCKY LAKE",
+    "SASKATCHEWAN RIVER"
+   ]
+  },
+  {
+   "station": "Lake Winnipeg North Basin (Sub-Arctic Shield, MB)",
+   "any": [
+    "NORTH BASIN",
+    "NMO W",
+    "NMO 2",
+    "NMO 3",
+    "NMO 4",
+    "NMO 5",
+    "NMO 6"
+   ]
+  },
+  {
+   "station": "Lake Winnipeg South Basin (MB)",
+   "any": [
+    "NAMAO",
+    "VICTORIA_BEACH",
+    "GIMLI",
+    "BEACONIA",
+    "SAND_BAY"
+   ]
+  },
+  {
+   "station": "Lake Manitoba & Interlake Region (MB)",
+   "any": [
+    "EBB",
+    "MANITOBA",
+    "KAWEENAKUMIK"
+   ]
+  },
+  {
+   "station": "Red & Assiniboine Watershed Lakes (Southern MB)",
+   "any": [
+    "PRAIRIES",
+    "PELICAN",
+    "WATERSHED",
+    "SNCB",
+    "FORK",
+    "SBLP",
+    "MSBL",
+    "NLM"
+   ]
+  }
+ ],
+ "fallback_station": {
+  "marine": "Other marine samples (site not recorded)",
+  "freshwater": "Boreal Shield Freshwater Lakes (MB)"
+ },
+ "extract": {
+  "candidates": {
+   "marine": [
+    "dastool-lorbin_055",
+    "dastool-lorbin_162",
+    "dastool-metabat_11223",
+    "dastool-semibin_075",
+    "dastool-lorbin_002",
+    "dastool-lorbin_051"
+   ],
+   "freshwater": [
+    "dastool-comebin_6520",
+    "dastool-comebin_832",
+    "dastool-comebin_4228",
+    "dastool-lorbin_069",
+    "dastool-comebin_3630",
+    "dastool-lorbin_054"
+   ]
+  },
+  "local_flowcells": [
+   "FAZ28565",
+   "FAZ82916",
+   "FAZ82377"
+  ],
+  "evo_source": {
+   "marine": "phylotree",
+   "freshwater": "gtdbtk_taxonomy"
+  },
+  "sketch_tables": {
+   "marine": "ci_vs_mar_dastool.tsv",
+   "freshwater": "ci_vs_fw_dastool.tsv"
+  }
+ }
+}

@@ -1,0 +1,303 @@
+{
+ "title": "Example Bacterial Naming Workshop",
+ "inputs_dir": "~/path/to/analysis_outputs",
+ "out_js": "site_data.js",
+ "reference_tree": "bac120_r226.tree",
+ "min_breadth": 0.3,
+ "coassembly_label": {
+  "marine": "Marine MAG",
+  "marine_accession": "Marine co-assembly MAG"
+ },
+ "candidates": {
+  "marine": [],
+  "freshwater": [
+   "dastool-example_001"
+  ]
+ },
+ "tree_specs": {
+  "dastool-example_001": {
+   "habitat": "freshwater",
+   "tree_file": "gtdbtk.bac120.classify.tree.1.tree",
+   "queries": [
+    "dastool-example_001"
+   ],
+   "ani_sister": null
+  }
+ },
+ "local": {
+  "station": "Example Lake (Province)",
+  "label": "Example",
+  "novel_label": "Example Lake Novel Species",
+  "metadata_tsv": "~/private/example_metadata.tsv",
+  "site_names": {
+   "Site_A": "Site A",
+   "Site_B": "Site B"
+  },
+  "freshwater_sites": [
+   "Site A",
+   "Site B"
+  ],
+  "exclude_samples": {}
+ },
+ "sample_sheet": {
+  "xlsx": "~/private/sample_sheet.xlsx",
+  "samples_tab": "2025",
+  "failed_runs_tab": "missing runs",
+  "barcodes_tab": "barcodes",
+  "min_mb": 25
+ },
+ "stations": [
+  {
+   "name": "Example Lake (Province)",
+   "lat": 50.0,
+   "lon": -97.0,
+   "region": "Example region (50.0°N)",
+   "is_ci": true,
+   "desc": "The community's own samples.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Queen Elizabeth Islands (High Arctic, NU)",
+   "lat": 74.6973,
+   "lon": -94.8297,
+   "region": "High Arctic Archipelago, Nunavut (74.7°N)",
+   "is_ci": false,
+   "desc": "High Arctic marine & sea-ice stations across Barrow Strait / Resolute / Queen Elizabeth Islands."
+  },
+  {
+   "name": "Churchill Marine Observatory (Hudson Bay, MB)",
+   "lat": 58.7845,
+   "lon": -94.1993,
+   "region": "SW Hudson Bay, Manitoba (58.8°N)",
+   "is_ci": false,
+   "desc": "Churchill Marine Observatory (CMO) coastal Hudson Bay seawater and sea-ice time series."
+  },
+  {
+   "name": "Goose Creek (Churchill, MB)",
+   "lat": 58.665407,
+   "lon": -94.159767,
+   "region": "Goose Creek, Churchill, MB (58.7°N)",
+   "is_ci": false,
+   "desc": "Goose Creek, a tributary of the lower Churchill River.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Churchill River Weir (MB)",
+   "lat": 58.675599,
+   "lon": -94.164696,
+   "region": "Churchill River at the weir, MB (58.7°N)",
+   "is_ci": false,
+   "desc": "Churchill River water sampled at the weir, upstream of the estuary (CMO river and CEP freshwater samples).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Churchill Estuary Project (Hudson Bay, MB)",
+   "lat": 58.846938,
+   "lon": -94.126517,
+   "region": "Churchill River estuary, Hudson Bay, MB (58.8°N)",
+   "is_ci": false,
+   "desc": "Churchill Estuary Project (CEP): water from the Churchill River estuary, where the river meets Hudson Bay."
+  },
+  {
+   "name": "Other marine samples (site not recorded)",
+   "lat": null,
+   "lon": null,
+   "region": "No site in the sample sheet",
+   "is_ci": false,
+   "desc": "Marine samples whose run is not in the sample sheet yet, so they have no location."
+  },
+  {
+   "name": "Nelson River / Split & Assean Lakes (Northern MB)",
+   "lat": 56.1851,
+   "lon": -96.5961,
+   "region": "Sub-Arctic Boreal Shield, MB (56.2°N)",
+   "is_ci": false,
+   "desc": "Northern Manitoba watershed lakes along the Nelson River corridor (Split Lake, Assean Lake, Kelsey).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Cross Lake / Pimicikamak (Northern MB)",
+   "lat": 54.623,
+   "lon": -97.781,
+   "region": "Northern Boreal Shield, MB (54.6°N)",
+   "is_ci": false,
+   "desc": "Community water monitoring stations at Cross Lake (Pimicikamak) on the Nelson River system.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Clearwater & Rocky Lakes / The Pas (Boreal MB)",
+   "lat": 54.05,
+   "lon": -101.25,
+   "region": "Northwestern Boreal Shield, MB (54.1°N)",
+   "is_ci": false,
+   "desc": "Oligotrophic shield and limestone lakes (Clearwater Lake, Rocky Lake, Saskatchewan River).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Winnipeg North Basin (Sub-Arctic Shield, MB)",
+   "lat": 52.85,
+   "lon": -98.1,
+   "region": "North Basin Research Vessel Namao (52.9°N)",
+   "is_ci": false,
+   "desc": "Open-water pelagic stations in the North Basin of Lake Winnipeg.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Manitoba & Interlake Region (MB)",
+   "lat": 51.35,
+   "lon": -99.25,
+   "region": "Interlake Basin, Manitoba (51.4°N)",
+   "is_ci": false,
+   "desc": "Lake Manitoba, Ebb & Flow Lake, and Kaweenakumik Lake.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Lake Winnipeg South Basin (MB)",
+   "lat": 50.65,
+   "lon": -96.65,
+   "region": "South Basin & Winnipeg River (50.7°N)",
+   "is_ci": false,
+   "desc": "Southern basin coastal and offshore stations (Victoria Beach, Gimli, Beaconia, Lac du Bonnet).",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Red & Assiniboine Watershed Lakes (Southern MB)",
+   "lat": 49.895,
+   "lon": -98.5,
+   "region": "Southern Prairie Watershed, MB (49.9°N)",
+   "is_ci": false,
+   "desc": "Lake of the Prairies, Pelican Lake, and Red/Assiniboine river tributaries.",
+   "habitat": "freshwater"
+  },
+  {
+   "name": "Boreal Shield Freshwater Lakes (MB)",
+   "lat": 53.5,
+   "lon": -97.0,
+   "region": "Canadian Shield Lakes, MB (53.5°N)",
+   "is_ci": false,
+   "desc": "Regional Canadian Shield freshwater monitoring survey.",
+   "habitat": "freshwater"
+  }
+ ],
+ "station_rules": [
+  {
+   "station": "Example Lake (Province)",
+   "any": [
+    "EXAMPLE"
+   ]
+  },
+  {
+   "station": "Queen Elizabeth Islands (High Arctic, NU)",
+   "any": [
+    "QEI",
+    "QUEEN ELIZABETH",
+    "RESOLUTE"
+   ]
+  },
+  {
+   "station": "Goose Creek (Churchill, MB)",
+   "any": [
+    "GOOSE CREEK"
+   ]
+  },
+  {
+   "station": "Churchill River Weir (MB)",
+   "any": [
+    "CEP"
+   ],
+   "and_regex": "(^|[_ -])FW([_ -]|$)"
+  },
+  {
+   "station": "Churchill Estuary Project (Hudson Bay, MB)",
+   "any": [
+    "CEP"
+   ]
+  },
+  {
+   "station": "Churchill River Weir (MB)",
+   "any": [
+    "CMO_RIVER",
+    "CHURCHILL RIVER"
+   ]
+  },
+  {
+   "station": "Churchill Marine Observatory (Hudson Bay, MB)",
+   "any": [
+    "CMO",
+    "SERF"
+   ],
+   "or_project": "GENICE"
+  },
+  {
+   "station": "Nelson River / Split & Assean Lakes (Northern MB)",
+   "any": [
+    "SPLIT",
+    "ASSEAN",
+    "KELSEY"
+   ]
+  },
+  {
+   "station": "Cross Lake / Pimicikamak (Northern MB)",
+   "any": [
+    "CROSS",
+    "NATIMEEK",
+    "COLOMBES"
+   ]
+  },
+  {
+   "station": "Clearwater & Rocky Lakes / The Pas (Boreal MB)",
+   "any": [
+    "CLEARWATER",
+    "ROCKY LAKE",
+    "SASKATCHEWAN RIVER"
+   ]
+  },
+  {
+   "station": "Lake Winnipeg North Basin (Sub-Arctic Shield, MB)",
+   "any": [
+    "NORTH BASIN",
+    "NMO W",
+    "NMO 2",
+    "NMO 3",
+    "NMO 4",
+    "NMO 5",
+    "NMO 6"
+   ]
+  },
+  {
+   "station": "Lake Winnipeg South Basin (MB)",
+   "any": [
+    "NAMAO",
+    "VICTORIA_BEACH",
+    "GIMLI",
+    "BEACONIA",
+    "SAND_BAY"
+   ]
+  },
+  {
+   "station": "Lake Manitoba & Interlake Region (MB)",
+   "any": [
+    "EBB",
+    "MANITOBA",
+    "KAWEENAKUMIK"
+   ]
+  },
+  {
+   "station": "Red & Assiniboine Watershed Lakes (Southern MB)",
+   "any": [
+    "PRAIRIES",
+    "PELICAN",
+    "WATERSHED",
+    "SNCB",
+    "FORK",
+    "SBLP",
+    "MSBL",
+    "NLM"
+   ]
+  }
+ ],
+ "fallback_station": {
+  "marine": "Other marine samples (site not recorded)",
+  "freshwater": "Boreal Shield Freshwater Lakes (MB)"
+ }
+}

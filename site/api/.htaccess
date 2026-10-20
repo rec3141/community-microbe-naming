@@ -1,0 +1,6 @@
+# /api/status and /api/protologue map to the PHP scripts; the helpers stay private
+RewriteEngine On
+RewriteRule ^(status|protologue)$ $1.php [L]
+<Files "lib.php">
+  Require all denied
+</Files>

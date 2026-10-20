@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workshop Slides — Naming the Microbes of Igluligaarjuk (Chesterfield Inlet)</title>
+  <style>
+    :root {
+      --bg: #05101a;
+      --card: #0c2135;
+      --marine: #38bdf8;
+      --fresh: #34d399;
+      --gold: #fbbf24;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 15%, #102d47 0%, var(--bg) 75%);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5, 16, 26, 0.75);
+      z-index: 10;
+    }
+    .topbar a {
+      color: var(--marine);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .slide-counter {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .deck {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 4rem;
+    }
+    .slide {
+      display: none;
+      max-width: 1180px;
+      width: 100%;
+      background: rgba(12, 33, 53, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 24px;
+      padding: 3rem 3.5rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      animation: fadeIn 0.25s ease-out;
+    }
+    .slide.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .kicker {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--marine);
+    }
+    .kicker.fresh {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--fresh);
+    }
+    .kicker.gold {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--gold);
+    }
+    h1 {
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 2.6vw, 2.35rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+    p.lead {
+      font-size: 1.2rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 1.25rem;
+    }
+    .box {
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.4rem 1.6rem;
+    }
+    .box h3 {
+      font-size: 1.05rem;
+      color: var(--gold);
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    ul.bullets {
+      list-style: none;
+    }
+    ul.bullets li {
+      font-size: 1.08rem;
+      margin-bottom: 0.75rem;
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    ul.bullets li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--marine);
+    }
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.85rem;
+      margin: 1.25rem 0;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 0.85rem;
+      text-align: center;
+    }
+    .stat-pill .v {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .stat-pill .l {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5, 16, 26, 0.85);
+    }
+    .nav-btn {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.65rem 1.4rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .nav-btn:hover { background: rgba(56, 189, 248, 0.25); }
+    .progress-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+    .dot.active { background: var(--marine); transform: scale(1.25); }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">← Back to Interactive Candidate Explorer & Name Builder</a>
+  <div class="slide-counter" id="slideCounter">Slide 1 / 16</div>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- Slide 1: Title -->
+  <div class="slide active">
+    <span class="kicker gold">Igluligaarjuk (Chesterfield Inlet) • Community Science Workshop</span>
+    <h1>Naming Our Local Bacteria:<br/>From Water & Ice DNA to Official Names</h1>
+    <p class="lead">
+      In 2025, community-based sampling in <strong>Igluligaarjuk (Chesterfield Inlet)</strong> collected coastal marine water (Itivia, Harbour/Dock) and lake water (1st Lake, 2nd Lake, 3rd Lake). Using Nanopore long-read DNA sequencing, we reconstructed complete bacterial genomes—including several species never named by science!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">38</div><div class="l">Chesterfield Inlet Samples</div></div>
+      <div class="stat-pill"><div class="v">300+</div><div class="l">Arctic Co-Assembly Samples</div></div>
+      <div class="stat-pill"><div class="v">6 Marine</div><div class="l">Inlet & Harbour Candidates</div></div>
+      <div class="stat-pill"><div class="v">6 Freshwater</div><div class="l">1st, 2nd & 3rd Lake Candidates</div></div>
+    </div>
+  </div>
+
+  <!-- Slide 2: How SeqCode Naming Works -->
+  <div class="slide">
+    <span class="kicker gold">How Scientific Naming Works</span>
+    <h2>Giving Bacteria Official Inuktitut-Rooted Names with SeqCode</h2>
+    <p class="lead">
+      Until recently, bacteria could only be named if grown in a laboratory dish. Now, under the <strong>SeqCode</strong> (Code of Nomenclature of Prokaryotes Described from Sequence Data), a high-quality DNA genome from nature can serve as the official blueprint!
+    </p>
+    <div class="two-col">
+      <div class="box">
+        <h3>What Makes a Genome Eligible?</h3>
+        <ul class="bullets">
+          <li><strong>High Completeness (≥90%) & Low Contamination (≤5%)</strong> so we know the genome belongs to one single organism.</li>
+          <li><strong>Ribosomal & Transfer RNAs (16S, 23S, 5S + 20 tRNAs)</strong> that act as the cell's protein-making signature.</li>
+          <li><strong>Unnamed in Global Databases (GTDB):</strong> Currently listed only as blank (`s__`) or a computer code (`g__TMED14`, `g__SXXK01`, `sp028352435`).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>How We Create a Name Together</h3>
+        <ul class="bullets">
+          <li>Every species has two parts: <strong><em>Genus</em></strong> (group name) + <strong><em>species</em></strong> (specific name).</li>
+          <li>We can honor <strong>Inuktitut place names</strong> (<em>Igluligaarjuk</em>, <em>Itivia</em>), <strong>habitats</strong> (<em>tariuq</em> = sea, <em>tasiq</em> = lake, <em>siku</em> = sea ice), or <strong>what the microbe does</strong>!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Sampling Map & Habitats -->
+  <div class="slide">
+    <span class="kicker">Where These Microbes Live</span>
+    <h2>Our Sampling Sites Around Chesterfield Inlet (`CDIT`)</h2>
+    <div class="two-col">
+      <div class="box">
+        <h3>🌊 Marine Sites (Inlet, Harbour & Itivia)</h3>
+        <ul class="bullets">
+          <li><strong>Itivia (`CDIT_SITE1`, `CDIT4`, `CDIT11`, `CDIT24`):</strong> Outer inlet and tidal waters rich in sulfur-oxidizing and solar-powered bacteria.</li>
+          <li><strong>Harbour / Dock (`CDIT_SITE2`, `CDIT12`, `CDIT28`):</strong> Coastal harbour where our #1 marine candidate is <strong>83× more abundant</strong> than anywhere else in the Arctic!</li>
+          <li><strong>Coastal Waters (`CDIT_SITE3-A, 3-B, 3-D`):</strong> Rich in sea-ice algae and kelp-digesting bacteria.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>💧 Freshwater Sites (1st, 2nd & 3rd Lake)</h3>
+        <ul class="bullets">
+          <li><strong>1st Lake (`CDIT_SITE3-C`, `CDIT1, 5, 8, 27, 31`):</strong> Community drinking water lake, home to pristine organic-matter recyclers (`Polynucleobacter`, `Ferruginibacter`).</li>
+          <li><strong>2nd Lake (`CDIT2, 6, 9, 25, 30`):</strong> Rich in giant-genome Planctomycetes (`QWQI01`, `SXXK01`) that digest moss and lichen sugars.</li>
+          <li><strong>3rd Lake Area (`CDIT_SITE6`, `CDIT3, 7, 10, 26, 29`):</strong> Home to cold-water nitrite-purifying `Nitrotoga` and golden `Aurantibacillus`.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Marine #1 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #1 • Needs Genus + Species Name</span>
+    <h2>The Harbour Sulfur-Eater & Vitamin Maker (`dastool-lorbin_055`)</h2>
+    <p class="lead">
+      <strong>60.5% of all reads</strong> for this bacterium across 276 Arctic marine samples came right from Chesterfield Inlet (<strong>83.1× enriched!</strong>). Currently code-named <em>Thioglobus_A sp028352435</em>.
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">97.4%</div><div class="l">Completeness (1.45% Contam)</div></div>
+      <div class="stat-pill"><div class="v">3 Contigs</div><div class="l">1.28 Mbp (N50 809 kbp)</div></div>
+      <div class="stat-pill"><div class="v">83.1×</div><div class="l">Enriched in Chester</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 5S + 20 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Inlet</h3>
+        <ul class="bullets">
+          <li><strong>Cleans Up Sulfur:</strong> Breathes and oxidizes sulfur compounds from tidal muds and deep water to generate energy.</li>
+          <li><strong>Feeds the Food Web in the Dark:</strong> Fixes carbon without sunlight (Rubisco) and makes <strong>Biotin (Vitamin B7), Folate (B9), and Thiamine (B1)</strong> that fish and plankton need.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Lives right at the <strong>Harbour/Dock (`CDIT_SITE2`)</strong> and <strong>Itivia (`CDIT4`)</strong>.</li>
+          <li>Themes: <em>Igluligaarjuk</em> (Chesterfield Inlet), harbour guardian, sulfur/tidal energy, winter dark worker.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Marine #2 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #2 • Completely Novel Species</span>
+    <h2>The Sea-Ice Kelp & Algal Sugar Recycler (`dastool-lorbin_162`)</h2>
+    <p class="lead">
+      A brand-new, unnamed species of the polar genus <strong><em>Polaribacter</em> (`s__`)</strong>! It is <strong>2.9× enriched</strong> in Chesterfield Inlet (`Itivia`, `Harbour`, `SITE3-A`).
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">91.8%</div><div class="l">Completeness (2.92% Contam)</div></div>
+      <div class="stat-pill"><div class="v">2.18 Mbp</div><div class="l">21 Contigs (N50 150 kbp)</div></div>
+      <div class="stat-pill"><div class="v">34 TonB</div><div class="l">Sugar & Iron Catchers</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 5S + 19 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does Under the Sea Ice</h3>
+        <ul class="bullets">
+          <li><strong>Digests Kelp & Sea-Ice Algae:</strong> Uses specialized <strong>alginate lyases (PL6, PL7)</strong> to break down tough brown seaweed and spring sea-ice diatom blooms into simple nutrients.</li>
+          <li><strong>Natural Sunscreen:</strong> Makes golden carotenoid/terpene pigments to protect itself against bright spring sunlight reflecting off sea ice.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Genus is already <em>Polaribacter</em> — needs a <strong>species name</strong>!</li>
+          <li>Themes: Seaweed/kelp (<em>iqavyuak</em>), sea ice (<em>siku</em>), golden spring bloom, Itivia coast.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: Marine #3 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #3 • Needs Genus + Species Name</span>
+    <h2>The Coastal Polymer Specialist (`dastool-metabat_11223`)</h2>
+    <p class="lead">
+      Currently known only by the placeholder code <strong><em>g__TMED14; s__TMED14 sp963925545</em></strong>. It is <strong>6.6× more abundant</strong> in Chesterfield Inlet (`Harbour` & `SITE3-A`) than elsewhere!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">95.2%</div><div class="l">Completeness</div></div>
+      <div class="stat-pill"><div class="v">0.07%</div><div class="l">Contamination (Ultra-Clean)</div></div>
+      <div class="stat-pill"><div class="v">1.64 Mbp</div><div class="l">11 Contigs (N50 221 kbp)</div></div>
+      <div class="stat-pill"><div class="v">6.6×</div><div class="l">Enriched in Chester</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Inlet</h3>
+        <ul class="bullets">
+          <li><strong>Clings to Marine Snow:</strong> Covered in 26 PKD and 11 MAM sticky surface proteins so it can latch onto drifting algal particles in strong tidal currents.</li>
+          <li><strong>Breaks Down Algal Storage Sugars:</strong> Uses laminarinase (`GH16_3`) and mannosidase (`GH92`) enzymes to recycle algal carbohydrates and make Folate (Vitamin B9).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (replacing `TMED14`).</li>
+          <li>Themes: Holding fast in strong tides, coastal cleaner, Chesterfield harbour.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 7: Marine #4 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #4 • Novel Order, Family, Genus & Species</span>
+    <h2>The Minimalist Deep-Cold Sulfur Cyclist (`dastool-semibin_075`)</h2>
+    <p class="lead">
+      A completely unnamed branch of life (<strong><em>o__GCA-002705445; g__GCA-2705445; s__</em></strong>) with a tiny, ultra-efficient <strong>1.06 Mbp genome in just 6 contigs</strong>!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">92.7%</div><div class="l">Completeness (0.76% Contam)</div></div>
+      <div class="stat-pill"><div class="v">1.06 Mbp</div><div class="l">Just 6 Contigs (N50 198 kbp)</div></div>
+      <div class="stat-pill"><div class="v">98.5% ANI</div><div class="l">In Itivia, Dock & Harbour</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 5S + 20 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Inlet</h3>
+        <ul class="bullets">
+          <li><strong>Master of Survival with Less:</strong> Packs everything it needs to live in icy Arctic seawater into just 1,145 genes.</li>
+          <li><strong>Sulfur & Iron Cycling + Viral Shield:</strong> Cycles sulfur, captures scarce iron with siderophores, makes Vitamin B7 (Biotin), and defends itself against marine viruses with a <strong>CRISPR-Cas immune system</strong>.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (and can even define a new Family name!).</li>
+          <li>Themes: Small but mighty/resilient, tiny traveler of the sea (<em>tariuq</em>), defender.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 8: Marine #5 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #5 • Needs Genus + Species Name</span>
+    <h2>The Metabolic Powerhouse (`dastool-lorbin_002`)</h2>
+    <p class="lead">
+      Codenamed <strong><em>g__ASP10-02a; s__ASP10-02a sp002470565</em></strong>, this near-perfect genome (<strong>98.3% complete, 0.01% contamination</strong>) is a master builder of vitamins and antifreeze molecules.
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">98.3%</div><div class="l">Completeness</div></div>
+      <div class="stat-pill"><div class="v">0.01%</div><div class="l">Contamination</div></div>
+      <div class="stat-pill"><div class="v">22</div><div class="l">Complete KEGG Pathways</div></div>
+      <div class="stat-pill"><div class="v">99.4% ANI</div><div class="l">At Itivia & Harbour</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Inlet</h3>
+        <ul class="bullets">
+          <li><strong>The Community Apothecary:</strong> Synthesizes Biotin (B7), Pantothenate (B5), Riboflavin (B2), NAD, and 4 different natural product clusters.</li>
+          <li><strong>Built-In Antifreeze:</strong> Packs 12 glycine-betaine and proline osmoprotectant systems so its cells never freeze in winter sea ice.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (replacing `ASP10-02a`).</li>
+          <li>Themes: Generous provider/sharer of nutrients, winter resilience, Itivia waters.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 9: Marine #6 -->
+  <div class="slide">
+    <span class="kicker">🌊 Marine Candidate #6 • Needs Genus + Species Name</span>
+    <h2>The Solar-Powered One-Carbon Recycler (`dastool-lorbin_051`)</h2>
+    <p class="lead">
+      Codenamed <strong><em>g__BACL14; s__BACL14 sp913058475</em></strong> (family <em>Methylophilaceae</em>), found across 6 Chesterfield Inlet samples (`Itivia`, `Harbour`, `Dock`, `SITE3-A`) at <strong>99.7% identity</strong>.
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">94.8%</div><div class="l">Completeness</div></div>
+      <div class="stat-pill"><div class="v">336 kbp</div><div class="l">Contig N50 (16 Contigs)</div></div>
+      <div class="stat-pill"><div class="v">92.8%</div><div class="l">Sketch WKID at Itivia</div></div>
+      <div class="stat-pill"><div class="v">16</div><div class="l">Complete KEGG Pathways</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Inlet</h3>
+        <ul class="bullets">
+          <li><strong>Harvests Arctic Sunlight:</strong> Uses <strong>Bacteriorhodopsin / Proteorhodopsin</strong> light-driven proton pumps to turn 24-hour summer sunlight directly into cellular energy!</li>
+          <li><strong>Cleans Up Simple Carbon:</strong> Eats methanol and methylated compounds released by blooming marine algae, while making B-vitamins and antimicrobial lanthipeptides.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (replacing `BACL14`).</li>
+          <li>Themes: Sunlight catcher (<em>siqiniq</em> = sun), summer light, coastal waters.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 10: Freshwater #1 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #1 • Completely Novel Species</span>
+    <h2>The Tundra Lake Chitin & Plant Recycler (`dastool-comebin_6520`)</h2>
+    <p class="lead">
+      A brand-new species of <strong><em>Ferruginibacter</em> (`s__`)</strong> thriving in Chesterfield Inlet's <strong>1st Lake and 2nd Lake</strong> across 6 different samples!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">97.3%</div><div class="l">Completeness (1.31% Contam)</div></div>
+      <div class="stat-pill"><div class="v">2.98 Mbp</div><div class="l">17 Contigs (N50 450 kbp)</div></div>
+      <div class="stat-pill"><div class="v">6 Samples</div><div class="l">In 1st Lake & 2nd Lake</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 20 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in 1st Lake & 2nd Lake</h3>
+        <ul class="bullets">
+          <li><strong>Keeps Drinking Water Lakes Clean:</strong> Uses 20+ TonB receptors and a Type IX gliding secretion system to break down fallen tundra plant fibers (xylan, cellulose) and insect/crustacean shells (chitin).</li>
+          <li><strong>Top Water-Quality Score:</strong> Scores 0.78 on EcoSSDB for filtering organic wastes and keeping freshwater clear.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Genus is <em>Ferruginibacter</em> — needs a <strong>species name</strong>!</li>
+          <li>Themes: Clear lake water (<em>tasiq</em>), 1st Lake & 2nd Lake guardian, tundra plant recycler.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11: Freshwater #2 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #2 • Needs Genus + Species Name</span>
+    <h2>The Giant-Genome Moss & Lichen Specialist (`dastool-comebin_832`)</h2>
+    <p class="lead">
+      An unnamed genus and species of Planctomycete (<strong><em>f__Isosphaeraceae; g__QWQI01; s__</em></strong>) with a huge <strong>6.62 Mbp genome (5,738 genes)</strong> living in <strong>1st Lake and 2nd Lake</strong>!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">91.8%</div><div class="l">Completeness (2.83% Contam)</div></div>
+      <div class="stat-pill"><div class="v">6.62 Mbp</div><div class="l">5,738 Genes (N50 213 kbp)</div></div>
+      <div class="stat-pill"><div class="v">35+</div><div class="l">Sulfatase Enzymes</div></div>
+      <div class="stat-pill"><div class="v">5 Samples</div><div class="l">1st Lake & 2nd Lake</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in the Lakes</h3>
+        <ul class="bullets">
+          <li><strong>Digests Tundra Moss & Lichen Sugars:</strong> Uses 35+ specialized sulfatases and xylose isomerases to unlock complex carbohydrates washed into the lakes from surrounding tundra peat and moss.</li>
+          <li><strong>Spherical Budding Cell:</strong> Unlike rod-shaped bacteria, Isosphaeraceae form round cells that reproduce by budding and make protective glycolipids (`hglE-KS`).</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (replacing `QWQI01`).</li>
+          <li>Themes: Round/berry-like cell, moss/lichen feeder, 1st & 2nd Lake dweller.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 12: Freshwater #3 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #3 • 99.9% Complete Lake Resident</span>
+    <h2>The 99.9%-Complete Lake Guardian (`dastool-comebin_4228` & `vamb_108`)</h2>
+    <p class="lead">
+      At <strong>99.9% completeness</strong> (with sister species `vamb_108` at 96.1% completeness + 16S/23S rRNAs), these two unnamed <strong><em>Polynucleobacter</em></strong> species are the most abundant bacteria in <strong>1st Lake and 2nd Lake</strong>!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">99.9%</div><div class="l">Completeness (0.93% Contam)</div></div>
+      <div class="stat-pill"><div class="v">2.50 Mbp</div><div class="l">N50 372 kbp</div></div>
+      <div class="stat-pill"><div class="v">38.5%</div><div class="l">Sketch WKID in 2nd & 1st Lake</div></div>
+      <div class="stat-pill"><div class="v">20</div><div class="l">Complete KEGG Pathways</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in 1st & 2nd Lake</h3>
+        <ul class="bullets">
+          <li><strong>Consumes Dissolved Tundra Organic Acids:</strong> Uses 32 tricarboxylate and ABC transporters to eat small organic acids created when sunlight hits tundra lake water.</li>
+          <li><strong>Vitamin & Energy Hub:</strong> Oxidizes sulfur (`Sox`), synthesizes Biotin (B7) and Pantothenate (B5), and forms the base of the lake microbial food web.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Genus is <em>Polynucleobacter</em> — we have <strong>two sister species</strong> (`sp037139315` & `sp903871735`) in 1st and 2nd Lake that can both be named!</li>
+          <li>Themes: Pure/drinking water, twin lakes (1st & 2nd Lake), constant guardian.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 13: Freshwater #4 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #4 • Needs Genus + Species Name</span>
+    <h2>The Swimming Tundra-Pond Planctomycete (`dastool-lorbin_069`)</h2>
+    <p class="lead">
+      Codenamed <strong><em>g__SXXK01; s__SXXK01 sp003669615</em></strong>, this <strong>99.4%-complete, 6.34 Mbp genome</strong> from the 3rd Lake area (`CDIT_SITE6`) and 2nd Lake (`CDIT2`) has full 16S/23S rRNAs and all 20 tRNAs!
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">99.4%</div><div class="l">Completeness (1.34% Contam)</div></div>
+      <div class="stat-pill"><div class="v">6.34 Mbp</div><div class="l">5,096 Genes</div></div>
+      <div class="stat-pill"><div class="v">58 + 42</div><div class="l">Sulfatases + Cytochromes</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 20 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in 2nd & 3rd Lake</h3>
+        <ul class="bullets">
+          <li><strong>Active Swimmer:</strong> Uses flagella and chemotaxis sensors to swim through cold lake water toward sinking organic particles.</li>
+          <li><strong>42 Cytochrome c Proteins & 58 Sulfatases:</strong> Gives it extraordinary respiratory flexibility and the ability to break down complex tundra polymers while defending itself with CRISPR-Cas.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Needs <strong>both a Genus and Species name</strong> (replacing `SXXK01`).</li>
+          <li>Themes: Swimmer/traveler in the lake, giant toolkit, 3rd Lake & 2nd Lake.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 14: Freshwater #5 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #5 • Fish-Water Protector</span>
+    <h2>The Sub-Zero Nitrogen Purifier (`dastool-comebin_3630`)</h2>
+    <p class="lead">
+      An unnamed species of <strong><em>Nitrotoga</em> (`sp002470125`)</strong> enriched in Chesterfield Inlet's 3rd Lake area (`CDIT_SITE6`) with <strong>0.02% contamination</strong> and full 16S/23S rRNAs.
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">86.7%</div><div class="l">Completeness</div></div>
+      <div class="stat-pill"><div class="v">0.02%</div><div class="l">Contamination</div></div>
+      <div class="stat-pill"><div class="v">1.49 Mbp</div><div class="l">N50 98 kbp</div></div>
+      <div class="stat-pill"><div class="v">Full rRNA</div><div class="l">16S + 23S + 20 tRNAs</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>Why It Matters for Fish & Lakes</h3>
+        <ul class="bullets">
+          <li><strong>Detoxifies Nitrite Under the Ice:</strong> Converts toxic nitrite (`NO2-`) into harmless nitrate (`NO3-`) using Nitrite Oxidoreductase (`Nxr`), keeping winter lake water safe for Arctic char and other fish!</li>
+          <li><strong>Built for 0°C Water:</strong> Unlike southern nitrifiers that stop working in the cold, <em>Nitrotoga</em> thrives near freezing.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Genus is <em>Nitrotoga</em> — needs a <strong>species name</strong>!</li>
+          <li>Themes: Keeping water pure for fish (<em>iqaluk</em>), winter/under-ice worker, 3rd Lake.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 15: Freshwater #6 -->
+  <div class="slide">
+    <span class="kicker fresh">💧 Freshwater Candidate #6 • Golden Tundra Bacterium</span>
+    <h2>The Sun-Lit Tundra Lake Recycler (`dastool-lorbin_054`)</h2>
+    <p class="lead">
+      An unnamed species of <strong><em>Aurantibacillus</em> (`sp945887955`)</strong> in the 3rd Lake area (`CDIT_SITE6`, <strong>12.6% WKID</strong>), with 91.9% completeness and 16S rRNA.
+    </p>
+    <div class="stat-row">
+      <div class="stat-pill"><div class="v">91.9%</div><div class="l">Completeness (3.2% Contam)</div></div>
+      <div class="stat-pill"><div class="v">2.11 Mbp</div><div class="l">31% GC Content</div></div>
+      <div class="stat-pill"><div class="v">12.6%</div><div class="l">Sketch WKID in SITE6</div></div>
+      <div class="stat-pill"><div class="v">0.73</div><div class="l">Top EcoSSDB Climate Score</div></div>
+    </div>
+    <div class="two-col">
+      <div class="box">
+        <h3>What It Does in Shallow Tundra Waters</h3>
+        <ul class="bullets">
+          <li><strong>Golden Pigment & UV Shield:</strong> Armed with terpene pigments, catalase, superoxide dismutase, and thioredoxin to survive bright 24-hour summer sun in shallow tundra ponds.</li>
+          <li><strong>Biopolymer Catcher:</strong> Uses ExbD/TonB transport motors and light-driven rhodopsin to recycle lake organic matter.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Ideas for Naming</h3>
+        <ul class="bullets">
+          <li>Genus is <em>Aurantibacillus</em> ("golden rod") — needs a <strong>species name</strong>!</li>
+          <li>Themes: Golden tundra sun, shallow pond/3rd Lake area (`SITE6`), resilience.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 16: Workshop Activity -->
+  <div class="slide">
+    <span class="kicker gold">Hands-On Workshop Activity</span>
+    <h2>Let’s Name Chesterfield Inlet’s Bacteria Together!</h2>
+    <p class="lead">
+      How we will choose and register the official names in the <strong>SeqCode Registry</strong>:
+    </p>
+    <div class="two-col">
+      <div class="box">
+        <h3>Step-by-Step Naming Process</h3>
+        <ul class="bullets">
+          <li><strong>1. Pick a Bacterium:</strong> Choose a Marine (Harbour, Itivia) or Freshwater (1st, 2nd, 3rd Lake) candidate that inspires you.</li>
+          <li><strong>2. Choose an Inuktitut Word or Place Name:</strong> It can describe <em>where it lives</em>, <em>what it eats/makes</em>, or <em>its personality</em>.</li>
+          <li><strong>3. Story & Meaning:</strong> Record the exact Inuktitut spelling, pronunciation, and story behind the name for the official publication!</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Example Name Patterns</h3>
+        <ul class="bullets">
+          <li><strong>Place Name:</strong> <em>Polaribacter igluligaarjukensis</em> ("from Igluligaarjuk") or <em>Ferruginibacter itiviensis</em></li>
+          <li><strong>Habitat / Trait:</strong> <em>Tariuqimonas</em> ("sea microbe"), <em>Tasiqisphaera</em> ("lake sphere"), <em>Siqiniqibacter</em> ("sunlight rod")</li>
+          <li><a href="index.html#naming-tool" style="color: var(--gold); font-weight: 700;">→ Open Interactive Name Builder on Website</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">← Previous</button>
+  <div class="progress-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+
+  slides.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === 0 ? ' active' : '');
+    d.onclick = () => showSlide(idx);
+    dotsContainer.appendChild(d);
+  });
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    document.getElementById('slideCounter').textContent = `Slide ${current + 1} / ${slides.length}`;
+  }
+
+  function changeSlide(dir) {
+    showSlide(current + dir);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') changeSlide(1);
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+  });
+</script>
+</body>
+</html>

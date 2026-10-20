@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microbe Naming Workshop</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{
+  --bg:#0b1726; --panel:#12233a; --panel2:#18304d; --line:#27466b; --text:#e7f0fa; --muted:#93a9c3;
+  --marine:#38bdf8; --fresh:#34d399; --gold:#fbbf24; --pink:#f472b6; --red:#f87171; --violet:#a78bfa;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+a{color:var(--marine)}
+button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+header.top{position:sticky;top:0;z-index:1000;background:rgba(11,23,38,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;padding:10px 18px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.05rem;cursor:pointer;white-space:nowrap}
+.brand small{color:var(--muted);font-weight:400;margin-left:6px}
+.selector{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.selector select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:420px}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.btn:hover{border-color:var(--marine)}
+.btn.primary{background:var(--marine);color:#04223a;border-color:var(--marine);font-weight:600}
+main{max-width:1280px;margin:0 auto;padding:18px}
+
+/* ---------- HOME ---------- */
+#home{display:flex;flex-direction:column;align-items:center}
+.ring{position:relative;width:min(92vw,860px);height:min(92vw,860px);margin:10px auto}
+.ring .clado{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ring .center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44%;text-align:center}
+.ring .center h1{margin:0 0 6px;font-size:clamp(1.2rem,3vw,2.1rem)}
+.ring .center .syl{font-size:clamp(1rem,2.2vw,1.5rem);color:var(--gold)}
+.ring .center p{color:var(--muted);font-size:clamp(.75rem,1.4vw,.95rem)}
+.bug{position:absolute;width:15%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;transition:transform .2s}
+.bug img{width:100%;height:100%;border-radius:50%;display:block;border:4px solid var(--marine);box-shadow:0 6px 24px rgba(0,0,0,.5);background:#000}
+.bug.freshwater img{border-color:var(--fresh)}
+.bug:hover{transform:translate(-50%,-50%) scale(1.14);z-index:5}
+.bug .cap{position:absolute;left:50%;top:102%;transform:translateX(-50%);width:170%;text-align:center;font-size:.72rem;color:var(--muted);pointer-events:none;opacity:0;transition:opacity .2s}
+.bug:hover .cap{opacity:1;color:var(--text)}
+.legend-row{display:flex;gap:18px;color:var(--muted);font-size:.9rem;flex-wrap:wrap;justify-content:center}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* ---------- ORGANISM ---------- */
+.banner{display:flex;gap:18px;align-items:center;background:linear-gradient(120deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.banner img{width:120px;height:120px;border-radius:50%;border:4px solid var(--marine);flex:none}
+.banner.freshwater img{border-color:var(--fresh)}
+.banner h2{margin:0 0 4px;font-size:1.5rem}
+.banner .id{font-family:ui-monospace,Menlo,monospace;color:var(--muted);font-size:.85rem}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:600;margin:6px 6px 0 0}
+.pill.marine{background:rgba(56,189,248,.15);color:var(--marine);border:1px solid var(--marine)}
+.pill.freshwater{background:rgba(52,211,153,.15);color:var(--fresh);border:1px solid var(--fresh)}
+.pill.gold{background:rgba(251,191,36,.15);color:var(--gold);border:1px solid var(--gold)}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:16px;flex-wrap:wrap}
+.tab{background:none;border:none;color:var(--muted);padding:10px 16px;font-size:1rem;border-bottom:3px solid transparent}
+.tab.active{color:var(--text);border-bottom-color:var(--gold);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.card h3{margin:0 0 10px;font-size:1.08rem}
+.card h4{margin:12px 0 6px;font-size:.95rem;color:var(--gold)}
+.note{color:var(--muted);font-size:.8rem}
+.warn{background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.4);border-radius:10px;padding:8px 12px;color:#fde68a;font-size:.82rem;margin:8px 0}
+.story{font-size:1.02rem}
+.map{height:430px;border-radius:12px;border:1px solid var(--line);background:#0e1f33}
+.map.small{height:360px}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:600}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+.bar{height:10px;border-radius:5px;background:#1d3756;overflow:hidden;min-width:60px}
+.bar>span{display:block;height:100%;border-radius:5px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.9rem}
+.kv div:nth-child(odd){color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px;text-align:center}
+.stat b{display:block;font-size:1.25rem}
+.stat span{color:var(--muted);font-size:.75rem}
+
+/* lineage */
+.lineage{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rank{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.85rem}
+.rank small{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
+.rank.ph{border-color:var(--gold);background:rgba(251,191,36,.12)}
+.rank.ph b{color:var(--gold)}
+.arrow{color:var(--muted)}
+
+/* svg */
+svg text{fill:var(--text);font-family:system-ui,sans-serif}
+.tree-wrap,.circos-wrap{overflow-x:auto}
+.circos-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:.8rem;color:var(--muted);margin-top:6px}
+#tip{position:fixed;pointer-events:none;background:#06111f;border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:.8rem;max-width:320px;z-index:3000;display:none}
+
+/* function */
+.mod{display:grid;grid-template-columns:1fr 140px 44px;gap:8px;align-items:center;font-size:.84rem;padding:3px 0}
+.mod .pct{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.es{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.es:last-child{border-bottom:none}
+.es .ic{font-size:1.8rem;text-align:center}
+.es .t{font-weight:600}
+.chip{display:inline-block;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:.74rem;margin:3px 4px 0 0}
+.chip.sdg{border-color:#3b82f6;color:#93c5fd}
+.rolebar{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:6px 0;max-width:340px}
+ul.acts{margin:0;padding-left:18px}
+ul.acts li{margin:4px 0}
+
+/* naming */
+.check{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+.check .s{width:22px;text-align:center;flex:none}
+.builder label{display:block;font-size:.82rem;color:var(--muted);margin:8px 0 3px}
+.builder input,.builder select,.dict-controls input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:.95rem}
+.latin{font-size:1.6rem;font-style:italic;color:var(--gold);margin:10px 0 2px}
+.latin .rk{font-style:normal;font-size:1rem;color:var(--muted)}
+.dict-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dict-controls input{flex:1;min-width:220px;font-size:1.05rem}
+.cats{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.cat{background:var(--panel2);border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:3px 11px;font-size:.78rem}
+.cat.active{border-color:var(--gold);color:var(--gold)}
+.dict-res{max-height:520px;overflow-y:auto;border-top:1px solid var(--line)}
+.entry{display:grid;grid-template-columns:minmax(120px,1fr) minmax(110px,1fr) 2fr auto;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid var(--line);font-size:.9rem}
+.entry .r{font-weight:600}
+.entry .sy{font-size:1.15rem;color:var(--gold)}
+.entry .meta{color:var(--muted);font-size:.72rem}
+.entry .uv{color:#fca5a5}
+@media(max-width:700px){.entry{grid-template-columns:1fr 1fr}.entry .en{grid-column:1/3}}
+.chk-strip{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 2px}
+.chk-strip span{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:.88rem}
+.preview{text-align:center;padding:14px 10px 6px}
+.preview .nm{font-size:2.3rem;font-style:italic;line-height:1.2}
+.preview .nm .g,.preview .nm .sp{padding:0 6px;border-bottom:3px solid transparent}
+.preview .nm .g{color:var(--gold);border-color:var(--gold)}
+.preview .nm .sp{color:var(--pink);border-color:var(--pink)}
+.preview .nm .fixed{color:var(--text);border-color:var(--line)}
+.preview .nm .empty{opacity:.45}
+.preview .rk{font-size:1rem;color:var(--muted);font-style:normal}
+.preview .etym{margin-top:10px;font-size:.95rem;color:var(--muted)}
+.parts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+@media(max-width:800px){.parts{grid-template-columns:1fr}}
+.part{border:2px solid var(--line);border-radius:12px;padding:12px 14px}
+.part.g{border-color:rgba(251,191,36,.55)}
+.part.sp{border-color:rgba(244,114,182,.55)}
+.part h4{margin:0 0 4px;font-size:1.05rem}
+.part.g h4{color:var(--gold)} .part.sp h4{color:var(--pink)}
+.part p.sub{margin:0 0 8px;color:var(--muted);font-size:.9rem}
+.part label{display:block;font-size:.82rem;color:var(--muted);margin:10px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+.part input{width:100%;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:1rem;font-family:inherit}
+.part input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(251,191,36,.18)}
+.part.sp input:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(244,114,182,.18)}
+.part .word{display:flex;gap:10px;align-items:center}
+.part .word .ac{position:relative;flex:1;min-width:0}
+.part .word .syl{color:var(--gold);font-size:1.25rem;white-space:nowrap;flex:none;max-width:45%;overflow:hidden;text-overflow:ellipsis}
+.part.sp .word .syl{color:var(--pink)}
+.ac-list{display:none;position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:50;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 28px rgba(0,0,0,.45);max-height:330px;overflow-y:auto}
+.ac-list.open{display:block}
+.ac-it{display:grid;grid-template-columns:auto auto 1fr;gap:4px 10px;align-items:baseline;padding:7px 11px;cursor:pointer;border-bottom:1px solid rgba(39,70,107,.5)}
+.ac-it:last-child{border-bottom:none}
+.ac-it.on,.ac-it:hover{background:var(--panel2)}
+.ac-it .r{font-weight:600}
+.ac-it .sy{color:var(--gold)}
+.part.sp .ac-it .sy{color:var(--pink)}
+.ac-it .en{color:var(--muted);font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ac-empty{padding:8px 11px;color:var(--muted);font-size:.85rem}
+.endings button{min-width:96px}
+.endings{display:flex;flex-wrap:wrap;gap:6px}
+.endings button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 10px;font-size:.88rem;text-align:left}
+.endings button small{display:block;color:var(--muted);font-size:.75rem}
+.endings button.on{border-color:currentColor;background:rgba(255,255,255,.06)}
+.part.g .endings button.on{color:var(--gold)} .part.sp .endings button.on{color:var(--pink)}
+.part.fixed{opacity:.8}
+.entry .use{display:flex;gap:6px}
+.btn.to-g{border-color:rgba(251,191,36,.6);color:var(--gold)}
+.btn.to-sp{border-color:rgba(244,114,182,.6);color:var(--pink)}
+mark{background:rgba(251,191,36,.35);color:inherit;border-radius:3px}
+.preview .nm [contenteditable]{outline:none;border-radius:6px;cursor:text}
+.preview .nm [contenteditable]:hover{background:rgba(255,255,255,.04)}
+.preview .nm [contenteditable]:focus{background:rgba(255,255,255,.07);box-shadow:0 0 0 2px rgba(255,255,255,.15)}
+.nb-edit{font-size:.82rem;color:var(--gold);margin-top:4px;min-height:1.1em}
+.nb-edit .hint{color:var(--muted)}
+.nb-edit a{color:inherit}
+label .lbl-note{text-transform:none;letter-spacing:0;font-size:.75rem;opacity:.75;margin-left:4px}
+.endings button.shape::after{content:'shape';display:block;font-size:.62rem;color:var(--muted);opacity:.8;text-transform:uppercase;letter-spacing:.05em}
+.endings.gender button{min-width:0}
+.nb-warn{display:flex;flex-direction:column;gap:5px;margin:10px auto 0;max-width:760px;text-align:left}
+.nb-warn div{border-radius:8px;padding:6px 11px;font-size:.88rem;border:1px solid}
+.nb-warn .bad{border-color:rgba(248,113,113,.6);background:rgba(248,113,113,.1);color:#fecaca}
+.nb-warn .warn{border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.08);color:#fde68a}
+.nb-warn .ok{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.08);color:#a7f3d0}
+.preview .higher{margin-top:6px;font-size:.95rem;color:var(--muted)}
+.proto{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--panel2);font-size:.92rem}
+.proto h5{margin:10px 0 4px;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.proto h5:first-child{margin-top:0}
+.proto p{margin:0;white-space:pre-wrap}
+.proto ul{margin:0;padding-left:18px;color:#fde68a}
+.proto .sugg{color:var(--gold)}
+.proto.busy{color:var(--muted);font-style:italic}
+.proto.err{border-color:rgba(248,113,113,.6);color:#fecaca}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.saved-item{border-bottom:1px solid var(--line);padding:6px 0}
+.saved-item .proto{margin:6px 0 4px}
+.saved-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.more{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.more details{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.more summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:.93rem;list-style:none}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:'＋';float:right;color:var(--muted)}
+.more details[open] summary::after{content:'－'}
+.more details p{margin:0 0 11px;font-size:.92rem;color:var(--text);line-height:1.5}
+a.lpsn{color:inherit;text-decoration:underline dotted;text-underline-offset:3px}
+a.lpsn:hover{color:var(--marine)}
+.genus-info{margin-top:6px;display:flex;flex-direction:column;gap:5px;font-size:.9rem}
+.genus-info .etym-pub{font-style:italic;color:var(--text);line-height:1.45}
+.genus-info .status{font-size:.85rem;color:#a7f3d0}
+.genus-info .status.cand{color:#fde68a}
+.genus-info details summary{cursor:pointer}
+.genus-info details p{margin:4px 0}
+.saved-row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:6px 0;font-size:.88rem}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand" onclick="goHome()">🧫 <span id="brandName"></span> <small><span id="brandNative"></span> naming workshop</small></div>
+  <div class="selector">
+    <button class="btn" onclick="goHome()">⌂ Home</button>
+    <button class="btn" onclick="step(-1)" title="Previous organism">◀</button>
+    <select id="orgSelect" onchange="openOrganism(+this.value)"></select>
+    <button class="btn" onclick="step(1)" title="Next organism">▶</button>
+  </div>
+</header>
+
+<main>
+  <!-- HOME -->
+  <section id="home">
+    <div class="ring" id="ring">
+      <div class="center">
+        <h1 id="homeTitle"></h1>
+        <div class="syl" id="homeSub"></div>
+        <p><span id="nBugs">These</span> bacteria were found <span id="homeWhere">here</span>. None of them has a proper name yet. Click one to meet it.</p>
+      </div>
+    </div>
+    <div class="legend-row">
+      <span id="legMar"><span class="dot" style="background:var(--marine)"></span>Marine: <span id="habMar"></span> (<span id="nMar">–</span>)</span>
+      <span id="legFw"><span class="dot" style="background:var(--fresh)"></span>Freshwater: <span id="habFw"></span> (<span id="nFw">–</span>)</span>
+    </div>
+  </section>
+
+  <!-- ORGANISM -->
+  <section id="organism" class="hidden">
+    <div class="banner" id="banner"></div>
+    <nav class="tabs">
+      <button class="tab active" data-tab="story" onclick="showTab('story')">📖 Story</button>
+      <button class="tab" data-tab="diversity" onclick="showTab('diversity')">🌳 Diversity</button>
+      <button class="tab" data-tab="distribution" onclick="showTab('distribution')">🌍 Distribution</button>
+      <button class="tab" data-tab="function" onclick="showTab('function')">⚙️ Function</button>
+      <button class="tab" data-tab="naming" onclick="showTab('naming')">✍️ Naming</button>
+    </nav>
+    <div id="tab-story" class="tabpane"></div>
+    <div id="tab-diversity" class="tabpane hidden"></div>
+    <div id="tab-distribution" class="tabpane hidden"></div>
+    <div id="tab-function" class="tabpane hidden"></div>
+    <div id="tab-naming" class="tabpane hidden"></div>
+  </section>
+</main>
+<div id="tip"></div>
+
+<script src="community.js?v=dev"></script>
+<script src="candidates.js?v=dev"></script>
+<script src="site_data.js?v=dev"></script>
+<script src="dictionary.js?v=dev"></script>
+<script src="taxon_names.js?v=dev"></script>
+<script src="narratives.js?v=dev"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// Everything specific to one community lives in community.js (window.COMMUNITY); see communities/_template.
+const CM = window.COMMUNITY || {}, C = window.CANDIDATES, D = window.EXTRA_SITE_DATA,
+      DICT = window.DICTIONARY || window.INUKTITUT_DICTIONARY || [];
+const LANG = CM.language || 'local-language', LOCAL = CM.localLabel || CM.placeName || 'local';
+const HAS_SCRIPT = !!CM.scriptName;  // a separate writing system (e.g. syllabics) next to roman spelling
+// plain-language nicknames and stories (narratives.js) take precedence over candidates.js
+C.forEach(c => Object.assign(c, (window.NARRATIVES || {})[c.id] || {}));
+let cur = 0, curTab = 'story', maps = [];
+// each microbe's cartoon; microbes without one get a plain placeholder
+const img = i => C[i]?.img ? `img/${C[i].img}` : 'img/placeholder.svg';
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = (n, d=1) => n == null || n === '' ? '—' : (+n).toLocaleString(undefined, {maximumFractionDigits:d, minimumFractionDigits:0});
+const tip = document.getElementById('tip');
+function showTip(e, html){ tip.innerHTML = html; tip.style.display='block'; tip.style.left = Math.min(e.clientX+14, innerWidth-330)+'px'; tip.style.top = (e.clientY+14)+'px'; }
+function hideTip(){ tip.style.display='none'; }
+document.addEventListener('mousemove', e => { if (tip.style.display==='block'){ tip.style.left = Math.min(e.clientX+14, innerWidth-330)+'px'; tip.style.top=(e.clientY+14)+'px'; }});
+
+/* ---------- placeholder / naming logic ---------- */
+const isPlaceholder = n => !n || /\d/.test(n) || /_[A-Z]+$/.test(n) || /^[A-Z][A-Z0-9-]+$/.test(n);
+function lineageOf(c){
+  const cls = (D.evo[c.id]||{}).classification || '';
+  const ranks = ['Domain','Phylum','Class','Order','Family','Genus','Species'];
+  return cls.split(';').map((t,i)=>{
+    const name = t.replace(/^[a-z]__/,'');
+    let ph;
+    if (i===6){ const ep = name.split(' ')[1]; ph = !name || !ep || /^sp\d+/.test(ep); }
+    // GTDB splits some genera into lettered lineages (Thioglobus_A); the Latin name
+    // still applies for naming, so a suffixed Latin genus counts as named.
+    else if (i===5 && /^[A-Z][a-z]+_[A-Z]+$/.test(name)) ph = false;
+    else ph = isPlaceholder(name);
+    return {rank:ranks[i], name: name || '(no name, new species)', ph};
+  });
+}
+// LPSN page for a Latin taxon name (codes such as TMED14 get no link); GTDB letter
+// suffixes (Thioglobus_A) are dropped since LPSN lists the plain name.
+const LPSN_RANKS = ['domain','phylum','class','order','family','genus','species'];
+function lpsnUrl(rankIdx, name){
+  const n = (name||'').replace(/_[A-Z]+\b/g, '');
+  if (!n || isPlaceholder(n) || (rankIdx===6 && !/^[A-Z][a-z]+ [a-z]+$/.test(n))) return null;
+  return `https://lpsn.dsmz.de/${LPSN_RANKS[rankIdx]}/${n.toLowerCase().replace(/ /g,'-')}`;
+}
+const taxonLink = (rankIdx, name, inner) => { const u = lpsnUrl(rankIdx, name);
+  return u ? `<a class="lpsn" href="${u}" target="_blank" rel="noopener" title="${esc(name.replace(/_[A-Z]+\b/g,''))} on LPSN">${inner ?? esc(name)}</a>` : (inner ?? esc(name)); };
+function namingNeed(c){
+  const L = lineageOf(c);
+  // The workshop names only the genus and species; higher ranks are left alone.
+  const genusPh = L[5]?.ph;
+  if (genusPh) return {genus:true, label:'New genus & species (gen. nov., sp. nov.)', genusName:null, ordPh:false, famPh:false};
+  return {genus:false, label:'New species in an existing genus (sp. nov.)', genusName:L[5].name.replace(/_[A-Z]+$/, '')};
+}
+
+/* ---------- selector + home ---------- */
+function initSelector(){
+  const s = document.getElementById('orgSelect');
+  s.innerHTML = '<option value="-1">Choose an organism…</option>' + C.map((c,i)=>`<option value="${i}">${c.habitat==='marine'?'🌊':'💧'} ${i+1}. ${esc(c.nickname)}</option>`).join('');
+}
+// Ring order follows the GTDB cladogram (D.homeTree) so related microbes sit together;
+// microbes not in the tree go at the end.
+function ringOrder(){
+  const ids = [];
+  (function walk(n){ if (!n) return; if (n.children) n.children.forEach(walk); else ids.push(n.id); })(D.homeTree);
+  const pos = C.map((c,i)=>i).filter(i=>ids.includes(C[i].id)).sort((a,b)=>ids.indexOf(C[a].id)-ids.indexOf(C[b].id));
+  return pos.concat(C.map((c,i)=>i).filter(i=>!ids.includes(C[i].id)));
+}
+const ringAngle = (k, n) => -Math.PI/2 + (k/n)*2*Math.PI;
+// Faint polar cladogram behind the ring: root arc around the title, leaves pointing at each microbe.
+function drawCladogram(ring, order){
+  if (!D.homeTree) return;
+  const slot = Object.fromEntries(order.map((i,k)=>[C[i].id, k])), n = C.length;
+  let maxD = 0;
+  (function depth(t, d){ t._d = d; if (t.children) t.children.forEach(c=>depth(c, d+1)); else maxD = Math.max(maxD, d); })(D.homeTree, 0);
+  const R0 = 21, RL = 31.5, RTIP = 33.2, rad = d => R0 + (RL-R0)*d/Math.max(1,maxD);
+  (function ang(t){ if (!t.children) return t._a = ringAngle(slot[t.id], n); const a = t.children.map(ang); t._a = (Math.min(...a)+Math.max(...a))/2; return t._a; })(D.homeTree);
+  const P = (r,a) => `${(50+r*Math.cos(a)).toFixed(2)},${(50+r*Math.sin(a)).toFixed(2)}`;
+  let path = '';
+  (function draw(t){
+    if (!t.children) return;
+    const r = rad(t._d), as = t.children.map(c=>c._a), a1 = Math.min(...as), a2 = Math.max(...as);
+    path += `M${P(r,a1)} A${r},${r} 0 ${a2-a1>Math.PI?1:0} 1 ${P(r,a2)} `;
+    t.children.forEach(c=>{ path += `M${P(r,c._a)} L${P(c.children?rad(c._d):RTIP, c._a)} `; draw(c); });
+  })(D.homeTree);
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 100 100'); svg.setAttribute('class', 'clado');
+  svg.innerHTML = `<path d="${path}" fill="none" stroke="rgba(147,169,195,.38)" stroke-width=".28" stroke-linecap="round"/>`;
+  ring.prepend(svg);
+}
+function buildRing(){
+  const ring = document.getElementById('ring'), order = ringOrder();
+  drawCladogram(ring, order);
+  order.forEach((i,k)=>{ const c = C[i];
+    const a = ringAngle(k, C.length);
+    const r = 41;
+    const el = document.createElement('div');
+    el.className = 'bug ' + c.habitat;
+    el.style.left = (50 + r*Math.cos(a))+'%'; el.style.top = (50 + r*Math.sin(a))+'%';
+    el.innerHTML = `<img src="${img(i)}" alt="${esc(c.nickname)}"><div class="cap"><b>${esc(c.nickname)}</b><br>${esc(c.id)}</div>`;
+    el.onclick = () => openOrganism(i);
+    ring.appendChild(el);
+  });
+}
+function goHome(){
+  document.getElementById('home').classList.remove('hidden');
+  document.getElementById('organism').classList.add('hidden');
+  document.getElementById('orgSelect').value = -1;
+  history.replaceState(null,'','#');
+}
+function step(d){ openOrganism(((cur<0?0:cur)+d+C.length)%C.length); }
+function openOrganism(i){
+  if (i<0) return goHome();
+  cur = i;
+  document.getElementById('orgSelect').value = i;
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('organism').classList.remove('hidden');
+  renderBanner();
+  showTab(curTab, true);
+  history.replaceState(null,'',`#${i+1}/${curTab}`);
+  window.scrollTo({top:0});
+}
+function showTab(t, force){
+  curTab = t;
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
+  document.querySelectorAll('.tabpane').forEach(p=>p.classList.add('hidden'));
+  const pane = document.getElementById('tab-'+t); pane.classList.remove('hidden');
+  maps.forEach(m=>m.remove()); maps=[];
+  ({story:renderStory, diversity:renderEvolution, distribution:renderEcology, function:renderFunction, naming:renderNaming})[t](pane);
+  history.replaceState(null,'',`#${cur+1}/${t}`);
+}
+function renderBanner(){
+  const c = C[cur], m = D.meta[c.id]||{}, need = namingNeed(c);
+  const b = document.getElementById('banner');
+  b.className = 'banner ' + c.habitat;
+  b.innerHTML = `<img src="${img(cur)}" alt="">
+    <div><h2>${esc(c.nickname)}</h2>
+    <div class="id">${esc(c.id)} · ${lineageOf(c).slice(3).map((x,k)=>taxonLink(k+3, x.name)).join(' › ')}</div>
+    <span class="pill ${c.habitat}">${c.habitat==='marine'?'🌊 Marine':'💧 Freshwater'}</span>
+    <span class="pill gold">✍️ ${esc(need.label)}</span>
+    <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span></div>`;
+}
+
+/* ---------- STORY ---------- */
+function renderStory(p){
+  const c = C[cur];
+  p.innerHTML = `<div class="card"><h3>📖 Its story</h3><div class="story">${esc(c.eco || c.story)}</div>
+    ${moreBoxes(c.ecoMore)}</div>`;
+}
+
+/* ---------- ECOLOGY ---------- */
+// collapsed "want to know more?" boxes: [[question, answer], ...]
+const moreBoxes = items => items?.length ? `<div class="more">${items.map(([q,a])=>`<details><summary>🔍 ${esc(q)}</summary><p>${esc(a)}</p></details>`).join('')}</div>` : '';
+// sites where the microbe was found (from the sample table), most abundant first
+function whereFound(c){
+  const rows = (D.northMap[c.id]?.ci_samples||[]).filter(r=>r.detected), best = {};
+  rows.forEach(r=>{ const k = r.site; best[k] = Math.max(best[k]??-1, r.relab ?? 0); });
+  const sites = Object.keys(best).sort((a,b)=>best[b]-best[a]);
+  return sites.length ? sites.join(', ') : (c.whereInCI||'').replace(/\s*\([^)]*\)/g, '');
+}
+function renderEcology(p){
+  const c = C[cur], nm = D.northMap[c.id], rows = nm.ci_samples||[];
+  const reg = nm.regional_stations;
+  const maxRel = Math.max(...reg.map(r=>r.mean_relab), 1e-6);
+  const ciReg = reg.find(r=>r.is_ci);
+  const others = reg.filter(r=>!r.is_ci);
+  const otherMean = others.reduce((a,r)=>a+r.mean_relab*r.n_samples,0)/Math.max(1,others.reduce((a,r)=>a+r.n_samples,0));
+  const fold = ciReg && otherMean>0 ? ciReg.mean_relab/otherMean : null;
+  const pct = v => v==null ? '—' : v>=1 ? fmt(v,1)+'%' : v>=0.01 ? fmt(v,2)+'%' : v>0 ? '<0.01%' : '0%';
+  const anyMapped = rows.some(r=>r.source==='mapped'), anySketch = rows.some(r=>r.source==='sketch');
+  p.innerHTML = `
+
+
+  <div class="card"><h3>🗺️ How common is it across the North?</h3>
+    <div class="grid2" style="align-items:start">
+      <div><div id="mapNorth" class="map"></div>
+        <div class="note" style="margin-top:6px">Bigger bubble = a bigger share of the DNA in that region's samples. Grey = not found.</div></div>
+      <div>
+        ${ciReg ? `<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px">
+          <div class="stat"><b>${pct(ciReg.mean_relab)}</b><span>of the DNA in an average ${esc(LOCAL)} sample</span></div>
+          <div class="stat"><b>${fold!=null? (fold>=100?'100+':fmt(fold,fold>=10?0:1))+'×':'—'}</b><span>more common here than elsewhere</span></div></div>` : ''}
+        ${ciReg && !ciReg.detected ? `<p>Not found in the ${esc(LOCAL)} samples mapped so far${anySketch?', but the quick read check finds it in later samples (below)':''}.</p>`:''}
+        <table><thead><tr><th>Region</th><th class="num">Samples</th><th class="num">Found in</th><th>Share of the DNA (average)</th></tr></thead><tbody>
+        ${reg.map(r=>`<tr${r.is_ci?' style="background:rgba(251,191,36,.08)"':''}><td>${r.is_ci?'⭐ ':''}${esc(r.station)}</td><td class="num">${r.n_samples}</td><td class="num">${r.detected}</td>
+          <td title="highest in one sample: ${pct(r.max_relab)}"><div class="bar"><span style="width:${r.mean_relab>0?Math.max(1,100*Math.sqrt(r.mean_relab/maxRel)):0}%;background:${r.is_ci?'var(--gold)':c.habitat==='marine'?'var(--marine)':'var(--fresh)'}"></span></div><span class="note">${pct(r.mean_relab)}</span></td></tr>`).join('')}
+        </tbody></table>
+        <div class="note" style="margin-top:6px"><b>Share of the DNA</b>: out of all the DNA we read from a sample that matched our genome collection, the percentage that came from this microbe. <b>Found in</b>: samples where at least 30% of its genome turned up.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card"><h3>📍 Around town: which ${esc(LOCAL)} samples carry it?</h3>
+    <div class="grid2" style="align-items:start">
+      <div><div id="mapLocal" class="map small"></div></div>
+      <div>
+        <table><thead><tr><th>Sample</th><th>Site</th><th>Date</th><th>Share of the DNA</th><th class="num">Genome found</th><th class="num">Same species?</th></tr></thead><tbody>
+        ${rows.map(h=>{ const cov = h.source==='mapped' ? h.breadth*100 : h.wkid, sk = h.source==='sketch';
+          return `<tr${h.detected?'':' style="opacity:.45"'}><td>${esc(h.id)}</td><td>${esc(h.loc_label||h.site||'—')}</td><td>${h.date?h.date.replace(/(\d{4})(\d\d)(\d\d)/,'$1-$2-$3'):'—'}</td>
+          <td>${sk?'<span class="note">not measured yet</span>':`<div class="bar"><span style="width:${Math.min(100,Math.sqrt(h.relab/10)*100)}%;background:var(--gold)"></span></div><span class="note">${pct(h.relab)}</span>`}</td>
+          <td class="num">${cov!=null?(sk?'~':'')+fmt(cov,0)+'%':'—'}</td>
+          <td class="num" title="${h.ani_source==='mapped'?`average identity of ${h.ani_reads} reads to this genome`:h.ani_source==='few'?`only ${h.ani_reads} read${h.ani_reads>1?'s':''}, too few to tell`:h.ani!=null?'quick read check':''}">${h.ani==null?'—':(h.ani>=95?'✅ ':'')+fmt(h.ani,1)+'%'}</td></tr>`; }).join('')}
+        </tbody></table>
+        <div class="note" style="margin-top:6px"><b>Share of the DNA</b>: the percentage of the sample's DNA that came from this microbe. <b>Genome found</b>: how much of its genome turned up in the sample (faded rows: under 30%, so probably not there). <b>Same species?</b>: how closely the sample's DNA matches this genome, averaged over its reads. ✅ = 95% or more, the same species; lower values mean a related species (— = fewer than 5 reads).${anySketch?' Rows marked ~ come from a quick read check of samples that are still being mapped.':''}</div>
+      </div>
+    </div>
+  </div>`;
+  if (!window.L){ document.getElementById('mapNorth').innerHTML = document.getElementById('mapLocal').innerHTML = '<p class="note" style="padding:20px">The map needs an internet connection (Leaflet). The tables show the same numbers.</p>'; return; }
+  const tiles = () => L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', maxZoom:18});
+  const m1 = L.map('mapNorth', {scrollWheelZoom:true}); tiles().addTo(m1); maps.push(m1);
+  const placed = reg.filter(r=>r.lat!=null);  // regions without a recorded site stay off the map
+  const fitNorth = () => m1.fitBounds(L.latLngBounds(placed.map(r=>[r.lat,r.lon])), {padding:[30,30]});  // all stations, Southern MB to QEI
+  fitNorth();
+  placed.forEach(r=>{
+    const det = r.detected > 0;
+    L.circleMarker([r.lat,r.lon], {radius: det? 6 + 34*Math.sqrt(r.mean_relab/maxRel) : 5, color: r.is_ci?'#fbbf24':'#fff', weight: r.is_ci?3:1,
+      fillColor: det ? (r.is_ci?'#fbbf24': c.habitat==='marine'?'#38bdf8':'#34d399') : '#64748b', fillOpacity:.6})
+     .addTo(m1).bindPopup(`<b>${esc(r.station)}</b><br>${esc(r.region)}<br>found in ${r.detected} of ${r.n_samples} samples<br>${pct(r.mean_relab)} of the DNA on average, up to ${pct(r.max_relab)} in one sample<br><i>${esc(r.desc)}</i>`);
+  });
+  const m2 = L.map('mapLocal', {scrollWheelZoom:true}); tiles().addTo(m2); maps.push(m2);
+  const loc = nm.ci_local_stations;
+  // same extent for every microbe: all local sampling sites
+  const allSites = D.ciSites?.length ? D.ciSites : loc;
+  const fitLocal = () => m2.fitBounds(L.latLngBounds(allSites.map(s=>[s.lat,s.lon])), {padding:[30,30]});
+  fitLocal();
+  allSites.filter(a=>!loc.some(s=>s.name===a.name)).forEach(a=>{
+    L.circleMarker([a.lat,a.lon], {radius:5, color:'#fff', weight:1, fillColor:'#64748b', fillOpacity:.6})
+     .addTo(m2).bindPopup(`<b>${esc(a.name)}</b><br>not found here`);
+  });
+  loc.forEach(s=>{
+    const mapped = s.samples.some(x=>x.source==='mapped');
+    L.circleMarker([s.lat,s.lon], {radius: mapped ? 6 + 22*Math.min(1,Math.sqrt(s.max_relab/10)) : 7, color:'#fff', weight:1, dashArray: mapped?null:'3',
+      fillColor: s.type==='Marine'?'#38bdf8':'#34d399', fillOpacity: mapped?.75:.35})
+     .addTo(m2).bindPopup(`<b>${esc(s.name)}</b><br>${mapped?`up to ${pct(s.max_relab)} of the DNA in one sample`:'found by the quick read check'}<br>${s.samples.map(x=>`${esc(x.id)} (${x.date?x.date.replace(/(\d{4})(\d\d)(\d\d)/,'$1-$2-$3'):'?'}): ${x.source==='mapped'?pct(x.relab):'~'+fmt(x.wkid,0)+'% of genome'}`).join('<br>')}`);
+  });
+  setTimeout(()=>{m1.invalidateSize(); m2.invalidateSize(); fitNorth(); fitLocal();}, 50);
+}
+
+/* ---------- EVOLUTION ---------- */
+function renderEvolution(p){
+  const c = C[cur], e = D.evo[c.id]||{}, m = D.meta[c.id]||{}, t = D.trees[c.id], L0 = lineageOf(c), need = namingNeed(c);
+  const novelSp = L0[6].ph && !/ sp\d/.test(L0[6].name);
+  p.innerHTML = `
+  <div class="card"><h3>🧬 Family tree name (GTDB lineage)</h3>
+    <div class="lineage">${L0.map((x,i)=>`${i?'<span class="arrow">›</span>':''}<div class="rank${x.ph?' ph':''}"><small>${x.rank}</small><b>${taxonLink(i, x.name)}</b></div>`).join('')}</div>
+    <div class="note" style="margin-top:8px">Gold = only a code, or no name at all. These are the names we get to choose.</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>📏 How different is it from its relatives?</h3><div class="kv">
+      <div>How it was placed</div><div>${e.method==='ani_screen'?'Whole-genome ANI match to a GTDB reference':'Placed in the GTDB tree using 120 marker genes'}</div>
+      <div>Closest reference genome</div><div>${e.closest_ref?`<a href="https://gtdb.ecogenomic.org/genome?gid=${esc(e.closest_ref)}" target="_blank">${esc(e.closest_ref)}</a>`:'—'}</div>
+      <div>ANI to closest reference</div><div>${e.closest_ani?fmt(e.closest_ani,2)+'%':'—'} ${e.closest_ani? (+e.closest_ani>=95?'<span class="note">(same species cluster)</span>':'<span class="note" style="color:var(--gold)">(&lt; 95% → different species)</span>'):''}</div>
+      <div>Alignment fraction</div><div>${e.closest_af?fmt(e.closest_af,3):'—'}</div>
+      <div>RED (relative evolutionary divergence)</div><div>${e.red_value?fmt(e.red_value,3):'—'}</div>
+      <div>Marker genes found</div><div>${e.msa_percent?fmt(e.msa_percent,1)+'%':'—'}</div>
+    </div>
+    <p style="margin-top:10px">${novelSp ? 'No known species is close enough to it, so it is a new species.' :
+      'Other scientists have found this species before, but only gave it a code, never a real name.'}
+      ${need.genus ? ' Its genus has no real name either.' : ` Its genus already has a name, <i>${esc(need.genusName)}</i>, so we only name the species.`}</p></div>
+    <div class="card"><h3>🧱 Genome architecture</h3>
+      <div class="stats">
+        <div class="stat"><b>${fmt(m.size/1e6,2)}</b><span>Mbp</span></div>
+        <div class="stat"><b>${m.n_contigs}</b><span>contigs</span></div>
+        <div class="stat"><b>${fmt(m.n50/1e3,0)}</b><span>kbp N50</span></div>
+        <div class="stat"><b>${fmt(m.gc*100,0)}%</b><span>GC</span></div>
+        <div class="stat"><b>${fmt(m.n_genes,0)}</b><span>genes</span></div>
+        <div class="stat"><b>${fmt(m.hypo_pct,0)}%</b><span>unknown function</span></div>
+        <div class="stat"><b>${m.n_virus}/${m.n_plasmid}</b><span>prophage / plasmid contigs</span></div>
+        <div class="stat"><b>${m.n_defense}</b><span>defence systems</span></div>
+      </div></div>
+  </div>
+  <div class="card"><h3>🌳 Closest relatives in the GTDB tree</h3>
+    <div class="tree-wrap" id="treeBox"></div>
+    <div class="note">★ = our ${esc(LOCAL)} genome. <b style="color:var(--text)">White, <i>italic</i><sup>T</sup></b> = type strain of a validly named species (the two closest are always shown). Grey = other close GTDB genomes, most known only by a code. Teal = other genomes from our samples.</div></div>
+  <div class="card"><h3>⭕ Circular genome map</h3>
+    <div class="circos-wrap" id="circosBox" style="text-align:center"></div>
+    <div class="circos-legend">
+      <span>Rings from outside in:</span>
+      <span><span class="dot" style="background:#60a5fa"></span>Contigs, ordered by GC skew${''}</span>
+      <span><span class="dot" style="background:#f472b6"></span>rRNA</span><span><span class="dot" style="background:#94a3b8"></span>tRNA</span>
+      <span><span class="dot" style="background:#fbbf24"></span>Energy (sulfur, CO₂ fixation, rhodopsin, nitrite)</span>
+      <span><span class="dot" style="background:#34d399"></span>Carbohydrate enzymes</span><span><span class="dot" style="background:#a78bfa"></span>Vitamins / cold / iron</span>
+      <span><span class="dot" style="background:#f87171"></span>Natural-product clusters (antiSMASH)</span><span><span class="dot" style="background:#fb923c"></span>CRISPR / defence</span>
+      <span>· GC content · GC skew · gene density</span></div>
+    <p class="note" style="margin-top:8px">${D.circos[c.id]?.ori?.contig
+      ? `The origin of replication (ori, top) was placed using the <i>dnaA</i> gene and GC skew. Contigs with G-rich leading strands run clockwise from ori to the terminus (ter), the rest return to ori. The order of contigs within each half is a guess.`
+      : `No <i>dnaA</i> gene or clear GC-skew turning point was found, so the origin can't be placed. Contigs are grouped by the direction of their GC skew.`}</p></div>`;
+  drawTree(document.getElementById('treeBox'), t);
+  drawCircos(document.getElementById('circosBox'), D.circos[c.id]);
+}
+function drawTree(box, t){
+  if (!t){ box.innerHTML = '<p class="note">No tree available.</p>'; return; }
+  const leaves=[]; let maxX=0;
+  (function walk(n, x){ n._x = x + (n.length||0); maxX=Math.max(maxX,n._x);
+    if (n.children) n.children.forEach(ch=>walk(ch, n._x)); else { n._y = leaves.length; leaves.push(n); } })(t.root, 0);
+  (function setY(n){ if (n.children){ n.children.forEach(setY); n._y = (n.children[0]._y + n.children[n.children.length-1]._y)/2; } })(t.root);
+  const W=980, labelW=380, rowH=26, H=leaves.length*rowH+40, sx=(W-labelW-40)/Math.max(maxX,1e-6), X=v=>20+v*sx, Y=v=>20+v*rowH;
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  (function draw(n, px){
+    const x=X(n._x), y=Y(n._y);
+    s += `<line x1="${X(px)}" y1="${y}" x2="${x}" y2="${y}" stroke="#7d98b8" stroke-width="1.6"/>`;
+    if (n.children){
+      s += `<line x1="${x}" y1="${Y(n.children[0]._y)}" x2="${x}" y2="${Y(n.children[n.children.length-1]._y)}" stroke="#7d98b8" stroke-width="1.6"/>`;
+      n.children.forEach(ch=>draw(ch, n._x));
+    } else {
+      const col = n.is_target ? '#fbbf24' : n.is_user_bin ? '#5eead4' : n.is_type ? '#e7f0fa' : '#93a9c3';
+      const lbl = n.is_target ? `★ ${C[cur].nickname} (${LOCAL})` : (n.label||n.name), [nm, acc] = lbl.includes(' [') ? [lbl.slice(0, lbl.indexOf(' [')), lbl.slice(lbl.indexOf(' ['))] : [lbl, ''];
+      s += `<circle cx="${x}" cy="${y}" r="${n.is_target?6:n.is_type?4:3}" fill="${col}"/>`;
+      s += `<text x="${x+9}" y="${y+4}" font-size="${n.is_target?13:12}" style="fill:${col};font-weight:${n.is_target||n.is_type?700:400}"><title>${esc(n.lineage||'')}</title>`
+        + (n.is_type ? `<tspan font-style="italic">${esc(nm)}</tspan><tspan baseline-shift="super" font-size="9">T</tspan><tspan font-weight="400" style="fill:#93a9c3">${esc(acc)}</tspan>` : esc(lbl)) + `</text>`;
+    }
+  })(t.root, 0);
+  const bar = 0.05; s += `<line x1="20" y1="${H-10}" x2="${20+bar*sx}" y2="${H-10}" stroke="#93a9c3"/><text x="${24+bar*sx}" y="${H-6}" font-size="10" style="fill:#93a9c3">0.05</text>`;
+  box.innerHTML = s+'</svg>';
+}
+function drawCircos(box, d){
+  if (!d){ box.innerHTML = '<p class="note">No genome map available.</p>'; return; }
+  const S=560, cx=S/2, cy=S/2, T=d.total_bp, ang=bp=>-Math.PI/2 + 2*Math.PI*bp/T;
+  const pt=(r,a)=>[cx+r*Math.cos(a), cy+r*Math.sin(a)];
+  const arc=(r1,r2,a1,a2)=>{ const big=(a2-a1)>Math.PI?1:0, [x1,y1]=pt(r2,a1),[x2,y2]=pt(r2,a2),[x3,y3]=pt(r1,a2),[x4,y4]=pt(r1,a1);
+    return `M${x1},${y1} A${r2},${r2} 0 ${big} 1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 ${big} 0 ${x4},${y4} Z`; };
+  let s = `<svg width="${S+60}" height="${S+60}" viewBox="-30 -30 ${S+60} ${S+60}" style="max-width:100%">`;
+  // contigs
+  d.contigs.forEach((ct,i)=>{ const a1=ang(ct.start), a2=ang(ct.end)-Math.min(0.004,(ang(ct.end)-ang(ct.start))*0.1);
+    s += `<path d="${arc(222,236,a1,Math.max(a1+0.002,a2))}" fill="${i%2?'#3b82f6':'#60a5fa'}" data-t="${esc(ct.id)}<br>${(ct.length/1e3).toFixed(1)} kbp · GC ${ct.gc}%"/>`; });
+  // replication origin (top) and predicted terminus
+  if (d.ori?.contig){
+    const [ox,oy]=pt(272,-Math.PI/2);
+    s += `<path d="M${ox-7},${oy-12} L${ox+7},${oy-12} L${ox},${oy-1} Z" fill="#e7f0fa" data-t="<b>Predicted origin of replication</b><br>${esc(d.ori.method)}<br><span style='color:#93a9c3'>${esc(d.ori.contig)}</span>"/>
+          <text x="${ox}" y="${oy-16}" text-anchor="middle" font-size="12" font-weight="700" style="fill:#e7f0fa">ori</text>`;
+    if (d.ter_bin!=null){ const a=-Math.PI/2+2*Math.PI*(d.ter_bin+0.5)/d.gc_bins.length, [tx,ty]=pt(280,a);
+      s += `<text x="${tx}" y="${ty+4}" text-anchor="middle" font-size="12" font-weight="700" style="fill:#93a9c3" data-t="<b>Predicted terminus</b><br>maximum of cumulative GC skew">ter</text>`; }
+  }
+  // markers
+  const col={rRNA:'#f472b6',tRNA:'#94a3b8',Energy:'#fbbf24',CAZyme:'#34d399','Vitamin/Cold':'#a78bfa',BGC:'#f87171',Defense:'#fb923c'};
+  d.markers.forEach(mk=>{ const a=ang(mk.pos), big = ['rRNA','BGC'].includes(mk.category), r2 = big?262:252;
+    const [x1,y1]=pt(239,a),[x2,y2]=pt(r2,a);
+    s += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col[mk.category]||'#fff'}" stroke-width="${big?3.5:2}" data-t="<b>${esc(mk.label)}</b><br>${esc(mk.product)}<br><span style='color:#93a9c3'>${esc(mk.contig)}</span>"/>`;
+    if (big && mk.category==='BGC'){ const [tx,ty]=pt(270,a); }
+  });
+  // GC content
+  const n=d.gc_bins.length, mean=d.mean_gc, dev=Math.max(...d.gc_bins.map(v=>Math.abs(v-mean)),1);
+  d.gc_bins.forEach((v,i)=>{ const a1=-Math.PI/2+2*Math.PI*i/n, a2=-Math.PI/2+2*Math.PI*(i+1)/n, h=26*(v-mean)/dev;
+    s += `<path d="${arc(Math.min(190,190+h),Math.max(190,190+h)+0.01,a1,a2)}" fill="${h>=0?'#38bdf8':'#0369a1'}" data-t="GC ${v}% (genome mean ${mean}%)"/>`; });
+  // GC skew
+  const sk=Math.max(...d.skew_bins.map(Math.abs),0.01);
+  d.skew_bins.forEach((v,i)=>{ const a1=-Math.PI/2+2*Math.PI*i/n, a2=-Math.PI/2+2*Math.PI*(i+1)/n, h=22*v/sk;
+    s += `<path d="${arc(Math.min(140,140+h),Math.max(140,140+h)+0.01,a1,a2)}" fill="${h>=0?'#22c55e':'#a855f7'}" data-t="GC skew ${v}"/>`; });
+  // gene density
+  const cm=Math.max(...d.cds_bins,1);
+  d.cds_bins.forEach((v,i)=>{ const a1=-Math.PI/2+2*Math.PI*i/n, a2=-Math.PI/2+2*Math.PI*(i+1)/n;
+    s += `<path d="${arc(96,96+20*v/cm+0.01,a1,a2)}" fill="#fbbf24" fill-opacity="${0.35+0.65*(d.metabolic_bins[i]/Math.max(1,v))}" data-t="${v} genes (${d.metabolic_bins[i]} with KEGG/CAZy hits)"/>`; });
+  s += `<text x="${cx}" y="${cy-6}" text-anchor="middle" font-size="20" font-weight="700">${(T/1e6).toFixed(2)} Mbp</text>
+        <text x="${cx}" y="${cy+16}" text-anchor="middle" font-size="12" style="fill:#93a9c3">${d.n_contigs} contigs · ${d.mean_gc}% GC</text></svg>`;
+  box.innerHTML = s;
+  box.querySelectorAll('[data-t]').forEach(el=>{ el.addEventListener('mouseenter', e=>showTip(e, el.dataset.t)); el.addEventListener('mouseleave', hideTip); });
+}
+
+/* ---------- FUNCTION ---------- */
+const MODCATS = [
+  ['☀️ Energy & carbon', /glycoly|TCA|Citrate|pentose|gluconeo|pyruvate|Calvin|rTCA|Wood|Hydroxypropionate|Formaldehyde|fermentation|Methanogenesis|Catechol/i],
+  ['🫁 Breathing (respiratory chain)', /Complex|ATPase|Cytochrome/i],
+  ['🟡 Sulfur & nitrogen cycling', /sulf|Sox|Dsr|DNRA|nitrate|Denitrification/i],
+  ['💊 Vitamins & cofactors', /NAD|folate|Thiamine|Biotin|Pimeloyl|Riboflavin|Pantothenate|CoA|Cobalamin/i],
+  ['❄️ Amino acids & cold/salt protection', /Proline|Ornithine|Valine|Osmoprotectant/i],
+  ['🚚 Transport & scavenging', /transport|siderophore/i],
+];
+function renderFunction(p){
+  const c = C[cur], mods = D.modules[c.id]||[], es = (D.ecossdb[c.id]||[]).slice().sort((a,b)=>b.weighted_score-a.weighted_score);
+  const bgcs = (D.circos[c.id]?.markers||[]).filter(m=>m.category==='BGC');
+  const groups = MODCATS.map(([n,re])=>[n, mods.filter(m=>re.test(m.name))]);
+  const used = new Set(groups.flatMap(g=>g[1])); const rest = mods.filter(m=>!used.has(m));
+  if (rest.length) groups.push(['Other', rest]);
+  const complete = mods.filter(m=>m.c>=1).length;
+  const roleCol = {producer:'#34d399', transformer:'#38bdf8', consumer:'#fbbf24', inhibitor:'#f87171'};
+  p.innerHTML = `
+  <div class="card"><h3>🍽️ What it eats, breathes and makes</h3>
+    ${c.fn ? `<div class="story">${esc(c.fn)}</div>${moreBoxes(c.fnMore)}` : `<ul class="acts">${c.activities.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`}
+    <div style="margin-top:8px">${c.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div></div>
+
+  <div class="card"><h3>🌿 What it does for the ecosystem (EcoSSDB)</h3>
+    <p>Predicted from its genes. A negative score means some of its genes work against that service (for example, antibiotic resistance).</p>
+    ${es.map(x=>{ const tot=Object.values(x.roles).reduce((a,b)=>a+b,0)||1;
+      return `<div class="es"><div class="ic">${x.icon}</div><div>
+        <div class="t">${esc(x.short_name)} <span class="note">· ${x.gene_count} genes · score <b style="color:${x.weighted_score<0?'var(--red)':'var(--fresh)'}">${x.weighted_score.toFixed(2)}</b></span></div>
+        <div class="note">${esc(x.desc)}</div>
+        <div class="rolebar">${Object.entries(x.roles).map(([k,v])=>`<span title="${k}: ${v}" style="width:${100*v/tot}%;background:${roleCol[k]||'#94a3b8'}"></span>`).join('')}</div>
+        <div class="note">${Object.entries(x.roles).map(([k,v])=>`<span style="color:${roleCol[k]||'#94a3b8'}">■</span> ${k} ${v}`).join(' &nbsp; ')}</div>
+        <div>${x.top_genes.map(g=>`<span class="chip" title="confidence ${g.conf}">${esc(g.id)}: ${esc(g.desc)}</span>`).join('')}</div>
+        <div>${x.sdgs.map(s=>`<span class="chip sdg">${esc(s)}</span>`).join('')}</div>
+      </div></div>`; }).join('') || '<p class="note">No EcoSSDB hits.</p>'}
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>🧪 Metabolic pathways (KEGG modules)</h3>
+      <p>${complete} pathways are complete.</p>
+      ${groups.filter(g=>g[1].length).map(([n,list])=>`<h4>${n}</h4>${list.sort((a,b)=>b.c-a.c).map(m=>`<div class="mod"><div title="${m.id}">${esc(m.name)}</div>
+        <div class="bar"><span style="width:${m.c*100}%;background:${m.c>=1?'var(--fresh)':m.c>=.75?'var(--gold)':'#64748b'}"></span></div><div class="pct">${Math.round(m.c*100)}%</div></div>`).join('')}`).join('')}
+    </div>
+    <div>
+      <div class="card"><h3>💥 Natural-product gene clusters (antiSMASH)</h3>
+        ${bgcs.length? `<table><tbody>${bgcs.map(b=>`<tr><td><b>${esc(b.label.replace('BGC: ',''))}</b></td><td class="note">${esc(b.product.replace(/^antiSMASH BGC: [^ ]+/,''))}<br>${esc(b.contig)}</td></tr>`).join('')}</tbody></table>
+          <p>Terpenes are often pigments or antioxidants. T3PKS and arylpolyenes make protective compounds. Lanthipeptides and betalactones can act as antimicrobials.</p>` : '<p class="note">No clusters detected.</p>'}</div>
+      <div class="card"><h3>🔎 Highlighted genes</h3>
+        <table><tbody>${(D.circos[c.id]?.markers||[]).filter(m=>['Energy','CAZyme','Vitamin/Cold','Defense'].includes(m.category)).map(m=>`<tr><td><b>${esc(m.label)}</b></td><td class="note">${esc(m.product)}</td></tr>`).join('')}</tbody></table></div>
+    </div>
+  </div>`;
+}
+
+/* ---------- NAMING ---------- */
+const GENUS_ENDINGS = [
+  {k:'bacter',    g:'m', st:'bacter', d:'bacterium (rod)'},
+  {k:'bacterium', g:'n', st:'bacteri', d:'small rod'},
+  {k:'bacillus',  g:'m', st:'bacill', d:'little stick', shape:1},
+  {k:'coccus',    g:'m', st:'cocc', d:'ball', shape:1},
+  {k:'sphaera',   g:'f', st:'sphaer', d:'sphere', shape:1},
+  {k:'vibrio',    g:'m', st:'vibrion', d:'curved rod', shape:1},
+  {k:'spira',     g:'f', st:'spir', d:'spiral', shape:1},
+  {k:'spirillum', g:'n', st:'spirill', d:'small spiral', shape:1},
+  {k:'monas',     g:'f', st:'monad', d:'single cell'},
+  {k:'thrix',     g:'f', st:'thric', d:'hair, thread', shape:1},
+  {k:'nema',      g:'n', st:'nemat', d:'filament', shape:1},
+  {k:'microbium', g:'n', st:'microbi', d:'small life'},
+  {k:'ella',      g:'f', st:'ell', d:'little one', v:1},
+  {k:'ia',        g:'f', st:'i', d:'(plain genus ending)', v:1},
+];
+// Cell-shape genes in each MAG (Bakta, co-assembly annotation, 2026-10-19). The MreB/Rod system
+// builds rod shapes; losing it often goes with round cells, but a MAG can simply be missing the gene.
+// Curved, spiral and filament shapes can't be predicted from these genomes.
+const SHAPE_GENES = CM.shapeGenes || {};  // per-MAG rod-shape genes (mreB etc.), see community.js
+// f: [masculine, feminine, neuter] form of the ending; v: ending starts with a vowel
+const SPECIES_STYLES = [
+  {k:'ensis',  f:['ensis','ensis','ense'],       d:'from (a place)', v:1},
+  {k:'cola',   f:['cola','cola','cola'],         d:'lives in'},
+  {k:'phil',   f:['philus','phila','philum'],    d:'loves'},
+  {k:'icus',   f:['icus','ica','icum'],          d:'belongs to', v:1},
+  {k:'alis',   f:['alis','alis','ale'],          d:'related to', v:1},
+  {k:'formis', f:['formis','formis','forme'],    d:'shaped like'},
+  {k:'oides',  f:['oides','oides','oides'],      d:'looks like', v:1},
+  {k:'vorans', f:['vorans','vorans','vorans'],   d:'eats'},
+  {k:'genes',  f:['genes','genes','genes'],      d:'makes'},
+  {k:'i',      f:['i','i','i'],                  d:'named after (a man)', v:1},
+  {k:'ae',     f:['ae','ae','ae'],               d:'named after (a woman)', v:1},
+];
+const GI = {m:0, f:1, n:2};
+const sufOf = (sty, gender) => sty.f[GI[gender]??0];
+// grammatical gender of existing genera, from the published genus data (narratives.js GENERA)
+const KNOWN_GENUS_GENDER = {...Object.fromEntries(Object.entries(window.GENERA||{}).filter(([,v])=>v.gender).map(([g,v])=>[g, v.gender[0]])), ...(CM.knownGenusGender||{})};
+const DICT_SHOWN = CM.dictionarySourceFilter ? DICT.filter(e => new RegExp(CM.dictionarySourceFilter).test(e.source||'')) : DICT;
+const romanStem = r => (r||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ł/gi,'l').replace(/[^a-zA-Z]/g,'').toLowerCase();
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+// consonant endings get a linking -i- (stem-i-cola); vowel endings attach directly,
+// dropping a repeated vowel or a final -a/-e of the stem (nuna + alis = nunalis)
+const joinStem = (stem, suf) => /[aeiou]$/.test(stem) ? stem + suf : stem + 'i' + suf;
+const joinVowel = (stem, suf) => (stem.slice(-1)===suf[0] || /[ae]$/.test(stem)) ? stem.slice(0,-1) + suf : stem + suf;
+const attach = (stem, suf, vowel) => vowel ? joinVowel(stem, suf) : joinStem(stem, suf);
+function epithet(stem, style, gender){
+  if (!stem) return '';
+  const sty = SPECIES_STYLES.find(x=>x.k===style) || SPECIES_STYLES[0];
+  if (!SPECIES_STYLES.some(x=>x.k===style)) return stem;  // no ending: the word as is
+  if (style==='ensis') return stem + sufOf(sty, gender);
+  return attach(stem, sufOf(sty, gender), sty.v);
+}
+const nbState = {};
+function st(){
+  const c = C[cur];
+  return nbState[c.id] ||= {gWord:'', gMean:'', gEnd:'bacter', gGender:'m', sWord:'', sMean:'', sStyle:'ensis', gEdit:'', sEdit:''};
+}
+const sylFor = w => { const n = norm(w.trim()); if (!n) return ''; const e = DICT.find(x => norm(x.roman) === n); return e ? e.syllabics : ''; };
+let savedNames = JSON.parse(localStorage.getItem('ci_names')||'[]');
+
+// published name, etymology and status for an existing genus (narratives.js GENERA, from LPSN)
+function genusInfo(name){
+  const g = (window.GENERA||{})[name]; if (!g) return '';
+  const plain = t => t.replace(/"/g, '').replace(/\b(Candidatus|Ca\.) /g, '');  // keep the page simple
+  return `<div class="genus-info">
+    <div><b>${esc(plain(g.full))}</b></div>
+    <div class="etym-pub">${esc(g.etym)}</div>
+    <div class="note">In short: “${esc(g.gloss)}” · ${esc(g.gender)} · type species <i>${esc(plain(g.type))}</i></div>
+    <details><summary class="note">Reference</summary><p class="note">${esc(g.ref)}${g.doi?` <a href="https://doi.org/${esc(g.doi)}" target="_blank" rel="noopener">doi:${esc(g.doi)}</a>`:''}</p></details>
+    <a class="note" href="${lpsnUrl(5, name)}" target="_blank" rel="noopener">More on LPSN ↗</a>
+  </div>`;
+}
+function renderNaming(p){
+  const c = C[cur], m = D.meta[c.id]||{}, need = namingNeed(c), S = st();
+  const rr = (c.rrna||''), trna = +(rr.match(/(\d+)\/20 tRNA/)||[])[1];
+  const chk = (ok, txt) => `<span>${ok?'✅':'➖'} ${txt}</span>`;
+  const endBtns = GENUS_ENDINGS.map(e=>`<button class="${S.gEnd===e.k?'on':''}${e.shape?' shape':''}" onclick="pickEnd('g','${e.k}')"${e.shape?' title="Says something about cell shape"':''}>-${e.k}<small>${e.d}</small></button>`).join('');
+  const gGender = currentName().gender;
+  const styBtns = SPECIES_STYLES.map(e=>`<button class="${S.sStyle===e.k?'on':''}" onclick="pickEnd('s','${e.k}')">-${sufOf(e, gGender)}<small>${e.d}</small></button>`).join('');
+  const genderBtns = [['m','masculine'],['f','feminine'],['n','neuter']].map(([k,l])=>`<button class="${S.gGender===k?'on':''}" onclick="st().gGender='${k}';renderNaming(document.getElementById('tab-naming'))">${l}</button>`).join('');
+  const sg = SHAPE_GENES[c.id];
+  p.innerHTML = `
+  <div class="card"><h3>✍️ What we're naming</h3>
+    <div class="pill gold" style="font-size:.95rem">${esc(need.label)}</div>
+    <div class="chk-strip" style="margin-top:10px">
+      ${chk(m.completeness>=90, `${fmt(m.completeness)}% complete`)}
+      ${chk(m.contamination<=5, `${fmt(m.contamination,2)}% contamination`)}
+      ${chk(/16S/.test(rr), '16S rRNA')}
+      ${chk(/23S/.test(rr), '23S rRNA')}
+      ${chk(trna>=18, `${trna||'?'}/20 tRNAs`)}
+      ${chk(true, `current label: <code>${esc(lineageOf(c)[6].name)}</code>`)}
+      ${sg!==undefined?`<span title="Genes found: ${esc(sg||'none')}">🧬 ${sg?'rod-shape genes (MreB) found':'no rod-shape genes found'}</span>`:''}
+    </div>
+    ${need.ordPh||need.famPh?`<p style="margin:10px 0 0">Its ${need.ordPh?'order and family are':'family is'} unnamed too. Those names are built from the genus name, so if the genus is <i>Xus</i>, the family becomes <i>Xaceae</i>${need.ordPh?' and the order <i>Xales</i>':''}.</p>`:''}
+  </div>
+
+  <div class="card"><h3>🔤 Build the name</h3>
+    <div class="preview"><div class="nm" id="nbOut"></div><div class="nb-edit" id="nbEdit"></div><div class="higher" id="nbHigher"></div><div class="etym" id="nbEtym"></div><div class="nb-warn" id="nbWarn"></div></div>
+    <div class="parts">
+      ${need.genus ? `
+      <div class="part g"><h4>1 · Genus (first word)</h4>
+        <p class="sub">Starts with a capital letter. Often describes the group, or the shape if it is known.</p>
+        <label>${esc(LANG)} word</label>
+        <div class="word"><div class="ac"><input id="gWord" value="${esc(S.gWord)}" autocomplete="off" spellcheck="false" placeholder="search: ${esc((CM.wordExamples||[]).join(', '))}" oninput="st().gWord=this.value;clearEdit('g');updateName();acShow('g')" onfocus="acShow('g')" onblur="acHide('g')" onkeydown="acKey(event,'g')"><div class="ac-list" id="gAc"></div></div><span class="syl" id="gSyl"></span></div>
+        <label>Meaning</label><input id="gMean" value="${esc(S.gMean)}" placeholder="e.g. ice" oninput="st().gMean=this.value;updateName()">
+        <label>Common endings <span class="lbl-note">click again to remove</span></label><div class="endings">${endBtns}</div>
+        ${S.gEnd?'':`<label>Grammatical gender <span class="lbl-note">needed without an ending</span></label><div class="endings gender">${genderBtns}</div>`}
+      </div>` : `
+      <div class="part fixed"><h4>1 · Genus (first word)</h4>
+        <p class="sub">Already named. We keep it.</p>
+        <div class="preview" style="padding:4px 0"><div class="nm" style="font-size:1.6rem">${taxonLink(5, need.genusName, `<i>${esc(need.genusName)}</i>`)}</div></div>
+        ${genusInfo(need.genusName)}
+      </div>`}
+      <div class="part sp"><h4>2 · Species (second word)</h4>
+        <p class="sub">All lowercase. Often says where it lives or what it does.</p>
+        <label>${esc(LANG)} word</label>
+        <div class="word"><div class="ac"><input id="sWord" value="${esc(S.sWord)}" autocomplete="off" spellcheck="false" placeholder="search: ${esc((CM.wordExamples||[]).join(', '))}" oninput="st().sWord=this.value;clearEdit('s');updateName();acShow('s')" onfocus="acShow('s')" onblur="acHide('s')" onkeydown="acKey(event,'s')"><div class="ac-list" id="sAc"></div></div><span class="syl" id="sSyl"></span></div>
+        <label>Meaning</label><input id="sMean" value="${esc(S.sMean)}" placeholder="e.g. ${esc(CM.meaningExample||'')}" oninput="st().sMean=this.value;updateName()">
+        <label>Common endings <span class="lbl-note">click again to remove</span></label><div class="endings">${styBtns}</div>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+      <button class="btn primary" onclick="saveName()">💾 Save this name</button>
+      <button class="btn api-btn" onclick="draftCurrent()">✨ Draft etymology</button>
+      <button class="btn" onclick="exportNames()">⬇️ Download saved names (CSV)</button>
+    </div>
+    <div id="nbProto"></div>
+  </div>
+
+  <div class="card"><h3>📚 Find a word</h3>
+    <p style="margin:0 0 8px">Search in English, ${esc(LANG)}${HAS_SCRIPT?` or ${esc(CM.scriptName)}`:''}, then add the word to the ${need.genus?'<b style="color:var(--gold)">genus</b> or the ':''}<b style="color:var(--pink)">species</b>.</p>
+    <div class="dict-controls"><input id="dq" placeholder="e.g. ${esc((CM.wordExamples||[]).join(', '))}" oninput="dictSearch()"><span class="note" id="dcount"></span></div>
+    <div class="cats" id="dcats"></div>
+    <div class="dict-res" id="dres"></div>
+    <p class="note">${CM.dictionaryCreditHtml||''}</p>
+  </div>
+
+  <div class="card"><h3>🗂️ Saved names</h3>
+    <div class="saved-tools"><button class="btn api-btn" onclick="draftAll()">✨ Draft etymologies for all saved names</button><span class="note" id="draftAllMsg"></span></div>
+    <div id="savedList"></div></div>`;
+  buildCats(); dictSearch(); updateName(); renderSaved(); renderProto(); apiButtons();
+}
+let dCat = 'All';
+function buildCats(){
+  const cats = ['All', ...new Set(DICT_SHOWN.map(e=>e.category))];
+  document.getElementById('dcats').innerHTML = cats.map(c=>`<button class="cat${c===dCat?' active':''}" onclick="dCat='${c.replace(/'/g,"\\'")}';buildCats();dictSearch()">${esc(c)}</button>`).join('');
+}
+const norm = s => (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+function dictSearch(){
+  const q = norm(document.getElementById('dq').value.trim());
+  const terms = q.split(/\s+/).filter(Boolean);
+  let res = DICT_SHOWN.filter(e => dCat==='All' || e.category===dCat);
+  if (terms.length) res = res.filter(e => { const h = norm(e.roman+' '+e.syllabics+' '+e.english); return terms.every(t=>h.includes(t)); })
+    .map(e=>({e, s: norm(e.roman)===q||norm(e.syllabics)===q?0:norm(e.roman).startsWith(q)?1:norm(e.english).split(/[;,()\s]+/).includes(q)?2:3}))
+    .sort((a,b)=>a.s-b.s).map(x=>x.e);
+  document.getElementById('dcount').textContent = `${res.length.toLocaleString()} words`;
+  const hl = s => { let out = esc(s); terms.forEach(t=>{ if(t.length>1) out = out.replace(new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark>$1</mark>'); }); return out; };
+  const genus = namingNeed(C[cur]).genus;
+  window._dres = res;
+  document.getElementById('dres').innerHTML = window._dres.map((e,i)=>`<div class="entry">
+     <div class="r">${hl(e.roman)}</div><div class="sy">${hl(e.syllabics)}</div>
+     <div class="en">${hl(e.english)}</div>
+     <div class="use">${genus?`<button class="btn to-g" onclick="addWord(${i},'g')">+ Genus</button>`:''}<button class="btn to-sp" onclick="addWord(${i},'s')">+ Species</button></div></div>`).join('');
+}
+function useWord(e, part){
+  const S = st(), meaning = e.english.split(/[;(]/)[0].trim();
+  const word = e.roman.split('/')[0].replace(/[!?.,]+$/,'').trim();
+  if (part==='g'){ S.gWord = word; S.gMean = meaning; } else { S.sWord = word; S.sMean = meaning; }
+  clearEdit(part);
+  document.getElementById(part+'Word').value = word;
+  document.getElementById(part+'Mean').value = meaning;
+  updateName();
+}
+function addWord(i, part){
+  useWord(window._dres[i], part);
+  document.getElementById('nbOut').scrollIntoView({behavior:'smooth', block:'center'});
+}
+// live search under the genus/species word boxes (English, roman or syllabics)
+const ac = {g:{res:[], i:-1}, s:{res:[], i:-1}};
+function acShow(part){
+  const box = document.getElementById(part+'Ac'), q = norm(document.getElementById(part+'Word').value.trim());
+  const A = ac[part]; A.i = -1;
+  if (!q){ A.res = []; box.classList.remove('open'); return; }
+  const terms = q.split(/\s+/);
+  A.res = DICT_SHOWN.filter(e => { const h = norm(e.roman+' '+e.syllabics+' '+e.english); return terms.every(t=>h.includes(t)); })
+    .map(e => { const r = norm(e.roman), y = norm(e.syllabics), en = norm(e.english);
+      return {e, s: r===q||y===q||en.split(/\s*[;,(]\s*/)[0]===q ? 0 : r.startsWith(q)||y.startsWith(q) ? 1 : en.split(/[;,()\s]+/).includes(q) ? 2 : en.startsWith(q) ? 3 : 4}; })
+    .sort((a,b)=>a.s-b.s || a.e.roman.length-b.e.roman.length).slice(0,10).map(x=>x.e);
+  box.innerHTML = A.res.length ? A.res.map((e,i)=>`<div class="ac-it" onmousedown="event.preventDefault();acPick('${part}',${i})"><span class="r">${esc(e.roman)}</span><span class="sy">${esc(e.syllabics)}</span><span class="en">${esc(e.english)}</span></div>`).join('')
+    : '<div class="ac-empty">No dictionary match. You can still use your own word.</div>';
+  box.classList.add('open');
+}
+function acHide(part){ const b = document.getElementById(part+'Ac'); if (b) b.classList.remove('open'); }
+function acPick(part, i){ const e = ac[part].res[i]; if (!e) return; useWord(e, part); acHide(part); }
+function acKey(ev, part){
+  const A = ac[part], box = document.getElementById(part+'Ac');
+  if (!box.classList.contains('open') || !A.res.length){ if (ev.key==='ArrowDown') acShow(part); return; }
+  if (ev.key==='ArrowDown' || ev.key==='ArrowUp'){
+    ev.preventDefault();
+    A.i = (A.i + (ev.key==='ArrowDown'?1:-1) + A.res.length) % A.res.length;
+    [...box.children].forEach((el,k)=>el.classList.toggle('on', k===A.i));
+    box.children[A.i].scrollIntoView({block:'nearest'});
+  } else if (ev.key==='Enter'){ ev.preventDefault(); acPick(part, A.i<0?0:A.i); }
+  else if (ev.key==='Escape'){ acHide(part); }
+}
+// stem a family/order name is built on: Sikucoccus -> Sikucocc(aceae); bare Latin nouns lose -us/-um/-a
+function typeStem(genus){
+  const e = GENUS_ENDINGS.filter(x=>genus.toLowerCase().endsWith(x.k) && genus.length>x.k.length).sort((x,y)=>y.k.length-x.k.length)[0];
+  return e ? genus.slice(0, -e.k.length) + e.st : genus.replace(/(us|um|a)$/, '');
+}
+function currentName(){
+  const c = C[cur], need = namingNeed(c), S = st();
+  let genus, gender, gEmpty = false, family = '', order = '';
+  if (need.genus){
+    const e = GENUS_ENDINGS.find(x=>x.k===S.gEnd), stem = romanStem(S.gWord);
+    gEmpty = !stem && !S.gEdit;
+    genus = S.gEdit || (stem ? cap(e ? attach(stem, e.k, e.v) : stem) : e ? `…${e.k}` : '…');
+    const ge = S.gEdit && GENUS_ENDINGS.find(x=>S.gEdit.toLowerCase().endsWith(x.k));
+    gender = ge ? ge.g : e ? e.g : S.gGender || 'm';
+    if (!gEmpty){
+      if (need.famPh) family = typeStem(genus) + 'aceae';
+      if (need.ordPh) order = typeStem(genus) + 'ales';
+    }
+  } else { genus = need.genusName; gender = KNOWN_GENUS_GENDER[genus]||'m'; }
+  const sStem = romanStem(S.sWord);
+  const epi = S.sEdit || (sStem ? epithet(sStem, S.sStyle, gender) : '…');
+  return {genus, epi, gEmpty, sEmpty: !sStem && !S.sEdit, gender, family, order, edited: !!(S.gEdit||S.sEdit),
+    rank: need.genus?'gen. nov., sp. nov.':'sp. nov.'};
+}
+function pickEnd(part, k){
+  const S = st();
+  if (part==='g'){ S.gEnd = S.gEnd===k ? '' : k; S.gEdit = ''; } else { S.sStyle = S.sStyle===k ? '' : k; S.sEdit = ''; }
+  renderNaming(document.getElementById('tab-naming'));
+}
+// typing directly in the big name
+function clearEdit(part){ st()[part+'Edit'] = ''; }
+function nameEdited(part, el){
+  const v = el.textContent.replace(/[^A-Za-z]/g, '');
+  st()[part+'Edit'] = v ? (part==='g' ? cap(v.toLowerCase()) : v.toLowerCase()) : '';
+  updateName(true);
+}
+function nameEditKey(ev){ if (ev.key==='Enter'){ ev.preventDefault(); ev.target.blur(); } }
+function resetEdits(){ const S = st(); S.gEdit = S.sEdit = ''; updateName(); }
+
+/* built-in checks: spelling, length, and clashes with existing GTDB names */
+const TAXA = window.TAXON_NAMES || {g:'', f:'', o:''};
+const TAXA_SET = Object.fromEntries(Object.entries(TAXA).map(([k,v]) => [k, new Set(v.split(' ').filter(Boolean))]));
+const TAXA_LC = Object.fromEntries(Object.entries(TAXA_SET).map(([k,v]) => [k, [...v].map(x=>x.toLowerCase())]));
+const TAXA_ORIG = Object.fromEntries(Object.entries(TAXA_SET).map(([k,v]) => [k, [...v]]));
+function within1(a, b){  // edit distance <= 1
+  if (Math.abs(a.length-b.length) > 1) return false;
+  let i = 0, j = 0, d = 0;
+  while (i < a.length && j < b.length){
+    if (a[i]===b[j]){ i++; j++; continue; }
+    if (++d > 1) return false;
+    if (a.length > b.length) i++; else if (b.length > a.length) j++; else { i++; j++; }
+  }
+  return d + (a.length-i) + (b.length-j) <= 1;
+}
+function clash(rank, name){
+  if (TAXA_SET[rank].has(name)) return {exact: name};
+  const lc = name.toLowerCase(), L = TAXA_LC[rank], near = [];
+  for (let i = 0; i < L.length && near.length < 3; i++) if (within1(lc, L[i])) near.push(TAXA_ORIG[rank][i]);
+  return near.length ? {near} : null;
+}
+function nameChecks(){
+  const need = namingNeed(C[cur]), S = st(), n = currentName(), out = [];
+  const RANK = {g:'genus', f:'family', o:'order'};
+  const tests = need.genus && !n.gEmpty ? [['g', n.genus]] : [];
+  if (n.family) tests.push(['f', n.family]);
+  if (n.order) tests.push(['o', n.order]);
+  if (!n.gEmpty) for (const [r, nm] of tests){
+    const cl = clash(r, nm);
+    if (cl?.exact) out.push(['bad', `<i>${esc(nm)}</i> is already ${r==='o'?'an':'a'} ${RANK[r]} name in GTDB. Pick a different word or ending.`]);
+    else if (cl?.near) out.push(['warn', `<i>${esc(nm)}</i> is one letter away from the existing ${RANK[r]} ${cl.near.map(x=>`<i>${esc(x)}</i>`).join(', ')}.`]);
+  }
+  const words = [];
+  if (need.genus && !n.gEmpty) words.push(['genus', S.gEdit ? '' : S.gWord, n.genus]);
+  if (!n.sEmpty) words.push(['species', S.sEdit ? '' : S.sWord, n.epi]);
+  for (const [part, raw, latin] of words){
+    if (raw && romanStem(raw) !== raw.trim().toLowerCase())
+      out.push(['warn', `Latin names use only the letters a–z, so the ${part} word <b>${esc(raw)}</b> becomes <i>${esc(romanStem(raw))}</i> (spaces, apostrophes, accents and ł are dropped).`]);
+    if (latin.length > 22) out.push(['warn', `<i>${esc(latin)}</i> is ${latin.length} letters long. Shorter names are easier to say and remember.`]);
+    const cc = latin.toLowerCase().match(/[^aeiouy]{4,}/), vv = latin.toLowerCase().match(/[aeiou]{3,}/);
+    if (cc) out.push(['warn', `<i>${esc(latin)}</i> has four consonants in a row (“${esc(cc[0])}”), which is hard to say.`]);
+    if (vv) out.push(['warn', `<i>${esc(latin)}</i> has three vowels in a row (“${esc(vv[0])}”).`]);
+  }
+  const gE = need.genus && !n.gEmpty && GENUS_ENDINGS.find(x=>x.shape && n.genus.toLowerCase().endsWith(x.k));
+  if (gE){
+    const sg = SHAPE_GENES[C[cur].id];
+    const round = ['coccus','sphaera'].includes(gE.k), rod = ['bacillus'].includes(gE.k);
+    out.push(['warn', round && sg ? `<i>-${gE.k}</i> means round, but this genome has the MreB rod-shape genes, so it is probably not round.`
+      : round ? `<i>-${gE.k}</i> means round. No rod-shape genes were found, which fits a round cell.`
+      : rod && !sg ? `<i>-${gE.k}</i> means rod-shaped, but no rod-shape genes were found in this genome.`
+      : rod ? `<i>-${gE.k}</i> means rod-shaped. The genome has rod-shape genes, which fits.`
+      : `<i>-${gE.k}</i> describes a cell shape (${gE.d}) that can't be predicted from the genome.`]);
+  }
+  if (!n.gEmpty && !n.sEmpty && !out.length)
+    out.push(['ok', need.genus ? `✓ Letters, length and pronounceability look fine, and no ${tests.map(t=>RANK[t[0]]).join(' or ')} in GTDB has ${tests.length>1?'these names':'this name'}.` : '✓ Letters, length and pronounceability look fine.']);
+  return out;
+}
+
+function updateName(editing){
+  const c = C[cur], need = namingNeed(c), S = st(), n = currentName();
+  const gs = sylFor(S.gWord), ss = sylFor(S.sWord);
+  if (document.getElementById('gSyl')) document.getElementById('gSyl').textContent = gs;
+  document.getElementById('sSyl').textContent = ss;
+  const ed = (part, on) => on ? ` contenteditable="true" spellcheck="false" title="Click to edit the name directly" oninput="nameEdited('${part}',this)" onkeydown="nameEditKey(event)" onblur="updateName()"` : '';
+  if (!editing) document.getElementById('nbOut').innerHTML =
+    `<span class="g${need.genus?'':' fixed'}${n.gEmpty?' empty':''}"${ed('g', need.genus)}>${esc(n.genus)}</span> <span class="sp${n.sEmpty?' empty':''}"${ed('s', true)}>${esc(n.epi)}</span> <span class="rk">${n.rank}</span>`;
+  document.getElementById('nbEdit').innerHTML = n.edited
+    ? `✎ Edited by hand. Changing a word or ending below replaces your edit. <a href="#" onclick="resetEdits();return false">Undo edit</a>`
+    : `<span class="hint">Click the name to edit it directly.</span>`;
+  document.getElementById('nbHigher').innerHTML = !n.gEmpty && (n.family||n.order)
+    ? [n.family&&`family <i>${esc(n.family)}</i> fam. nov.`, n.order&&`order <i>${esc(n.order)}</i> ord. nov.`].filter(Boolean).join(' · ') : '';
+  const gEnd = GENUS_ENDINGS.find(x=>x.k===S.gEnd), sSty = SPECIES_STYLES.find(x=>x.k===S.sStyle);
+  const parts = [];
+  const GN = {m:'masculine', f:'feminine', n:'neuter'};
+  if (need.genus && !n.gEmpty && S.gWord) parts.push(`<i>${esc(n.genus)}</i>: ${esc(LANG)} <b>${esc(S.gWord)}</b>${gs?` (${esc(gs)})`:''}${S.gMean?`, "${esc(S.gMean)}"`:''}${gEnd&&!S.gEdit?` + <i>-${gEnd.k}</i> (${gEnd.d})`:` (${GN[n.gender]})`}`);
+  if (!n.sEmpty && S.sWord) parts.push(`<i>${esc(n.epi)}</i>: ${esc(LANG)} <b>${esc(S.sWord)}</b>${ss?` (${esc(ss)})`:''}${S.sMean?`, "${esc(S.sMean)}"`:''}${sSty&&!S.sEdit?` + <i>-${sufOf(sSty, n.gender)}</i> (${sSty.d})`:''}`);
+  document.getElementById('nbEtym').innerHTML = parts.length ? parts.join('<br>') : (need.genus ? 'Choose a word for each part below.' : 'Choose a word for the species below.');
+  document.getElementById('nbWarn').innerHTML = nameChecks().map(([k, m]) => `<div class="${k}">${m}</div>`).join('');
+  renderProto();
+}
+
+/* full record of the current name: saved, exported, and sent for drafting */
+function nameRecord(){
+  const c = C[cur], need = namingNeed(c), S = st(), n = currentName();
+  const gEnd = GENUS_ENDINGS.find(x=>x.k===S.gEnd), sSty = SPECIES_STYLES.find(x=>x.k===S.sStyle);
+  return {org:c.id, nickname:c.nickname, name:`${n.genus} ${n.epi}`, rank:n.rank, gender:n.gender,
+    genus_word: need.genus?S.gWord:'', genus_syl: need.genus?sylFor(S.gWord):'', genus_meaning: need.genus?S.gMean:'',
+    genus_ending: need.genus&&gEnd&&!S.gEdit?gEnd.k:'', genus_ending_meaning: need.genus&&gEnd&&!S.gEdit?gEnd.d:'',
+    species_word:S.sWord, species_syl:sylFor(S.sWord), species_meaning:S.sMean,
+    species_ending:sSty&&!S.sEdit?sufOf(sSty, n.gender):'', species_ending_meaning:sSty&&!S.sEdit?sSty.d:'', edited:n.edited?'yes':'',
+    higher_taxa:[n.family&&`${n.family} fam. nov.`, n.order&&`${n.order} ord. nov.`].filter(Boolean).join('; '),
+    when:new Date().toISOString()};
+}
+
+/* drafting etymology + description through serve.py (the API key stays on the server) */
+let apiOK = null, apiModel = '';
+fetch('api/status').then(r=>r.ok?r.json():{ok:false}).catch(()=>({ok:false}))
+  .then(j=>{ apiOK = !!j.ok; apiModel = j.model||''; apiButtons(); });
+function apiButtons(){
+  document.querySelectorAll('.api-btn').forEach(b=>{
+    b.disabled = apiOK === false;
+    b.title = apiOK === false ? 'Needs the site to be served by serve.py, with ANTHROPIC_API_KEY in .env' : apiModel ? `Drafted by ${apiModel}` : '';
+  });
+}
+async function draftName(rec){
+  const r = await fetch('api/protologue', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(rec)});
+  const j = await r.json().catch(()=>({error:`HTTP ${r.status}`}));
+  if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
+  return j;
+}
+const protoHTML = p => `
+  <h5>Etymology</h5><p>${esc(p.etymology)}</p>
+  ${p.checks?.length?`<h5>Notes</h5><ul>${p.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
+  ${p.suggested_name && p.suggested_name.split(' ').slice(0,2).join(' ') !== p.forName ? `<h5>Suggested spelling</h5><p class="sugg"><i>${esc(p.suggested_name)}</i></p>`:''}`;
+function renderProto(){
+  const el = document.getElementById('nbProto'); if (!el) return;
+  const P = st().proto, now = nameRecord().name;
+  if (!P){ el.innerHTML = ''; return; }
+  if (P.busy){ el.innerHTML = `<div class="proto busy">✨ Drafting the etymology for <i>${esc(P.forName)}</i>…</div>`; return; }
+  if (P.error){ el.innerHTML = `<div class="proto err">Could not draft: ${esc(P.error)}</div>`; return; }
+  el.innerHTML = `<div class="proto">${P.forName!==now?`<p class="note" style="margin-bottom:6px">Drafted for <i>${esc(P.forName)}</i>. The name has changed since, so draft again.</p>`:''}${protoHTML(P)}</div>`;
+}
+async function draftCurrent(){
+  const n = currentName();
+  if (n.sEmpty || n.gEmpty) return alert(n.gEmpty ? 'Choose a word for the genus first.' : 'Choose a word for the species first.');
+  const S = st(), rec = nameRecord();
+  S.proto = {busy:true, forName:rec.name}; renderProto();
+  try { S.proto = {...await draftName(rec), forName:rec.name}; }
+  catch(e){ S.proto = {error:e.message, forName:rec.name}; }
+  renderProto();
+}
+
+const PROTO_KEYS = ['etymology','checks','suggested_name'];
+const storeNames = () => localStorage.setItem('ci_names', JSON.stringify(savedNames));
+function saveName(){
+  const n = currentName(), S = st();
+  if (n.sEmpty || n.gEmpty) return alert(n.gEmpty ? 'Choose a word for the genus first.' : 'Choose a word for the species first.');
+  const rec = nameRecord();
+  if (S.proto?.etymology && S.proto.forName === rec.name) PROTO_KEYS.forEach(k=>rec[k]=S.proto[k]);
+  savedNames.push(rec); storeNames(); renderSaved();
+}
+function delName(i){ savedNames.splice(i,1); storeNames(); renderSaved(); }
+const draftBusy = new Set();
+function renderSaved(){
+  const el = document.getElementById('savedList'); if (!el) return;
+  el.innerHTML = savedNames.length ? savedNames.map((s,i)=>`<div class="saved-item">
+    <div class="saved-row" style="border:none;padding:0"><div><i style="color:var(--gold)">${esc(s.name)}</i> ${esc(s.rank)} <span style="color:var(--muted)">· ${esc(s.nickname)}</span></div>
+      <div style="display:flex;gap:6px"><button class="btn api-btn" title="Draft etymology" onclick="draftSaved(${i})">✨</button><button class="btn" onclick="delName(${i})">✕</button></div></div>
+    ${draftBusy.has(s.when) ? '<div class="proto busy">✨ Drafting…</div>'
+      : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>`
+      : s.etymology ? `<details><summary class="note">Etymology</summary><div class="proto">${protoHTML({...s, forName:s.name})}</div></details>` : ''}
+  </div>`).join('') : '<p class="note">No names saved yet.</p>';
+  apiButtons();
+}
+async function draftSaved(i){
+  const s = savedNames[i]; if (!s || draftBusy.has(s.when)) return;
+  draftBusy.add(s.when); delete s.draft_error; renderSaved();
+  try { Object.assign(s, await draftName(s)); }
+  catch(e){ s.draft_error = e.message; }
+  draftBusy.delete(s.when); storeNames(); renderSaved();
+}
+async function draftAll(){
+  const todo = savedNames.map((s,i)=>i).filter(i=>!savedNames[i].etymology);
+  const msg = document.getElementById('draftAllMsg');
+  if (!todo.length){ msg.textContent = savedNames.length ? 'All saved names already have a draft. Use ✨ on a row to redo one.' : 'No names saved yet.'; return; }
+  const total = todo.length; let done = 0;
+  msg.textContent = `Drafting 0 of ${total}…`;
+  const worker = async () => { while (todo.length){ await draftSaved(todo.shift()); msg.textContent = `Drafting… ${++done} of ${total} done`; } };
+  await Promise.all([worker(), worker(), worker()]);
+  const failed = savedNames.filter(s=>s.draft_error).length;
+  msg.textContent = `Drafted ${total - failed} of ${total}${failed?`; ${failed} failed (use ✨ to retry)`:''}.`;
+}
+function exportNames(){
+  const cols = [['org','organism'],['nickname'],['name','proposed_name'],['rank'],['gender'],['genus_word'],['genus_syl'],['genus_meaning'],['genus_ending'],['genus_ending_meaning'],
+    ['species_word'],['species_syl'],['species_meaning'],['species_ending'],['species_ending_meaning'],['higher_taxa'],['edited'],['etymology'],['checks'],['suggested_name'],['when','saved']];
+  const rows = [cols.map(c=>c[1]||c[0])].concat(savedNames.map(s=>cols.map(([k])=>Array.isArray(s[k])?s[k].join('; '):s[k])));
+  const csv = rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = `${CM.id||'community'}_proposed_names.csv`; a.click();
+}
+
+/* ---------- boot ---------- */
+{ const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v || ''; };
+  if (CM.title) document.title = CM.title;
+  set('brandName', CM.brand || `${CM.placeName||''} Microbes`);
+  set('brandNative', CM.nativeName ? CM.nativeName + ' ·' : '');
+  set('homeTitle', `Microbes of ${CM.placeName||''}`);
+  set('homeSub', [CM.nativeName, CM.englishName].filter(Boolean).join(' · '));
+  set('homeWhere', CM.foundWhere || 'here');
+  set('habMar', CM.habitats?.marine); set('habFw', CM.habitats?.freshwater);
+  if (!CM.habitats?.marine) document.getElementById('legMar').style.display = 'none';
+  if (!CM.habitats?.freshwater) document.getElementById('legFw').style.display = 'none'; }
+initSelector(); buildRing();
+{ const w = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen'][C.length]; document.getElementById('nBugs').textContent = w || C.length;
+  document.getElementById('nMar').textContent = C.filter(c=>c.habitat==='marine').length;
+  document.getElementById('nFw').textContent = C.filter(c=>c.habitat!=='marine').length; }
+const h = location.hash.match(/^#(\d+)(?:\/(\w+))?/);
+// old tab names in saved links still work
+if (h){ curTab = ({ecology:'distribution', evolution:'diversity'})[h[2]] || h[2] || 'story'; openOrganism(+h[1]-1); }
+</script>
+</body>
+</html>
