@@ -245,5 +245,82 @@ window.CANDIDATES = [
     ],
     tags: ["Cold-Water Nitrite Oxidizer", "Protects Fish Water Quality", "0.02% Contamination", "Full 16S+23S+20 tRNAs"],
     defaultGenus: "Nitrotoga"
+  },
+  {
+    id: "A2_planktophila",
+    img: "microbe_A2_planktophila.png",
+    habitat: "freshwater",
+    nickname: "Pint-sized Planktophila",
+    rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "2nd Lake, 3rd Lake, 1st Lake",
+    story: "A tiny lake bacterium with a light-catching pump, found in all three lakes behind town.",
+    activities: ["Catches sunlight with a rhodopsin pump", "Breaks down sugars", "Makes vitamin B2"],
+    tags: ["Tiny Cell", "Sunlight Helper", "Only in Chesterfield Lakes", "New Species"]
+  },
+  {
+    id: "N1_amylibacter",
+    img: "microbe_N1_amylibacter.png",
+    habitat: "marine",
+    nickname: "Sun-sipping Amylibacter",
+    rrna: "2× 16S + 2× 23S + 2× 5S rRNA, 20/20 tRNAs",
+    whereInCI: "Itivia, Dock",
+    story: "A small sea bacterium that catches sunlight and burns sulfur for extra energy, most common at Itivia in September.",
+    activities: ["Catches sunlight with a rhodopsin pump", "Gets energy from sulfur (thiosulfate)", "Protects itself from salt and cold with glycine betaine"],
+    tags: ["100% Complete Genome", "Sunlight Helper", "Sulfur Burner", "Known Species, No Name"]
+  },
+  {
+    id: "N2_caivzm01",
+    img: "microbe_N2_caivzm01.png",
+    habitat: "freshwater",
+    nickname: "The 2nd Lake Mystery",
+    rrna: "16S + 23S rRNA, 18/20 tRNAs",
+    whereInCI: "2nd Lake, 1st Lake",
+    story: "A rare kind of bacterium that lives in 2nd Lake, where it makes up as much as 5% of the DNA. Most of its genes are a mystery.",
+    activities: ["Catches sunlight with a rhodopsin pump", "Breaks down plant fibres and chitin", "Fights viruses with CRISPR"],
+    tags: ["2nd Lake Resident", "68% Mystery Genes", "Sunlight Helper", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N3_peredibacter",
+    img: "microbe_N3_peredibacter.png",
+    habitat: "freshwater",
+    nickname: "Peckish Peredibacter",
+    rrna: "2× 16S + 3× 23S + 5S rRNA, 19/20 tRNAs",
+    whereInCI: "1st Lake",
+    story: "A fast-swimming hunter from 1st Lake that belongs to a group of bacteria that eat other bacteria.",
+    activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
+    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in 1st Lake", "New Species"]
+  },
+  {
+    id: "N4_bdellovibrio",
+    img: "microbe_N4_bdellovibrio.png",
+    habitat: "freshwater",
+    nickname: "Bullet-fast Bdellovibrio",
+    rrna: "16S + 23S + 5S rRNA, 19/20 tRNAs",
+    whereInCI: "2nd Lake",
+    story: "A tiny, curved hunter from 2nd Lake. Its relatives are some of the fastest swimmers for their size and eat other bacteria from the inside.",
+    activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
+    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in 2nd Lake", "New Species"]
+  },
+  {
+    id: "N5_uba845",
+    img: "microbe_N5_uba845.png",
+    habitat: "marine",
+    nickname: "The Harbour Hunter",
+    rrna: "16S + 23S rRNA, 19/20 tRNAs",
+    whereInCI: "Tuktuttaa, Dock, Itivia",
+    story: "A sea-water hunter found at Tuktuttaa and the Dock, from a group of bacteria that eat other bacteria.",
+    activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
+    tags: ["Bacteria Hunter", "Sea-Water Swimmer", "New Genus", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N6_k1",
+    img: "microbe_N6_k1.png",
+    habitat: "marine",
+    nickname: "The Carbon-Catching Sulfur Ball",
+    rrna: "16S + 23S + 5S rRNA, 19/20 tRNAs",
+    whereInCI: "Itivia, Dock, Tuktuttaa",
+    story: "A tiny sea bacterium that turns carbon dioxide into food. It lives in the inlet in spring and fall, and across Hudson Bay and the High Arctic.",
+    activities: ["Turns carbon dioxide into food (RuBisCO)", "Has sulfur-energy genes like its relatives", "Catches sunlight with a rhodopsin pump"],
+    tags: ["Carbon Catcher", "Sunlight Helper", "Found Across Hudson Bay", "Known Species, No Name"]
   }
 ];

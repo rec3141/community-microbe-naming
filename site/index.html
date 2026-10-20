@@ -1120,7 +1120,8 @@ initSelector(); buildRing();
   document.getElementById('nFw').textContent = C.filter(c=>c.habitat!=='marine').length; }
 const h = location.hash.match(/^#(\d+)(?:\/(\w+))?/);
 // old tab names in saved links still work
-if (h){ curTab = ({ecology:'distribution', evolution:'diversity'})[h[2]] || h[2] || 'story'; openOrganism(+h[1]-1); }
+if (h){ const t = ({ecology:'distribution', evolution:'diversity'})[h[2]] || h[2];
+  curTab = document.getElementById('tab-'+t) ? t : 'story'; openOrganism(+h[1]-1); }
 </script>
 </body>
 </html>

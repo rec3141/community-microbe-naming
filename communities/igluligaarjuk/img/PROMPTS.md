@@ -164,3 +164,63 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 **Generation Prompt:**
 > Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single Planktophila bacterium (a tiny freshwater acI actinobacterium) centered in a circular composition suitable for circular cropping. Morphological accuracy: a very small, slim, gently curved rod-shaped bacterial cell (tiny curved bacillus) with a smooth semi-translucent lavender-violet and soft sky-blue cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO flagella, NO tentacles, NO limbs of any kind - only the pure little curved bacterial cell body. Across its outer membrane are small glowing violet-pink light-harvesting patches (actinorhodopsin) shimmering as they catch sunlight. Big, expressive, goofy cartoon eyes and a delighted tiny smile are drawn directly on the cell body. Scale and scene: it is noticeably tiny, floating among a crowd of similar tiny cousins drifting in the clear, sunlit open water of an Arctic tundra lake near Chesterfield Inlet, with soft golden sunbeams and gentle lake caustics streaming down from the surface, distant blurry rounded granite boulders and green tundra shoreline in the background, and small glowing amber droplets of dissolved nutrients it is sipping. Crisp bold outlines, clean vector-like digital cartoon style, cool clear Arctic freshwater palette with warm sunlight accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N1_amylibacter — Amylibacter (Itivia, marine)
+- **File**: [`microbe_N1_amylibacter.png`](microbe_N1_amylibacter.png)
+- **Genome**: `N1_amylibacter` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single Amylibacter bacterium (a marine Rhodobacteraceae) centered in a circular composition suitable for circular cropping. Morphological accuracy: a small, plump, short oval rod-shaped cell with smooth semi-translucent sunny-yellow and pale-green cell envelope, a few round pale storage granules visible inside, strictly NO arms, NO legs, NO hands, NO feet, NO flagella, NO tentacles, NO limbs of any kind - only the pure little oval bacterial cell body. Big, friendly cartoon eyes and a contented smile drawn directly on the cell body. Scene: it floats in cold, clear blue-green seawater of an Arctic Hudson Bay inlet, happily slurping tiny glowing droplets of dissolved sugars released by drifting diatoms and phytoplankton cells around it, with a rocky shoreline and pieces of sea ice blurred above the surface and soft sunbeams from above. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with warm yellow accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N2_caivzm01 — CAIVZM01, Armatimonadota (2nd Lake)
+- **File**: [`microbe_N2_caivzm01.png`](microbe_N2_caivzm01.png)
+- **Genome**: `N2_caivzm01` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single bacterium from the rare phylum Armatimonadota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a medium-length, slightly irregular rod-shaped cell with smooth semi-translucent deep indigo and silver cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO flagella, NO tentacles, NO limbs of any kind - only the pure bacterial cell body. Big, curious cartoon eyes and a happy open-mouthed smile drawn directly on the cell body. Scene: it is nibbling on a tangle of long fibrous strands of plant and algal material (glowing chains of sugar beads breaking off) drifting in the brown-green water of a shallow Arctic tundra lake, with sedges, moss and rounded rocks blurred along the shore and soft golden light from above. Crisp bold outlines, clean vector-like digital cartoon style, freshwater palette with indigo and gold accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N3_peredibacter — Peredibacter, a predator (1st Lake)
+- **File**: [`microbe_N3_peredibacter.png`](microbe_N3_peredibacter.png)
+- **Genome**: `N3_peredibacter` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single Peredibacter bacterium, a tiny predatory bacterium, centered in a circular composition suitable for circular cropping. Morphological accuracy: a small, plump, slightly curved comma-shaped rod cell with one long whip-like flagellum at one end, smooth semi-translucent teal-green cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO teeth, NO limbs of any kind - only the pure little curved bacterial cell body and its single flagellum. Big, expressive, determined cartoon eyes and a cheeky grin drawn directly on the cell body. Scene: it is zooming like a tiny torpedo toward a much larger, surprised-looking plain rod-shaped bacterium in the cool clear water of an Arctic tundra lake, with a few empty deflated cell husks drifting nearby, soft green-blue lake light, gentle sunbeams from the surface, rounded boulders and tundra shoreline blurred in the background. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N4_bdellovibrio — Bdellovibrio, a predator (2nd Lake)
+- **File**: [`microbe_N4_bdellovibrio.png`](microbe_N4_bdellovibrio.png)
+- **Genome**: `N4_bdellovibrio` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single Bdellovibrio bacterium, a tiny predatory bacterium that swims into other bacteria, centered in a circular composition suitable for circular cropping. Morphological accuracy: a very small comma-shaped vibrio cell with a single thick sheathed flagellum at one end, smooth semi-translucent amber-orange cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO teeth, NO limbs of any kind - only the pure little comma-shaped bacterial cell body and its flagellum. Big, expressive, mischievous cartoon eyes and a happy grin drawn directly on the cell body. Scene: next to it is a much larger, round, swollen prey bacterium (a rounded bdelloplast) with a small window showing a tiny copy of the comma cell curled up inside, in the cold clear water of an Arctic tundra lake under a thin sheet of ice, with pale blue light filtering through the ice above. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with warm orange accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N5_uba845 — UBA845, a predator (Tuktuttaa/Dock, marine)
+- **File**: [`microbe_N5_uba845.png`](microbe_N5_uba845.png)
+- **Genome**: `N5_uba845` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small predatory marine bacterium from the Bacteriovoracaceae family, centered in a circular composition suitable for circular cropping. Morphological accuracy: a small, slim, gently curved rod cell with one long flagellum at one end, smooth semi-translucent coral-pink cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO teeth, NO limbs of any kind - only the pure little curved bacterial cell body and its flagellum. Big, expressive, alert cartoon eyes and a sly little smile drawn directly on the cell body. Scene: it is hunting among a crowd of larger plain rod-shaped and round bacteria drifting near green seaweed fronds in the cold, deep blue water of an Arctic harbour on Hudson Bay, with rocky shore and floating sea-ice pieces blurred above the water surface. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with warm coral accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N6_k1 — Pseudothioglobaceae sulfur oxidizer (Itivia, marine)
+- **File**: [`microbe_N6_k1.png`](microbe_N6_k1.png)
+- **Genome**: `N6_k1` (community-only bin, mapped and annotated on its own)
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small sulfur-oxidizing marine bacterium of the SUP05 group, centered in a circular composition suitable for circular cropping. Morphological accuracy: a small, round to slightly oval coccoid cell with smooth semi-translucent pale lilac cell envelope, a few glowing yellow sulfur specks inside, strictly NO arms, NO legs, NO hands, NO feet, NO flagella, NO tentacles, NO limbs of any kind - only the pure little round bacterial cell body. Big, sleepy-happy cartoon eyes and a gentle smile drawn directly on the cell body. Scene: it drifts in dim, cold, deep blue water of an Arctic inlet near the muddy bottom, catching tiny glowing yellow sulfur crystals and small bubbles that rise from the mud below, with faint light from the surface far above. Crisp bold outlines, clean vector-like digital cartoon style, cold dark marine palette with glowing yellow accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.

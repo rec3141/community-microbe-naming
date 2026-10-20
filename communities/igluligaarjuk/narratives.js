@@ -149,6 +149,119 @@ window.NARRATIVES = {
       ["Vitamins (B7, B9) and iron", "Biotin and folate, plus tools for taking up iron."],
       ["Water-quality score (EcoSSDB)", "A score for how much its genes might help keep freshwater and climate in balance."]
     ]
+  },
+  "A2_planktophila": {
+    nickname: "Pint-sized Planktophila",
+    eco: "Planktophila means 'plankton-loving'. Its relatives, called acI bacteria, are some of the most common bacteria in lakes all over the world, and they are tiny: hundreds of them could line up across the width of a hair. This one has one of the smallest genomes of any microbe on this site, about 1.2 million letters. Small cells with small genomes waste little energy, which helps in lakes where food is scarce. We found its DNA in all three lakes behind town, in May, September and October. It was most common in 2nd Lake in mid-September and in 3rd Lake in late May, where it made up more than 1% of all the DNA. In hundreds of samples from lakes and rivers across Manitoba we only found its cousins, not this species. As far as we know, it lives only here.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relatives share only about 91% of their DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
+      ["What does 'only here' mean?", "In the samples we have, reads that match its genome at 95% or more come only from 1st, 2nd and 3rd Lake. Samples from other places carry relatives, not this one."],
+      ["How small is small?", "Its whole genome is about 1.2 million DNA letters. Most bacteria have 3 to 5 million, and E. coli has about 4.6 million."]
+    ],
+    fn: "It floats in open water, takes in small sugars and other bits of food, and burns them with a full set of energy pathways. A light-driven pump in its outer layer lets it use sunlight for extra energy. It also makes vitamin B2 and has defences against viruses.",
+    fnMore: [
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery. It needs a colourful molecule called retinal, made from beta-carotene, and the genome has the gene for that step too."],
+      ["Sugar burning (glycolysis and TCA cycle)", "The main pathways for turning sugars into energy. All the steps are there."],
+      ["Vitamin B2 (riboflavin)", "It can build riboflavin from scratch."],
+      ["Virus defence (CRISPR-Cas)", "A memory system that stores pieces of viruses it has met, so it can recognise and cut them next time."],
+      ["Cold-shock proteins", "Small proteins that help the cell keep working when the water gets cold."]
+    ]
+  },
+  "N1_amylibacter": {
+    nickname: "Sun-sipping Amylibacter",
+    eco: "Amylibacter means 'starch rod'. Its relatives are small rod-shaped bacteria that float in cold ocean water and live on tiny bits of food that algae and other living things leave behind. We found the most of it at Itivia in mid-September, where it made up about 1.4% of all the DNA in the water. It was also at the Dock in September and at Itivia again in October. Outside Chesterfield Inlet we found it in one sample from the Churchill River estuary on Hudson Bay, but not in our samples from the High Arctic islands. Its genome is about 2.2 million DNA letters long, and our checks say we have all of its genes.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at 99.7%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
+      ["How complete is the genome?", "Our checks say 100% complete, with very little DNA from other microbes mixed in. It has two copies of its ribosome genes and all 20 kinds of tRNA."]
+    ],
+    fn: "It eats small bits of food in seawater and burns them for energy. A light-driven pump in its outer layer lets it use sunlight for extra energy, and it can also get energy from a sulfur compound called thiosulfate. It makes or brings in glycine betaine, a small molecule that protects cells from salty, cold water.",
+    fnMore: [
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery. It needs a colourful molecule called retinal, and the genome has the gene that makes retinal from beta-carotene."],
+      ["Sulfur energy (Sox)", "A full set of Sox genes, which take electrons from thiosulfate. The cell uses them for energy, a bit like a battery."],
+      ["Salt and cold protection (glycine betaine)", "Pumps that bring glycine betaine into the cell and enzymes that make it from choline. Inside the cell it keeps water from leaving in salty or freezing conditions."],
+      ["Vitamin B12", "It has most of the genes to build vitamin B12, which many algae need but cannot make themselves."]
+    ]
+  },
+  "N2_caivzm01": {
+    nickname: "The 2nd Lake Mystery",
+    eco: "This bacterium belongs to a group called Armatimonadota. Scientists know very little about this group, and only a few of its members have ever been grown in a lab. In Chesterfield Inlet it lives in 2nd Lake. We found it in every sample from 2nd Lake in September and October, and in mid-September it made up more than 5% of all the DNA in the water. We found only a little of it in 1st Lake and almost none in 3rd Lake. In lake and river samples from Manitoba we found only its cousins, not this species.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, from somewhere else, and our genome matches it at 98.9%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
+      ["Why is it a mystery?", "About two out of every three of its genes look like nothing scientists have studied before, so we cannot tell what they do."],
+      ["Why only 2nd Lake?", "We don't know yet. Each lake has its own water chemistry, depth and plants around it, and small differences like these can decide which microbes do well."]
+    ],
+    fn: "It burns sugars with a full set of energy pathways. It has enzymes that can break down tough fibres from plants (cellulose), insect and crustacean shells (chitin) and seaweed-like sugars (alginate). A light-driven pump gives it extra energy from sunlight. It also carries many CRISPR genes, so it has strong defences against viruses.",
+    fnMore: [
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery. The genome also has the gene that makes retinal, the coloured molecule the pump needs."],
+      ["Fibre breakers (cellulase, chitinase, alginate lyase)", "Enzymes that cut long chains of sugar into small pieces the cell can eat. Dead plants and insects that fall into the lake are full of these chains."],
+      ["Virus defence (CRISPR-Cas)", "A memory system that stores pieces of viruses it has met, so it can recognise and cut them next time. This genome has more CRISPR genes than most."],
+      ["Vitamin B2 (riboflavin)", "It can build riboflavin from scratch."]
+    ]
+  },
+  "N3_peredibacter": {
+    nickname: "Peckish Peredibacter",
+    eco: "Peredibacter means 'bacterium-devourer'. Its relatives are hunters: they swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Hunters like this help keep other bacteria in check, a little like wolves and caribou. We found this one in 1st Lake, where in one sample it made up more than 7% of all the DNA. In another 1st Lake sample there was much less, and we found almost none in the other lakes. We did not find it anywhere else we have samples from.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relative shares only about 87% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
+      ["How does it find its prey?", "Its genome has many genes for a flagellum, a whip-like tail for swimming, and for sensors that tell the cell which way to swim. Its relatives swim very fast and crash into their prey."],
+      ["What do most of its genes do?", "We don't know. About three out of every four of its genes look like nothing scientists have studied before."]
+    ],
+    fn: "Like its relatives, it probably hunts other bacteria and uses their insides as food. Its genome has the parts for a flagellum to swim with, sensors to steer by, and many enzymes that cut up proteins and fats, which is what a cell eating another cell needs. It also burns sugars with a full set of energy pathways.",
+    fnMore: [
+      ["Swimming (flagellum)", "More than 30 genes for building a flagellum, a long spinning tail that pushes the cell through water."],
+      ["Steering (chemotaxis)", "Sensors that detect chemicals in the water so the cell can swim toward food."],
+      ["Protein and fat cutters (peptidases, lipases)", "More than 100 enzymes that cut proteins and fats into small pieces. Hunters use enzymes like these to digest their prey."],
+      ["Sugar burning (glycolysis and TCA cycle)", "The main pathways for turning sugars into energy. All the steps are there."]
+    ]
+  },
+  "N4_bdellovibrio": {
+    nickname: "Bullet-fast Bdellovibrio",
+    eco: "Bdellovibrio means 'leech-like vibrio', a vibrio being a small curved rod. Its relatives are famous hunters: they are among the fastest swimmers for their size, crash into a bigger bacterium, drill through its wall, eat it from the inside and burst out as new cells. We found this one in 2nd Lake. In one sample it made up about 9% of all the DNA, a lot for a hunter. We found almost none in our other lake samples, and none anywhere else we have samples from.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. No genome scientists have read so far is close enough for our tools to measure how similar it is, so it is quite far from every known Bdellovibrio."],
+      ["Why would a hunter be so common?", "When its prey is plentiful, a hunter can multiply quickly. One sample catches one moment, so it may have been a time when there was lots to eat."],
+      ["Can hunters like this help people?", "Scientists are studying Bdellovibrio as a living medicine that could kill bacteria that cause infections, because it does not need antibiotics to work."]
+    ],
+    fn: "Like its relatives, it probably hunts other bacteria and uses their insides as food. Its genome has the parts for a flagellum to swim with, more than 30 sensor genes to steer by, a short grappling hook (a pilus) like the one its relatives use to grab prey, and many enzymes that cut up proteins and fats.",
+    fnMore: [
+      ["Swimming (flagellum)", "More than 30 genes for building a flagellum, a long spinning tail that pushes the cell through water."],
+      ["Steering (chemotaxis)", "Sensors that detect chemicals in the water so the cell can swim toward food."],
+      ["Grappling hook (type IV pilus)", "A thin hair that can stick to a surface and pull. Bdellovibrio relatives use one to grab their prey and pull themselves inside."],
+      ["Protein and fat cutters (peptidases, lipases)", "More than 100 enzymes that cut proteins and fats into small pieces, which is what digesting prey needs."],
+      ["Rod shape (mreBCD, rodA)", "Genes that build the cell wall in a rod shape."]
+    ]
+  },
+  "N5_uba845": {
+    nickname: "The Harbour Hunter",
+    eco: "This bacterium belongs to a family of hunters called Bacteriovoracaceae, which means 'bacteria-eaters'. Its relatives swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Many of them live in salty water. We found this one at Tuktuttaa, where in one sample it made up almost 5% of all the DNA, and at the Dock, where it made up about 3%. There was a little at Itivia too. In our samples from Hudson Bay near Churchill and from the High Arctic islands we found only its cousins, not this species.",
+    ecoMore: [
+      ["Is it a new species?", "Yes, and it does not fit in any named genus either. Its closest known relative shares only about 86% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
+      ["Why do hunters matter?", "Hunters keep other bacteria in check, a little like wolves and caribou. When a hunter bursts out of its prey, the leftovers become food for other microbes."]
+    ],
+    fn: "Like its relatives, it probably hunts other bacteria and uses their insides as food. Its genome has the parts for a flagellum to swim with, sensors to steer by and many enzymes that cut up proteins and fats. It also makes and takes in glycine betaine, which protects cells from salty water.",
+    fnMore: [
+      ["Swimming (flagellum)", "More than 30 genes for building a flagellum, a long spinning tail that pushes the cell through water."],
+      ["Steering (chemotaxis)", "Sensors that detect chemicals in the water so the cell can swim toward food."],
+      ["Protein and fat cutters (peptidases, lipases)", "More than 100 enzymes that cut proteins and fats into small pieces, which is what digesting prey needs."],
+      ["Salt protection (glycine betaine)", "Pumps and enzymes for glycine betaine, a small molecule that keeps water inside the cell in salty conditions."]
+    ]
+  },
+  "N6_k1": {
+    nickname: "The Carbon-Catching Sulfur Ball",
+    eco: "Pseudothioglobus means 'false sulfur ball'. Its relatives are small round or curved cells that are common in the ocean, especially where the water holds little oxygen. Many of them get energy from sulfur and use it to turn carbon dioxide into food, the way plants do with sunlight. In Chesterfield Inlet we found it at Itivia, the Dock and Tuktuttaa. It made up about 1.6% of all the DNA at the Dock in late May and at Itivia in mid-September, so it is here in both spring and fall. Unlike many microbes on this site, it is not only a Chesterfield microbe: we also found it in Hudson Bay near Churchill and among the High Arctic islands.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
+      ["Is the Chesterfield one exactly the same?", "Almost. Reads from the inlet match our genome at about 95–96%, right on the border between 'same species' and 'different species'. The inlet may have its own close cousin."],
+      ["How complete is the genome?", "Our checks say about 90% complete, so a few of its genes are probably missing from what we have."]
+    ],
+    fn: "It has RuBisCO, the same enzyme plants use to turn carbon dioxide from the air and water into sugar. It also has some of the genes its relatives use to get energy from sulfur compounds, and a light-driven pump for extra energy from sunlight. It makes vitamins B1 and B7 (biotin), and brings in glycine betaine to protect itself from salty, cold water.",
+    fnMore: [
+      ["Carbon catcher (RuBisCO)", "RuBisCO grabs carbon dioxide and turns it into sugar, so this microbe can make its own food instead of eating it."],
+      ["Sulfur energy (Sat and Apr)", "Two of the three steps its relatives use to get energy from sulfur. The third step (Dsr) was not found. It may be in the part of the genome we are missing."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Vitamins B1 and B7", "It can build thiamine (B1) and biotin (B7) from scratch. Many algae and other microbes need these vitamins but cannot make them."],
+      ["Salt and cold protection (glycine betaine)", "Pumps that bring glycine betaine into the cell, where it keeps water from leaving in salty or freezing conditions."]
+    ]
   }
 };
 
@@ -197,5 +310,55 @@ window.GENERA = {
     gender: "feminine", type: "\"Ca. Nitrotoga arctica\"",
     ref: "Alawi M, Lipski A, Sanders T, Pfeiffer EM, Spieck E (2007) Cultivation of a novel cold-adapted nitrite oxidizing betaproteobacterium from the Siberian Arctic. ISME J 1:256–264.",
     doi: "10.1038/ismej.2007.34"
+  },
+  Planktophila: {
+    full: "\"Candidatus Planktophila\" Jezbera et al. 2009",
+    etym: "Plank.to'phi.la. Gr. masc. adj. planktos, wandering; German neut. n. Plankton, plankton; N.L. fem. adj. suff. -phila, friend, loving (from Gr. fem. adj. philê); N.L. fem. n. Planktophila, plankton-loving",
+    gloss: "plankton-loving",
+    status: "Candidatus name, not validly published",
+    gender: "feminine",
+    type: "\"Ca. Planktophila limnetica\"",
+    ref: "Jezbera J, Sharma AK, Brandt U, Doolittle WF, Hahn MW (2009) 'Candidatus Planktophila limnetica', an actinobacterium representing one of the most numerically important taxa in freshwater bacterioplankton. Int J Syst Evol Microbiol 59:2864–2869.",
+    doi: "10.1099/ijs.0.010199-0"
+  },
+  Amylibacter: {
+    full: "Amylibacter Teramoto and Nishijima 2014",
+    etym: "A.my.li.bac'ter. L. neut. n. amylum, starch; N.L. masc. n. bacter, rod; N.L. masc. n. Amylibacter, a rod growing well with starch",
+    gloss: "starch rod",
+    status: "validly published under the ICNP",
+    gender: "masculine",
+    type: "Amylibacter marinus",
+    ref: "Teramoto M, Nishijima M (2014) Amylibacter marinus gen. nov., sp. nov., isolated from surface seawater. Int J Syst Evol Microbiol 64:4016–4020.",
+    doi: "10.1099/ijs.0.065847-0"
+  },
+  Peredibacter: {
+    full: "Peredibacter Davidov and Jurkevitch 2004",
+    etym: "Per.e.di.bac'ter. L. inf. v. peredere, to eat up, to devour; N.L. masc. n. bacter, rod; N.L. masc. n. Peredibacter, bacterium-devourer",
+    gloss: "bacterium-devourer",
+    status: "validly published under the ICNP",
+    gender: "masculine",
+    type: "Peredibacter starrii",
+    ref: "Davidov Y, Jurkevitch E (2004) Diversity and evolution of Bdellovibrio-and-like organisms (BALOs), reclassification of Bacteriovorax starrii as Peredibacter starrii gen. nov., comb. nov., and description of the Bacteriovorax-Peredibacter clade as Bacteriovoracaceae fam. nov. Int J Syst Evol Microbiol 54:1439–1452.",
+    doi: "10.1099/ijs.0.02978-0"
+  },
+  Bdellovibrio: {
+    full: "Bdellovibrio Stolp and Starr 1963 (Approved Lists 1980)",
+    etym: "Bdel.lo.vi'bri.o. Gr. fem. n. bdella, leech, sucker; L. v. vibro, to set in tremulous motion, move to and fro, vibrate; N.L. masc. n. vibrio, that which vibrates, and also a bacterial genus name of bacteria possessing a curved rod shape (Vibrio); N.L. masc. n. Bdellovibrio, a leechlike vibrio",
+    gloss: "leech-like vibrio",
+    status: "validly published under the ICNP",
+    gender: "masculine",
+    type: "Bdellovibrio bacteriovorus",
+    ref: "Stolp H, Starr MP (1963) Bdellovibrio bacteriovorus gen. et sp. n., a predatory, ectoparasitic, and bacteriolytic microorganism. Antonie van Leeuwenhoek 29:217–248.",
+    doi: "10.1007/bf02046064"
+  },
+  Pseudothioglobus: {
+    full: "\"Candidatus Pseudothioglobus\" van Vliet et al. 2021",
+    etym: "Pseu.do.thi.o'glo.bus. Gr. neut. adj. pseudes, false; Gr. neut. n. theîon, sulfur; L. masc. n. globus, ball, sphere; N.L. masc. n. Pseudothioglobus, false sulfur-oxidizing sphere",
+    gloss: "false sulfur ball",
+    status: "Candidatus name, not validly published (LPSN lists it as a synonym of Thioglobus)",
+    gender: "masculine",
+    type: "\"Ca. Pseudothioglobus singularis\"",
+    ref: "van Vliet DM, von Meijenfeldt FAB, Dutilh BE, Villanueva L, Sinninghe Damsté JS, Stams AJM, Sánchez-Andrea I (2021) The bacterial sulfur cycle in expanding dysoxic and euxinic marine waters. Environ Microbiol 23:2834–2857.",
+    doi: "10.1111/1462-2920.15265"
   }
 };

@@ -60,6 +60,26 @@ reassembly only when it is at least as complete, less contaminated, and gains rR
 genes. Then map the samples to it with `genome_to_site.sh` or danaSeq map-only mode, and
 re-run the annotation before swapping it into the site.
 
+### Adding a stand-alone genome
+
+A genome that is not a bin of the co-assembly can also go on the site, for example a
+reassembly or a bin from another assembly. Treat the whole genome as one MAG:
+
+1. `genome_to_site.sh <genome.fa> <project>/assembly_<label> <input_dirs> <samples.txt>` maps every
+   sample to it. It writes `depths.txt`, `cov95.tsv` and `input_stats.tsv` like `map_to_ref.sh`.
+2. Run danaSeq `mag_analysis` on `assembly_<label>` into `mag_<label>`, with binning, dereplication
+   and the binners off. If a run is preempted, resubmit it with `--resume`.
+3. `genome_site_inputs.sh <label> <checkm2_completeness> <checkm2_contamination> <out_dir>` (Slurm,
+   with `HELPERS` and `LOCAL_META` exported) collects that genome's site inputs into `out_dir`.
+   It renames contigs to `<label>_<contig>` and writes the genome, the annotation, rRNA, tRNA,
+   antiSMASH, dnaA, ecosystem services, `meta.json`, `modules.json`, and `abund.json`. Abundance
+   counts only reads at ≥ 95% identity, because a genome mapped on its own also collects reads
+   from its relatives. It also writes `identity.json`, from reads at ≥ 90% identity.
+4. Run GTDB-Tk `classify_wf` on the new genomes together, then add each genome to
+   `build_config.json` → `extra_genomes` (see step 5).
+5. Write its text and add it with `scripts/build/add_microbe.py communities/<id> <spec.json>`
+   (see step 6).
+
 ## 3. Where each microbe lives
 
 - `cand_abund.sh` runs `cand_abund.py`. From the co-assembly `depths.txt` it computes per-sample
@@ -115,6 +135,7 @@ python3 scripts/build/build_site_data.py   communities/<id>/build_config.json   
 | `station_rules` | ordered rules from sample-sheet text to a station: `any` substrings (upper case), optional `and_regex`, optional `or_project` |
 | `fallback_station` | station for samples that no rule matches, per habitat |
 | `extract` | settings for extract_site_data.py: candidates (may include dropped ones), local flowcells, `evo_source` per habitat, `sketch_tables` |
+| `extra_genomes.<label>` | stand-alone genomes (step 2): `habitat`, `dir` (the `genome_site_inputs.sh` output), `tree` (GTDB-Tk classify tree file) and `gtdbtk_summary`. Their abundance is shown only for the samples in that habitat's co-assembly |
 
 Check the build log. `[WARN] stations without coordinates` means a rule points at a station
 that is missing from `stations`.
@@ -130,6 +151,10 @@ that is missing from `stations`.
 - `community.js`: place and language strings, the dictionary credit, and `shapeGenes` from
   `scripts/hpc/shape_genes.py` (rod-shape genes decide whether endings like -bacter or
   -bacillus fit).
+- `scripts/build/add_microbe.py communities/<id> <spec.json>` adds or replaces one microbe in
+  `candidates.js`, `narratives.js` (story and `GENERA`) and `community.js` (`shapeGenes`) in one go.
+  The spec is `{"cand": {...}, "narr": {...}, "genus": {"<Genus>": {...}} or null, "shape": "mreB rodA"}`,
+  with the same fields as the existing entries.
 - `api/prompt.json`: set `language` and `env_slug`, and adapt the system prompt's community
   sentence and example.
 - `site/taxon_names.js`: regenerate with `make_taxon_names.py` when GTDB releases a new version.

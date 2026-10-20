@@ -23,6 +23,17 @@ LOCAL_STATION = LOCAL["station"]
 
 mar_cands = CFG["candidates"].get("marine", [])
 fw_cands = CFG["candidates"].get("freshwater", [])
+# Stand-alone genomes (e.g. reassemblies, community-only bins) mapped and annotated on their
+# own: scripts/hpc/genome_site_inputs.sh puts their per-MAG files in one folder each.
+EXTRA = {g: dict(v, dir=cfg_path(v["dir"])) for g, v in CFG.get("extra_genomes", {}).items()}
+for g, v in EXTRA.items():
+    lst = mar_cands if v["habitat"] == "marine" else fw_cands
+    if g not in lst:
+        lst.append(g)
+
+
+def mag_dir(hab, m):
+    return EXTRA[m]["dir"] if m in EXTRA else f"{scratch}/{hab}"
 
 # ---------------------------------------------------------
 # 1. PARSE NEWICK & EXTRACT EXACT GTDB SUBTREE
@@ -350,11 +361,15 @@ with open(f"{scratch}/freshwater/gtdbtk_taxonomy.tsv") as f:
 # placed by ANI only) the sister species to draw next to it
 tree_specs = {m: (v["habitat"], v["tree_file"], v["queries"], v.get("ani_sister"))
               for m, v in CFG["tree_specs"].items()}
+for g, v in EXTRA.items():  # the GTDB-Tk classify tree its own run placed it in
+    if g not in tree_specs and v.get("tree"):
+        tree_specs[g] = (v["habitat"], cfg_path(v["tree"]), [g], None)
 
 extracted_trees = {}
 for mag_id, (hab, tfile, queries, ani_sis) in tree_specs.items():
-    with open(f"{scratch}/{hab}/gtdbtk_trees/{tfile}") as f:
+    with open(tfile if os.path.isabs(tfile) else f"{scratch}/{hab}/gtdbtk_trees/{tfile}") as f:
         nw_str = f.read()
+    tfile = os.path.basename(tfile)
     lmeta = marine_leaf_meta if hab == "marine" else fw_leaf_meta
     root = parse_newick(nw_str)
     tleaf0 = find_target_leaf(root, queries)
@@ -381,7 +396,8 @@ bgc_by_contig  = {"marine": {}, "freshwater": {}}
 for hab in ["marine", "freshwater"]:
     with open(f"{scratch}/{hab}/rrna_genes.tsv") as f:
         for r in csv.DictReader(f, delimiter="\t"):
-            if r.get("best") == "False": continue
+            # barrnap runs with all three kingdom models; keep the bacterial calls only
+            if r.get("best") == "False" or r.get("kingdom", "Bacteria") != "Bacteria": continue
             rrna_by_contig[hab].setdefault(r["contig_id"], []).append(r)
     with open(f"{scratch}/{hab}/trna_genes.tsv") as f:
         for r in csv.DictReader(f, delimiter="\t"):
@@ -399,6 +415,19 @@ for hab in ["marine", "freshwater"]:
         for r in csv.reader(open(p), delimiter="\t"):
             if len(r) >= 8 and "replication initiat" in r[7]:
                 dnaa_by_contig[hab][r[0]] = int(r[2])
+for g, v in EXTRA.items():  # their contigs are prefixed with the genome id, so no clashes
+    hab, d = v["habitat"], v["dir"]
+    for r in csv.DictReader(open(f"{d}/rrna_genes.tsv"), delimiter="\t"):
+        if r.get("best") != "False" and r.get("kingdom", "Bacteria") == "Bacteria":
+            rrna_by_contig[hab].setdefault(r["contig_id"], []).append(r)
+    for r in csv.DictReader(open(f"{d}/trna_genes.tsv"), delimiter="\t"):
+        trna_by_contig[hab].setdefault(r["contig_id"], []).append(r)
+    for r in csv.DictReader(open(f"{d}/antismash_summary.tsv"), delimiter="\t"):
+        if r.get("type") not in (None, "", "NA"):
+            bgc_by_contig[hab].setdefault(r["contig"], []).append(r)
+    for r in csv.reader(open(f"{d}/dnaA.tsv"), delimiter="\t"):
+        if len(r) >= 8 and "replication initiat" in r[7]:
+            dnaa_by_contig[hab][r[0]] = int(r[2])
 
 
 def cumulative_skew(seq, win=2000):
@@ -454,8 +483,8 @@ def order_by_skew(contigs, dnaa):
 
 
 def compute_circos(hab, mag_id, n_bins=120):
-    fa_path = f"{scratch}/{hab}/{mag_id}.fa"
-    tsv_path = f"{scratch}/{hab}/{mag_id}.tsv"
+    fa_path = f"{mag_dir(hab, mag_id)}/{mag_id}.fa"
+    tsv_path = f"{mag_dir(hab, mag_id)}/{mag_id}.tsv"
 
     contigs = []
     curr_id = None
@@ -604,6 +633,8 @@ def compute_circos(hab, mag_id, n_bins=120):
                 metabolic_bins[b_idx] += 1
 
             dlower = (desc + " " + pfam + " " + cazy + " " + ko).lower()
+            if "sarcosine" in dlower:  # sarcosine oxidase subunits carry PFAM SoxA..SoxG, not sulfur oxidation
+                dlower = dlower.replace("sox", "")
             cat = None
             lbl = None
             if cazy:
@@ -747,8 +778,10 @@ cices_meta = {
 }
 
 ecossdb_all = {}
-for hab, cands in [("marine", mar_cands), ("freshwater", fw_cands)]:
-    with open(f"{scratch}/{hab}/es_per_mag.tsv") as f:
+es_files = [(hab, cands, f"{scratch}/{hab}/es_per_mag.tsv") for hab, cands in [("marine", mar_cands), ("freshwater", fw_cands)]]
+es_files += [(v["habitat"], [g], f"{v['dir']}/es_per_mag.tsv") for g, v in EXTRA.items()]
+for hab, cands, es_path in es_files:
+    with open(es_path) as f:
         for r in csv.DictReader(f, delimiter="\t"):
             mid = r["entity_id"]
             if mid not in cands: continue
@@ -908,14 +941,24 @@ for hits in sketch_by_mag.values():
 north_map_all = {}
 MIN_BREADTH = CFG.get("min_breadth", 0.3)  # "detected" = at least 30% of the genome has reads
 unknown_stations = set()
+jobs, hab_samples = [], {}
 for hab, cands in [("marine", mar_cands), ("freshwater", fw_cands)]:
     # relative abundance per sample from the co-assembly depth table (cand_abund.py on Grex):
     # relab = MAG share of the sample DNA that mapped to the co-assembly (%)
     with open(f"{scratch}/{hab}/cand_abund.json") as f:
         ab = json.load(f)
+    hab_samples[hab] = set(ab["samples"])
     # read identity to each MAG per local sample, from the BAMs (cand_identity.py on Grex)
     idp = f"{scratch}/{hab}/cand_identity.json"
     ident = json.load(open(idp)) if os.path.exists(idp) else {}
+    jobs.append((hab, [c for c in cands if c not in EXTRA], ab, ident, None))
+for g, v in EXTRA.items():
+    # stand-alone genomes: relab = % of the sample's read bases (genome_site_inputs.py); they
+    # may be mapped against both habitats' samples, so keep this habitat's samples only
+    idp = f"{v['dir']}/identity.json"
+    jobs.append((v["habitat"], [g], json.load(open(f"{v['dir']}/abund.json")),
+                 json.load(open(idp)) if os.path.exists(idp) else {}, hab_samples[v["habitat"]]))
+for hab, cands, ab, ident, allowed in jobs:
     snames = ab["samples"]
     st_groups = {}
     for j, sn in enumerate(snames):
@@ -926,7 +969,7 @@ for hab, cands in [("marine", mar_cands), ("freshwater", fw_cands)]:
             if (cm["site"] in CI_FRESH) != (hab == "freshwater"):
                 continue  # local sample from the other habitat
             st = LOCAL_STATION
-        elif skip_sample(sn):
+        elif skip_sample(sn) or (allowed is not None and sn not in allowed):
             continue
         else:
             hint = habitat_hint(meta.get(sn, {}))
@@ -1040,6 +1083,29 @@ with open(f"{scratch}/site_data_dump.txt") as f:
         elif curr_m and line.startswith("Modules >=0.5:"):
             dump_mods[curr_m] = [{"id": k.split(":", 1)[0], "name": k.split(":", 1)[1], "c": v}
                                  for k, v in eval(line.split(":", 1)[1].strip())]
+
+# stand-alone genomes: quality from their own files, taxonomy from their GTDB-Tk summary
+for g, v in EXTRA.items():
+    dump_meta[g] = json.load(open(f"{v['dir']}/meta.json"))
+    dump_mods[g] = [{"id": k.split(":", 1)[0], "name": k.split(":", 1)[1], "c": c}
+                    for k, c in json.load(open(f"{v['dir']}/modules.json"))]
+    for r in csv.DictReader(open(cfg_path(v["gtdbtk_summary"])), delimiter="\t"):
+        if r["user_genome"] == g:
+            def gv(*ks):
+                for k in ks:
+                    if r.get(k) not in (None, "N/A", ""):
+                        return r[k]
+                return None
+            dump_evo[g] = {
+                "classification": r["classification"],
+                "method": gv("classification_method"),
+                "closest_ref": gv("closest_genome_reference", "closest_placement_reference"),
+                "closest_ani": gv("closest_genome_ani", "closest_placement_ani"),
+                "closest_af": gv("closest_genome_af", "closest_placement_af"),
+                "red_value": gv("red_value"),
+                "msa_percent": gv("msa_percent"),
+                "other_refs": gv("other_related_references(genome_id,species_name,radius,ANI,AF)"),
+            }
 
 # ---------------------------------------------------------
 # Home-page cladogram: each workshop MAG stands in for its closest GTDB reference

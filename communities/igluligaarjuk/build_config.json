@@ -490,5 +490,49 @@
    "marine": "ci_vs_mar_dastool.tsv",
    "freshwater": "ci_vs_fw_dastool.tsv"
   }
+ },
+ "extra_genomes": {
+  "A2_planktophila": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/A2_planktophila",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.5.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N1_amylibacter": {
+   "habitat": "marine",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N1_amylibacter",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.3.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N2_caivzm01": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N2_caivzm01",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.5.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N3_peredibacter": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N3_peredibacter",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N4_bdellovibrio": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N4_bdellovibrio",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N5_uba845": {
+   "habitat": "marine",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N5_uba845",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "N6_k1": {
+   "habitat": "marine",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N6_k1",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.1.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  }
  }
 }

@@ -57,10 +57,10 @@ communities/<id>/
   img/                    one picture per microbe + PROMPTS.md (how they were made)
   README.md               what is withheld and where it lives
 scripts/build/            extract_site_data.py, build_site_data.py, make_taxon_names.py,
-                          assemble_site.sh, deploy.sh
+                          add_microbe.py, assemble_site.sh, deploy.sh
 scripts/hpc/              env.sh (cluster paths) + Slurm jobs: map_to_ref.sh, genome_to_site.sh,
                           cand_abund.*, cand_identity.*, ci_specific.py, ci_*_qc.sh, qc_summary.py,
-                          shape_genes.py, reassembly/
+                          shape_genes.py, genome_site_inputs.* (stand-alone genomes), reassembly/
 ```
 
 ## Everyday commands
