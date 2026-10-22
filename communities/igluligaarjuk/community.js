@@ -25,6 +25,7 @@ window.COMMUNITY = {
     'dastool-lorbin_069':'mreB', 'W11_nitrotoga':'mreBCD rodA pbp2', 'dastool-lorbin_054':'', 'A2_planktophila':'mreBCD', 'N3_peredibacter':'mreB rodA', 'N4_bdellovibrio':'mreBCD rodA', 'N5_uba845':'mreB', 'N1_amylibacter':'mreB rodA', 'N2_caivzm01':'mreB', 'N6_k1':'mreB rodA pbp2',
     'N7_marimicrobium':'mreBCD rodA pbp2', 'N8_uba9145':'rodA pbp2', 'N9_uba10364':'mreBC', 'N10_uba9320':'mreB', 'N12_nitrosopumilus':'',
     'N11_caisji01':'', 'N13_mycobacterium':'', 'N14_atzt02':'mreB',
+    'I1_pseudoalteromonas':'mreBCD rodA pbp2', 'I2_shewanella':'mreBCD rodA pbp2',
   },
   // grammatical gender of existing genera not in narratives.js GENERA (m/f/n)
   knownGenusGender: {Aurantibacillus: 'm'},

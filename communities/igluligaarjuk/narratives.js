@@ -403,6 +403,40 @@ window.NARRATIVES = {
       ["Rod shape (mreBCD, rodA)", "Genes that build the cell wall in a rod shape."],
       ["Cold-shock proteins", "Small proteins that help the cell keep reading its genes when the water gets near freezing."]
     ]
+  },
+  "I1_pseudoalteromonas": {
+    nickname: "Patient Pseudoalteromonas",
+    eco: "Pseudoalteromonas means 'false Alteromonas': it was split off from a look-alike genus called Alteromonas. Its relatives are common sea bacteria. We grew this one in the lab from water taken at the Dock, so we know it was there. But when we read the DNA in our water samples, we found only a faint trace of it at the Dock: at most about 0.02% of the DNA, in mid-September. That is too little to count as found, so it was found in 0 of our 15 samples from the inlet. Near Churchill it was a different story. It turned up in 8 of 174 samples from Hudson Bay, and one of those samples held about 56 million of its cells in a litre of water. We also found it in 1 of 19 samples from the Churchill River estuary, but not in the High Arctic islands.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98% across about 85% of the genome. But nobody has ever described this species or given it a name."],
+      ["Why was it easy to grow but hard to find?", "Microbes that grow fast on lab food are often rare in the water itself. Scientists call all the rare microbes in the water the 'rare biosphere'. A rare microbe can wait in small numbers, like seeds in the ground, and grow quickly when the food or the weather changes. The sample near Churchill with about 56 million cells in a litre shows how big that jump can be. The opposite is also true: most of the microbes we find in the water's DNA will not grow in the lab at all."],
+      ["How complete is the genome?", "Our checks say 100% complete with no contamination, in 10 pieces and about 4.4 million DNA letters. Because we grew it in the lab, all the DNA came from one kind of cell. It has 9 copies of the 16S rRNA gene and all 20 kinds of tRNA. Many copies of the ribosome genes can help a cell make proteins fast when it gets a chance to grow."]
+    ],
+    fn: "It has a big toolkit for eating. Five enzymes from the alginate-lyase families cut alginate, the slimy sugar in brown seaweed, and three xylanases cut xylan, a sugar chain made by plants and some algae. It also makes proteases, enzymes that break down proteins. It swims with a whip-like tail and has 21 sensor proteins that tell it which way to swim. It has seven cold-shock genes, a needle-like machine its relatives use against other bacteria, and four clusters of genes for making special chemicals that do not match any known ones.",
+    fnMore: [
+      ["Seaweed sugar cutters (alginate lyases)", "Five enzymes from alginate-lyase families (PL6, PL7, PL17 and PL18) that cut alginate, the slimy sugar in brown seaweed, into small pieces."],
+      ["Protein cutters (proteases)", "Three subtilisin-like proteases and an M6 metalloprotease. Proteases like these are often sent outside the cell to break down proteins in the water."],
+      ["Swimming and steering (flagellum, chemotaxis)", "Genes for a flagellum, the whip-like tail, and 21 sensor proteins that tell the cell which way to swim."],
+      ["Bacterial needle (type VI secretion)", "Genes for a needle-like machine (Hcp, VgrG, TssF, TssG and others). Its relatives use machines like this to poke toxins into other bacteria nearby."],
+      ["Cold-shock proteins", "Seven small proteins that help the cell keep reading its genes when the water gets near freezing."]
+    ]
+  },
+  "I2_shewanella": {
+    nickname: "Shocking Shewanella",
+    eco: "Shewanella is named after James Shewan, a scientist who studied the microbes that live on fish. Its relatives live in seawater, sea ice and mud around the world. We grew this one in the lab from water taken at the Dock, so we know it was there. But we could not find its DNA in any of our water samples: not in the inlet, not near Churchill and not in the High Arctic islands. It probably lives here in very small numbers, or mostly in places we did not sample, like mud on the sea floor.",
+    ecoMore: [
+      ["Is it a new species?", "Probably yes. Its closest known relative, Shewanella halifaxensis, shares only about 85.5% of its DNA letters with it, and only across about 29% of the genome. Scientists usually call two genomes the same species when they share 95% or more."],
+      ["How can a microbe be there but not show up?", "A litre of seawater holds about a billion microbes. Reading the DNA from a water sample catches the common ones, but a microbe with only a few cells in a litre can be missed. Growing microbes in the lab works the other way: one cell that likes the lab food can grow into a colony of millions. That is how we caught this one. Rare microbes like this can wait in the water, like seeds, until conditions change and they can grow."],
+      ["How complete is the genome?", "Our checks say 100% complete, in 13 pieces and about 5 million DNA letters. One of the pieces is a plasmid, a small extra loop of DNA that bacteria can pass to each other. It has all 20 kinds of tRNA and many copies of its ribosome genes."]
+    ],
+    fn: "We breathe oxygen, and so does this bacterium when it can. When oxygen runs out, its genes let it breathe other things instead. With proteins called MtrA, MtrB and MtrC, it can pass electrons out through its cell wall to rusty iron and other metals, like a tiny electric wire. It also has genes for breathing nitrate, nitrite and other chemicals. It makes EPA, an omega-3 fat that keeps its cell membrane soft in cold water, and it swims with a whip-like tail.",
+    fnMore: [
+      ["Metal breathing (CymA, MtrA, MtrB, MtrC)", "In its relatives, CymA picks up electrons inside the cell, MtrA carries them outward, MtrB forms a tunnel through the outer membrane and MtrC hands them to rusty iron or other metals outside the cell. Scientists have used Shewanella to make tiny amounts of electricity."],
+      ["Other ways to breathe (nap, nrf, tor, dms)", "Enzymes for breathing nitrate, nitrite, TMAO (a chemical found in fish and other sea animals) and DMSO when there is no oxygen."],
+      ["Omega-3 fat (pfaA, pfaB, pfaC, pfaD)", "Genes for making eicosapentaenoic acid (EPA), the same omega-3 fat found in fish oil. Bendy omega-3 fats help keep cell membranes soft and working in cold water."],
+      ["Swimming and steering (flagellum, chemotaxis)", "Genes for a flagellum, the whip-like tail, and 14 sensor proteins that tell the cell which way to swim."],
+      ["Vitamin B12", "About a dozen genes for building cobalamin (vitamin B12). Many algae need B12 but cannot make it themselves."]
+    ]
   }
 };
 
@@ -540,5 +574,25 @@ window.GENERA = {
     gender: "neuter",
     type: "Mycobacterium tuberculosis",
     ref: "Lehmann KB, Neumann R (1896) Atlas und Grundriss der Bakteriologie und Lehrbuch der speziellen bakteriologischen Diagnostik. Teil 2: Text, 1st ed. J.F. Lehmann, München."
+  },
+  Pseudoalteromonas: {
+    full: "Pseudoalteromonas Gauthier et al. 1995",
+    etym: "Pseu.do.al.te.ro'mo.nas. Gr. neut. adj. pseudes, false; N.L. fem. n. Alteromonas, genus of gram-negative, aerobic, marine bacteria; N.L. fem. n. Pseudoalteromonas, false Alteromonas [probably better: Pseudalteromonas]",
+    gloss: "false Alteromonas",
+    status: "validly published under the ICNP",
+    gender: "feminine",
+    type: "Pseudoalteromonas haloplanktis",
+    ref: "Gauthier G, Gauthier M, Christen R (1995) Phylogenetic analysis of the genera Alteromonas, Shewanella, and Moritella using genes coding for small-subunit rRNA sequences and division of the genus Alteromonas into two genera, Alteromonas (emended) and Pseudoalteromonas gen. nov., and proposal of twelve new species combinations. Int J Syst Bacteriol 45:755–761.",
+    doi: "10.1099/00207713-45-4-755"
+  },
+  Shewanella: {
+    full: "Shewanella MacDonell and Colwell 1986",
+    etym: "She.wa.nel'la. N.L. fem. dim. n. Shewanella, named after James Shewan for his work in fisheries microbiology",
+    gloss: "named after James Shewan",
+    status: "validly published under the ICNP",
+    gender: "feminine",
+    type: "Shewanella putrefaciens",
+    ref: "MacDonell MT, Colwell RR (1985) Phylogeny of the Vibrionaceae, and recommendation for two new genera, Listonella and Shewanella. Syst Appl Microbiol 6:171–182.",
+    doi: "10.1016/s0723-2020(85)80051-5"
   }
 };

@@ -253,5 +253,21 @@ window.IQ_CONTENT = {
         {key: "inuuqatigiitsiarniq", clue: "The same species lives in lakes near The Pas in Manitoba, far to the south.", q: "What links a lake near Igluligaarjuk with a lake far to the south? How could a tiny microbe get from one to the other?"},
       ],
     },
+
+    "I1_pseudoalteromonas": {
+      hook: "Easy to grow in the lab from Dock water, but almost invisible in the water's DNA. Near Churchill, one sample held about 56 million of its cells in a litre.",
+      items: [
+        {key: "avatittinnik", clue: "In the inlet it was only a faint trace, but near Churchill it sometimes grows into a crowd. Rare microbes can wait in the water until conditions suit them.", q: "What changes in the inlet over a year could help a rare microbe suddenly grow? Who here watches those changes, and what do they notice?"},
+        {key: "pijitsirniq", clue: "It cuts seaweed sugars and proteins into small pieces, and other small living things in the water can use those pieces as food.", q: "Where in Igluligaarjuk does food get shared out so that nothing goes to waste? How does everyone know their part?"},
+      ],
+    },
+
+    "I2_shewanella": {
+      hook: "A new species grown in the lab from Dock water, even though none of our water samples showed its DNA. When oxygen runs out, it can breathe rusty iron.",
+      items: [
+        {key: "aajiiqatigiinniq", clue: "It grew in the lab from Dock water, so it was there, yet none of our DNA samples picked it up.", q: "When two ways of looking give different answers, how should the group decide what to believe? What other ways could show where it lives?"},
+        {key: "qanuqtuurniq", clue: "Its genes let it switch to breathing iron, nitrate or other chemicals when oxygen runs out, and it makes an omega-3 fat that keeps it soft in the cold.", q: "What helps people and animals here keep going through the cold? Which of those ways are learned, and which are built in?"},
+      ],
+    },
   },
 };

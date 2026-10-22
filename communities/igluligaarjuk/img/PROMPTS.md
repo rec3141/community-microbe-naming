@@ -304,3 +304,23 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 **Generation Prompt:**
 > Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single tiny freshwater bacterium from the Actinomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a very small, short rod-shaped cell with rounded ends and a smooth semi-translucent lilac cell envelope from a light-catching rhodopsin pump, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure tiny rod-shaped bacterial cell body. Big, cheerful cartoon eyes and a big grin drawn directly on the cell body. Scene: it floats in the middle of a huge friendly crowd of identical tiny lilac rod-shaped cells, filling the cold clear water of a tundra lake in autumn, with low golden autumn light from the surface and dark rocky hills blurred above the water line. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with lilac and warm gold accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_I1_pseudoalteromonas — Pseudoalteromonas, lab-grown seaweed-cutting rod (Dock isolate, marine)
+- **File**: [`microbe_I1_pseudoalteromonas.png`](microbe_I1_pseudoalteromonas.png)
+- **Genome**: `I1_pseudoalteromonas` (Pseudoalteromonas sp000239855 (Alteromonadaceae, Gammaproteobacteria; isolate grown from Dock water, marine))
+- **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), cropped to the circle and resized to 560x560 PNG
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single marine bacterium of the genus Pseudoalteromonas, centered in a circular composition suitable for circular cropping. Morphological accuracy: a short, plump, slightly curved rod-shaped cell with rounded ends and one long, wavy flagellum at one end, smooth semi-translucent warm golden-yellow cell envelope, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind - only the pure rod-shaped bacterial cell body and its single flagellum. Big, patient, half-closed contented cartoon eyes and a calm little smile drawn directly on the cell body. Scene: it waits quietly in cold green-blue harbour water beside a swaying frond of brown kelp, snipping off small pieces of the slimy seaweed, while a few other tiny sleepy golden cells drift far apart in the water around it, with broken sea ice floating on the surface far above. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with warm golden-yellow accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_I2_shewanella — Shewanella, lab-grown metal-breathing rod (Dock isolate, marine)
+- **File**: [`microbe_I2_shewanella.png`](microbe_I2_shewanella.png)
+- **Genome**: `I2_shewanella` (Shewanella sp. nov. (Shewanellaceae, Gammaproteobacteria; isolate grown from Dock water, marine))
+- **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), cropped to the circle and resized to 560x560 PNG
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single marine bacterium of the genus Shewanella, centered in a circular composition suitable for circular cropping. Morphological accuracy: a straight rod-shaped cell with rounded ends and one long, wavy flagellum at one end, smooth semi-translucent salmon-pink cell envelope with tiny glowing electric sparks crackling along its surface and a few small glowing orange oil droplets inside, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind - only the pure rod-shaped bacterial cell body and its single flagellum. Big, wide, delighted cartoon eyes and an excited open grin drawn directly on the cell body. Scene: it rests on the dark muddy sea floor of a cold Arctic harbour, touching a rusty orange pebble and sending small bright electric sparks into it, with pale light filtering down through sea ice far above. Crisp bold outlines, clean vector-like digital cartoon style, cold dark marine palette with salmon-pink, rust-orange and electric-yellow accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
