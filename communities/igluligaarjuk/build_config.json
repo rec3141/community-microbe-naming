@@ -11,16 +11,16 @@
  "candidates": {
   "marine": [
    "dastool-lorbin_055",
-   "dastool-lorbin_162",
+   "W02_polaribacter",
    "dastool-metabat_11223",
    "dastool-semibin_075",
    "dastool-lorbin_002",
-   "dastool-lorbin_051"
+   "W06_methylophilid"
   ],
   "freshwater": [
    "dastool-comebin_6520",
-   "dastool-comebin_4228",
-   "dastool-comebin_3630"
+   "W09_polynucleobacter",
+   "W11_nitrotoga"
   ]
  },
  "tree_specs": {
@@ -494,45 +494,87 @@
  "extra_genomes": {
   "A2_planktophila": {
    "habitat": "freshwater",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/A2_planktophila",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/A2_planktophila",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.5.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N1_amylibacter": {
    "habitat": "marine",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N1_amylibacter",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N1_amylibacter",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.3.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N2_caivzm01": {
    "habitat": "freshwater",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N2_caivzm01",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N2_caivzm01",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.5.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N3_peredibacter": {
    "habitat": "freshwater",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N3_peredibacter",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N3_peredibacter",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N4_bdellovibrio": {
    "habitat": "freshwater",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N4_bdellovibrio",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N4_bdellovibrio",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N5_uba845": {
    "habitat": "marine",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N5_uba845",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N5_uba845",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.7.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
   },
   "N6_k1": {
    "habitat": "marine",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site/N6_k1",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N6_k1",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.1.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+  },
+  "W02_polaribacter": {
+   "habitat": "marine",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/W02_polaribacter",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.classify.tree.2.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.summary.tsv"
+  },
+  "W06_methylophilid": {
+   "habitat": "marine",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/W06_methylophilid",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.classify.tree.1.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.summary.tsv"
+  },
+  "W09_polynucleobacter": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/W09_polynucleobacter",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.classify.tree.1.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.summary.tsv"
+  },
+  "W11_nitrotoga": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/W11_nitrotoga",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.classify.tree.1.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_w/gtdbtk.bac120.summary.tsv"
   }
- }
+ },
+ "ko_list": "/data/scratch/refdbs/kofam_db/ko_list",
+ "gtdb_taxonomy": "~/igluligaarjuk_inputs/newgenomes/ani/gtdb_r232_taxonomy.tsv",
+ "ani_table": "~/igluligaarjuk_inputs/newgenomes/ani/skani_r232.tsv",
+ "gtdbtk_runs": [
+  "~/igluligaarjuk_inputs/newgenomes/gtdbtk_orig"
+ ],
+ "abundance_dir": "~/igluligaarjuk_inputs/newgenomes/abund_all500",
+ "mapped_bases": {
+  "freshwater": "~/igluligaarjuk_inputs/mapped_bases500/freshwater.tsv",
+  "marine": "~/igluligaarjuk_inputs/mapped_bases500/marine.tsv"
+ },
+ "detect_min_bp": 250000,
+ "detect_breadth_ratio": 0.5,
+ "cells_per_litre": {
+  "marine": 1000000000.0,
+  "freshwater": 1000000000.0
+ },
+ "mean_genome_bp": 3000000
 }

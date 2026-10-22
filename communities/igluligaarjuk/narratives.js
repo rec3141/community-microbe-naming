@@ -6,9 +6,9 @@
 window.NARRATIVES = {
   "dastool-lorbin_055": {
     nickname: "Tidal Thioglobus",
-    eco: "Chesterfield Inlet sits where a long inlet meets Hudson Bay, and for much of the year its water lies under sea ice. In the harbour, mud and rotting seaweed slowly release sulfur compounds, the source of that rotten-egg smell you sometimes notice at low tide. This microbe makes its living from that sulfur: it pulls energy out of it and uses the energy to build its body from carbon dioxide dissolved in the water, the way plants do with sunlight, except it works in the dark. Its close relatives, called the SUP05 group, are some of the most common bacteria in low-oxygen parts of the world's oceans, where they clean up sulfur and help control how much nitrogen is lost from the sea. Finding this one thriving in shallow harbour water is unusual, and it seems to have its stronghold right here in Igluligaarjuk. It also makes B-vitamins that algae and other plankton need but cannot make for themselves, so it quietly supports the food web around it.",
+    eco: "Chesterfield Inlet sits where a long inlet meets Hudson Bay, and for much of the year its water lies under sea ice. In the harbour, mud and rotting seaweed slowly release sulfur compounds, the source of that rotten-egg smell you sometimes notice at low tide. This microbe makes its living from that sulfur: it pulls energy out of it and uses the energy to build its body from carbon dioxide dissolved in the water, the way plants do with sunlight, except it works in the dark. Its close relatives, called the SUP05 group, are some of the most common bacteria in low-oxygen parts of the world's oceans, where they clean up sulfur and help control how much nitrogen is lost from the sea. Finding this one thriving in shallow harbour water is unusual, and it seems to have its stronghold right here in Igluligaarjuk: at the Dock in late May there were about 55 million of its cells in a litre of water. It also makes B-vitamins that algae and other plankton need but cannot make for themselves, so it quietly supports the food web around it.",
     ecoMore: [
-      ["Why is Chesterfield Inlet special for it?", "We compared more than 300 seawater samples from Chesterfield, Hudson Bay near Churchill and the High Arctic islands. Most of this microbe's DNA in all of those comes from the Chesterfield samples, and the reads here match its genome at 96–97%, so it is the same species. Its relatives (the SUP05 group) usually live where there is little oxygen, like deep fjords."],
+      ["Why is Chesterfield Inlet special for it?", "We compared nearly 300 seawater samples from Chesterfield, Hudson Bay near Churchill and the High Arctic islands. Here we found it at the Dock and Tuktuttaa in late May and at Itivia in September and October, with up to about 55 million cells in a litre. Near Churchill it turned up in only 6 of about 190 samples, never more than about 2 million in a litre, and we did not find it among the High Arctic islands. The reads here match its genome at 96–97%, so it is the same species. Its relatives (the SUP05 group) usually live where there is little oxygen, like deep fjords."],
       ["What does 'sulfur-oxidizing' mean?", "Sulfur compounds such as hydrogen sulfide (the rotten-egg smell) and thiosulfate hold chemical energy. The microbe pulls electrons off them, which chemists call oxidizing, turning them into harmless sulfate and keeping the energy. Its genes for this are called dsr, apr and sat."],
       ["What is 'carbon fixation'?", "Turning carbon dioxide gas into sugar and cell material. Plants do it with sunlight; this microbe does it with chemical energy, using the same key enzyme plants use (RuBisCO, in the Calvin cycle). Microbes that live this way are called chemolithoautotrophs: 'chemical, rock-eating self-feeders'."]
     ],
@@ -21,29 +21,30 @@ window.NARRATIVES = {
       ["Antifreeze molecules (proline, glycine betaine)", "Small molecules that balance salt and cold, so the cell doesn't shrivel or freeze in salty brine."]
     ]
   },
-  "dastool-lorbin_162": {
+  "W02_polaribacter": {
     nickname: "Peckish Polaribacter",
-    eco: "When the sun returns in spring, algae start growing on the underside of the sea ice and then in the open water as the ice breaks up. These algae, along with kelp along the shore, are the base of the Arctic food web, but much of what they make is locked up in tough sugars that most animals cannot digest. That is where Polaribacter comes in. Bacteria in this group are among the first to grow when algae bloom and die, and they break the sugars down into pieces that other microbes, and eventually small animals, can use. Scientists care about this step because it decides how much of the algae's carbon sinks to the sea floor and how much goes back into the water and air as carbon dioxide. This particular Polaribacter is a new species, found at the Dock, Itivia and Tuktuttaa. It is gold-coloured because it makes its own sunscreen pigments to cope with bright spring light reflecting off the ice.",
+    eco: "When the sun returns in spring, algae start growing on the underside of the sea ice and then in the open water as the ice breaks up. These algae, along with kelp along the shore, are the base of the Arctic food web, but much of what they make is locked up in tough sugars that most animals cannot digest. That is where Polaribacter comes in. Bacteria in this group are among the first to grow when algae bloom and die, and they break the sugars down into pieces that other microbes, and eventually small animals, can use. Scientists care about this step because it decides how much of the algae's carbon sinks to the sea floor and how much goes back into the water and air as carbon dioxide. This particular Polaribacter is a new species. We found the most of it at Tuktuttaa in late May, about 12 million cells in a litre of water, and smaller numbers at the Dock and Itivia in spring and fall. It is not only a Chesterfield microbe: it also lives in most of our samples from the Churchill River estuary and in some from Hudson Bay and the High Arctic islands. Its genome has genes for golden pigments that work like sunscreen against bright spring light reflecting off the ice, and a light-catching pump that gives it a little extra energy.",
     ecoMore: [
-      ["What makes it new?", "Its DNA is less than 95% the same as any species scientists have described, so it is a new species in a genus that already has a name."],
-      ["Where do we find it?", "At Tuktuttaa, the Dock and Itivia, in spring and fall. The reads from most of those samples match its genome at 96–97%, so it is the same species. Polaribacter are often among the first microbes to bloom when algae grow."],
+      ["What makes it new?", "Its DNA is only about 94% the same as the closest species scientists have read. Scientists usually call two genomes the same species when they share 95% or more, so it is a new species in a genus that already has a name."],
+      ["Where do we find it?", "At Tuktuttaa and the Dock in late May, and at Itivia and the Dock in September. The most was at Tuktuttaa, about 12 million cells in a litre; elsewhere there were 3 to 4 million. The reads match its genome at 96–98%, so it is the same species. Polaribacter are often among the first microbes to bloom when algae grow."],
       ["What's a 'polysaccharide'?", "A long chain of sugars, like the slimy alginate in kelp or the laminarin stored inside algae. Most animals can't digest them; microbes like this one can."]
     ],
-    fn: "It eats seaweed and algae sugars, grabs scarce iron, makes golden sunscreen pigments and keeps working at freezing temperatures.",
+    fn: "It eats seaweed and algae sugars, grabs scarce iron, makes golden sunscreen pigments, catches a little sunlight for energy and keeps working at freezing temperatures.",
     fnMore: [
-      ["Seaweed-sugar scissors (alginate lyases PL6, PL7)", "Enzymes that cut alginate, the slimy sugar in brown seaweed, into small pieces the cell can eat."],
-      ["Sugar catchers (TonB-dependent receptors)", "Doorways in the outer wall that pull big sugar pieces and iron into the cell. This genome has dozens of them, a sign of a big eater."],
+      ["Seaweed-sugar scissors (alginate lyases PL6, PL7, PL17; laminarinase GH16)", "Enzymes that cut alginate, the slimy sugar in brown seaweed, and laminarin, the sugar algae store, into small pieces the cell can eat."],
+      ["Sugar catchers (TonB-dependent receptors)", "Doorways in the outer wall that pull big sugar pieces and iron into the cell. This genome has about 20 of them, a sign of a big eater."],
       ["Golden sunscreen (carotenoids and terpenes)", "Pigments that protect the cell from strong spring sunlight bouncing off snow and ice."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
       ["Cold tools (cold-shock proteins)", "Proteins that keep the cell's machinery working near 0°C."]
     ]
   },
   "dastool-metabat_11223": {
     nickname: "Snow-Surfing Schleifer",
-    eco: "Out in the water column, dead algae, waste and slime clump together into fluffy flakes that drift slowly down, a process scientists call 'marine snow'. Marine snow carries a large share of the ocean's carbon from the surface down to the sea floor, which is one reason the ocean helps take carbon dioxide out of the atmosphere. This microbe lives on those flakes. It holds on with sticky patches on its surface and nibbles the sugars stored inside the algae, so it helps decide how much of that carbon is recycled near the surface and how much keeps sinking. Its genus has only a code name, TMED14. In Chesterfield Inlet it is common in the spring samples, while in the fall a close cousin seems to take its place, a small sign of how the microbial community changes through the year.",
+    eco: "Out in the water column, dead algae, waste and slime clump together into fluffy flakes that drift slowly down, a process scientists call 'marine snow'. Marine snow carries a large share of the ocean's carbon from the surface down to the sea floor, which is one reason the ocean helps take carbon dioxide out of the atmosphere. This microbe lives on those flakes. It holds on with sticky patches on its surface and nibbles the sugars stored inside the algae, so it helps decide how much of that carbon is recycled near the surface and how much keeps sinking. Its genus has only a code name, TMED14. In Chesterfield Inlet it was common in late May, with about 10 to 15 million cells in a litre of water at Tuktuttaa and the Dock. By September only a few hundred thousand were left, a small sign of how the microbial community changes through the year.",
     ecoMore: [
       ["What is marine snow?", "Sinking clumps of dead plankton, waste and slime. It is one of the main ways carbon travels from the sea surface down to the sea floor."],
       ["Why 'Schleifer'?", "Its family, the Schleiferiaceae, is named after the microbiologist Karl-Heinz Schleifer. Its genus has no name yet, only the code TMED14."],
-      ["Where do we find it?", "In the May samples from Tuktuttaa, the Dock and Itivia, where the reads match this genome at 96–97%. In September and October the reads are much less similar (78–86%), so a cousin takes its place in the fall."]
+      ["Where do we find it?", "In the late-May samples from Tuktuttaa and the Dock, about 10 to 15 million cells in a litre, where the reads match this genome at about 97%. At Itivia in September it was still there, but only a few hundred thousand cells in a litre. Outside Chesterfield we also found it among the High Arctic islands and a few times near Churchill."]
     ],
     fn: "It sticks to particles, digests the sugars algae store, and makes folate (vitamin B9).",
     fnMore: [
@@ -55,11 +56,11 @@ window.NARRATIVES = {
   },
   "dastool-semibin_075": {
     nickname: "Gutsy Gamma",
-    eco: "Most of the bacteria living in the ocean have never been grown in a lab, and many have never been given a name; scientists sometimes call them 'microbial dark matter'. This microbe is a good example. It belongs to a big, well-known class of bacteria, the Gammaproteobacteria, but every group below that, from its order down to its species, has only a code name. It also has one of the smallest genomes in our set. In cold, low-nutrient water, carrying extra genes is costly, so some microbes have trimmed their DNA down to the essentials. Even so, this one keeps a kit for getting energy from sulfur, factories for vitamins, and a CRISPR immune system, a record of viruses it has fought off before. Viruses infect huge numbers of ocean bacteria every day, so that defence matters. We find it in small amounts around the Dock and Itivia, mostly in the fall.",
+    eco: "Most of the bacteria living in the ocean have never been grown in a lab, and many have never been given a name; scientists sometimes call them 'microbial dark matter'. This microbe is a good example. It belongs to a big, well-known class of bacteria, the Gammaproteobacteria, but its family, genus and species have only code names. Even its order only got a name recently: Poriferisulfidales, after sulfur bacteria that live inside sea sponges. It also has one of the smallest genomes in our set. In cold, low-nutrient water, carrying extra genes is costly, so some microbes have trimmed their DNA down to the essentials. Even so, this one keeps a kit for getting energy from sulfur, factories for vitamins, and a CRISPR immune system, a record of viruses it has fought off before. Viruses infect huge numbers of ocean bacteria every day, so that defence matters. We find it in small numbers around the Dock and Itivia, a few million cells in a litre at most, mostly in the fall.",
     ecoMore: [
-      ["Why 'Gamma'?", "It belongs to the Gammaproteobacteria, a huge class of bacteria. Every rank below that has only a code name (GCA-2705445)."],
+      ["Why 'Gamma'?", "It belongs to the Gammaproteobacteria, a huge class of bacteria. Its order, Poriferisulfidales, is named after sulfur bacteria that live inside sea sponges. Its family, genus and species have only a code name (GCA-2705445)."],
       ["What is a 'streamlined' genome?", "Where food is scarce, carrying extra genes costs energy, so some microbes lose every gene they don't need. Small genome, big job."],
-      ["Where do we find it?", "In small amounts at the Dock and Itivia, mostly in the September and October samples, where the reads match its genome at about 96%."]
+      ["Where do we find it?", "In small numbers at the Dock and Itivia in September and at the Dock in late May, up to about 4 million cells in a litre. The reads match its genome at about 95–96%."]
     ],
     fn: "It gets energy from sulfur, grabs iron, makes biotin and NAD, and uses CRISPR to remember and fight off viruses.",
     fnMore: [
@@ -71,9 +72,9 @@ window.NARRATIVES = {
   },
   "dastool-lorbin_002": {
     nickname: "Busy Balneatrix",
-    eco: "Some microbes are specialists that do one job very well. This one is a generalist: its genome contains a long list of complete chemical pathways, so it can switch between many different foods and ways of getting energy, including using sulfur. One of its most useful habits is making vitamins. Many algae need vitamin B12 to grow but cannot make it; they depend on bacteria nearby to supply it. By making B12 parts along with vitamins B2, B5 and B7, a microbe like this one can help algae grow, which in turn feeds everything else in the inlet. It also makes natural antifreeze molecules that protect it in cold, salty water. Its genus has only a code name (ASP10-02a), and its family is named after a bacterium called Balneatrix. It is one of the cleanest, most complete genomes we found, found at all three seawater sites in both spring and fall.",
+    eco: "Some microbes are specialists that do one job very well. This one is a generalist: its genome contains a long list of complete chemical pathways, so it can switch between many different foods and ways of getting energy, including using sulfur. One of its most useful habits is making vitamins. Many algae need vitamin B12 to grow but cannot make it; they depend on bacteria nearby to supply it. By making B12 parts along with vitamins B2, B5 and B7, a microbe like this one can help algae grow, which in turn feeds everything else in the inlet. It also makes natural antifreeze molecules that protect it in cold, salty water. Its genus, Njordibacter, was proposed in 2025 by scientists studying Arctic sea bacteria and is named after Njord, the Norse god of wind and the sea. Its family is named after a bacterium called Balneatrix. It is one of the cleanest, most complete genomes we found. We found it at all three seawater sites in spring and fall, with the most at Tuktuttaa in late May, about 11 million cells in a litre of water. It also lives in Hudson Bay near Churchill and among the High Arctic islands.",
     ecoMore: [
-      ["Why 'Balneatrix'?", "Its family, the Balneatricaceae, is named after the genus Balneatrix, Latin for 'bather'. Its own genus has only a code (ASP10-02a)."],
+      ["Why 'Balneatrix'?", "Its family, the Balneatricaceae, is named after the genus Balneatrix, Latin for 'bather'. Its own genus, Njordibacter, is named after Njord, the Norse god of wind and the sea."],
       ["What's a 'metabolic pathway'?", "A chain of chemical steps, like an assembly line, that turns one molecule into another. This genome has many complete ones, more than most microbes here."],
       ["How good is this genome?", "About 98% complete with almost no contamination, one of the cleanest genomes in the set."]
     ],
@@ -86,17 +87,18 @@ window.NARRATIVES = {
       ["Special chemicals (biosynthetic gene clusters)", "Groups of genes that build unusual molecules, here a terpene, a betalactone and others. Some of these act as signals or antibiotics."]
     ]
   },
-  "dastool-lorbin_051": {
+  "W06_methylophilid": {
     nickname: "Methanol-Munching Methylophilid",
-    eco: "When algae grow and when they die, they release very small carbon molecules into the water, things like methanol, formate and methylamines. These one-carbon compounds are easy to overlook, but there is a lot of them, and if nobody used them some would build up or escape to the air. This microbe specialises in eating exactly these leftovers, so the carbon stays in the food web. It belongs to a family of bacteria called the 'methyl-lovers' (Methylophilaceae) because of that taste. It also carries a light-catching protein called a rhodopsin, related to the one in our own eyes, that works like a tiny solar panel and gives it extra energy on sunny days. Scientists first discovered these light pumps in ocean bacteria about 25 years ago and have since found them almost everywhere in sunlit seawater. Here it is found around the Dock, Itivia and Tuktuttaa in spring and fall.",
+    eco: "When algae grow and when they die, they release very small carbon molecules into the water, things like methanol and formate. These one-carbon compounds are easy to overlook, but there is a lot of them, and if nobody used them some would build up or escape to the air. This microbe specialises in eating exactly these leftovers, so the carbon stays in the food web. It belongs to a family of bacteria called the 'methyl-lovers' (Methylophilaceae) because of that taste. It also carries a light-catching protein called a rhodopsin, related to the one in our own eyes, that works like a tiny solar panel and gives it extra energy on sunny days. Scientists first discovered these light pumps in ocean bacteria about 25 years ago and have since found them almost everywhere in sunlit seawater. Here we found it at all three seawater sites in spring and fall, up to about 9 million cells in a litre of water. It is just as much at home across Hudson Bay: it turned up in more than half of our samples from near Churchill, and in some from the High Arctic islands.",
     ecoMore: [
       ["Why 'Methylophilid'?", "Its family, the Methylophilaceae, means 'methyl-lovers', after their taste for one-carbon (methyl) compounds. Its genus has only a code (BACL14)."],
       ["What is a rhodopsin?", "A light-catching protein, the same kind of molecule that lets our eyes see. In microbes it pumps charged particles across the cell's skin, working like a tiny solar panel."],
-      ["Where do we find it?", "Around the Dock, Itivia and Tuktuttaa in spring and fall, where the reads match its genome at 96–98%."]
+      ["Where do we find it?", "At the Dock and Tuktuttaa in late May, at Itivia and the Dock in September, and at Itivia in October, with 3 to 9 million cells in a litre. The reads match its genome at 96–98%, so it is the same species."],
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 99%, but it has only a code name. Almost half of its genes look like nothing scientists have studied yet."]
     ],
     fn: "It eats one-carbon leftovers, catches sunlight, makes B-vitamins and makes small antimicrobial peptides.",
     fnMore: [
-      ["One-carbon food (methanol, formate, methylamines)", "The simplest carbon foods there are. Algae and decaying plankton release them."],
+      ["One-carbon food (methanol, formate)", "The simplest carbon foods there are. Algae and decaying plankton release them. Its genome has a methanol-eating enzyme (XoxF) and the enzymes that break down formate."],
       ["Light pump (proteorhodopsin)", "Turns sunlight into a little extra energy."],
       ["Vitamins (B1, B7, B9)", "Thiamine, biotin and folate."],
       ["Lanthipeptides", "Small protein-like molecules that can stop other bacteria from growing, a kind of natural antibiotic."]
@@ -106,7 +108,7 @@ window.NARRATIVES = {
     nickname: "Fibre-Feasting Ferruginibacter",
     eco: "The lakes behind Chesterfield Inlet sit in tundra and stay frozen for much of the year. When the snow melts, water carries dead plant material from the land into the lakes, and every summer insects such as midges and mosquitoes hatch and shed their tough outer shells. Somebody has to recycle all of that, and bacteria like Ferruginibacter are among the main recyclers. This one glides along surfaces at the bottom and edges of the lakes and digests plant fibre and chitin, the hard material in insect shells, turning them back into nutrients that algae and other microbes can use. The genome comes mostly from lake samples further south in Manitoba; in Chesterfield's lakes we find a very close cousin, right on the line between being the same species and a different one.",
     ecoMore: [
-      ["Is it really from here?", "The genome was built mostly from lake samples further south in Manitoba. In Chesterfield's lakes we find a very close cousin: its reads match at about 93–96%, right on the border between 'same species' and 'different species'."],
+      ["Is it really from here?", "The genome was built mostly from lake samples further south in Manitoba. In Chesterfield's lakes we find a very close cousin: its reads match at about 95–96%, right on the border between 'same species' and 'different species'. We found it in 1st and 2nd Lake in September and October, up to about 3 million cells in a litre of water."],
       ["What is chitin?", "The hard material in insect and crustacean shells. After cellulose, it is the most common natural material made by living things."],
       ["How does it glide?", "Without any tail, using a conveyor-belt system in its outer wall (the type IX secretion system) that also pushes out its enzymes."]
     ],
@@ -118,12 +120,13 @@ window.NARRATIVES = {
       ["Water-quality score (EcoSSDB)", "A score for how much its genes might help filter wastes and keep lake water healthy."]
     ]
   },
-  "dastool-comebin_4228": {
-    nickname: "Plentiful Polynucleobacter",
-    eco: "If you took a glass of water from 1st or 2nd Lake, Polynucleobacter would be one of the most common bacteria in it. Members of this genus are tiny, free-floating cells found in lakes and ponds all over the world. Tundra lakes are often slightly tea-coloured because water from the surrounding land carries dissolved organic matter into them. Polynucleobacter feeds on the small, simple molecules in that mix, such as acetate and citrate, and in doing so it passes carbon from the land into the lake's food web. Interestingly, the genus was first described not from lake water but from inside a single-celled pond animal (the ciliate Euplotes), where its relatives live as partners; free-living cousins like this one were found later. This species is already known from other lakes, but only by a code number. It is found in all three lakes, in spring and fall.",
+  "W09_polynucleobacter": {
+    nickname: "Persistent Polynucleobacter",
+    eco: "Members of this genus are tiny, free-floating cells found in lakes and ponds all over the world. Tundra lakes are often slightly tea-coloured because water from the surrounding land carries dissolved organic matter into them. Polynucleobacter feeds on the small, simple molecules in that mix, such as acetate and citrate, and in doing so it passes carbon from the land into the lake's food web. Interestingly, the genus was first described not from lake water but from inside a single-celled pond animal (the ciliate Euplotes), where its relatives live as partners; free-living cousins like this one were found later. This species is already known from other lakes, but only by a code number. Here it turns up again and again in 2nd Lake: in September and October there were about 5 to 10 million of its cells in a litre of water. We also found it in 1st Lake in the fall and a little in 3rd Lake in late May.",
     ecoMore: [
-      ["Why so common?", "Polynucleobacter are among the most widespread freshwater bacteria in the world, and this species is one of the most abundant microbes in 1st and 2nd Lake."],
-      ["Is it new?", "Scientists have found this species in other lakes but only gave it a code (sp037139315)."],
+      ["Where do we find it?", "Mostly in 2nd Lake, in almost every sample from September and October. Once, in 1st Lake in early October, there were about 9 million cells in a litre. The reads match its genome at about 95–97%, so it is the same species. Polynucleobacter are among the most widespread freshwater bacteria in the world, and we also found this species in lakes across Manitoba, from Lake Winnipeg to the Boreal Shield."],
+      ["Is it new?", "Scientists have found this species in other lakes but only gave it a code (sp037139315). Our genome matches theirs at about 98%."],
+      ["How complete is the genome?", "Our checks say it is almost 100% complete (99.8%), with almost no DNA from other microbes mixed in, one of the most complete genomes on this site."],
       ["What are 'organic acids'?", "Small molecules like acetate and citrate that come from decaying plants. For this microbe they are food."]
     ],
     fn: "It eats dissolved organic acids, runs a full energy cycle, gets energy from sulfur and makes vitamins B5, B7 and B9.",
@@ -134,28 +137,29 @@ window.NARRATIVES = {
       ["Vitamins (B5, B7, B9)", "Pantothenate, biotin and folate."]
     ]
   },
-  "dastool-comebin_3630": {
+  "W11_nitrotoga": {
     nickname: "Northern Nitrotoga",
-    eco: "Every lake has a nitrogen cycle. Animal waste and dead organisms release ammonia, other microbes turn ammonia into nitrite, and nitrite can harm fish if it builds up. Nitrotoga does the next step: it turns nitrite into nitrate, which algae and plants can use as fertilizer. What makes Nitrotoga special is that it keeps working in the cold. Scientists first grew it from frozen soil in Siberia in 2007, and it is often the main nitrite cleaner in cold lakes and soils where other microbes slow down. In Chesterfield Inlet we found it only in the late-May samples from 1st and 3rd Lake, when the lakes were still cold and probably still ice-covered, which fits its cold-loving lifestyle.",
+    eco: "Every lake has a nitrogen cycle. Animal waste and dead organisms release ammonia, other microbes turn ammonia into nitrite, and nitrite can harm fish if it builds up. Nitrotoga does the next step: it turns nitrite into nitrate, which algae and plants can use as fertilizer. What makes Nitrotoga special is that it keeps working in the cold. Scientists first grew it from frozen soil in Siberia in 2007, and it is often the main nitrite cleaner in cold lakes and soils where other microbes slow down. In Chesterfield Inlet we found it only in 3rd Lake in late May, about 3 million cells in a litre of water, when the lake was still cold and probably still ice-covered, which fits its cold-loving lifestyle. Further south it lives in the Churchill River estuary and in rivers and lakes across Manitoba, especially in the north.",
     ecoMore: [
       ["What is the nitrogen cycle?", "Nitrogen moves from animal waste (ammonia) to nitrite to nitrate, which plants and algae can use. Nitrotoga does the nitrite → nitrate step."],
       ["Why 'toga'?", "Under the microscope Nitrotoga cells have a wide, loose outer layer, as if wrapped in a toga."],
-      ["Where did we find it?", "Only in the late-May samples from 1st Lake and 3rd Lake, when the lakes were still cold, where the reads match its genome at about 96%."]
+      ["Where did we find it?", "Only in the late-May sample from 3rd Lake, when the lake was still cold, where the reads match its genome at about 96%. The 1st Lake sample from the same day had some matching reads too, but it was too small a sample to be sure. Scientists have read this species' DNA before (our genome matches at about 99%), but it has only a code name."]
     ],
-    fn: "It turns toxic nitrite into nitrate for energy, makes vitamins, grabs iron and helps keep the water clean.",
+    fn: "It turns toxic nitrite into nitrate for energy, builds its body from carbon dioxide, makes vitamins and grabs iron.",
     fnMore: [
       ["Nitrite oxidoreductase (Nxr)", "The enzyme that does the nitrite-to-nitrate trick."],
       ["Cytochromes c", "Electron-carrying proteins that work like wires, passing energy along inside the cell."],
-      ["Vitamins (B7, B9) and iron", "Biotin and folate, plus tools for taking up iron."],
-      ["Water-quality score (EcoSSDB)", "A score for how much its genes might help keep freshwater and climate in balance."]
+      ["Carbon catcher (RuBisCO, Calvin cycle)", "The same enzyme plants use to turn carbon dioxide into sugar. Nitrotoga runs it on energy from nitrite instead of sunlight."],
+      ["Vitamins (B1, B7, B9) and iron", "Thiamine, biotin and folate, plus tools for taking up iron."],
+      ["Water-quality score (EcoSSDB)", "A score for how much its genes might help keep water chemistry and climate in balance. Its nitrite genes give it a high score."]
     ]
   },
   "A2_planktophila": {
     nickname: "Pint-sized Planktophila",
-    eco: "Planktophila means 'plankton-loving'. Its relatives, called acI bacteria, are some of the most common bacteria in lakes all over the world, and they are tiny: hundreds of them could line up across the width of a hair. This one has one of the smallest genomes of any microbe on this site, about 1.2 million letters. Small cells with small genomes waste little energy, which helps in lakes where food is scarce. We found its DNA in all three lakes behind town, in May, September and October. It was most common in 2nd Lake in mid-September and in 3rd Lake in late May, where it made up more than 1% of all the DNA. In hundreds of samples from lakes and rivers across Manitoba we only found its cousins, not this species. As far as we know, it lives only here.",
+    eco: "Planktophila means 'plankton-loving'. Its relatives, called acI bacteria, are some of the most common bacteria in lakes all over the world, and they are tiny: hundreds of them could line up across the width of a hair. This one has one of the smallest genomes of any microbe on this site, about 1.2 million letters. Small cells with small genomes waste little energy, which helps in lakes where food is scarce. We found it in all three lakes behind town, in May, September and October. It was most common in 2nd and 3rd Lake in mid-September, about 50 to 60 million cells in a litre of water, and there were about 40 million in a litre in 3rd Lake in late May. In hundreds of samples from lakes and rivers across Manitoba and around Hudson Bay we found this species only once, in small numbers in the Churchill River estuary; everywhere else there were only its cousins. As far as we know, the lakes behind town are its home.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relatives share only about 91% of their DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
-      ["What does 'only here' mean?", "In the samples we have, reads that match its genome at 95% or more come only from 1st, 2nd and 3rd Lake. Samples from other places carry relatives, not this one."],
+      ["Does it live anywhere else?", "Almost nowhere that we know of. Reads that match its genome at 95% or more come mostly from 1st, 2nd and 3rd Lake. Outside Chesterfield it turned up in just one sample, from the Churchill River estuary, with less than a million cells in a litre. Samples from other places carry relatives, not this one."],
       ["How small is small?", "Its whole genome is about 1.2 million DNA letters. Most bacteria have 3 to 5 million, and E. coli has about 4.6 million."]
     ],
     fn: "It floats in open water, takes in small sugars and other bits of food, and burns them with a full set of energy pathways. A light-driven pump in its outer layer lets it use sunlight for extra energy. It also makes vitamin B2 and has defences against viruses.",
@@ -169,7 +173,7 @@ window.NARRATIVES = {
   },
   "N1_amylibacter": {
     nickname: "Sun-sipping Amylibacter",
-    eco: "Amylibacter means 'starch rod'. Its relatives are small rod-shaped bacteria that float in cold ocean water and live on tiny bits of food that algae and other living things leave behind. We found the most of it at Itivia in mid-September, where it made up about 1.4% of all the DNA in the water. It was also at the Dock in September and at Itivia again in October. Outside Chesterfield Inlet we found it in one sample from the Churchill River estuary on Hudson Bay, but not in our samples from the High Arctic islands. Its genome is about 2.2 million DNA letters long, and our checks say we have all of its genes.",
+    eco: "Amylibacter means 'starch rod'. Its relatives are small rod-shaped bacteria that float in cold ocean water and live on tiny bits of food that algae and other living things leave behind. We found the most of it at Itivia in mid-September, about 25 million cells in a litre of water. It was also at the Dock in late May and September and at Itivia again in October. It travels widely: we also found it in most of our samples from the Churchill River estuary on Hudson Bay, in many from Hudson Bay near Churchill and in some from the High Arctic islands. Its genome is about 2.2 million DNA letters long, and our checks say we have all of its genes.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at 99.7%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
       ["How complete is the genome?", "Our checks say 100% complete, with very little DNA from other microbes mixed in. It has two copies of its ribosome genes and all 20 kinds of tRNA."]
@@ -184,7 +188,7 @@ window.NARRATIVES = {
   },
   "N2_caivzm01": {
     nickname: "The 2nd Lake Mystery",
-    eco: "This bacterium belongs to a group called Armatimonadota. Scientists know very little about this group, and only a few of its members have ever been grown in a lab. In Chesterfield Inlet it lives in 2nd Lake. We found it in every sample from 2nd Lake in September and October, and in mid-September it made up more than 5% of all the DNA in the water. We found only a little of it in 1st Lake and almost none in 3rd Lake. In lake and river samples from Manitoba we found only its cousins, not this species.",
+    eco: "This bacterium belongs to a group called Armatimonadota. Scientists know very little about this group, and only a few of its members have ever been grown in a lab. In Chesterfield Inlet it lives in 2nd Lake. We found it in every sample from 2nd Lake in September and October, and in mid-September there were about 70 million of its cells in a litre of water, one of the highest counts for any microbe on this site. We found only a little of it in 1st Lake and almost none in 3rd Lake. In lake and river samples from Manitoba we found only its cousins, not this species.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, from somewhere else, and our genome matches it at 98.9%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
       ["Why is it a mystery?", "About two out of every three of its genes look like nothing scientists have studied before, so we cannot tell what they do."],
@@ -200,7 +204,7 @@ window.NARRATIVES = {
   },
   "N3_peredibacter": {
     nickname: "Peckish Peredibacter",
-    eco: "Peredibacter means 'bacterium-devourer'. Its relatives are hunters: they swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Hunters like this help keep other bacteria in check, a little like wolves and caribou. We found this one in 1st Lake, where in one sample it made up more than 7% of all the DNA. In another 1st Lake sample there was much less, and we found almost none in the other lakes. We did not find it anywhere else we have samples from.",
+    eco: "Peredibacter means 'bacterium-devourer'. Its relatives are hunters: they swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Hunters like this help keep other bacteria in check, a little like wolves and caribou. We found this one in 1st Lake, where one sample held about 140 million of its cells in a litre of water, a huge number for a hunter. Another 1st Lake sample had about 25 million, and we found almost none in the other lakes. We did not find it anywhere else we have samples from.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares only about 87% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
       ["How does it find its prey?", "Its genome has many genes for a flagellum, a whip-like tail for swimming, and for sensors that tell the cell which way to swim. Its relatives swim very fast and crash into their prey."],
@@ -216,7 +220,7 @@ window.NARRATIVES = {
   },
   "N4_bdellovibrio": {
     nickname: "Bullet-fast Bdellovibrio",
-    eco: "Bdellovibrio means 'leech-like vibrio', a vibrio being a small curved rod. Its relatives are famous hunters: they are among the fastest swimmers for their size, crash into a bigger bacterium, drill through its wall, eat it from the inside and burst out as new cells. We found this one in 2nd Lake. In one sample it made up about 9% of all the DNA, a lot for a hunter. We found almost none in our other lake samples, and none anywhere else we have samples from.",
+    eco: "Bdellovibrio means 'leech-like vibrio', a vibrio being a small curved rod. Its relatives are famous hunters: they are among the fastest swimmers for their size, crash into a bigger bacterium, drill through its wall, eat it from the inside and burst out as new cells. We found this one in 2nd Lake. In one sample there were about 180 million of its cells in a litre of water, a lot for a hunter. We found almost none in our other lake samples, and none anywhere else we have samples from.",
     ecoMore: [
       ["Is it a new species?", "Yes. No genome scientists have read so far is close enough for our tools to measure how similar it is, so it is quite far from every known Bdellovibrio."],
       ["Why would a hunter be so common?", "When its prey is plentiful, a hunter can multiply quickly. One sample catches one moment, so it may have been a time when there was lots to eat."],
@@ -233,7 +237,7 @@ window.NARRATIVES = {
   },
   "N5_uba845": {
     nickname: "The Harbour Hunter",
-    eco: "This bacterium belongs to a family of hunters called Bacteriovoracaceae, which means 'bacteria-eaters'. Its relatives swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Many of them live in salty water. We found this one at Tuktuttaa, where in one sample it made up almost 5% of all the DNA, and at the Dock, where it made up about 3%. There was a little at Itivia too. In our samples from Hudson Bay near Churchill and from the High Arctic islands we found only its cousins, not this species.",
+    eco: "This bacterium belongs to a family of hunters called Bacteriovoracaceae, which means 'bacteria-eaters'. Its relatives swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Many of them live in salty water. We found this one at the Dock and at Tuktuttaa, where one sample from each place held about 150 million of its cells in a litre of water, a lot for a hunter. There may be a trace at Itivia too. In our samples from Hudson Bay near Churchill and from the High Arctic islands we found only its cousins, not this species.",
     ecoMore: [
       ["Is it a new species?", "Yes, and it does not fit in any named genus either. Its closest known relative shares only about 86% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
       ["Why do hunters matter?", "Hunters keep other bacteria in check, a little like wolves and caribou. When a hunter bursts out of its prey, the leftovers become food for other microbes."]
@@ -248,7 +252,7 @@ window.NARRATIVES = {
   },
   "N6_k1": {
     nickname: "The Carbon-Catching Sulfur Ball",
-    eco: "Pseudothioglobus means 'false sulfur ball'. Its relatives are small round or curved cells that are common in the ocean, especially where the water holds little oxygen. Many of them get energy from sulfur and use it to turn carbon dioxide into food, the way plants do with sunlight. In Chesterfield Inlet we found it at Itivia, the Dock and Tuktuttaa. It made up about 1.6% of all the DNA at the Dock in late May and at Itivia in mid-September, so it is here in both spring and fall. Unlike many microbes on this site, it is not only a Chesterfield microbe: we also found it in Hudson Bay near Churchill and among the High Arctic islands.",
+    eco: "Pseudothioglobus means 'false sulfur ball'. Its relatives are small round or curved cells that are common in the ocean, especially where the water holds little oxygen. Many of them get energy from sulfur and use it to turn carbon dioxide into food, the way plants do with sunlight. In Chesterfield Inlet we found it at Itivia, the Dock and Tuktuttaa. There were about 30 to 40 million of its cells in a litre of water at the Dock in late May and at Itivia in mid-September, so it is here in both spring and fall. It is not only a Chesterfield microbe: we also found it in about a third of our samples from Hudson Bay near Churchill and from the High Arctic islands.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
       ["Is the Chesterfield one exactly the same?", "Almost. Reads from the inlet match our genome at about 95–96%, right on the border between 'same species' and 'different species'. The inlet may have its own close cousin."],
@@ -360,5 +364,15 @@ window.GENERA = {
     type: "\"Ca. Pseudothioglobus singularis\"",
     ref: "van Vliet DM, von Meijenfeldt FAB, Dutilh BE, Villanueva L, Sinninghe Damsté JS, Stams AJM, Sánchez-Andrea I (2021) The bacterial sulfur cycle in expanding dysoxic and euxinic marine waters. Environ Microbiol 23:2834–2857.",
     doi: "10.1111/1462-2920.15265"
+  },
+  Njordibacter: {
+    full: "\"Njordibacter\" Sadler et al. 2025",
+    etym: "Njor.di.bac'ter. N.L. masc. n. bacter, rod; N.L. masc. n. Njordibacter, a rod named after Njord, the Norse god of wind and seas",
+    gloss: "Njord's rod",
+    status: "proposed name, not validly published",
+    gender: "masculine",
+    type: "none designated yet",
+    ref: "Sadler MC, Wietz M, Mino S, Morris RM (2025) Genomic diversity and adaptation in Arctic marine bacteria. mBio 16:e0155525.",
+    doi: "10.1128/mbio.01555-25"
   }
 };

@@ -82,18 +82,35 @@ reassembly or a bin from another assembly. Treat the whole genome as one MAG:
 
 ## 3. Where each microbe lives
 
-- `cand_abund.sh` runs `cand_abund.py`. From the co-assembly `depths.txt` it computes per-sample
-  relative abundance (% of mapped DNA), depth and breadth for each candidate, written to
-  `cand_abund_<habitat>.json`.
-- `cand_identity.sh` runs `cand_identity.py`. For each local sample and candidate, it
-  gives the mean identity of the mapped reads. The page shows ✅ "same species" at ≥ 95%
-  identity and ≥ 5 reads.
-- `map_to_ref.sh <ref.fa> <input_dir[:dir2]> <samples.txt> <out>` does the same mapping for any
-  reference without Nextflow. `MAX_BYTES` caps the read bases per sample (default 100 Mbp).
-  It writes `depths.txt`, `cov95.tsv` (≥ 95% identity only) and `input_stats.tsv`.
+The site's measure, for every microbe the same way:
 
-A microbe counts as **detected** in a sample when ≥ 30% of its genome is covered
-(`min_breadth` in build_config.json).
+1. `remap_genomes.sh <out> <input_dir[:dir2]> <samples.txt> <label>=<genome.fa> ...` maps every
+   sample, with all its reads (`MAX_BYTES=0`), to all the site's genomes at once as one
+   reference (contigs renamed `<label>__<contig>`), through `map_to_ref.sh`. Set `MIN_ALN=500` so
+   coverage leaves out short alignments: with nanopore reads, 75-90 bp hits are mostly conserved
+   stretches of other microbes' reads.
+2. `site_abund.sh <label> <out_dir>` per genome (with `MAPPING_DIR=<out>/mapping`,
+   `CONTIG_PREFIX=<label>__`, `MIN_ALN=500`) writes `abund.json` (depth and covered fraction from
+   reads at ≥ 95% identity) and `identity.json` (mean read identity per local sample).
+3. `mapped_bases.sh <coassembly>/mapping` (with the same `MIN_ALN`) counts all bases mapped per
+   sample in the co-assembly BAMs: the denominator.
+4. In build_config.json, `abundance_dir` points at the `site_abund.sh` outputs and `mapped_bases`
+   at the two `mapped_bases.tsv` files. The build then gives every genome
+   relab = its depth × length as % of all the sample's mapped bases, and the page turns that into
+   cells per litre (`cells_per_litre`, `mean_genome_bp`).
+
+Don't use the co-assembly `depths.txt` totals for this: danaSeq writes them with CoverM's
+metabat mode, which for long reads keeps only a few percent of the coverage.
+
+A microbe counts as **found** in a sample when at least `detect_min_bp` (default 250 kbp) aligns
+to it at ≥ 95% identity and its covered fraction is at least `detect_breadth_ratio` (0.5) of what
+that depth predicts (1 − e^−depth). A fixed cut (`min_breadth`, used only when a genome has no
+length) misses real but thinly sequenced genomes.
+
+Older, simpler tools: `cand_abund.sh`/`cand_abund.py` (share of the co-assembly `depths.txt`),
+`cand_identity.sh`/`cand_identity.py` (read identity from the co-assembly BAMs), and
+`map_to_ref.sh` alone (`MAX_BYTES` caps read bases per sample, default 100 Mbp; a cap keeps the
+share but lowers depth and breadth). The page shows ✅ "same species" at ≥ 95% identity.
 
 ## 4. Collect inputs in `inputs_dir`
 
@@ -117,6 +134,11 @@ inputs_dir/
 
 ## 5. Build the site data
 
+First measure each genome's ANI to every GTDB species with
+`site_ani.sh <out_dir> <genome.fa> ...` (Slurm; name each file after the id the site uses), and set
+`ani_table` and `gtdb_taxonomy` in build_config.json to its two outputs. This gives the closest
+relative even when GTDB-Tk leaves it blank, and puts the ANI next to each relative on the tree.
+
 ```bash
 python3 scripts/build/extract_site_data.py communities/<id>/build_config.json > <inputs_dir>/site_data_dump.txt
 python3 scripts/build/build_site_data.py   communities/<id>/build_config.json   # writes communities/<id>/site_data.js
@@ -135,6 +157,13 @@ python3 scripts/build/build_site_data.py   communities/<id>/build_config.json   
 | `station_rules` | ordered rules from sample-sheet text to a station: `any` substrings (upper case), optional `and_regex`, optional `or_project` |
 | `fallback_station` | station for samples that no rule matches, per habitat |
 | `extract` | settings for extract_site_data.py: candidates (may include dropped ones), local flowcells, `evo_source` per habitat, `sketch_tables` |
+| `gtdbtk_runs` | optional list of newer GTDB-Tk `classify_wf` output folders (summary, `tree.mapping` and classify trees side by side); a site genome found there takes its classification and tree from that run, e.g. to move every microbe to the same GTDB release |
+| `abundance_dir`, `mapped_bases` | one abundance measure for every genome (step 3): `site_abund.sh` outputs per genome, and `{habitat: mapped_bases.tsv}` of the co-assembly mappings |
+| `detect_min_bp`, `detect_breadth_ratio` | the "found" rule (step 3) |
+| `cells_per_litre`, `mean_genome_bp` | how the page turns a share of mapped DNA into cells per litre: `{habitat: total cells/L}` (default 1e9) and the average genome size in the community (default 3 Mbp) |
+| `ani_table` | optional skani search of every site genome against the GTDB species reps (`site_ani.sh`); sets the closest relative and the ANI on each tree leaf |
+| `gtdb_taxonomy` | optional full GTDB taxonomy (GTDB-Tk db `taxonomy/gtdb_taxonomy.tsv`) of the newer release, to name tree leaves and skani hits |
+| `ko_list` | optional KofamKOALA `ko_list`; its KO definitions describe highlighted genes whose annotation has none |
 | `extra_genomes.<label>` | stand-alone genomes (step 2): `habitat`, `dir` (the `genome_site_inputs.sh` output), `tree` (GTDB-Tk classify tree file) and `gtdbtk_summary`. Their abundance is shown only for the samples in that habitat's co-assembly |
 
 Check the build log. `[WARN] stations without coordinates` means a rule points at a station
@@ -155,9 +184,36 @@ that is missing from `stations`.
   `candidates.js`, `narratives.js` (story and `GENERA`) and `community.js` (`shapeGenes`) in one go.
   The spec is `{"cand": {...}, "narr": {...}, "genus": {"<Genus>": {...}} or null, "shape": "mreB rodA"}`,
   with the same fields as the existing entries.
+- `site/explain/`: shared explainers for the Function tab (pathways, highlighted genes,
+  ecosystem-service cards), keyed by KEGG module id, gene label and CICES code. They are
+  the same for every community; add an entry when a new pathway, gene label or service appears.
+  `pathway_steps.js` is generated: `make_pathway_steps.py <danaSeq>/mag_analysis/bin/kegg_module_completeness.py`.
 - `api/prompt.json`: set `language` and `env_slug`, and adapt the system prompt's community
   sentence and example.
 - `site/taxon_names.js`: regenerate with `make_taxon_names.py` when GTDB releases a new version.
+
+### Knowledge tab (ScIQ: science and Inuit Qaujimajatuqangit), optional
+
+A deliberately small tab, framed for Igluligaarjuk as ScIQ, the Inuit youth idea of combining
+science and IQ with the IQ principles as a guide (Pedersen et al. 2020). For each microbe: one
+hook sentence, then one or two cards. The front of a card is an IQ principle; tapped, it turns
+over to show a clue from the genes and one question for everyone in the workshop (youth,
+Elders and scientists). Each card has an optional note box; there are no tick boxes. The
+background, the eight principles and the sources sit in one collapsed "about" box.
+
+- `site/iq_tab.js`: shared renderer, `window.renderIQ(panel, ctx)`. No community text in it;
+  its defaults are neutral. It injects its own CSS (page variables `--gold`, `--fresh`,
+  `--marine`, `--panel2`, `--line`, `--bg`, `--text`, `--muted` and `.card`), saves notes per
+  community in `localStorage` (`iq:v2:<community id>`, memory fallback when storage is
+  blocked), and exports one microbe as `.txt` or all microbes as `.csv`. Nothing is sent to a
+  server.
+- `communities/<id>/iq.js`: the content, `window.IQ_CONTENT = {labels, intro, principlesSource,
+  principles, references, microbes: {<id>: {hook, items: [{key, clue, q}]}}}` (at most two
+  items per microbe). `labels.tab` names the tab (for Igluligaarjuk "🧭 ScIQ"). One entry per
+  microbe in `candidates.js`. The schema is in `communities/_template/iq.js`.
+- `docs/iq_research.md`: the sources behind the Igluligaarjuk content and the design rules.
+
+Write `hook` and `clue` from `narratives.js` so facts agree with `site_data.js`.
 
 ## 7. Assemble and test
 

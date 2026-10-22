@@ -32,6 +32,12 @@ for g, v in EXTRA.items():
         lst.append(g)
 
 
+# optional KofamKOALA ko_list: KO definitions for genes whose annotation has no description
+KO_NAMES = {}
+if CFG.get("ko_list") and os.path.exists(cfg_path(CFG["ko_list"])):
+    for r in csv.DictReader(open(cfg_path(CFG["ko_list"])), delimiter="\t"):
+        KO_NAMES[r["knum"]] = r["definition"]
+
 def mag_dir(hab, m):
     return EXTRA[m]["dir"] if m in EXTRA else f"{scratch}/{hab}"
 
@@ -163,6 +169,47 @@ with open(f"{scratch}/gtdb_r226_reps.tsv") as f:
         typ = r["gtdb_type_designation_ncbi_taxa"] if named else "not type material"
         gtdb_reps[r["accession"]] = (r["gtdb_taxonomy"], typ, r["gtdb_type_species_of_genus"] == "t")
 
+# optional `gtdb_taxonomy`: the full taxonomy file of the GTDB release used for the newer genomes
+# (GTDB-Tk db taxonomy/gtdb_taxonomy.tsv), to name tree leaves that the reps table lacks
+gtdb_tax_all = {}
+if CFG.get("gtdb_taxonomy"):
+    for line in open(cfg_path(CFG["gtdb_taxonomy"])):
+        a, t = line.rstrip("\n").split("\t")[:2]
+        gtdb_tax_all[a] = t
+
+# optional `ani_table`: skani search of every site genome against the GTDB species reps
+# (skani search -d <gtdbtk_db>/skani/database ...). Gives the closest relative and the ANI
+# shown next to each reference on the tree, so the two always agree.
+ANI_HITS = {}
+if CFG.get("ani_table"):
+    for r in csv.DictReader(open(cfg_path(CFG["ani_table"])), delimiter="\t"):
+        q = os.path.basename(r["Query_file"]).rsplit(".", 1)[0]
+        acc = re.search(r"(GC[AF]_\d+\.\d+)", os.path.basename(r["Ref_file"])).group(1)
+        tax = gtdb_tax_all.get("RS_" + acc) or gtdb_tax_all.get("GB_" + acc) or ""
+        ANI_HITS.setdefault(q, []).append({"acc": acc, "species": tax.split(";s__")[-1] if tax else acc,
+                                           "ani": float(r["ANI"]), "af": round(float(r["Align_fraction_query"]) / 100, 3)})
+    for h in ANI_HITS.values():
+        h.sort(key=lambda x: -x["ani"])
+
+
+def tree_ani(d, hits):
+    """Write each reference leaf's ANI to our genome (from ANI_HITS) into the tree dict.
+    Leaves are matched by accession or by species name; a species code such as sp002470565
+    survives genus renames between GTDB releases, so it also matches."""
+    if d.get("children"):
+        for c in d["children"]:
+            tree_ani(c, hits)
+        return
+    if d.get("is_target") or d.get("is_user_bin"):
+        return
+    acc = re.sub(r"^(GB|RS)_", "", d.get("accession") or d.get("name", ""))
+    sp = d.get("label", "").split(" [")[0]
+    code = re.search(r"\bsp\d{9}\b", sp)
+    for h in hits:
+        if h["acc"] == acc or h["species"] == sp or (code and h["species"].endswith(" " + code.group(0))):
+            d["ani"], d["af"] = h["ani"], h["af"]
+            return
+
 
 def is_ref(name):
     return name.startswith(("GB_GC", "RS_GC"))
@@ -220,7 +267,7 @@ def select_tree(root, target, n_refs=8, n_type=2, n_user=3):
 
 
 def gtdb_label(acc):
-    tax, typ, tsg = gtdb_reps.get(acc, ("", "", False))
+    tax, typ, tsg = gtdb_reps.get(acc) or (gtdb_tax_all.get(acc, ""), "", False)
     sp = tax.split(";")[-1].replace("s__", "") if tax else acc
     short = acc.replace("GB_", "").replace("RS_", "")
     return sp, short, typ == "type strain of species", tax
@@ -230,7 +277,7 @@ def node_to_dict(node, target_leaf_name, leaf_meta_map, ani_sister=None):
     if not node.children:
         raw_name = node.name
         info = leaf_meta_map.get(raw_name, {})
-        if is_ref(raw_name) and raw_name in gtdb_reps:
+        if is_ref(raw_name) and (raw_name in gtdb_reps or raw_name in gtdb_tax_all):
             sp, short, typ, tax = gtdb_label(raw_name)
             info = {"label": f"{sp} [{short}]", "accession": short, "lineage": tax, "is_user_bin": False, "is_type": typ}
         is_target = (raw_name == target_leaf_name) and (ani_sister is None)
@@ -357,6 +404,20 @@ with open(f"{scratch}/freshwater/gtdbtk_taxonomy.tsv") as f:
                                 "is_user_bin": False,
                             }
 
+# optional `gtdbtk_runs`: folders of newer GTDB-Tk classify_wf runs, each holding
+# gtdbtk.bac120.summary.tsv, gtdbtk.bac120.tree.mapping.tsv and the classify trees side by side.
+# A site genome found in one takes its classification and its tree from that run instead of
+# its habitat's original run (e.g. to move every microbe to the same GTDB release).
+GTDBTK_RUNS = {}
+for run_dir in CFG.get("gtdbtk_runs", []):
+    run_dir = cfg_path(run_dir)
+    run_trees = {}
+    if os.path.exists(f"{run_dir}/gtdbtk.bac120.tree.mapping.tsv"):
+        for r in csv.DictReader(open(f"{run_dir}/gtdbtk.bac120.tree.mapping.tsv"), delimiter="\t"):
+            run_trees[r.get("User_genome") or r["user_genome"]] = f"{run_dir}/gtdbtk.bac120.classify.tree.{r['class_tree_mapped']}.tree"
+    for r in csv.DictReader(open(f"{run_dir}/gtdbtk.bac120.summary.tsv"), delimiter="\t"):
+        GTDBTK_RUNS[r["user_genome"]] = (r, run_trees.get(r["user_genome"]))
+
 # per MAG: which GTDB-Tk classify tree to cut, which leaf names to look for, and (for MAGs
 # placed by ANI only) the sister species to draw next to it
 tree_specs = {m: (v["habitat"], v["tree_file"], v["queries"], v.get("ani_sister"))
@@ -364,6 +425,10 @@ tree_specs = {m: (v["habitat"], v["tree_file"], v["queries"], v.get("ani_sister"
 for g, v in EXTRA.items():  # the GTDB-Tk classify tree its own run placed it in
     if g not in tree_specs and v.get("tree"):
         tree_specs[g] = (v["habitat"], cfg_path(v["tree"]), [g], None)
+hab_of = {m: h for h, ms in CFG["candidates"].items() for m in ms}
+for g, (r, tree) in GTDBTK_RUNS.items():  # newer runs override (placed in the tree, no ANI sister)
+    if g in hab_of and tree:
+        tree_specs[g] = (hab_of[g], tree, [g], None)
 
 extracted_trees = {}
 for mag_id, (hab, tfile, queries, ani_sis) in tree_specs.items():
@@ -376,6 +441,8 @@ for mag_id, (hab, tfile, queries, ani_sis) in tree_specs.items():
     clade, tleaf, n_typed = select_tree(root, tleaf0) if tleaf0 else (None, None, 0)
     if clade and tleaf:
         tdict = node_to_dict(clade, tleaf.name, lmeta, ani_sister=ani_sis)
+        if mag_id in ANI_HITS:
+            tree_ani(tdict, ANI_HITS[mag_id])
         n_leaves = len(get_leaves(clade)) + (1 if ani_sis else 0)
         extracted_trees[mag_id] = {
             "tree_file": tfile,
@@ -674,7 +741,7 @@ def compute_circos(hab, mag_id, n_bins=120):
                     "contig_pos": cpos,
                     "category": cat,
                     "label": lbl,
-                    "product": f"{desc} [{ko or pfam.split(',')[0]}]",
+                    "product": " ".join(x for x in [desc.strip() or ko_desc_map.get(ko) or KO_NAMES.get(ko, ""), f"[{ko or pfam.split(',')[0]}]" if (ko or pfam) else ""] if x),
                 })
 
     kept = []
@@ -805,11 +872,12 @@ for hab, cands, es_path in es_files:
                 conf = float(m_g.group(2)) if m_g else 0.7
                 if gid in seen_g: continue
                 seen_g.add(gid)
-                gdesc = ko_desc_by_mag.get(mid, {}).get(gid, "")
+                # KEGG's own KO name (short and complete) first, else the annotation's description
+                gdesc = re.sub(r"\s*\[EC:[^\]]*\]$", "", KO_NAMES.get(gid, "")) or ko_desc_by_mag.get(mid, {}).get(gid, "")
                 tgenes.append({
                     "id": gid,
                     "conf": conf,
-                    "desc": gdesc[:65] if gdesc else "Functional enzyme / domain",
+                    "desc": (gdesc if len(gdesc) <= 80 else gdesc[:77].rstrip() + "…") if gdesc else gid,
                 })
             ecossdb_all.setdefault(mid, []).append({
                 "code": code,
@@ -939,25 +1007,66 @@ for hits in sketch_by_mag.values():
         h["date"] = m.get("date") or h.get("date", "")
 
 north_map_all = {}
-MIN_BREADTH = CFG.get("min_breadth", 0.3)  # "detected" = at least 30% of the genome has reads
+MIN_BREADTH = CFG.get("min_breadth", 0.3)  # fallback rule: at least 30% of the genome has reads
+# "detected" (depth-aware): at least `detect_min_bp` bases aligned to the genome at >=95% identity,
+# and covered fraction at least `detect_breadth_ratio` of what that depth predicts for evenly
+# spread reads (1 - e^-depth). A fixed breadth cut misses real but thinly sequenced genomes.
+DETECT_MIN_BP = CFG.get("detect_min_bp", 250_000)
+DETECT_RATIO = CFG.get("detect_breadth_ratio", 0.5)
+
+
+def found(A, i, length):
+    if not A["relab"][i] > 0:
+        return False
+    if not length:
+        return A["breadth"][i] >= MIN_BREADTH
+    d = A["depth"][i]
+    return d * length >= DETECT_MIN_BP and A["breadth"][i] >= DETECT_RATIO * (1 - math.exp(-d))
 unknown_stations = set()
 jobs, hab_samples = [], {}
 for hab, cands in [("marine", mar_cands), ("freshwater", fw_cands)]:
-    # relative abundance per sample from the co-assembly depth table (cand_abund.py on Grex):
-    # relab = MAG share of the sample DNA that mapped to the co-assembly (%)
+    # co-assembly MAGs: relative abundance from the co-assembly depth table (cand_abund.py on Grex),
+    # unless `abundance_dir` + `mapped_bases` give every genome one measure (below)
     with open(f"{scratch}/{hab}/cand_abund.json") as f:
         ab = json.load(f)
     hab_samples[hab] = set(ab["samples"])
-    # read identity to each MAG per local sample, from the BAMs (cand_identity.py on Grex)
     idp = f"{scratch}/{hab}/cand_identity.json"
     ident = json.load(open(idp)) if os.path.exists(idp) else {}
-    jobs.append((hab, [c for c in cands if c not in EXTRA], ab, ident, None))
-for g, v in EXTRA.items():
-    # stand-alone genomes: relab = % of the sample's read bases (genome_site_inputs.py); they
-    # may be mapped against both habitats' samples, so keep this habitat's samples only
-    idp = f"{v['dir']}/identity.json"
-    jobs.append((v["habitat"], [g], json.load(open(f"{v['dir']}/abund.json")),
-                 json.load(open(idp)) if os.path.exists(idp) else {}, hab_samples[v["habitat"]]))
+    jobs.append((hab, cands, ab, ident, None))
+# One measure for every genome (optional):
+#   abundance_dir  <dir>/<id>/abund.json + identity.json from site_abund.sh, after all the site's
+#                  genomes were mapped together (remap_genomes.sh): depth, breadth and identity
+#                  from reads at >=95% identity
+#   mapped_bases   {habitat: mapped_bases.tsv} from mapped_bases.sh on the co-assembly mapping:
+#                  all bases mapped per sample
+# relab = depth x length as % of ALL the bases that mapped to the habitat's co-assembly in that
+# sample. (The co-assembly depths.txt is not used for this: its CoverM metabat-mode depths keep
+# only a small part of long-read coverage.) Stand-alone genomes without these use their own
+# folder's abund.json as is.
+ABDIR = cfg_path(CFG["abundance_dir"]) if CFG.get("abundance_dir") else None
+MAPPED = {}
+for hab, path in (CFG.get("mapped_bases") or {}).items():
+    MAPPED[hab] = {r[0]: int(r[2]) for r in csv.reader(open(cfg_path(path)), delimiter="\t") if len(r) > 2 and r[2].isdigit()}
+remapped = {}
+for g in mar_cands + fw_cands:
+    hab = "marine" if g in mar_cands else "freshwater"
+    d = f"{ABDIR}/{g}" if ABDIR and os.path.exists(f"{ABDIR}/{g}/abund.json") else (EXTRA[g]["dir"] if g in EXTRA else None)
+    if not d:
+        continue
+    ab = json.load(open(f"{d}/abund.json"))
+    a = ab["mags"][g]
+    if hab in MAPPED:
+        # a sample mapped only to the other habitat's co-assembly (a sample-sheet mix-up) uses that total
+        other = MAPPED.get("freshwater" if hab == "marine" else "marine", {})
+        tot = lambda s: MAPPED[hab].get(s) or (other.get(s) if s in ci_sample_meta else None)
+        a["relab"] = [round(100 * dp * a["length"] / tot(s), 5) if tot(s) else 0
+                      for s, dp in zip(ab["samples"], a["depth"])]
+        allowed = set(MAPPED[hab]) | {s for s in other if s in ci_sample_meta}
+    else:
+        allowed = hab_samples[hab]
+    idp = f"{d}/identity.json"
+    remapped[g] = (hab, [g], ab, json.load(open(idp)) if os.path.exists(idp) else {}, allowed)
+jobs = [(h, [c for c in cs if c not in remapped], a, i, al) for h, cs, a, i, al in jobs] + list(remapped.values())
 for hab, cands, ab, ident, allowed in jobs:
     snames = ab["samples"]
     st_groups = {}
@@ -984,6 +1093,7 @@ for hab, cands, ab, ident, allowed in jobs:
 
     for c in cands:
         A = ab["mags"].get(c, {"relab": [0] * len(snames), "depth": [0] * len(snames), "breadth": [0] * len(snames)})
+        glen = A.get("length") or (dump_meta.get(c) or {}).get("size")
         sk_by_sample = {h["sample"]: h for h in sketch_by_mag.get(c, [])}
 
         regional_points = []
@@ -998,7 +1108,7 @@ for hab, cands, ab, ident, allowed in jobs:
                 "is_ci": sc["is_ci"],
                 "desc": sc["desc"],
                 "n_samples": len(idxs),
-                "detected": sum(1 for i in idxs if A["breadth"][i] >= MIN_BREADTH and A["relab"][i] > 0),
+                "detected": sum(1 for i in idxs if found(A, i, glen)),
                 "mean_relab": round(sum(rel) / max(1, len(rel)), 4),
                 "max_relab": round(max(rel, default=0.0), 4),
                 "mean_cov": round(sum(A["depth"][i] for i in idxs) / max(1, len(idxs)), 4),
@@ -1026,7 +1136,7 @@ for hab, cands, ab, ident, allowed in jobs:
             if sn in snames:
                 i = snames.index(sn)
                 row.update(source="mapped", relab=A["relab"][i], breadth=A["breadth"][i], depth=A["depth"][i],
-                           detected=A["breadth"][i] >= MIN_BREADTH and A["relab"][i] > 0)
+                           detected=found(A, i, glen))
             elif sk:
                 row.update(source="sketch", relab=None, breadth=None, depth=None, detected=True)
             else:
@@ -1084,6 +1194,24 @@ with open(f"{scratch}/site_data_dump.txt") as f:
             dump_mods[curr_m] = [{"id": k.split(":", 1)[0], "name": k.split(":", 1)[1], "c": v}
                                  for k, v in eval(line.split(":", 1)[1].strip())]
 
+def evo_from_summary(r):
+    """The evo fields the page shows, from one row of a GTDB-Tk summary."""
+    def gv(*ks):
+        for k in ks:
+            if r.get(k) not in (None, "N/A", ""):
+                return r[k]
+        return None
+    return {
+        "classification": r["classification"],
+        "method": gv("classification_method"),
+        "closest_ref": gv("closest_genome_reference", "closest_placement_reference"),
+        "closest_ani": gv("closest_genome_ani", "closest_placement_ani"),
+        "closest_af": gv("closest_genome_af", "closest_placement_af"),
+        "red_value": gv("red_value"),
+        "msa_percent": gv("msa_percent"),
+        "other_refs": gv("other_related_references(genome_id,species_name,radius,ANI,AF)"),
+    }
+
 # stand-alone genomes: quality from their own files, taxonomy from their GTDB-Tk summary
 for g, v in EXTRA.items():
     dump_meta[g] = json.load(open(f"{v['dir']}/meta.json"))
@@ -1091,21 +1219,36 @@ for g, v in EXTRA.items():
                     for k, c in json.load(open(f"{v['dir']}/modules.json"))]
     for r in csv.DictReader(open(cfg_path(v["gtdbtk_summary"])), delimiter="\t"):
         if r["user_genome"] == g:
-            def gv(*ks):
-                for k in ks:
-                    if r.get(k) not in (None, "N/A", ""):
-                        return r[k]
-                return None
-            dump_evo[g] = {
-                "classification": r["classification"],
-                "method": gv("classification_method"),
-                "closest_ref": gv("closest_genome_reference", "closest_placement_reference"),
-                "closest_ani": gv("closest_genome_ani", "closest_placement_ani"),
-                "closest_af": gv("closest_genome_af", "closest_placement_af"),
-                "red_value": gv("red_value"),
-                "msa_percent": gv("msa_percent"),
-                "other_refs": gv("other_related_references(genome_id,species_name,radius,ANI,AF)"),
-            }
+            dump_evo[g] = evo_from_summary(r)
+for g, (r, tree) in GTDBTK_RUNS.items():  # newer GTDB-Tk runs override (see gtdbtk_runs)
+    if g in dump_meta:
+        dump_evo[g] = evo_from_summary(r)
+
+# closest relative and ANI from skani (ani_table), replacing GTDB-Tk's, which is blank when the
+# nearest species is outside its ANI radius. No hit means nothing in GTDB is above ~80% ANI.
+if ANI_HITS:
+    for m, e in dump_evo.items():
+        h = ANI_HITS.get(m, [])
+        e.update({"ani_source": "skani", "ani_hits": h[:5],
+                  "closest_ref": h[0]["acc"] if h else None, "closest_ani": h[0]["ani"] if h else None,
+                  "closest_af": h[0]["af"] if h else None, "closest_species": h[0]["species"] if h else None})
+
+# which steps of each pathway the genome has ("s": "1101", one character per step), for the
+# step boxes on the Function tab. Steps come from site/explain/pathway_steps.js (danaSeq).
+steps_js = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../site/explain/pathway_steps.js")
+s = open(steps_js).read()
+PATHWAY_STEPS = json.loads(s[s.index("= {") + 2:s.rstrip().rstrip(";").rindex("}") + 1])
+for hab, ms in (("marine", mar_cands), ("freshwater", fw_cands)):
+    for m in ms:
+        kos = set()
+        for r in csv.DictReader(open(f"{mag_dir(hab, m)}/{m}.tsv"), delimiter="\t"):
+            kos.update(k.replace("ko:", "").strip() for k in (r.get("KO") or "").split(",") if k.strip())
+        for mod in dump_mods.get(m, []):
+            st = PATHWAY_STEPS.get(mod["id"])
+            if st:
+                mod["s"] = "".join("1" if kos & set(x["kos"]) else "0" for x in st["steps"])
+                if abs(mod["s"].count("1") / len(mod["s"]) - mod["c"]) > 0.01:
+                    print(f"[WARN] {m} {mod['id']}: steps {mod['s']} vs completeness {mod['c']}")
 
 # ---------------------------------------------------------
 # Home-page cladogram: each workshop MAG stands in for its closest GTDB reference
@@ -1185,6 +1328,9 @@ bundle = {
     "evo": dump_evo,
     "modules": dump_mods,
     "sketch": sketch_by_mag,
+    # cells per litre on the page = share of mapped DNA x total cells/L x (mean genome / this genome)
+    "cellModel": {"cells_per_litre": CFG.get("cells_per_litre", {"marine": 1e9, "freshwater": 1e9}),
+                  "mean_genome_bp": CFG.get("mean_genome_bp", 3_000_000)},
 }
 
 with open(out_js, "w") as f:

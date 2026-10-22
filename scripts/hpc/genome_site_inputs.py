@@ -11,10 +11,7 @@ tables. Writes to out_dir:
   antismash_summary.tsv  dnaA.tsv  es_catalog.tsv (+ contig2bin.tsv for aggregate_bins.py)
   meta.json   (MAG meta line for site_data_dump.txt)
   modules.json (KEGG module completeness of the whole genome, the run's _community row)
-  abund.json  (per sample, from reads at >=95% identity only (cov95.tsv), because a genome
-               mapped on its own also collects reads of its relatives: mean depth, breadth =
-               covered fraction, relab = depth x length as % of the sample's read bases)
-  identity.json is written separately by the .sh wrapper (samtools in the container).
+  abund.json and identity.json are written by site_abund.sh, which the .sh wrapper runs.
 Python 3.6 compatible (Grex login nodes).
 """
 import csv, json, os, sys
@@ -92,7 +89,31 @@ for name in ("rrna_genes", "trna_genes"):
         r["contig_id"] = ren(r["contig_id"])
     write("%s/%s.tsv" % (out, name), hdr, rs)
 asm = rows("%s/metabolism/antismash/antismash_summary.tsv" % M)
+
+
+def region_gbk(region):
+    """start, end and product(s) of one antiSMASH region from its GenBank file, for summaries
+    whose columns came out NA (some danaSeq versions write only the region names)."""
+    path = "%s/metabolism/antismash/antismash_geneclusters/%s.gbk" % (M, region)
+    if not os.path.exists(path):
+        return {}
+    start = end = None
+    prods, in_region = [], False
+    for line in open(path):
+        if "Orig. start ::" in line:
+            start = line.split("::")[1].strip()
+        elif "Orig. end" in line and "::" in line:
+            end = line.split("::")[1].strip()
+        elif line[5:21].strip():  # a new feature key in the FEATURES table
+            in_region = line[5:21].strip() == "region"
+        elif in_region and line.strip().startswith('/product="'):
+            prods.append(line.strip()[10:].rstrip('"'))
+    return {"start": start or "NA", "end": end or "NA", "type": ".".join(prods) or "NA"}
+
+
 for r in asm:
+    if r.get("type") in (None, "", "NA"):
+        r.update(region_gbk(r["region"]))
     c = r["region"].rsplit(".region", 1)[0]
     r["region"] = ren(r["region"])
     if r.get("contig") not in (None, "", "NA"):
@@ -126,39 +147,4 @@ meta = {"completeness": cm_comp, "contamination": cm_cont, "gc": round(gc, 2), "
         "n_defense": 0, "n_integron": 0}
 json.dump(meta, open("%s/meta.json" % out, "w"))
 
-# abundance per sample
-stats = {}
-for line in open("%s/mapping/input_stats.tsv" % A):
-    s, n, bp = line.rstrip("\n").split("\t")[:3]
-    stats[s] = int(bp)
-with open("%s/mapping/depths.txt" % A) as f:  # sample names and contig lengths
-    hdr = f.readline().rstrip("\n").split("\t")
-    names = [h.replace(".sorted.bam", "") for h in hdr if h.endswith(".bam")]
-    clen = {}
-    for line in f:
-        p = line.split("\t", 2)
-        clen[p[0]] = int(p[1])
-cov, dbp = [0.0] * len(names), [0.0] * len(names)  # >=95% identity: covered bp, depth x bp
-with open("%s/mapping/cov95.tsv" % A) as f:
-    h = f.readline().rstrip("\n").split("\t")
-    cf, mn = {}, {}
-    for j, col in enumerate(h):
-        if col.endswith(" Covered Fraction"):
-            cf[col.replace(".sorted Covered Fraction", "")] = j
-        elif col.endswith(" Mean"):
-            mn[col.replace(".sorted Mean", "")] = j
-    for line in f:
-        p = line.rstrip("\n").split("\t")
-        L = clen.get(p[0], 0)
-        for k, s in enumerate(names):
-            if s in cf:
-                cov[k] += float(p[cf[s]]) * L
-                dbp[k] += float(p[mn[s]]) * L
-glen = sum(clen.values())
-res = {"samples": names, "total_bp_depth": [stats.get(s, 0) for s in names], "mags": {label: {
-    "length": glen,
-    "relab": [round(100 * dbp[k] / stats[s], 5) if stats.get(s) else 0 for k, s in enumerate(names)],
-    "depth": [round(dbp[k] / glen, 4) if glen else 0 for k in range(len(names))],
-    "breadth": [round(cov[k] / glen, 3) if glen else 0 for k in range(len(names))]}}}
-json.dump(res, open("%s/abund.json" % out, "w"))
-print("[INFO] %s: %d contigs, %.2f Mbp, %d proteins, %d samples, %d modules" % (label, len(order), total / 1e6, len(ann), len(names), len(mods)), file=sys.stderr)
+print("[INFO] %s: %d contigs, %.2f Mbp, %d proteins, %d modules" % (label, len(order), total / 1e6, len(ann), len(mods)), file=sys.stderr)

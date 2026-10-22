@@ -85,6 +85,8 @@ td.num{text-align:right;font-variant-numeric:tabular-nums}
 .rank{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.85rem}
 .rank small{display:block;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.05em}
 .rank.ph{border-color:var(--gold);background:rgba(251,191,36,.12)}
+.banner-tree{margin-top:12px}
+.banner-tree h3{margin:0 0 6px;font-size:.95rem}
 .rank.ph b{color:var(--gold)}
 .arrow{color:var(--muted)}
 
@@ -217,6 +219,43 @@ a.lpsn:hover{color:var(--marine)}
 .genus-info details summary{cursor:pointer}
 .genus-info details p{margin:4px 0}
 .saved-row{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:6px 0;font-size:.88rem}
+/* function tab: ecosystem flip cards, pathway step boxes, explainer pop-up */
+.es-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px}
+.flip{perspective:1200px;cursor:pointer;outline:none}
+.flip .in{display:grid;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip.on .in{transform:rotateY(180deg)}
+.flip .face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid var(--line);border-radius:12px;background:var(--panel2);padding:12px;display:flex;flex-direction:column;gap:6px}
+.flip .back{transform:rotateY(180deg)}
+.flip:focus-visible .face{border-color:var(--gold)}
+.flip img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;background:var(--panel)}
+.flip .t{font-weight:700;font-size:1rem}
+.flip p{margin:0;font-size:.88rem;line-height:1.45}
+.flip .hint{margin-top:auto;font-size:.75rem;color:var(--muted);text-align:right}
+.flip .rev{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-top:2px}
+.flip .rev .stars{color:var(--gold);font-size:1.05rem;letter-spacing:1px}
+.flip .rev .stars .off{color:#3b5677}
+.flip .rev .stars .half{background:linear-gradient(90deg,var(--gold) 50%,#3b5677 50%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.flip .rev .stars .n{color:var(--muted);font-size:.75rem;letter-spacing:0;margin-left:6px}
+.flip .rev q{display:block;font-style:italic;font-size:.86rem;margin:3px 0 2px;line-height:1.4}
+.flip .rev .by{font-size:.75rem;color:var(--muted)}
+.pw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:5px 6px;border-radius:8px;cursor:pointer}
+.pw:hover,.pw:focus-visible{background:var(--panel2);outline:none}
+.pw .nm{font-size:.86rem}
+.pw .nm small{display:block;color:var(--muted);font-size:.72rem}
+.steps{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:220px}
+.steps i{width:16px;height:16px;border-radius:3px;border:1.5px solid #4b6a8f;display:block}
+.steps i.y{background:var(--fresh);border-color:var(--fresh)}
+.steps i.key{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.hl tr{cursor:pointer}
+.hl tr:hover td{background:var(--panel2)}
+#xpl{position:fixed;inset:0;background:rgba(3,10,20,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+#xpl.on{display:flex}
+#xpl .box{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:620px;width:100%;max-height:86vh;overflow:auto;padding:18px 20px;position:relative}
+#xpl .box h3{margin:0 30px 8px 0;color:var(--gold)}
+#xpl .box p{line-height:1.55;margin:0 0 10px}
+#xpl .x{position:absolute;top:10px;right:12px;font-size:1.2rem}
+#xpl table{width:100%;font-size:.84rem}
+#xpl td{padding:3px 6px;border-bottom:1px solid var(--line);vertical-align:top}
 </style>
 </head>
 <body>
@@ -254,16 +293,19 @@ a.lpsn:hover{color:var(--marine)}
       <button class="tab" data-tab="diversity" onclick="showTab('diversity')">🌳 Diversity</button>
       <button class="tab" data-tab="distribution" onclick="showTab('distribution')">🌍 Distribution</button>
       <button class="tab" data-tab="function" onclick="showTab('function')">⚙️ Function</button>
+      <button class="tab hidden" data-tab="iq" id="iqTabBtn" onclick="showTab('iq')">🧭 Knowledge</button>
       <button class="tab" data-tab="naming" onclick="showTab('naming')">✍️ Naming</button>
     </nav>
     <div id="tab-story" class="tabpane"></div>
     <div id="tab-diversity" class="tabpane hidden"></div>
     <div id="tab-distribution" class="tabpane hidden"></div>
     <div id="tab-function" class="tabpane hidden"></div>
+    <div id="tab-iq" class="tabpane hidden"></div>
     <div id="tab-naming" class="tabpane hidden"></div>
   </section>
 </main>
 <div id="tip"></div>
+<div id="xpl" onclick="if(event.target===this)closeXpl()"><div class="box" role="dialog" aria-modal="true"><button class="btn x" onclick="closeXpl()" aria-label="Close">✕</button><div id="xplBody"></div></div></div>
 
 <script src="community.js?v=dev"></script>
 <script src="candidates.js?v=dev"></script>
@@ -271,6 +313,13 @@ a.lpsn:hover{color:var(--marine)}
 <script src="dictionary.js?v=dev"></script>
 <script src="taxon_names.js?v=dev"></script>
 <script src="narratives.js?v=dev"></script>
+<script src="explain/pathway_steps.js?v=dev"></script>
+<script src="explain/pathways.js?v=dev"></script>
+<script src="explain/genes.js?v=dev"></script>
+<script src="explain/services.js?v=dev"></script>
+<script src="reviews.js?v=dev"></script>
+<script src="iq_tab.js?v=dev"></script>
+<script src="iq.js?v=dev"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // Everything specific to one community lives in community.js (window.COMMUNITY); see communities/_template.
@@ -397,8 +446,14 @@ function showTab(t, force){
   document.querySelectorAll('.tabpane').forEach(p=>p.classList.add('hidden'));
   const pane = document.getElementById('tab-'+t); pane.classList.remove('hidden');
   maps.forEach(m=>m.remove()); maps=[];
-  ({story:renderStory, diversity:renderEvolution, distribution:renderEcology, function:renderFunction, naming:renderNaming})[t](pane);
+  ({story:renderStory, diversity:renderEvolution, distribution:renderEcology, function:renderFunction, iq:renderIQTab, naming:renderNaming})[t](pane);
   history.replaceState(null,'',`#${cur+1}/${t}`);
+}
+// community knowledge tab (site/iq_tab.js + communities/<id>/iq.js); hidden when a community has none
+function renderIQTab(p){
+  renderIQ(p, {id: C[cur].id, microbe: C[cur], content: window.IQ_CONTENT, community: CM,
+    site: {ecossdb: D.ecossdb[C[cur].id]||[], meta: D.meta[C[cur].id]||{}},
+    microbes: C.map(c=>({id: c.id, nickname: c.nickname}))});
 }
 function renderBanner(){
   const c = C[cur], m = D.meta[c.id]||{}, need = namingNeed(c);
@@ -406,10 +461,12 @@ function renderBanner(){
   b.className = 'banner ' + c.habitat;
   b.innerHTML = `<img src="${img(cur)}" alt="">
     <div><h2>${esc(c.nickname)}</h2>
-    <div class="id">${esc(c.id)} · ${lineageOf(c).slice(3).map((x,k)=>taxonLink(k+3, x.name)).join(' › ')}</div>
+    <div class="id">${esc(c.id)}</div>
     <span class="pill ${c.habitat}">${c.habitat==='marine'?'🌊 Marine':'💧 Freshwater'}</span>
     <span class="pill gold">✍️ ${esc(need.label)}</span>
-    <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span></div>`;
+    <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span>
+    <div class="banner-tree"><h3>🧬 Family tree</h3>
+    <div class="lineage">${lineageOf(c).map((x,i)=>`${i?'<span class="arrow">›</span>':''}<div class="rank${x.ph?' ph':''}"><small>${x.rank}</small><b>${taxonLink(i, x.name)}</b></div>`).join('')}</div></div></div>`;
 }
 
 /* ---------- STORY ---------- */
@@ -429,6 +486,12 @@ function whereFound(c){
   const sites = Object.keys(best).sort((a,b)=>best[b]-best[a]);
   return sites.length ? sites.join(', ') : (c.whereInCI||'').replace(/\s*\([^)]*\)/g, '');
 }
+// how cells per litre are estimated (D.cellModel), shown under the distribution tables
+function cellNote(){
+  const m = D.cellModel || {}, n = (m.cells_per_litre||{}), g = (m.mean_genome_bp||3e6)/1e6;
+  const one = n.marine === n.freshwater ? `${(n.marine/1e9).toLocaleString('en-CA')} billion bacteria per litre` : `${(n.marine/1e9).toLocaleString('en-CA')} billion bacteria per litre in seawater and ${(n.freshwater/1e9).toLocaleString('en-CA')} billion in lake water`;
+  return `<b>Cells per litre</b> is an estimate. We assume a litre of surface water holds about ${one} (a million per millilitre, typical for coastal seawater and lakes), and share them out by how much of the sample's DNA came from this microbe. Small genomes give less DNA per cell, so each microbe's share is adjusted for its genome size (against an average of ${fmt(g,0)} million letters).`;
+}
 function renderEcology(p){
   const c = C[cur], nm = D.northMap[c.id], rows = nm.ci_samples||[];
   const reg = nm.regional_stations;
@@ -437,7 +500,11 @@ function renderEcology(p){
   const others = reg.filter(r=>!r.is_ci);
   const otherMean = others.reduce((a,r)=>a+r.mean_relab*r.n_samples,0)/Math.max(1,others.reduce((a,r)=>a+r.n_samples,0));
   const fold = ciReg && otherMean>0 ? ciReg.mean_relab/otherMean : null;
-  const pct = v => v==null ? '—' : v>=1 ? fmt(v,1)+'%' : v>=0.01 ? fmt(v,2)+'%' : v>0 ? '<0.01%' : '0%';
+  // cells per litre from the share of mapped DNA: total cells/L x (mean genome / this genome); see D.cellModel
+  const CMOD = D.cellModel || {cells_per_litre:{}, mean_genome_bp:3e6};
+  const perL = (CMOD.cells_per_litre||{})[c.habitat] || 1e9, gsize = (D.meta[c.id]||{}).size || CMOD.mean_genome_bp;
+  const cellsL = v => v==null ? null : v/100 * perL * CMOD.mean_genome_bp / gsize;
+  const pct = v => { const n = cellsL(v); return n==null ? '—' : n<=0 ? '0' : n<1000 ? 'under 1,000' : n<1e6 ? (Math.round(n/1e3)*1e3).toLocaleString('en-CA') : fmt(n/1e6, n<1e7?1:0)+' million'; };
   const anyMapped = rows.some(r=>r.source==='mapped'), anySketch = rows.some(r=>r.source==='sketch');
   p.innerHTML = `
 
@@ -445,17 +512,17 @@ function renderEcology(p){
   <div class="card"><h3>🗺️ How common is it across the North?</h3>
     <div class="grid2" style="align-items:start">
       <div><div id="mapNorth" class="map"></div>
-        <div class="note" style="margin-top:6px">Bigger bubble = a bigger share of the DNA in that region's samples. Grey = not found.</div></div>
+        <div class="note" style="margin-top:6px">Bigger bubble = more of its cells per litre of water in that region's samples. Grey = not found.</div></div>
       <div>
         ${ciReg ? `<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px">
-          <div class="stat"><b>${pct(ciReg.mean_relab)}</b><span>of the DNA in an average ${esc(LOCAL)} sample</span></div>
+          <div class="stat"><b>${pct(ciReg.mean_relab)}</b><span>cells per litre in an average ${esc(LOCAL)} sample</span></div>
           <div class="stat"><b>${fold!=null? (fold>=100?'100+':fmt(fold,fold>=10?0:1))+'×':'—'}</b><span>more common here than elsewhere</span></div></div>` : ''}
         ${ciReg && !ciReg.detected ? `<p>Not found in the ${esc(LOCAL)} samples mapped so far${anySketch?', but the quick read check finds it in later samples (below)':''}.</p>`:''}
-        <table><thead><tr><th>Region</th><th class="num">Samples</th><th class="num">Found in</th><th>Share of the DNA (average)</th></tr></thead><tbody>
+        <table><thead><tr><th>Region</th><th class="num">Samples</th><th class="num">Found in</th><th>Cells per litre (average)</th></tr></thead><tbody>
         ${reg.map(r=>`<tr${r.is_ci?' style="background:rgba(251,191,36,.08)"':''}><td>${r.is_ci?'⭐ ':''}${esc(r.station)}</td><td class="num">${r.n_samples}</td><td class="num">${r.detected}</td>
           <td title="highest in one sample: ${pct(r.max_relab)}"><div class="bar"><span style="width:${r.mean_relab>0?Math.max(1,100*Math.sqrt(r.mean_relab/maxRel)):0}%;background:${r.is_ci?'var(--gold)':c.habitat==='marine'?'var(--marine)':'var(--fresh)'}"></span></div><span class="note">${pct(r.mean_relab)}</span></td></tr>`).join('')}
         </tbody></table>
-        <div class="note" style="margin-top:6px"><b>Share of the DNA</b>: out of all the DNA we read from a sample that matched our genome collection, the percentage that came from this microbe. <b>Found in</b>: samples where at least 30% of its genome turned up.</div>
+        <div class="note" style="margin-top:6px">${cellNote()} <b>Found in</b>: samples where enough of its DNA turned up (at least 250,000 letters matching it as the same species, spread over the genome rather than piled in one spot).</div>
       </div>
     </div>
   </div>
@@ -464,14 +531,14 @@ function renderEcology(p){
     <div class="grid2" style="align-items:start">
       <div><div id="mapLocal" class="map small"></div></div>
       <div>
-        <table><thead><tr><th>Sample</th><th>Site</th><th>Date</th><th>Share of the DNA</th><th class="num">Genome found</th><th class="num">Same species?</th></tr></thead><tbody>
+        <table><thead><tr><th>Sample</th><th>Site</th><th>Date</th><th>Cells per litre</th><th class="num">Genome found</th><th class="num">Same species?</th></tr></thead><tbody>
         ${rows.map(h=>{ const cov = h.source==='mapped' ? h.breadth*100 : h.wkid, sk = h.source==='sketch';
           return `<tr${h.detected?'':' style="opacity:.45"'}><td>${esc(h.id)}</td><td>${esc(h.loc_label||h.site||'—')}</td><td>${h.date?h.date.replace(/(\d{4})(\d\d)(\d\d)/,'$1-$2-$3'):'—'}</td>
           <td>${sk?'<span class="note">not measured yet</span>':`<div class="bar"><span style="width:${Math.min(100,Math.sqrt(h.relab/10)*100)}%;background:var(--gold)"></span></div><span class="note">${pct(h.relab)}</span>`}</td>
           <td class="num">${cov!=null?(sk?'~':'')+fmt(cov,0)+'%':'—'}</td>
           <td class="num" title="${h.ani_source==='mapped'?`average identity of ${h.ani_reads} reads to this genome`:h.ani_source==='few'?`only ${h.ani_reads} read${h.ani_reads>1?'s':''}, too few to tell`:h.ani!=null?'quick read check':''}">${h.ani==null?'—':(h.ani>=95?'✅ ':'')+fmt(h.ani,1)+'%'}</td></tr>`; }).join('')}
         </tbody></table>
-        <div class="note" style="margin-top:6px"><b>Share of the DNA</b>: the percentage of the sample's DNA that came from this microbe. <b>Genome found</b>: how much of its genome turned up in the sample (faded rows: under 30%, so probably not there). <b>Same species?</b>: how closely the sample's DNA matches this genome, averaged over its reads. ✅ = 95% or more, the same species; lower values mean a related species (— = fewer than 5 reads).${anySketch?' Rows marked ~ come from a quick read check of samples that are still being mapped.':''}</div>
+        <div class="note" style="margin-top:6px">${cellNote()} <b>Genome found</b>: how much of its genome turned up in the sample. Faded rows: too little of its DNA to be sure it is there; a thinly sequenced sample can carry it without showing much of the genome. <b>Same species?</b>: how closely the sample's DNA matches this genome, averaged over its reads. ✅ = 95% or more, the same species; lower values mean a related species (— = fewer than 5 reads).${anySketch?' Rows marked ~ come from a quick read check of samples that are still being mapped.':''}</div>
       </div>
     </div>
   </div>`;
@@ -485,7 +552,7 @@ function renderEcology(p){
     const det = r.detected > 0;
     L.circleMarker([r.lat,r.lon], {radius: det? 6 + 34*Math.sqrt(r.mean_relab/maxRel) : 5, color: r.is_ci?'#fbbf24':'#fff', weight: r.is_ci?3:1,
       fillColor: det ? (r.is_ci?'#fbbf24': c.habitat==='marine'?'#38bdf8':'#34d399') : '#64748b', fillOpacity:.6})
-     .addTo(m1).bindPopup(`<b>${esc(r.station)}</b><br>${esc(r.region)}<br>found in ${r.detected} of ${r.n_samples} samples<br>${pct(r.mean_relab)} of the DNA on average, up to ${pct(r.max_relab)} in one sample<br><i>${esc(r.desc)}</i>`);
+     .addTo(m1).bindPopup(`<b>${esc(r.station)}</b><br>${esc(r.region)}<br>found in ${r.detected} of ${r.n_samples} samples<br>${pct(r.mean_relab)} cells per litre on average, up to ${pct(r.max_relab)} in one sample<br><i>${esc(r.desc)}</i>`);
   });
   const m2 = L.map('mapLocal', {scrollWheelZoom:true}); tiles().addTo(m2); maps.push(m2);
   const loc = nm.ci_local_stations;
@@ -501,7 +568,7 @@ function renderEcology(p){
     const mapped = s.samples.some(x=>x.source==='mapped');
     L.circleMarker([s.lat,s.lon], {radius: mapped ? 6 + 22*Math.min(1,Math.sqrt(s.max_relab/10)) : 7, color:'#fff', weight:1, dashArray: mapped?null:'3',
       fillColor: s.type==='Marine'?'#38bdf8':'#34d399', fillOpacity: mapped?.75:.35})
-     .addTo(m2).bindPopup(`<b>${esc(s.name)}</b><br>${mapped?`up to ${pct(s.max_relab)} of the DNA in one sample`:'found by the quick read check'}<br>${s.samples.map(x=>`${esc(x.id)} (${x.date?x.date.replace(/(\d{4})(\d\d)(\d\d)/,'$1-$2-$3'):'?'}): ${x.source==='mapped'?pct(x.relab):'~'+fmt(x.wkid,0)+'% of genome'}`).join('<br>')}`);
+     .addTo(m2).bindPopup(`<b>${esc(s.name)}</b><br>${mapped?`up to ${pct(s.max_relab)} cells per litre in one sample`:'found by the quick read check'}<br>${s.samples.map(x=>`${esc(x.id)} (${x.date?x.date.replace(/(\d{4})(\d\d)(\d\d)/,'$1-$2-$3'):'?'}): ${x.source==='mapped'?pct(x.relab):'~'+fmt(x.wkid,0)+'% of genome'}`).join('<br>')}`);
   });
   setTimeout(()=>{m1.invalidateSize(); m2.invalidateSize(); fitNorth(); fitLocal();}, 50);
 }
@@ -511,19 +578,16 @@ function renderEvolution(p){
   const c = C[cur], e = D.evo[c.id]||{}, m = D.meta[c.id]||{}, t = D.trees[c.id], L0 = lineageOf(c), need = namingNeed(c);
   const novelSp = L0[6].ph && !/ sp\d/.test(L0[6].name);
   p.innerHTML = `
-  <div class="card"><h3>🧬 Family tree name (GTDB lineage)</h3>
-    <div class="lineage">${L0.map((x,i)=>`${i?'<span class="arrow">›</span>':''}<div class="rank${x.ph?' ph':''}"><small>${x.rank}</small><b>${taxonLink(i, x.name)}</b></div>`).join('')}</div>
-    <div class="note" style="margin-top:8px">Gold = only a code, or no name at all. These are the names we get to choose.</div>
-  </div>
   <div class="grid2">
     <div class="card"><h3>📏 How different is it from its relatives?</h3><div class="kv">
       <div>How it was placed</div><div>${e.method==='ani_screen'?'Whole-genome ANI match to a GTDB reference':'Placed in the GTDB tree using 120 marker genes'}</div>
-      <div>Closest reference genome</div><div>${e.closest_ref?`<a href="https://gtdb.ecogenomic.org/genome?gid=${esc(e.closest_ref)}" target="_blank">${esc(e.closest_ref)}</a>`:'—'}</div>
+      <div>Closest reference genome</div><div>${e.closest_ref?`${e.closest_species?`<i>${esc(e.closest_species)}</i><br>`:''}<a href="https://gtdb.ecogenomic.org/genome?gid=${esc(e.closest_ref)}" target="_blank">${esc(e.closest_ref)}</a>`:(e.ani_source?'<span class="note">none above about 80% ANI</span>':'—')}</div>
       <div>ANI to closest reference</div><div>${e.closest_ani?fmt(e.closest_ani,2)+'%':'—'} ${e.closest_ani? (+e.closest_ani>=95?'<span class="note">(same species cluster)</span>':'<span class="note" style="color:var(--gold)">(&lt; 95% → different species)</span>'):''}</div>
-      <div>Alignment fraction</div><div>${e.closest_af?fmt(e.closest_af,3):'—'}</div>
+      <div>Alignment fraction</div><div>${e.closest_af?fmt(e.closest_af,3):'—'}${e.ani_source?' <span class="note">(share of our genome compared)</span>':''}</div>
       <div>RED (relative evolutionary divergence)</div><div>${e.red_value?fmt(e.red_value,3):'—'}</div>
       <div>Marker genes found</div><div>${e.msa_percent?fmt(e.msa_percent,1)+'%':'—'}</div>
     </div>
+    ${e.ani_source ? `<p class="note" style="margin-top:8px">ANI (average nucleotide identity) compares the whole genome, letter by letter, with every GTDB species (skani). ${(e.ani_hits||[]).filter(h=>h.ani>=95).length>1 ? `It is above 95% to ${(e.ani_hits||[]).filter(h=>h.ani>=95).length} GTDB species, so it sits on the border between them. ` : ''}${!e.closest_ani ? 'Nothing in GTDB is close enough to measure, so it is far from every known species. ' : ''}</p>` : ''}
     <p style="margin-top:10px">${novelSp ? 'No known species is close enough to it, so it is a new species.' :
       'Other scientists have found this species before, but only gave it a code, never a real name.'}
       ${need.genus ? ' Its genus has no real name either.' : ` Its genus already has a name, <i>${esc(need.genusName)}</i>, so we only name the species.`}</p></div>
@@ -541,7 +605,7 @@ function renderEvolution(p){
   </div>
   <div class="card"><h3>🌳 Closest relatives in the GTDB tree</h3>
     <div class="tree-wrap" id="treeBox"></div>
-    <div class="note">★ = our ${esc(LOCAL)} genome. <b style="color:var(--text)">White, <i>italic</i><sup>T</sup></b> = type strain of a validly named species (the two closest are always shown). Grey = other close GTDB genomes, most known only by a code. Teal = other genomes from our samples.</div></div>
+    <div class="note">★ = our ${esc(LOCAL)} genome. A % after a name is its ANI to our genome (shown when above about 80%). The tree is built from 120 marker genes and ANI from the whole genome, so their order can differ a little. <b style="color:var(--text)">White, <i>italic</i><sup>T</sup></b> = type strain of a validly named species (the two closest are always shown). Grey = other close GTDB genomes, most known only by a code. Teal = other genomes from our samples.</div></div>
   <div class="card"><h3>⭕ Circular genome map</h3>
     <div class="circos-wrap" id="circosBox" style="text-align:center"></div>
     <div class="circos-legend">
@@ -574,7 +638,7 @@ function drawTree(box, t){
       n.children.forEach(ch=>draw(ch, n._x));
     } else {
       const col = n.is_target ? '#fbbf24' : n.is_user_bin ? '#5eead4' : n.is_type ? '#e7f0fa' : '#93a9c3';
-      const lbl = n.is_target ? `★ ${C[cur].nickname} (${LOCAL})` : (n.label||n.name), [nm, acc] = lbl.includes(' [') ? [lbl.slice(0, lbl.indexOf(' [')), lbl.slice(lbl.indexOf(' ['))] : [lbl, ''];
+      const lbl = (n.is_target ? `★ ${C[cur].nickname} (${LOCAL})` : (n.label||n.name)) + (n.ani ? ` · ${(+n.ani).toFixed(1)}% ANI` : ''), [nm, acc] = lbl.includes(' [') ? [lbl.slice(0, lbl.indexOf(' [')), lbl.slice(lbl.indexOf(' ['))] : [lbl, ''];
       s += `<circle cx="${x}" cy="${y}" r="${n.is_target?6:n.is_type?4:3}" fill="${col}"/>`;
       s += `<text x="${x+9}" y="${y+4}" font-size="${n.is_target?13:12}" style="fill:${col};font-weight:${n.is_target||n.is_type?700:400}"><title>${esc(n.lineage||'')}</title>`
         + (n.is_type ? `<tspan font-style="italic">${esc(nm)}</tspan><tspan baseline-shift="super" font-size="9">T</tspan><tspan font-weight="400" style="fill:#93a9c3">${esc(acc)}</tspan>` : esc(lbl)) + `</text>`;
@@ -642,39 +706,113 @@ function renderFunction(p){
   const used = new Set(groups.flatMap(g=>g[1])); const rest = mods.filter(m=>!used.has(m));
   if (rest.length) groups.push(['Other', rest]);
   const complete = mods.filter(m=>m.c>=1).length;
-  const roleCol = {producer:'#34d399', transformer:'#38bdf8', consumer:'#fbbf24', inhibitor:'#f87171'};
+  const SI = window.SERVICE_INFO||{}, PI = window.PATHWAY_INFO||{}, PS = window.PATHWAY_STEPS||{};
+  const hl = (D.circos[c.id]?.markers||[]).filter(m=>['Energy','CAZyme','Vitamin/Cold','Defense'].includes(m.category))
+    .slice().sort((a,b)=>a.label.localeCompare(b.label, undefined, {numeric:true}) || a.product.localeCompare(b.product));
+  // step boxes: one per pathway step, filled when the genome has a gene for it
+  const stepBoxes = m => { const st = PS[m.id]?.steps, f = m.s || '';
+    if (!st || f.length!==st.length) return `<div class="note">${Math.round(m.c*100)}%</div>`;
+    const key = PI[m.id]?.key||[];
+    return `<div class="steps${m.c>=1?' all':''}">${st.map((x,i)=>`<i class="${f[i]==='1'?'y':''}${key.includes(i)?' key':''}" data-t="${esc(x.genes)}${key.includes(i)?' (key step)':''}<br>${f[i]==='1'?'✅ found':'— not found'}"></i>`).join('')}</div>`; };
   p.innerHTML = `
   <div class="card"><h3>🍽️ What it eats, breathes and makes</h3>
     ${c.fn ? `<div class="story">${esc(c.fn)}</div>${moreBoxes(c.fnMore)}` : `<ul class="acts">${c.activities.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>`}
     <div style="margin-top:8px">${c.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join('')}</div></div>
 
-  <div class="card"><h3>🌿 What it does for the ecosystem (EcoSSDB)</h3>
-    <p>Predicted from its genes. A negative score means some of its genes work against that service (for example, antibiotic resistance).</p>
-    ${es.map(x=>{ const tot=Object.values(x.roles).reduce((a,b)=>a+b,0)||1;
-      return `<div class="es"><div class="ic">${x.icon}</div><div>
-        <div class="t">${esc(x.short_name)} <span class="note">· ${x.gene_count} genes · score <b style="color:${x.weighted_score<0?'var(--red)':'var(--fresh)'}">${x.weighted_score.toFixed(2)}</b></span></div>
-        <div class="note">${esc(x.desc)}</div>
-        <div class="rolebar">${Object.entries(x.roles).map(([k,v])=>`<span title="${k}: ${v}" style="width:${100*v/tot}%;background:${roleCol[k]||'#94a3b8'}"></span>`).join('')}</div>
-        <div class="note">${Object.entries(x.roles).map(([k,v])=>`<span style="color:${roleCol[k]||'#94a3b8'}">■</span> ${k} ${v}`).join(' &nbsp; ')}</div>
-        <div>${x.top_genes.map(g=>`<span class="chip" title="confidence ${g.conf}">${esc(g.id)}: ${esc(g.desc)}</span>`).join('')}</div>
-        <div>${x.sdgs.map(s=>`<span class="chip sdg">${esc(s)}</span>`).join('')}</div>
-      </div></div>`; }).join('') || '<p class="note">No EcoSSDB hits.</p>'}
+  <div class="card"><h3>🌿 What it does for the ecosystem</h3>
+    <p class="note">Predicted from its genes (EcoSSDB). Tap a card to turn it over.</p>
+    ${es.length ? `<div class="es-grid">${es.map((x,k)=>{ const info = SI[x.code]||{}, tot = Object.values(x.roles).reduce((a,b)=>a+b,0)||1;
+      return `<div class="flip" tabindex="0" role="button" aria-pressed="false" data-flip="${k}"><div class="in">
+        <div class="face front">
+          ${info.img?`<img src="${esc(info.img)}" alt="" loading="lazy" onerror="this.remove()">`:''}
+          <div class="t">${x.icon} ${esc(info.title||x.short_name)}</div>
+          <p>${esc(info.front||x.desc)}</p>
+          <p class="note">This microbe has <b style="color:var(--text)">${x.gene_count}</b> gene${x.gene_count===1?'':'s'} linked to this.</p>
+          ${review(x, c)}
+          <div class="hint">tap to turn over ↻</div></div>
+        <div class="face back">
+          <div class="t">${esc(x.short_name)}</div>
+          <p class="note">${esc(x.desc)}</p>
+          <p class="note">${x.gene_count} genes · score <b style="color:${x.weighted_score<0?'var(--red)':'var(--fresh)'}">${x.weighted_score.toFixed(2)}</b>${x.weighted_score<0?' (negative: some genes work against this service)':''}</p>
+          <div class="rolebar" style="max-width:none">${Object.entries(x.roles).map(([r,v])=>`<span title="${esc(r)}: ${v}" style="width:${100*v/tot}%;background:${roleCol[r]||'#94a3b8'}"></span>`).join('')}</div>
+          <div class="note">${Object.entries(x.roles).map(([r,v])=>`<div><span style="color:${roleCol[r]||'#94a3b8'}">■</span> <b style="color:var(--text)">${esc(r)}</b> ${v}${(window.SERVICE_ROLES||{})[r]?`: ${esc(SERVICE_ROLES[r])}`:''}</div>`).join('')}</div>
+          <div class="note" style="margin-top:4px">Top genes:</div>
+          <div>${x.top_genes.map(g=>`<span class="chip" title="confidence ${g.conf}">${esc(g.desc)}</span>`).join('')}</div>
+          <div>${x.sdgs.map(sd=>`<span class="chip sdg">${esc(sd)}</span>`).join('')}</div>
+          <div class="hint">tap to turn back ↻</div></div>
+      </div></div>`; }).join('')}</div>` : '<p class="note">No EcoSSDB hits.</p>'}
   </div>
 
   <div class="grid2">
-    <div class="card"><h3>🧪 Metabolic pathways (KEGG modules)</h3>
-      <p>${complete} pathways are complete.</p>
-      ${groups.filter(g=>g[1].length).map(([n,list])=>`<h4>${n}</h4>${list.sort((a,b)=>b.c-a.c).map(m=>`<div class="mod"><div title="${m.id}">${esc(m.name)}</div>
-        <div class="bar"><span style="width:${m.c*100}%;background:${m.c>=1?'var(--fresh)':m.c>=.75?'var(--gold)':'#64748b'}"></span></div><div class="pct">${Math.round(m.c*100)}%</div></div>`).join('')}`).join('')}
+    <div class="card"><h3>🧪 Metabolic pathways</h3>
+      <p class="note">${complete} pathways are complete. Each box is one step of the pathway, in order; a <span style="color:var(--fresh)">■</span> filled box means the genome has a gene for that step, and a <span style="color:var(--gold)">□</span> gold outline marks a key step only that pathway uses. Click a pathway to learn why it matters.</p>
+      ${groups.filter(g=>g[1].length).map(([n,list])=>`<h4>${n}</h4>${list.slice().sort((a,b)=>b.c-a.c || a.name.localeCompare(b.name)).map(m=>`<div class="pw" tabindex="0" role="button" data-mod="${esc(m.id)}">
+        <div class="nm">${esc(PI[m.id]?.title || m.name)}${PI[m.id]?`<small>${esc(m.name)}</small>`:''}</div>${stepBoxes(m)}</div>`).join('')}`).join('')}
     </div>
     <div>
       <div class="card"><h3>💥 Natural-product gene clusters (antiSMASH)</h3>
         ${bgcs.length? `<table><tbody>${bgcs.map(b=>`<tr><td><b>${esc(b.label.replace('BGC: ',''))}</b></td><td class="note">${esc(b.product.replace(/^antiSMASH BGC: [^ ]+/,''))}<br>${esc(b.contig)}</td></tr>`).join('')}</tbody></table>
           <p>Terpenes are often pigments or antioxidants. T3PKS and arylpolyenes make protective compounds. Lanthipeptides and betalactones can act as antimicrobials.</p>` : '<p class="note">No clusters detected.</p>'}</div>
       <div class="card"><h3>🔎 Highlighted genes</h3>
-        <table><tbody>${(D.circos[c.id]?.markers||[]).filter(m=>['Energy','CAZyme','Vitamin/Cold','Defense'].includes(m.category)).map(m=>`<tr><td><b>${esc(m.label)}</b></td><td class="note">${esc(m.product)}</td></tr>`).join('')}</tbody></table></div>
+        <p class="note">Click a gene to learn what it does.</p>
+        <table class="hl"><tbody>${hl.map((m,k)=>{ const gi = geneInfo(m.label), prod = m.product.replace(/\s*\[[^\]]*\]\s*$/,'').trim();
+          return `<tr tabindex="0" data-hl="${k}"><td><b>${esc(m.label)}</b></td><td class="note">${esc(prod || gi.family || gi.title || '')}</td></tr>`; }).join('')}</tbody></table></div>
     </div>
   </div>`;
+  // interactions: flip cards, pathway and gene explainers, step-box tooltips
+  const act = (el, fn) => { el.addEventListener('click', fn); el.addEventListener('keydown', e=>{ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); fn(); } }); };
+  p.querySelectorAll('.flip').forEach(el=>act(el, ()=>{ el.classList.toggle('on'); el.setAttribute('aria-pressed', el.classList.contains('on')); }));
+  p.querySelectorAll('.pw').forEach(el=>act(el, ()=>explainPathway(mods.find(m=>m.id===el.dataset.mod))));
+  p.querySelectorAll('.hl tr').forEach(el=>act(el, ()=>explainGene(hl[+el.dataset.hl])));
+  p.querySelectorAll('.steps [data-t]').forEach(el=>{ el.addEventListener('mouseenter', e=>showTip(e, el.dataset.t)); el.addEventListener('mouseleave', hideTip); });
+}
+const roleCol = {producer:'#34d399', transformer:'#38bdf8', consumer:'#fbbf24', inhibitor:'#f87171'};
+// joke star review for one ecosystem service (explain/services.js): stars from the EcoSSDB score,
+// the same review for the same microbe every time
+function review(x, c){
+  const full = (window.SERVICE_STARS||{}).full || 0.75;
+  const stars = x.weighted_score <= 0 ? 1 : Math.round(2 * (1 + 4 * Math.min(1, x.weighted_score / full))) / 2;
+  const tier = stars >= 4 ? 'high' : stars >= 2.5 ? 'mid' : 'low';
+  // the community's own review of this microbe (communities/<id>/reviews.js), else a generic one
+  const own = ((window.MICROBE_REVIEWS||{})[c.id]||{})[x.code];
+  const list = own ? [own] : ((window.SERVICE_REVIEWS||{})[x.code]||{})[tier] || [];
+  const icons = '★'.repeat(Math.floor(stars)) + (stars % 1 ? '<span class="half">★</span>' : '') + `<span class="off">${'★'.repeat(5 - Math.ceil(stars))}</span>`;
+  let r = '';
+  if (list.length){ let h = 0; for (const ch of c.id + x.code) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    const pick = list[h % list.length];
+    r = `<q>${esc(pick.text.replace(/\{name\}/g, c.nickname).replace(/\{genes\}/g, x.gene_count))}</q><div class="by">— ${esc(pick.by)}</div>`; }
+  return `<div class="rev"><div class="stars" title="${stars} out of 5 stars (EcoSSDB score ${x.weighted_score.toFixed(2)})">${icons}<span class="n">${stars.toFixed(1)}</span></div>${r}</div>`;
+}
+// explainer for a highlighted-gene label (explain/genes.js): a named label, or a CAZy family
+function geneInfo(label){
+  const G = window.GENE_INFO||{labels:{},cazyClass:{},cazyFamily:{}};
+  if (G.labels[label]) return G.labels[label];
+  const m = /^CAZy: ([A-Z]+)(\d+)/.exec(label);
+  if (m){ const cls = G.cazyClass[m[1]]||{}, fam = G.cazyFamily[m[1]+m[2]];
+    return {title: `${cls.title||'Carbohydrate-active enzyme'} · family ${m[1]}${m[2]}`, family: fam, text: cls.text||''}; }
+  return {title: label, text: ''};
+}
+function openXpl(html){ document.getElementById('xplBody').innerHTML = html; const x = document.getElementById('xpl'); x.classList.add('on'); x.querySelector('.x').focus(); }
+function closeXpl(){ document.getElementById('xpl').classList.remove('on'); }
+document.addEventListener('keydown', e=>{ if (e.key==='Escape') closeXpl(); });
+function explainPathway(m){
+  if (!m) return;
+  const info = (window.PATHWAY_INFO||{})[m.id]||{}, st = (window.PATHWAY_STEPS||{})[m.id]?.steps||[], f = m.s||'';
+  const keyMissing = f ? (info.key||[]).filter(i=>f[i]!=='1').map(i=>st[i]?.genes.split(' (')[0]) : [];
+  openXpl(`<h3>${esc(info.title||m.name)}</h3>
+    ${info.short?`<p><b>${esc(info.short)}</b></p>`:''}
+    ${info.text?`<p>${esc(info.text)}</p>`:''}
+    <p class="note">In ${esc(C[cur].nickname)}: ${f ? `${f.split('').filter(x=>x==='1').length} of ${f.length} steps found` : `${Math.round(m.c*100)}% of steps found`}${keyMissing.length ? `. But the key step${keyMissing.length>1?'s':''} (${esc(keyMissing.join(', '))}) ${keyMissing.length>1?'are':'is'} missing. Only this pathway uses ${keyMissing.length>1?'them':'it'}, so the cell probably does not run it; the steps it does have are shared with other pathways.` : m.c>=1?' — the whole pathway is there.':m.c>=.75?' — most of it is there. A missing step may just be a gene missing from the genome, or done by a different enzyme.':' — only part of it is there, so the cell may use these genes for something else.'}</p>
+    ${st.length?`<table><tbody>${st.map((x,i)=>`<tr><td>${f[i]==='1'?'✅':'⬜'}</td><td>${i+1}. ${esc(x.genes)}${(info.key||[]).includes(i)?' <span class="note" style="color:var(--gold)">key step</span>':''}</td><td class="note">${x.kos.join(', ')}</td></tr>`).join('')}</tbody></table>`:''}
+    <p class="note" style="margin-top:10px">${esc(m.name)} · <a href="https://www.kegg.jp/entry/${esc(m.id)}" target="_blank" rel="noopener">KEGG ${esc(m.id)} ↗</a></p>`);
+}
+function explainGene(m){
+  if (!m) return;
+  const gi = geneInfo(m.label), ko = (/\[([^\]]+)\]\s*$/.exec(m.product)||[])[1], prod = m.product.replace(/\s*\[[^\]]*\]\s*$/,'').trim();
+  openXpl(`<h3>${esc(gi.title||m.label)}</h3>
+    ${gi.family?`<p><b>${esc(gi.family)}</b></p>`:''}
+    ${gi.text?`<p>${esc(gi.text)}</p>`:''}
+    <p class="note">This gene: ${esc(prod||'no description in the annotation')}${ko?` · ${/^K\d{5}$/.test(ko)?`<a href="https://www.kegg.jp/entry/${esc(ko)}" target="_blank" rel="noopener">${esc(ko)} ↗</a>`:esc(ko)}`:''}<br>on ${esc(m.contig)}</p>`);
 }
 
 /* ---------- NAMING ---------- */
@@ -769,7 +907,6 @@ function renderNaming(p){
       ${chk(/16S/.test(rr), '16S rRNA')}
       ${chk(/23S/.test(rr), '23S rRNA')}
       ${chk(trna>=18, `${trna||'?'}/20 tRNAs`)}
-      ${chk(true, `current label: <code>${esc(lineageOf(c)[6].name)}</code>`)}
       ${sg!==undefined?`<span title="Genes found: ${esc(sg||'none')}">🧬 ${sg?'rod-shape genes (MreB) found':'no rod-shape genes found'}</span>`:''}
     </div>
     ${need.ordPh||need.famPh?`<p style="margin:10px 0 0">Its ${need.ordPh?'order and family are':'family is'} unnamed too. Those names are built from the genus name, so if the genus is <i>Xus</i>, the family becomes <i>Xaceae</i>${need.ordPh?' and the order <i>Xales</i>':''}.</p>`:''}
@@ -1118,6 +1255,10 @@ initSelector(); buildRing();
 { const w = ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen'][C.length]; document.getElementById('nBugs').textContent = w || C.length;
   document.getElementById('nMar').textContent = C.filter(c=>c.habitat==='marine').length;
   document.getElementById('nFw').textContent = C.filter(c=>c.habitat!=='marine').length; }
+// show the community knowledge tab only when the community has content for it
+const HAS_IQ = !!(window.IQ_CONTENT && window.renderIQ);
+if (HAS_IQ){ const b = document.getElementById('iqTabBtn'); b.classList.remove('hidden'); if (IQ_CONTENT.labels?.tab) b.textContent = IQ_CONTENT.labels.tab; }
+else document.getElementById('tab-iq').remove();
 const h = location.hash.match(/^#(\d+)(?:\/(\w+))?/);
 // old tab names in saved links still work
 if (h){ const t = ({ecology:'distribution', evolution:'diversity'})[h[2]] || h[2];

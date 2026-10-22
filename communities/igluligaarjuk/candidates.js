@@ -16,20 +16,20 @@ window.CANDIDATES = [
     n50: "809 kbp",
     gc: "38.0%",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    ciEnrichment: "60.5% of all marine reads in CI (83.1× enriched!); 89.2% sketch WKID in Harbour & Itivia",
-    whereInCI: "Dock (CDIT_SITE2), Itivia (CDIT4, CDIT24), Tuktuttaa (CDIT_SITE3-A)",
-    story: "Over 60% of this bacterium's entire population across 276 Arctic marine samples lives right in Chesterfield Inlet! Assembled into just 3 near-chromosome contigs, it oxidizes sulfur compounds to generate energy in cold tidal waters while making Biotin (Vitamin B7), Folate (B9), and Thiamine (B1) for the marine food web.",
+    ciEnrichment: "Up to ~56 million cells/L at the Dock (late May); near Churchill found in 6 of 193 samples (max ~2 million cells/L); not found in the High Arctic",
+    whereInCI: "Dock, Tuktuttaa, Itivia",
+    story: "Chesterfield Inlet is this bacterium's stronghold: up to about 55 million cells in a litre at the Dock, while near Churchill it turned up in only a handful of samples and never in the High Arctic. Assembled into just 3 near-chromosome contigs, it oxidizes sulfur compounds to generate energy in cold tidal waters while making Biotin (Vitamin B7), Folate (B9), and Thiamine (B1) for the marine food web.",
     activities: [
       "Oxidizes sulfur & thiosulfate (Dsr/Apr/Sat/Rhodanese) to clean water and make energy",
       "Fixes carbon in the dark (Rubisco / CBB cycle genes) & microaerophilic respiration (Cytochrome cbb3)",
       "Synthesizes essential B-vitamins (Biotin, Folate, Thiamine, NAD) and scavenges iron via siderophores",
       "Pumps osmoprotectants (proline/betaine) to survive freezing salty sea-ice brines"
     ],
-    tags: ["83× Enriched in Chester", "3 Contigs (Near-Complete)", "Sulfur Oxidizer", "Vitamin Producer", "Ice-Brine Adapted"],
+    tags: ["Chesterfield Stronghold", "3 Contigs (Near-Complete)", "Sulfur Oxidizer", "Vitamin Producer", "Ice-Brine Adapted"],
     defaultGenus: "Thioglobus"
   },
   {
-    id: "dastool-lorbin_162",
+    id: "W02_polaribacter",
     img: "microbe_02.png",
     habitat: "marine",
     nickname: "The Sea-Ice Kelp & Algal Sugar Recycler",
@@ -70,16 +70,16 @@ window.CANDIDATES = [
     n50: "221 kbp",
     gc: "49.0%",
     rrna: "16S + 23S rRNA, 20/20 tRNAs",
-    ciEnrichment: "10.9% of co-assembly depth in CI (6.6× enriched); 96.7% ANI in Harbour & Coastal sites",
-    whereInCI: "Dock (CDIT_SITE2), Tuktuttaa (CDIT_SITE3-A), Itivia (CDIT4)",
-    story: "Known to science only by the code 'TMED14', this ultra-clean genome (95.2% complete, 0.07% contamination) is 6.6× more abundant in Chesterfield Inlet than elsewhere in the Arctic. It uses adhesive PKD/MAM surface domains to cling to marine particles and break down laminarin and glycoproteins.",
+    ciEnrichment: "10–15 million cells/L at Tuktuttaa & Dock in late May; a few hundred thousand cells/L by September; also in the High Arctic islands",
+    whereInCI: "Tuktuttaa, Dock, Itivia",
+    story: "Known to science only by the code 'TMED14', this ultra-clean genome (95.2% complete, 0.07% contamination) blooms in Chesterfield Inlet in late May, with 10 to 15 million cells in a litre at Tuktuttaa and the Dock. It uses adhesive PKD/MAM surface domains to cling to marine particles and break down laminarin and glycoproteins.",
     activities: [
       "Degrades marine algal storage sugars (GH16 laminarinases, GH3, GH92 mannosidases)",
       "Uses 26 PKD and 11 MAM surface-adhesion domains to attach to marine snow and algal particles",
       "Synthesizes Tetrahydrofolate (Vitamin B9) and Terpenes",
       "Top EcoSSDB score (0.85) for controlling the chemical quality of salt water"
     ],
-    tags: ["Needs Genus & Species Name", "6.6× Enriched in Chester", "0.07% Contamination", "Algal Laminarin Eater"],
+    tags: ["Needs Genus & Species Name", "Spring Bloomer", "0.07% Contamination", "Algal Laminarin Eater"],
     defaultGenus: "Igluligaarjukibacter"
   },
   {
@@ -87,7 +87,7 @@ window.CANDIDATES = [
     img: "microbe_04.png",
     habitat: "marine",
     nickname: "The Minimalist Deep-Cold Sulfur Cyclist",
-    gtdb: "o__GCA-002705445; f__GCA-002705445; g__GCA-2705445; s__",
+    gtdb: "o__Poriferisulfidales; f__GCA-002705445; g__GCA-2705445; s__",
     needsGenus: true,
     seqcodeStatus: "Novel Order/Family/Genus/Species (s__)",
     comp: 92.7,
@@ -97,9 +97,9 @@ window.CANDIDATES = [
     n50: "198 kbp",
     gc: "32.0%",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    ciEnrichment: "65.5% sketch WKID (98.5% ANI) across Itivia, Dock, and Harbour",
-    whereInCI: "Itivia (CDIT4, CDIT24), Dock (CDIT12, CDIT_SITE2)",
-    story: "An entire unnamed bacterial order, family, genus, and species (`GCA-2705445`) packed into a tiny 1.06 Mbp genome across just 6 contigs! Despite its tiny size, it has complete rRNAs, all 20 tRNAs, CRISPR defense, sulfur-cycling enzymes, and biotin synthesis.",
+    ciEnrichment: "A few million cells/L at most, at the Dock & Itivia, mostly in September",
+    whereInCI: "Dock, Itivia",
+    story: "An unnamed family, genus and species (`GCA-2705445`) in the order Poriferisulfidales, packed into a tiny 1.06 Mbp genome across just 6 contigs! Despite its tiny size, it has complete rRNAs, all 20 tRNAs, CRISPR defense, sulfur-cycling enzymes, and biotin synthesis.",
     activities: [
       "Ultra-streamlined 1.06 Mbp genome adapted for low-nutrient polar waters",
       "Cycles sulfur (Dsr/Apr/Sat pathway) and scavenges iron via siderophore transport",
@@ -114,19 +114,19 @@ window.CANDIDATES = [
     img: "microbe_05.png",
     habitat: "marine",
     nickname: "The Metabolic Powerhouse of the Inlet",
-    gtdb: "f__Balneatricaceae; g__ASP10-02a; s__ASP10-02a sp002470565",
+    gtdb: "f__Balneatricaceae; g__Njordibacter; s__Njordibacter sp002470565",
     needsGenus: true,
-    seqcodeStatus: "New Genus + Species (g__ASP10-02a)",
+    seqcodeStatus: "New Species (g__Njordibacter)",
     comp: 98.3,
     cont: 0.01,
     size: "2.27 Mbp",
     contigs: 14,
     n50: "232 kbp",
     gc: "44.0%",
-    rrna: "4× 16S + 2× 23S rRNA, 20/20 tRNAs",
-    ciEnrichment: "3.0% of co-assembly depth in CI (1.7× enriched); 84.1% sketch WKID at Itivia & Harbour",
-    whereInCI: "Itivia (CDIT4), Dock (CDIT_SITE2, CDIT12), Tuktuttaa (CDIT_SITE3-A)",
-    story: "Currently stuck with the code name 'ASP10-02a', this 98.3%-complete genome with virtually zero contamination (0.01%) has 22 complete metabolic pathways—more than almost any other marine bacterium in Chesterfield Inlet!",
+    rrna: "4× 16S + 4× 23S rRNA, 20/20 tRNAs",
+    ciEnrichment: "Up to ~11 million cells/L (Tuktuttaa, late May); at all three seawater sites in spring & fall; also near Churchill and in the High Arctic",
+    whereInCI: "Tuktuttaa, Dock, Itivia",
+    story: "A member of the Arctic genus Njordibacter, this 98.3%-complete genome with virtually zero contamination (0.01%) has 22 complete metabolic pathways—more than almost any other marine bacterium in Chesterfield Inlet!",
     activities: [
       "22 complete KEGG metabolic modules including full TCA cycle, gluconeogenesis, and Sox sulfur oxidation",
       "Produces Biotin (B7), Pantothenate (B5), Riboflavin (B2), NAD, and Cobalamin (B12) precursors",
@@ -137,7 +137,7 @@ window.CANDIDATES = [
     defaultGenus: "Aqpikibacter"
   },
   {
-    id: "dastool-lorbin_051",
+    id: "W06_methylophilid",
     img: "microbe_06.png",
     habitat: "marine",
     nickname: "The Solar-Powered One-Carbon Recycler",
@@ -179,10 +179,10 @@ window.CANDIDATES = [
     contigs: 17,
     n50: "450 kbp",
     gc: "40.0%",
-    rrna: "16S + 23S rRNA, 20/20 tRNAs",
-    ciEnrichment: "Present across 6 CI Lake samples (1st Lake & 2nd Lake, up to 19.9% WKID / 94.3% ANI)",
-    whereInCI: "1st Lake (CDIT1, CDIT8, CDIT31), 2nd Lake (CDIT2, CDIT9)",
-    story: "A completely unnamed species of Ferruginibacter living in Chesterfield Inlet's 1st Lake and 2nd Lake! With a 97.3%-complete genome (N50 450 kbp) and full rRNAs/tRNAs, it breaks down tundra plant polysaccharides and crustacean/insect chitin washed into the lakes.",
+    rrna: "16S + 2× 23S rRNA, 20/20 tRNAs",
+    ciEnrichment: "A very close cousin in 1st & 2nd Lake (reads match at ~95–96%), up to ~3 million cells/L in September & October",
+    whereInCI: "1st Lake, 2nd Lake",
+    story: "A completely unnamed species of Ferruginibacter whose very close cousin lives in Chesterfield Inlet's 1st Lake and 2nd Lake! With a 97.3%-complete genome (N50 450 kbp) and full rRNAs/tRNAs, it breaks down tundra plant polysaccharides and crustacean/insect chitin washed into the lakes.",
     activities: [
       "Rich suite of carbohydrate-active enzymes (15 GT2, 8 GT4, GH92, GH36, GH3, xylan & alginate lyases)",
       "Uses 20+ TonB-dependent receptors and Type IX Secretion System (PorP/SprF) for gliding & polymer digestion",
@@ -193,7 +193,7 @@ window.CANDIDATES = [
     defaultGenus: "Ferruginibacter"
   },
   {
-    id: "dastool-comebin_4228",
+    id: "W09_polynucleobacter",
     img: "microbe_09.png",
     habitat: "freshwater",
     nickname: "The 99.9%-Complete Lake Guardian",
@@ -220,7 +220,7 @@ window.CANDIDATES = [
     defaultGenus: "Polynucleobacter"
   },
   {
-    id: "dastool-comebin_3630",
+    id: "W11_nitrotoga",
     img: "microbe_11.png",
     habitat: "freshwater",
     nickname: "The Sub-Zero Nitrogen Purifier",
@@ -255,7 +255,7 @@ window.CANDIDATES = [
     whereInCI: "2nd Lake, 3rd Lake, 1st Lake",
     story: "A tiny lake bacterium with a light-catching pump, found in all three lakes behind town.",
     activities: ["Catches sunlight with a rhodopsin pump", "Breaks down sugars", "Makes vitamin B2"],
-    tags: ["Tiny Cell", "Sunlight Helper", "Only in Chesterfield Lakes", "New Species"]
+    tags: ["Tiny Cell", "Sunlight Helper", "Chesterfield Lakes Specialist", "New Species"]
   },
   {
     id: "N1_amylibacter",
@@ -275,7 +275,7 @@ window.CANDIDATES = [
     nickname: "The 2nd Lake Mystery",
     rrna: "16S + 23S rRNA, 18/20 tRNAs",
     whereInCI: "2nd Lake, 1st Lake",
-    story: "A rare kind of bacterium that lives in 2nd Lake, where it makes up as much as 5% of the DNA. Most of its genes are a mystery.",
+    story: "A rare kind of bacterium that lives in 2nd Lake, where a litre of water can hold about 70 million of its cells. Most of its genes are a mystery.",
     activities: ["Catches sunlight with a rhodopsin pump", "Breaks down plant fibres and chitin", "Fights viruses with CRISPR"],
     tags: ["2nd Lake Resident", "68% Mystery Genes", "Sunlight Helper", "Needs Genus & Species Name"]
   },
@@ -307,7 +307,7 @@ window.CANDIDATES = [
     habitat: "marine",
     nickname: "The Harbour Hunter",
     rrna: "16S + 23S rRNA, 19/20 tRNAs",
-    whereInCI: "Tuktuttaa, Dock, Itivia",
+    whereInCI: "Dock, Tuktuttaa",
     story: "A sea-water hunter found at Tuktuttaa and the Dock, from a group of bacteria that eat other bacteria.",
     activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
     tags: ["Bacteria Hunter", "Sea-Water Swimmer", "New Genus", "Needs Genus & Species Name"]
