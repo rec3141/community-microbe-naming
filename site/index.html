@@ -599,7 +599,7 @@ function renderEvolution(p){
         <div class="stat"><b>${fmt(m.n50/1e3,0)}</b><span>kbp N50</span></div>
         <div class="stat"><b>${fmt(m.gc*100,0)}%</b><span>GC</span></div>
         <div class="stat"><b>${fmt(m.n_genes,0)}</b><span>genes</span></div>
-        <div class="stat"><b>${fmt(m.hypo_pct,0)}%</b><span>unknown function</span></div>
+        <div class="stat"${m.hypo_pct==null?' title="Not counted: the gene-naming database we use is built for bacteria, so it cannot name most genes of an archaeon."':''}><b>${m.hypo_pct==null?'n/a':fmt(m.hypo_pct,0)+'%'}</b><span>unknown function</span></div>
         <div class="stat"><b>${m.n_virus}/${m.n_plasmid}</b><span>prophage / plasmid contigs</span></div>
         <div class="stat"><b>${m.n_defense}</b><span>defence systems</span></div>
       </div></div>

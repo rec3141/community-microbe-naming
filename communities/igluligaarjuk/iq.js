@@ -226,7 +226,7 @@ window.IQ_CONTENT = {
       hook: "Not a bacterium but an archaeon, from a separate branch of life. It lives on ammonia from waste and dead things, and starts the nitrogen cycle in the sea.",
       items: [
         {key: "pijitsirniq", clue: "It turns ammonia into nitrite, the first step toward nitrate, which feeds algae.", q: "Where in Igluligaarjuk does what is left over become useful to someone else? Who makes sure it gets there?"},
-        {key: "avatittinnik", clue: "At the Dock in late May a litre of water held about 18 million of its cells; in September, only about 1 million.", q: "What do people here notice about the inlet in late May compared with September? How could those observations and water samples be put side by side?"},
+        {key: "avatittinnik", clue: "At the Dock in late May a litre of water held about 27 million of its cells; in September and October we could not find it.", q: "What do people here notice about the inlet in late May compared with September? How could those observations and water samples be put side by side?"},
       ],
     },
 

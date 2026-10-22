@@ -590,7 +590,7 @@
   },
   "N12_nitrosopumilus": {
    "habitat": "marine",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site24/N12_nitrosopumilus",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site24c/N12_nitrosopumilus",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n914/classify/gtdbtk.ar53.classify.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n914/gtdbtk.ar53.summary.tsv",
    "domain": "Archaea"
@@ -609,12 +609,12 @@
   }
  },
  "ko_list": "/data/scratch/refdbs/kofam_db/ko_list",
- "gtdb_taxonomy": "~/igluligaarjuk_inputs/newgenomes/ani24/gtdb_taxonomy.tsv",
- "ani_table": "~/igluligaarjuk_inputs/newgenomes/ani24/skani.tsv",
+ "gtdb_taxonomy": "~/igluligaarjuk_inputs/newgenomes/ani24c/gtdb_taxonomy.tsv",
+ "ani_table": "~/igluligaarjuk_inputs/newgenomes/ani24c/skani.tsv",
  "gtdbtk_runs": [
   "~/igluligaarjuk_inputs/newgenomes/gtdbtk_orig"
  ],
- "abundance_dir": "~/igluligaarjuk_inputs/newgenomes/abund24",
+ "abundance_dir": "~/igluligaarjuk_inputs/newgenomes/abund24c",
  "mapped_bases": {
   "freshwater": "~/igluligaarjuk_inputs/mapped_bases500/freshwater.tsv",
   "marine": "~/igluligaarjuk_inputs/mapped_bases500/marine.tsv"
@@ -626,5 +626,5 @@
   "freshwater": 1000000000.0
  },
  "mean_genome_bp": 3000000,
- "canthyd": "~/igluligaarjuk_inputs/newgenomes/canthyd24/canthyd_hits.tsv"
+ "canthyd": "~/igluligaarjuk_inputs/newgenomes/canthyd24c/canthyd_hits.tsv"
 }

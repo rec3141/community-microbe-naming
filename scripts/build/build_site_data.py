@@ -1216,6 +1216,8 @@ def evo_from_summary(r):
 # stand-alone genomes: quality from their own files, taxonomy from their GTDB-Tk summary
 for g, v in EXTRA.items():
     dump_meta[g] = json.load(open(f"{v['dir']}/meta.json"))
+    if v.get("domain") == "Archaea":
+        dump_meta[g]["hypo_pct"] = None  # Bakta's database is built for bacteria: most archaeal genes come out "hypothetical"
     dump_mods[g] = [{"id": k.split(":", 1)[0], "name": k.split(":", 1)[1], "c": c}
                     for k, c in json.load(open(f"{v['dir']}/modules.json"))]
     for r in csv.DictReader(open(cfg_path(v["gtdbtk_summary"])), delimiter="\t"):

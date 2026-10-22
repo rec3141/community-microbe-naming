@@ -373,8 +373,8 @@ window.CANDIDATES = [
     habitat: "marine",
     nickname: "Nano Nitrosopumilus",
     rrna: "5S rRNA, 18/20 tRNAs",
-    whereInCI: "Dock, Tuktuttaa, Itivia",
-    story: "Not a bacterium at all: it is an archaeon, from a separate branch of life. It gets its energy by turning ammonia into nitrite, and it was most common at the Dock and Tuktuttaa in late May.",
+    whereInCI: "Dock, Tuktuttaa",
+    story: "Not a bacterium at all: it is an archaeon, from a separate branch of life. It gets its energy by turning ammonia into nitrite, and we found it at the Dock and Tuktuttaa in late May.",
     activities: ["Gets energy from ammonia (amoA, amoB, amoC)", "Carries a key gene for turning carbon dioxide into food", "Has many genes for building vitamin B12"],
     tags: ["Archaeon, Not a Bacterium", "Ammonia Burner", "Carbon Catcher", "Known Species, No Name"]
   },
