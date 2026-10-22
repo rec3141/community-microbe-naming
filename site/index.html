@@ -315,6 +315,7 @@ a.lpsn:hover{color:var(--marine)}
 <script src="explain/pathways.js?v=dev"></script>
 <script src="explain/genes.js?v=dev"></script>
 <script src="explain/services.js?v=dev"></script>
+<script src="explain/word_hints.js?v=dev"></script>
 <script src="explain/canthyd.js?v=dev"></script>
 <script src="iq_tab.js?v=dev"></script>
 <script src="iq.js?v=dev"></script>
@@ -961,16 +962,37 @@ function renderNaming(p){
     <div id="savedList"></div></div>`;
   buildCats(); dictSearch(); updateName(); renderSaved(); renderProto(); apiButtons();
 }
-let dCat = 'All';
+let dCat = 'Suggested';
 function buildCats(){
-  const cats = ['All', ...new Set(DICT_SHOWN.map(e=>e.category))];
-  document.getElementById('dcats').innerHTML = cats.map(c=>`<button class="cat${c===dCat?' active':''}" onclick="dCat='${c.replace(/'/g,"\\'")}';buildCats();dictSearch()">${esc(c)}</button>`).join('');
+  const cats = ['Suggested', 'All', ...new Set(DICT_SHOWN.map(e=>e.category))];
+  document.getElementById('dcats').innerHTML = cats.map(c=>`<button class="cat${c===dCat?' active':''}" onclick="dCat='${c.replace(/'/g,"\\'")}';buildCats();dictSearch()">${c==='Suggested'?'⭐ Suggested for this microbe':esc(c)}</button>`).join('');
 }
 const norm = s => (s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+// Dictionary words that fit the current microbe (explain/word_hints.js): its habitat, the seasons
+// it was found in, and traits named in its own text. Each word keeps the reasons it was picked.
+function suggestWords(c){
+  const H = window.WORD_HINTS || {}, concepts = [];
+  const text = [c.nickname, c.story, c.fn, ...(c.tags||[]), ...(c.activities||[])].join(' ');  // its main description, not the Q&A boxes
+  if ((H.habitat||{})[c.habitat]) concepts.push(H.habitat[c.habitat]);
+  const season = m => m>=3&&m<=5 ? 'spring' : m>=6&&m<=8 ? 'summer' : m>=9&&m<=11 ? 'autumn' : 'winter';
+  new Set((D.northMap[c.id]?.ci_samples||[]).filter(r=>r.detected && /^\d{8}$/.test(r.date||'')).map(r=>season(+r.date.slice(4,6))))
+    .forEach(k=>{ if ((H.season||{})[k]) concepts.push(H.season[k]); });
+  (H.traits||[]).forEach(t=>{ if (new RegExp(t.when, 'i').test(text)) concepts.push(t); });
+  const hits = new Map();
+  DICT_SHOWN.forEach(e=>{
+    const gloss = norm(e.english), head = gloss.split('(')[0];
+    concepts.forEach(k=>{ const w = k.words.find(w=>new RegExp(`\\b${norm(w)}\\b`).test(gloss)); if (!w) return;
+      const h = hits.get(e) || {e, score:0, why:new Set()};
+      h.score += head.replace(/[^a-z' -]/g,'').trim()===norm(w) ? 4 : new RegExp(`\\b${norm(w)}\\b`).test(head) ? 2 : 1;
+      h.why.add(k.why); hits.set(e, h); });  // score: the gloss is the word itself > in the main gloss > in a note
+  });
+  return [...hits.values()].sort((a,b)=>b.score-a.score || a.e.english.length-b.e.english.length).slice(0, 40);
+}
 function dictSearch(){
   const q = norm(document.getElementById('dq').value.trim());
   const terms = q.split(/\s+/).filter(Boolean);
-  let res = DICT_SHOWN.filter(e => dCat==='All' || e.category===dCat);
+  const sug = dCat==='Suggested' ? suggestWords(C[cur]) : null, why = new Map((sug||[]).map(h=>[h.e, [...h.why].join(' · ')]));
+  let res = sug ? sug.map(h=>h.e) : DICT_SHOWN.filter(e => dCat==='All' || e.category===dCat);
   if (terms.length) res = res.filter(e => { const h = norm(e.roman+' '+e.syllabics+' '+e.english); return terms.every(t=>h.includes(t)); })
     .map(e=>({e, s: norm(e.roman)===q||norm(e.syllabics)===q?0:norm(e.roman).startsWith(q)?1:norm(e.english).split(/[;,()\s]+/).includes(q)?2:3}))
     .sort((a,b)=>a.s-b.s).map(x=>x.e);
@@ -980,7 +1002,7 @@ function dictSearch(){
   window._dres = res;
   document.getElementById('dres').innerHTML = window._dres.map((e,i)=>`<div class="entry">
      <div class="r">${hl(e.roman)}</div><div class="sy">${hl(e.syllabics)}</div>
-     <div class="en">${hl(e.english)}</div>
+     <div class="en">${hl(e.english)}${why.has(e)?`<div class="meta">⭐ ${esc(why.get(e))}</div>`:''}</div>
      <div class="use">${genus?`<button class="btn to-g" onclick="addWord(${i},'g')">+ Genus</button>`:''}<button class="btn to-sp" onclick="addWord(${i},'s')">+ Species</button></div></div>`).join('');
 }
 function useWord(e, part){
