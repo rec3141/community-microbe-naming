@@ -8,6 +8,8 @@ const dots = n => n ? '<span class="cost">' + '●'.repeat(n) + '</span>' : '<sp
 const nameSize = s => s.length <= 18 ? '' : s.length <= 24 ? ' n2' : s.length <= 29 ? ' n3' : ' n4';
 const HAB = {marine: {name: 'Sea', icon: '🌊'}, freshwater: {name: 'Lake', icon: '💧'}};
 const imgSrc = c => c.img ? `img/${c.img}` : 'img/placeholder.svg';
+// card art over the emoji; if the picture is missing it removes itself and the emoji shows
+const artImg = src => src ? `<img class="art-img" src="${esc(src)}" alt="" loading="lazy" onerror="this.remove()">` : '';
 
 function kindTag(k) {
   if (k === 'grow') return '';
@@ -50,7 +52,7 @@ function placeFace(p, total) {
   <div class="frame">
     <div class="top"><span class="kindlabel">PLACE</span><span class="nm">${esc(p.name)}</span><span class="hp">${S.icon}</span></div>
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
-    <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b></div>
+    <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}<i class="season-chip">${S.icon}</i></div>
     <div class="pl-rule">${esc(p.text)}</div>
     <div class="pl-homes"><b>Found here then (they get 2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name) + (h.undated ? '*' : '')).join(', ') || '—'}${p.homes.some(h => h.undated) ? '<br><small>* found here; the sample date was not recorded</small>' : ''}</div>
     <div class="pl-rule small">Wrong water: at the start of your turn, a ${salty ? 'lake microbe (unless 🧂)' : 'sea microbe'} Active here takes 10 damage.</div>
@@ -62,7 +64,7 @@ function eventFace(e, total) {
   return `<div class="tcard event" data-id="${esc(e.id)}">
   <div class="frame">
     <div class="top"><span class="kindlabel">EVENT</span><span class="nm">${esc(e.name)}</span></div>
-    <div class="ev-art">${e.icon}</div>
+    <div class="ev-art">${e.icon}${artImg(e.art)}</div>
     <div class="ev-text">${esc(e.text)}</div>
     <div class="sci">${esc(e.why)}</div>
     <div class="foot"><span class="home">Play 1 Event per turn</span>${total ? `<span class="no">${e.num}/${total}</span>` : ''}</div>

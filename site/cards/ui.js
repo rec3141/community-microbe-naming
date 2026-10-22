@@ -40,11 +40,12 @@ $('deck').addEventListener('click', e => { const t = e.target.closest('.tcard');
 
 // ---------- big view ----------
 let bigIdx = -1;
-function openBig(id) {
+// extra: optional HTML shown above the explanation (e.g. damage and nutrients during a game)
+function openBig(id, extra) {
   bigIdx = ALL.findIndex(c => c.id === id); if (bigIdx < 0) return;
   const c = ALL[bigIdx];
   $('bigCard').innerHTML = R.face(c, TOTAL);
-  $('bigSide').innerHTML = R.details(c);
+  $('bigSide').innerHTML = (extra ? `<div class="inplay">${extra}</div>` : '') + R.details(c);
   $('big').classList.add('on'); $('big').scrollTop = 0;
 }
 function closeBig() { $('big').classList.remove('on'); }

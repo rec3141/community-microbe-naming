@@ -408,6 +408,10 @@ function buildDeck({candidates, narratives, data, community}) {
   const places = placeCards(microbes, D, community || {});
   const events = EVENTS.map((e, i) => Object.assign({type: 'event', num: microbes.length + places.length + i + 1}, e));
   places.forEach(p => { p.text = SEASON_TEXT[p.season] || ''; });
+  // card pictures, by convention (missing ones fall back to the emoji): place art is the
+  // community's own (communities/<id>/img/cards/), event art is shared (site/img/cards/)
+  places.forEach(p => { p.art = `img/cards/${p.id}.jpg`; });
+  events.forEach(e => { e.art = `img/cards/event-${e.id}.jpg`; });
   return {microbes, places, events, title: (community && community.brand) || 'Microbe Cards'};
 }
 

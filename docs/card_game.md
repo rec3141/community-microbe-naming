@@ -28,6 +28,31 @@ All of it is shared by every community. The community folder supplies only its u
 (`candidates.js`, `narratives.js`, `site_data.js`, `community.js`, `img/`).
 `assemble_site.sh` copies `cards.html` and `site/cards/` into `dist/<id>/`.
 
+## Playing on screen
+
+`cards.html#play`: against the computer, or two players passing one device (a cover screen
+hides each player's cards between turns).
+
+- **Tap any card to see it big**, with "where the numbers come from" and, during a game, its HP
+  left and nutrients. Tapping a card is never a move.
+- **Moves are buttons under each card**: attacks with cost and damage under the Active (greyed
+  out with the reason, e.g. "needs 2 ●, has 1"), Feed under each microbe in play, Swap in under
+  Bench microbes, Put on Bench under microbes in hand, Play under Event cards, Pick in the draft.
+- **Every move is two steps**: the move opens a confirm bar at the bottom of the screen with a
+  preview, worked out by trying the move on a copy of the game (e.g. "Break-In: 80 damage to
+  Busy Balneatrix" with "40, weak to Hunt ×2 → 80 damage (it has 60 HP left)"), then Confirm or Cancel. Ending the turn,
+  choosing the next Place and picking a new Active are confirmed the same way.
+- The only automatic step is the draw at the start of a turn, which is announced and marked NEW.
+- **The computer's turn is replayed step by step**: each step is shown with the board as it was
+  then; tap Next (or tick "auto" for one step every 1.6 s, or "Skip to my turn").
+
+## Card pictures
+
+Place cards use `img/cards/<place id>.jpg` from the community's folder
+(`communities/<id>/img/cards/`); Event cards use `img/cards/event-<id>.jpg`, shared in
+`site/img/cards/`. Both are 600 px, 16:9 JPEGs made with the same house style as the ScIQ
+pictures; prompts are in the `PROMPTS.md` next to them. A card without a picture shows its emoji.
+
 ## Quick rules (the 5-minute rules card)
 
 **Goal.** Be the first to wash out 3 of your rival's microbes.

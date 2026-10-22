@@ -1,0 +1,19 @@
+# Place card pictures (Microbe Clash)
+
+One picture per Place card, named after the place card's id (`place-<site>-<season>`, see site/cards/engine.js: `p.art`). The sites are real, but the pictures are generic scenes of low rocky tundra coast and tundra lakes in that season, not portraits of the actual spots. A Place card without a picture shows its emoji instead. Made 2026-10-22 through OpenRouter with `google/gemini-3.1-flash-image` (`openrouter_json_images.py`, aspect 16:9), then resized to 600 px JPEG for the 16:9 art box on the card (cards.css). No people, buildings, cultural objects or text.
+
+Style added to every prompt:
+
+> Vibrant charming 2D scientific cartoon illustration, flat colours, soft outlines, warm and respectful, for high-school students, wide 16:9 landscape composition, set around Chesterfield Inlet on Hudson Bay in Nunavut (low rocky tundra, cold sea inlet, tundra lakes, big sky, no trees). Cartoon bacteria have simple friendly faces and no limbs. No people or human figures, no cultural objects or clothing, no buildings. Absolutely no text, letters, numbers or labels.
+
+| File | Prompt |
+|---|---|
+| place-dock-spring.jpg | a sheltered rocky harbour shore in late May with no structures at all: flat white sea ice still covering most of the bay, a strip of dark open water and blue meltwater pools along the shore, patches of snow on low brown rocks, bright low sun in a pale sky; along the bottom edge a cutaway view into the cold water shows a few tiny friendly bacteria. |
+| place-dock-fall.jpg | a sheltered rocky harbour shore in early autumn with no structures at all: open grey-blue water with small waves, rust-red and golden low tundra plants on the rocks, strands of brown kelp washed up on the stones, a cloudy autumn sky; along the bottom edge a cutaway view into the water shows a few tiny friendly bacteria. |
+| place-itivia-spring.jpg | a wide open stretch of sea coast in late May: broken white sea-ice floes drifting on dark open water, low rocky points, patches of melting snow on the tundra, long bright spring daylight; along the bottom edge a cutaway view into the cold sea shows a few tiny friendly bacteria. |
+| place-itivia-fall.jpg | a wide open stretch of sea coast in October: choppy dark open water, a light dusting of first snow on low brown rocky tundra hills, a low golden sun under grey clouds; along the bottom edge a cutaway view into the sea shows a few tiny friendly bacteria. |
+| place-tuktuttaa-spring.jpg | a gravel and boulder shoreline on a cold sea inlet in late May, a rim of sea ice along the shore with green ice algae on the underside of the ice edge shown in a cutaway, calm open water beyond, low hills with snow patches, bright sky; a few tiny friendly bacteria in the cutaway water. |
+| place-1st-lake-fall.jpg | a small calm tundra lake in September reflecting the sky, red, orange and yellow autumn tundra all around, low rocky shores, a few small ponds nearby; along the bottom edge a cutaway view under the lake surface shows tiny friendly bacteria among bits of plants. |
+| place-2nd-lake-fall.jpg | a larger tundra lake further inland in early October, tea-coloured water, mossy rocky banks in autumn colours, a few caribou far away on a ridge, a cloudy sky; along the bottom edge a cutaway view under the water shows tiny friendly bacteria. |
+| place-3rd-lake-spring.jpg | a tundra lake still covered by white snowy ice in late May, a dark ring of meltwater opening along the shore, low rocky hills with melting snow, bright long-day sky; along the bottom edge a cutaway view under the ice shows tiny friendly bacteria in dark cold water. |
+| place-3rd-lake-fall.jpg | a distant tundra lake in October, a thin skin of new ice forming at the edges and dark open water in the middle, frost on brown tundra, a pale cold sky; along the bottom edge a cutaway view under the water shows tiny friendly bacteria. |

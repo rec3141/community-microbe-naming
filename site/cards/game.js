@@ -15,7 +15,7 @@ const shuffle = (arr, r) => { const a = arr.slice(); for (let i = a.length - 1; 
 class Game {
   // deck: MicrobeCards.buildDeck(...); teams: [[microbe ids], [microbe ids]]; opts: {seed, first, rules}
   constructor(deck, teams, opts = {}) {
-    this.deck = deck; this.r = rng(opts.seed ?? 1); this.rules = Object.assign({}, T, opts.rules || {});
+    this.deck = deck; this.r = rng(opts.seed ?? 1); this.names = opts.names || ['Player 1', 'Player 2']; this.rules = Object.assign({}, T, opts.rules || {});
     this.byId = Object.fromEntries(deck.microbes.map(c => [c.id, c]));
     this.ev = Object.fromEntries(deck.events.map(e => [e.id, e]));
     let uid = 0;
@@ -48,7 +48,9 @@ class Game {
   startTurn() {
     const pl = this.players[this.cur];
     this.turn++; this.t = {fed: false, event: false, retreated: false, attacked: false, geneSwap: false};
+    const before = pl.events.length;
     this.drawEvent(pl);
+    if (pl.events.length > before) this.say(`${this.names[this.cur]}: draws an Event card.`);
     const a = pl.active;
     if (a && this.outOfPlace(a)) {
       this.say(`${a.card.name} is in the wrong water (${this.place.water === 'marine' ? 'salt' : 'fresh'}): 10 damage.`);
@@ -96,16 +98,30 @@ class Game {
   }
   canPay(m, a) { return m.nut >= a.cost; }
   // damage the attack would do to target (no coin flips): weakness, resistance, immunity, season, abilities
-  calcDamage(att, a, target, {flip = false} = {}) {
-    if (target.card.immune.includes(a.kind)) return 0;
-    let d = a.dmg;
+  calcDamage(att, a, target, opts) { return this.damageParts(att, a, target, opts).d; }
+  // the damage and its plain-language steps, e.g. ["50", "+10 fall peak", "weak to Hunt ×2"]
+  damageParts(att, a, target, {flip = false} = {}) {
+    const K = MC.KINDS[a.kind] || {name: a.kind};
+    if (target.card.immune.includes(a.kind)) return {d: 0, parts: [`${a.dmg}`, `${K.name} can't hurt ${target.card.name}`]};
+    let d = a.dmg; const parts = [`${a.dmg}`];
     const pl = this.players[att.owner];
-    if (att.card.peak && att.card.peak === this.place.season) d += this.rules.seasonBonus;
-    if (att.card.ability?.key === 'quorum' && pl.bench.length >= 2) d += 10;
-    if (att.card.ability?.key === 'mystery' && flip) d += 20;
-    if (target.card.weak === a.kind) d *= this.rules.weakMult;
-    if (target.card.resist === a.kind) d -= this.rules.resist;
-    return Math.max(0, d);
+    if (att.card.peak && att.card.peak === this.place.season) { d += this.rules.seasonBonus; parts.push(`+${this.rules.seasonBonus} ${this.place.season} peak`); }
+    if (att.card.ability?.key === 'quorum' && pl.bench.length >= 2) { d += 10; parts.push('+10 Quorum Sensing'); }
+    if (att.card.ability?.key === 'mystery' && flip) { d += 20; parts.push('+20 Mystery Genes'); }
+    if (target.card.weak === a.kind) { d *= this.rules.weakMult; parts.push(`weak to ${K.name} ×${this.rules.weakMult}`); }
+    if (target.card.resist === a.kind) { d -= this.rules.resist; parts.push(`resists ${K.name} −${this.rules.resist}`); }
+    return {d: Math.max(0, d), parts};
+  }
+  // a copy of the game for previews and replays (no randomness: coin flips come up tails)
+  clone() {
+    const c = Object.create(Game.prototype);
+    Object.assign(c, this);
+    const map = new Map();
+    const cp = m => { if (!m) return m; if (!map.has(m)) map.set(m, Object.assign({}, m)); return map.get(m); };
+    c.players = this.players.map(pl => Object.assign({}, pl, {active: cp(pl.active), bench: pl.bench.map(cp), hand: pl.hand.map(cp), events: pl.events.slice()}));
+    c.eventDeck = this.eventDeck.slice(); c.eventDiscard = this.eventDiscard.slice(); c.placeDeck = this.placeDeck.slice();
+    c.t = Object.assign({}, this.t); c.log = []; c.onLog = null; c.r = () => 0.99; c.stats = null;
+    return c;
   }
   attack(idx, targetUid) {
     const pl = this.players[this.cur], me = pl.active, opp = this.rival(this.cur);
@@ -140,8 +156,8 @@ class Game {
     other.score++;
     if (this.firstLoss == null) this.firstLoss = m.owner;
     if (by && by.card.ability?.key === 'burst' && by.owner !== m.owner) { by.dmg = 0; this.say(`${by.card.name} bursts out of its prey, fully healed.`); }
-    if (other.score >= this.rules.winScore) { this.winner = other.p; this.say(`Player ${other.p + 1} wins!`); return; }
-    if (!this.inPlay(owner).length && !owner.hand.length) { this.winner = other.p; this.say(`Player ${other.p + 1} wins: no microbes left!`); return; }
+    if (other.score >= this.rules.winScore) { this.winner = other.p; this.say(`${this.names[other.p]} won!`); return; }
+    if (!this.inPlay(owner).length && !owner.hand.length) { this.winner = other.p; this.say(`${this.names[other.p]} won: no microbes left!`); return; }
     // the player who lost a microbe picks the next place from the top 2
     this.pendingPlace = m.owner;
     if (!owner.active) this.pendingPromote = m.owner;
