@@ -14,14 +14,14 @@ set -euo pipefail
 source "${HELPERS:?export HELPERS=<repo>/scripts/hpc}/env.sh"
 HMM=$(readlink -f "$1"); OUT=$(readlink -m "$2"); shift 2
 mkdir -p "$OUT/faa"
-for fa in "$@"; do ln -sf "$(readlink -f "$fa")" "$OUT/faa/"; done
+for fa in "$@"; do ln -sf "$(readlink -f "$fa")" "$OUT/faa/$(basename "$fa")"; done  # keep the given name
 apptainer exec -B "$BIND_DIR" -B "$OUT" -B "$(dirname "$HMM")" "$MAG_SIF" bash -c "
     source /opt/conda/etc/profile.d/conda.sh && conda activate /opt/conda/envs/dana-mag-annotate
     set -euo pipefail; cd '$OUT'
-    for fa in faa/*.fa; do g=\$(basename \$fa .fa)
-        [ -s faa/\$g.faa ] || prodigal -q -p single -i \$fa -a faa/\$g.faa -o /dev/null
-        hmmsearch --cut_nc --cpu \${SLURM_CPUS_PER_TASK:-4} --noali --tblout faa/\$g.tbl '$HMM' faa/\$g.faa > /dev/null
-    done"
+    # one genome per process, in parallel
+    ls faa/*.fa | xargs -P \${SLURM_CPUS_PER_TASK:-4} -I{} bash -c 'fa={}; g=\${fa%.fa}
+        [ -s \$g.faa ] || prodigal -q -p single -i \$fa -a \$g.faa -o /dev/null
+        hmmsearch --cut_nc --cpu 1 --noali --tblout \$g.tbl \"\$0\" \$g.faa > /dev/null' '$HMM'"
 python3 - "$HMM" "$OUT" <<'PY'
 import glob, os, sys
 hmm, out = sys.argv[1:3]

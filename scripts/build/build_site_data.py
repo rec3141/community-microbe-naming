@@ -484,8 +484,9 @@ for hab in ["marine", "freshwater"]:
                 dnaa_by_contig[hab][r[0]] = int(r[2])
 for g, v in EXTRA.items():  # their contigs are prefixed with the genome id, so no clashes
     hab, d = v["habitat"], v["dir"]
+    domain = v.get("domain", "Bacteria")  # barrnap kingdom to keep; "Archaea" for an archaeon
     for r in csv.DictReader(open(f"{d}/rrna_genes.tsv"), delimiter="\t"):
-        if r.get("best") != "False" and r.get("kingdom", "Bacteria") == "Bacteria":
+        if r.get("best") != "False" and r.get("kingdom", "Bacteria") == domain:
             rrna_by_contig[hab].setdefault(r["contig_id"], []).append(r)
     for r in csv.DictReader(open(f"{d}/trna_genes.tsv"), delimiter="\t"):
         trna_by_contig[hab].setdefault(r["contig_id"], []).append(r)
@@ -1325,6 +1326,12 @@ if os.path.exists(_ref_tree):
             return None
         return kids[0] if len(kids) == 1 else {"children": kids}
     home_tree = prune(gtdb_root)
+    # archaea are not in the bacterial reference tree: a second branch at the root
+    arch = [g for g in mar_cands + fw_cands if EXTRA.get(g, {}).get("domain") == "Archaea"]
+    if arch:
+        clade = {"id": arch[0]} if len(arch) == 1 else {"children": [{"id": g} for g in arch]}
+        home_tree = {"children": [home_tree, clade]} if home_tree else clade
+        keep.update({("arch", g): g for g in arch})
     missing = sorted(set(mar_cands + fw_cands) - set(keep.values()))
     print(f"Home tree: {len(keep)} MAGs placed via GTDB r226 references" + (f"; not placed: {missing}" if missing else ""))
 

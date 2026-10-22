@@ -322,5 +322,93 @@ window.CANDIDATES = [
     story: "A tiny sea bacterium that turns carbon dioxide into food. It lives in the inlet in spring and fall, and across Hudson Bay and the High Arctic.",
     activities: ["Turns carbon dioxide into food (RuBisCO)", "Has sulfur-energy genes like its relatives", "Catches sunlight with a rhodopsin pump"],
     tags: ["Carbon Catcher", "Sunlight Helper", "Found Across Hudson Bay", "Known Species, No Name"]
+  },
+  {
+    id: "N7_marimicrobium",
+    img: "microbe_N7_marimicrobium.png",
+    habitat: "marine",
+    nickname: "The Autumn Oil-Nibbler",
+    rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "Itivia, Dock, Tuktuttaa",
+    story: "A sea bacterium that shows up in the fall at Itivia and the Dock. It carries a gene for breaking down alkanes, the oily molecules found in fuel and also made by algae.",
+    activities: ["Breaks down oily alkanes (CYP153 enzyme)", "Catches sunlight with a rhodopsin pump", "Protects itself from salt and cold with glycine betaine"],
+    tags: ["Oil Cleaner", "Sunlight Helper", "Found Across Hudson Bay", "Known Species, No Name"]
+  },
+  {
+    id: "N8_uba9145",
+    img: "microbe_N8_uba9145.png",
+    habitat: "marine",
+    nickname: "The Hudson Bay Commuter",
+    rrna: "16S + 23S + 5S rRNA, 17/20 tRNAs",
+    whereInCI: "Itivia, Dock",
+    story: "A swimming sea bacterium that lives all over Hudson Bay. In Chesterfield Inlet we found it at Itivia and the Dock in the fall.",
+    activities: ["Swims with a whip-like tail", "Breaks down oily alkanes (CYP153 enzyme)", "Catches sunlight with a rhodopsin pump"],
+    tags: ["Found Across Hudson Bay", "Oil Cleaner", "Sunlight Helper", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N9_uba10364",
+    img: "microbe_N9_uba10364.png",
+    habitat: "marine",
+    nickname: "The Seaweed-Slicing Glider",
+    rrna: "16S + 23S + 5S rRNA, 17/20 tRNAs",
+    whereInCI: "Itivia, Tuktuttaa, Dock",
+    story: "A gliding sea bacterium with a 100% complete genome. It cuts up seaweed sugars and lives at all three seawater sites in spring and fall.",
+    activities: ["Cuts up seaweed sugars (alginate lyases)", "Glides over surfaces", "Catches sunlight with a rhodopsin pump"],
+    tags: ["100% Complete Genome", "Seaweed Sugar Cutter", "Sunlight Helper", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N10_uba9320",
+    img: "microbe_N10_uba9320.png",
+    habitat: "marine",
+    nickname: "The Three-Quarters Mystery",
+    rrna: "23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "Tuktuttaa, Itivia, Dock",
+    story: "A sea bacterium that was most common in late May at Tuktuttaa, Itivia and the Dock. About three out of every four of its genes look like nothing scientists have studied before.",
+    activities: ["Catches sunlight with a rhodopsin pump", "Glides over surfaces", "Sticks to particles with sticky surface proteins"],
+    tags: ["Mostly Mystery Genes", "Sunlight Helper", "Found Across Hudson Bay", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N12_nitrosopumilus",
+    img: "microbe_N12_nitrosopumilus.png",
+    habitat: "marine",
+    nickname: "The Ammonia-Powered Archaeon",
+    rrna: "5S rRNA, 18/20 tRNAs",
+    whereInCI: "Dock, Tuktuttaa, Itivia",
+    story: "Not a bacterium at all: it is an archaeon, from a separate branch of life. It gets its energy by turning ammonia into nitrite, and it was most common at the Dock and Tuktuttaa in late May.",
+    activities: ["Gets energy from ammonia (amoA, amoB, amoC)", "Carries a key gene for turning carbon dioxide into food", "Has many genes for building vitamin B12"],
+    tags: ["Archaeon, Not a Bacterium", "Ammonia Burner", "Carbon Catcher", "Known Species, No Name"]
+  },
+  {
+    id: "N11_caisji01",
+    img: "microbe_N11_caisji01.png",
+    habitat: "freshwater",
+    nickname: "The Budding Giant of 2nd Lake",
+    rrna: "16S + 23S + 5S rRNA, 18/20 tRNAs",
+    whereInCI: "2nd Lake, 1st Lake",
+    story: "A big-genome bacterium from 2nd Lake, where a litre of water held up to about 137 million of its cells. Its relatives make new cells by budding instead of splitting in two.",
+    activities: ["Cuts sulfate tags off sugars (28 sulfatases)", "Catches sunlight with a rhodopsin pump", "Makes hopanoids, molecules that stiffen its membrane"],
+    tags: ["2nd Lake Resident", "Big Genome", "Sunlight Helper", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N13_mycobacterium",
+    img: "microbe_N13_mycobacterium.png",
+    habitat: "freshwater",
+    nickname: "The Waxy-Coated Lake Rod",
+    rrna: "16S + 2× 23S + 2× 5S rRNA, 20/20 tRNAs",
+    whereInCI: "1st Lake, 2nd Lake",
+    story: "A new species of Mycobacterium from 1st Lake, wrapped in a thick, waxy coat. It was common in mid-September, with up to about 31 million cells in a litre of water.",
+    activities: ["Builds a waxy coat (mycolic acids)", "Catches sunlight with rhodopsin pumps", "Has RuBisCO, the enzyme plants use to catch carbon dioxide"],
+    tags: ["New Species", "Waxy Coat", "Sunlight Helper", "1st Lake Resident"]
+  },
+  {
+    id: "N14_atzt02",
+    img: "microbe_N14_atzt02.png",
+    habitat: "freshwater",
+    nickname: "The 3rd Lake Crowd",
+    rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "3rd Lake, 2nd Lake",
+    story: "A small-genome lake bacterium that crowds 3rd Lake in the fall: up to about 180 million of its cells in a litre of water.",
+    activities: ["Catches sunlight with a rhodopsin pump", "Protects itself with glycine betaine", "Gets by with a small genome"],
+    tags: ["3rd Lake Resident", "Tiny Genome", "Sunlight Helper", "Needs Genus & Species Name"]
   }
 ];

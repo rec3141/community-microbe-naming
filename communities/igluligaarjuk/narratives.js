@@ -266,6 +266,143 @@ window.NARRATIVES = {
       ["Vitamins B1 and B7", "It can build thiamine (B1) and biotin (B7) from scratch. Many algae and other microbes need these vitamins but cannot make them."],
       ["Salt and cold protection (glycine betaine)", "Pumps that bring glycine betaine into the cell, where it keeps water from leaving in salty or freezing conditions."]
     ]
+  },
+  "N7_marimicrobium": {
+    nickname: "The Autumn Oil-Nibbler",
+    eco: "Marimicrobium means 'small marine microbe'. The first member of this genus to be described was found in sea sand, and its relatives live in seawater. In Chesterfield Inlet this one is a fall microbe. We found the most of it at Itivia in early October, about 36 million cells in a litre of water, and about 25 million at the Dock on the same day. In mid-September there were about 18 million in a litre at the Dock and about 13 million at Itivia. In late May we found only a few million at Tuktuttaa and the Dock. It is even more at home further south: we found it in every one of our samples from the Churchill River estuary on Hudson Bay, in about two out of three samples from the High Arctic islands and in many from Hudson Bay near Churchill.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 96%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
+      ["How complete is the genome?", "Our checks say about 96% complete, with very little DNA from other microbes mixed in. It has one copy of each ribosome gene (16S, 23S and 5S) and all 20 kinds of tRNA."],
+      ["Why more in the fall?", "We don't know yet. By fall the water has had a whole summer of algae growing and dying, and many microbes that live on what algae leave behind become more common. Samples from more months would help tell."]
+    ],
+    fn: "It burns sugars and other food with a full set of energy pathways. It has an enzyme called CYP153 that can start breaking down alkanes, the oily chain molecules found in fuel and also made in small amounts by algae. Two light-driven pumps give it extra energy from sunlight. It makes glycine betaine to protect itself from salty, cold water, and it can build vitamins B2, B7 and B9.",
+    fnMore: [
+      ["Oil breaker (CYP153)", "An enzyme that adds oxygen to one end of an alkane chain, the first step in breaking it down. Our check found this gene with high confidence."],
+      ["Light pumps (rhodopsin)", "Proteins in the cell membrane that use sunlight to push charged particles out of the cell, like charging a battery. This genome has two of them."],
+      ["Salt and cold protection (glycine betaine)", "Enzymes that make glycine betaine from choline, and pumps that bring it in. Inside the cell it keeps water from leaving in salty or freezing conditions."],
+      ["Taking sulfur from DMSP (dmdA)", "DMSP is a molecule many algae make. This microbe has the enzyme that pulls a piece off DMSP so the cell can keep its sulfur, instead of letting it turn into the gas that gives the seashore its smell."],
+      ["Vitamins B2, B7 and B9", "It can build riboflavin (B2), biotin (B7) and folate (B9) from scratch."],
+      ["Rod shape (mreBCD, rodA)", "Genes that build the cell wall in a rod shape."]
+    ]
+  },
+  "N8_uba9145": {
+    nickname: "The Hudson Bay Commuter",
+    eco: "This bacterium belongs to a family called Pseudohongiellaceae, but its genus and species have only code names. In Chesterfield Inlet we found it in the fall: about 9 million of its cells in a litre of water at Itivia in mid-September, and about 5 million at Itivia in early October and at the Dock in mid-September. It is much more common out in Hudson Bay. It turned up in more than two out of three of our samples from Hudson Bay near Churchill, where one sample held about 74 million cells in a litre. We also found it in most of our samples from the Churchill River estuary and in some from the High Arctic islands.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 97%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
+      ["How complete is the genome?", "Our checks say about 90% complete, so a few of its genes are probably missing. It comes in 174 pieces, like a book with its pages torn out and only some of them put back in order."],
+      ["Why is it more common near Churchill?", "We don't know yet. Hudson Bay near Churchill gets water from big rivers and has different ice and currents than the inlet. Comparing the water at both places through the year could help explain it."]
+    ],
+    fn: "It eats small bits of food in seawater and can swim with a flagellum, a whip-like tail. It has an enzyme called CYP153 that can start breaking down alkanes, the oily chain molecules in fuel that algae also make in small amounts. A light-driven pump gives it extra energy from sunlight. It stores spare phosphorus, and it has cold-shock proteins that help it keep working near freezing.",
+    fnMore: [
+      ["Swimming (flagellum)", "Genes for flagellin, the building block of the flagellum, and for the motor that spins it."],
+      ["Oil breaker (CYP153)", "An enzyme that adds oxygen to one end of an alkane chain, the first step in breaking it down. Our check found this gene with high confidence."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery. The genome also has the gene that makes retinal, the coloured molecule the pump needs."],
+      ["Phosphorus savings (polyphosphate kinase)", "Enzymes that store spare phosphorus as long chains, so the cell has some when phosphorus runs low."],
+      ["Cold-shock proteins", "Small proteins that help the cell keep reading its genes when the water gets near freezing."]
+    ]
+  },
+  "N9_uba10364": {
+    nickname: "The Seaweed-Slicing Glider",
+    eco: "This bacterium belongs to the Flavobacteriales, a big group of bacteria that are experts at breaking down the sugars in seaweed and algae. Its genus and species have only code names. We found it at all three seawater sites: about 14 million of its cells in a litre of water at Itivia in mid-September, about 12 million at Tuktuttaa and 11 million at the Dock in late May, and about 6 million at the Dock in mid-September. It is also at home in the High Arctic: it turned up in more than half of our samples from the High Arctic islands, where one sample held about 35 million cells in a litre. We also found it in about half of our samples from the Churchill River estuary and in some from Hudson Bay near Churchill.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98.5%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
+      ["How complete is the genome?", "Our checks say 100% complete. It has one copy of each ribosome gene (16S, 23S and 5S) and 17 of the 20 kinds of tRNA."],
+      ["How does a bacterium glide?", "It has no tail. Instead, proteins in its outer layer move along tracks around the cell, a little like the treads on a snowmobile, so it slides over surfaces such as seaweed or bits of algae."]
+    ],
+    fn: "It cuts long sugar chains from seaweed and algae into pieces, catches the pieces with 'grab-and-pull' proteins at its surface, and glides over surfaces to reach its food. A light-driven pump gives it extra energy from sunlight, and it makes carotenoids, the same kind of colourful molecules found in carrots.",
+    fnMore: [
+      ["Seaweed sugar cutters (alginate lyase, GH16)", "Eight genes from the alginate-lyase family, which cut alginate, the slimy sugar in brown seaweed, and two GH16 enzymes, which cut the sugars algae store for food."],
+      ["Grab-and-pull proteins (SusC, SusD)", "SusD grabs a long sugar chain at the cell surface and SusC pulls it inside, like two people hauling in a net. This genome has three of each."],
+      ["Gliding (Gld genes)", "Genes for the gliding machine (GldB, GldC, GldD, GldL, GldM and GldN) that lets the cell slide over surfaces without a tail."],
+      ["Sticky patches (PKD domains)", "29 proteins with PKD parts, which often help proteins hold on to surfaces or to each other."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."]
+    ]
+  },
+  "N10_uba9320": {
+    nickname: "The Three-Quarters Mystery",
+    eco: "This bacterium belongs to a branch of the Bacteroidia called NS11-12. Its order, family, genus and species all have only code names. In Chesterfield Inlet it was most common in late May: there were about 14 million of its cells in a litre of water at Tuktuttaa, and about 9 million at Itivia and at the Dock. In mid-September there were still about 6 million in a litre at the Dock and 4 million at Itivia. It is not only a Chesterfield microbe: we found it in every one of our samples from the Churchill River estuary, in almost half of those from the High Arctic islands and in more than a third of those from Hudson Bay near Churchill.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 96%. Only about half of our genome could be compared, so the match is less certain than usual. Nobody has ever described this species or its genus or given them names, so both are still new."],
+      ["Why is it a mystery?", "About three out of every four of its genes look like nothing scientists have studied before, so we cannot tell what they do."],
+      ["How complete is the genome?", "Our checks say about 99% complete, but it comes in 225 pieces. One gene is missing: we did not find its 16S rRNA gene, the gene scientists most often use to identify bacteria. It is probably in a piece we could not put together."]
+    ],
+    fn: "Most of its genes are a mystery, but the ones we can read tell part of the story. A light-driven pump gives it extra energy from sunlight, and the genome has the gene that makes retinal, the coloured molecule the pump needs. It has genes for gliding over surfaces, almost 50 proteins with sticky PKD parts and a few enzymes that cut sugar chains, so it probably lives on particles and bits of algae.",
+    fnMore: [
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery. The genome also has the gene that makes retinal."],
+      ["Gliding (Gld genes)", "Genes for the gliding machine (GldB, GldD, GldF, GldH, GldJ, GldK, GldL and GldM) that lets the cell slide over surfaces without a tail."],
+      ["Sticky patches (PKD domains)", "47 proteins with PKD parts, which often help proteins hold on to surfaces or to each other."],
+      ["Sugar cutters (GH16, GH18)", "A GH16 enzyme that cuts the sugars algae store, an enzyme with chitin-binding parts, and SusC and SusD proteins that grab sugar chains and pull them in."],
+      ["Pigments (carotenoids)", "Genes for making carotenoids, colourful molecules that can protect cells from strong light."]
+    ]
+  },
+  "N12_nitrosopumilus": {
+    nickname: "The Ammonia-Powered Archaeon",
+    eco: "Nitrosopumilus means 'a dwarf producing nitrite'. It is not a bacterium but an archaeon. Archaea look a lot like bacteria under a microscope, but they are a separate branch of life, with their own kind of cell membrane. Its relatives are tiny rod-shaped cells, and they are among the most common microbes in the ocean. They get their energy from ammonia, which comes from animal waste and dead things, and turn it into nitrite: the first step of the nitrogen cycle in the sea. In Chesterfield Inlet we found it mostly in late May: about 18 million of its cells in a litre of water at the Dock and about 11 million at Tuktuttaa. In mid-September there was only about 1 million in a litre at the Dock and at Itivia. We also found it in some of our samples from the Churchill River estuary, from Hudson Bay near Churchill and from the High Arctic islands.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 95.4%, just above the 95% line for 'same species'. Only a bit less than half of our genome could be compared, so the match is not certain. Nobody has ever described this species or given it a name."],
+      ["What is an archaeon?", "Living things are sorted into three big groups called domains: Bacteria, Archaea, and Eukarya (plants, animals, fungi and other cells with a nucleus). Many archaea were first found in hot springs and very salty ponds, but scientists now know they live almost everywhere, including in cold seawater."],
+      ["How complete is the genome?", "Our checks say about 92% complete, in 237 pieces. We found only its 5S rRNA gene; its 16S and 23S genes are probably in pieces we could not put together. Many of the DNA pieces we sorted into this genome turned out to belong to viruses that were mixed in by mistake, which is why so many of its genes look unfamiliar."]
+    ],
+    fn: "It makes energy by turning ammonia into nitrite with an enzyme called ammonia monooxygenase, and our genome has all three of its parts (AmoA, AmoB and AmoC). It has five pumps for bringing ammonium into the cell. It also has a key gene of the cycle its relatives use to turn carbon dioxide into food, many genes for building vitamin B12, and genes for making vitamin B1 (thiamine).",
+    fnMore: [
+      ["Ammonia energy (amoA, amoB, amoC)", "Ammonia monooxygenase adds oxygen to ammonia, the first step in turning it into nitrite. Archaea like this one can work even when there is very little ammonia, which helps them live in the open ocean."],
+      ["Ammonium pumps", "Five transporter proteins that pull ammonium into the cell, so it can collect its fuel even when there is very little around."],
+      ["Carbon catcher (4-hydroxybutyryl-CoA dehydratase)", "A key enzyme of the carbon-fixing cycle its relatives use to turn carbon dioxide into food without sunlight."],
+      ["Vitamin B12", "More than ten genes for building cobalamin (vitamin B12). Many algae need B12 but cannot make it themselves."],
+      ["Food storage (PHA)", "Enzymes that make polyhydroxyalkanoate, a plastic-like material some cells store as a food reserve."]
+    ]
+  },
+  "N11_caisji01": {
+    nickname: "The Budding Giant of 2nd Lake",
+    eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria. Many of them do not have FtsZ, the protein most bacteria use to pinch in two. Instead they grow a bud that swells into a new cell, a bit like yeast. We did not find FtsZ in this genome either. Its genome is big, about 4.6 million DNA letters. In Chesterfield Inlet it lives in 2nd Lake. We found it in every dated sample from 2nd Lake in September and October, with about 137 million of its cells in a litre of water in early October and about 64 million in mid-September. We found smaller numbers in 1st Lake, up to about 6 million in a litre, and none in 3rd Lake. Further south we found it in small numbers in 3 of 5 freshwater samples from the Churchill River estuary, and not at all in our hundreds of lake samples from Manitoba.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relative shares only about 91.5% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more. Its genus has only a code name, so both its genus and its species are new."],
+      ["How big is its genome?", "About 4.6 million DNA letters with about 3,750 genes. About 60% of its genes look like nothing scientists have studied before."],
+      ["Does it swim?", "Its genome has some of the genes for a flagellum and for sensors that tell a cell which way to swim. Some of its relatives have a swimming stage, so it might too."]
+    ],
+    fn: "It has 28 sulfatases, enzymes that cut sulfate tags off sugars. Many sugars made by algae and water plants carry these tags, and they must come off before the sugar can be eaten. A light-driven pump gives it extra energy from sunlight, and the genome has the gene that makes retinal, the coloured molecule the pump needs. It makes hopanoids, molecules that stiffen its membrane the way cholesterol does in our cells, and carotenoid pigments. Its genome also holds 12 clusters of genes for making special chemicals.",
+    fnMore: [
+      ["Sulfate cutters (sulfatases)", "28 enzymes that snip sulfate groups off sugars, so the cell can eat sugars that other microbes cannot."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Membrane stiffeners (squalene-hopene cyclase)", "This enzyme folds a long oily molecule into hopanoids, ring-shaped molecules that work like cholesterol in our cells and keep the membrane firm."],
+      ["Chitin cutters (GH18)", "Enzymes that cut chitin, the tough material in insect and crustacean shells."],
+      ["Special chemicals (antiSMASH)", "12 gene clusters for making natural products such as terpenes and polyketides. Microbes use molecules like these to signal or defend themselves, and some have become medicines."]
+    ]
+  },
+  "N13_mycobacterium": {
+    nickname: "The Waxy-Coated Lake Rod",
+    eco: "Mycobacterium means 'fungus rodlet'. These rod-shaped bacteria wrap themselves in a thick, waxy coat, which makes them tough and hard to dry out. Most kinds live in soil and water. In Chesterfield Inlet this one lives in 1st Lake. In mid-September there were about 23 to 31 million of its cells in a litre of water in all three samples from 1st Lake, and about 11 million in early October. We found only a little of it in 2nd Lake, and the DNA there matched a bit less closely, so it may be a cousin. Further south we found it in most of our samples from the Churchill River estuary and the Churchill River weir, and in some lakes in southern Manitoba and on the Boreal Shield.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relative shares about 94% of its DNA letters with it, just under the 95% line scientists use for 'same species'."],
+      ["Is it related to tuberculosis?", "It is in the same genus as the bacterium that causes tuberculosis (TB). But Mycobacterium is a big genus, and most of its members live in soil and water and do not make people sick. This one is a different, new species living free in lake water, not the TB species. A genome alone cannot prove a microbe is harmless, but mycobacteria that live in lakes and soil do not spread from person to person the way TB does. Studying species like it helps scientists understand the whole genus."],
+      ["How complete is the genome?", "Our checks say about 91% complete. It has one 16S, two 23S and two 5S rRNA genes, and all 20 kinds of tRNA."]
+    ],
+    fn: "It builds the waxy coat its genus is known for, from long fatty molecules called mycolic acids. It has three light-driven pumps for extra energy from sunlight, and RuBisCO, the enzyme plants use to turn carbon dioxide into sugar. It makes trehalose, a sugar that helps protect cells from drying and freezing, and its genome holds nine clusters of genes for making special chemicals.",
+    fnMore: [
+      ["Waxy coat (pks13, fadD32, mmpL3)", "Pks13 joins two long fatty chains into a mycolic acid, FadD32 gets one of the chains ready, and MmpL3 carries the finished molecules out to the cell's surface."],
+      ["Light pumps (rhodopsin)", "Proteins in the cell membrane that use sunlight to push charged particles out of the cell, like charging a battery. This genome has three of them."],
+      ["Carbon catcher (RuBisCO)", "Both parts of RuBisCO (the large and the small piece) and most of the Calvin cycle. We do not know yet how much it uses them."],
+      ["Secretion doorway (ESX)", "Genes for a type VII secretion system, a special doorway mycobacteria use to send small proteins out through the waxy coat."],
+      ["Fat importers (Mce)", "18 Mce proteins, which its relatives use to bring fats and similar molecules into the cell."]
+    ]
+  },
+  "N14_atzt02": {
+    nickname: "The 3rd Lake Crowd",
+    eco: "This bacterium belongs to the Actinomycetota, a big group of bacteria, but its order, family, genus and species have only code names. Its genome is small, about 1.4 million DNA letters. Small cells with small genomes waste little energy, which helps in lakes where food is scarce. In Chesterfield Inlet it lives in 3rd Lake, and in the fall there is a lot of it: in mid-September and early October there were about 110 to 180 million of its cells in a litre of water, one of the highest counts for any microbe on this site. It was already there in late May, about 7.5 million in a litre, and we found smaller numbers in 2nd Lake, up to about 10 million. Far to the south it lives in lakes near The Pas in Manitoba, where one sample held even more, and in a few samples from the Nelson River and other Manitoba lakes.",
+    ecoMore: [
+      ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 97.7%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
+      ["Why so many in 3rd Lake?", "We don't know yet. Each lake has its own depth, water chemistry and plants around it. In 1st Lake we found only traces of its cousins. Comparing the three lakes through the year could help explain it."],
+      ["How complete is the genome?", "Our checks say about 90% complete. It has one copy of each ribosome gene (16S, 23S and 5S) and all 20 kinds of tRNA."]
+    ],
+    fn: "It takes in small bits of food from the water. A light-driven pump gives it extra energy from sunlight. It brings in glycine betaine and proline, small molecules that protect cells when the water around them changes, for example when lake ice forms and squeezes salts into the water below, and it has genes that may make glycine betaine too. Its genome has the genes for a rod shape, and cold-shock proteins that help it keep working near freezing.",
+    fnMore: [
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Salt protection (glycine betaine and proline)", "A complete pump system that brings glycine betaine and proline into the cell, where they keep water from leaving."],
+      ["Phosphorus pumps and savings", "A complete phosphate pump and an enzyme that stores spare phosphorus as long chains."],
+      ["Rod shape (mreBCD, rodA)", "Genes that build the cell wall in a rod shape."],
+      ["Cold-shock proteins", "Small proteins that help the cell keep reading its genes when the water gets near freezing."]
+    ]
   }
 };
 
@@ -374,5 +511,34 @@ window.GENERA = {
     type: "none designated yet",
     ref: "Sadler MC, Wietz M, Mino S, Morris RM (2025) Genomic diversity and adaptation in Arctic marine bacteria. mBio 16:e0155525.",
     doi: "10.1128/mbio.01555-25"
+  },
+  Marimicrobium: {
+    full: "Marimicrobium Konkit et al. 2016",
+    etym: "Ma.ri.mi.cro'bi.um. L. neut. n. mare, the sea; N.L. neut. n. microbium, microbe; N.L. neut. n. Marimicrobium, small, marine microbe",
+    gloss: "small marine microbe",
+    status: "validly published under the ICNP",
+    gender: "neuter",
+    type: "Marimicrobium arenosum",
+    ref: "Konkit M, Kim JH, Kim W (2016) Marimicrobium arenosum gen. nov., sp. nov., a moderately halophilic bacterium isolated from sea sand. Int J Syst Evol Microbiol 66:856–861.",
+    doi: "10.1099/ijsem.0.000803"
+  },
+  Nitrosopumilus: {
+    full: "Nitrosopumilus Qin et al. 2017",
+    etym: "Ni.tro.so.pu'mi.lus. L. masc. adj. nitrosus, full of natron, here intended to mean nitrous; L. masc. adj. pumilus, dwarf; N.L. masc. n. Nitrosopumilus, a dwarf producing nitrite",
+    gloss: "a dwarf producing nitrite",
+    status: "validly published under the ICNP (first proposed as \"Candidatus Nitrosopumilus\" Könneke et al. 2005)",
+    gender: "masculine",
+    type: "Nitrosopumilus maritimus",
+    ref: "Qin W, Heal KR, Ramdasi R, Kobelt JN, Martens-Habbena W, Bertagnolli AD, Amin SA, Walker CB, Urakawa H, Könneke M, et al. (2017) Nitrosopumilus maritimus gen. nov., sp. nov., Nitrosopumilus cobalaminigenes sp. nov., Nitrosopumilus oxyclinae sp. nov., and Nitrosopumilus ureiphilus sp. nov., four marine ammonia-oxidizing archaea of the phylum Thaumarchaeota. Int J Syst Evol Microbiol 67:5067–5079.",
+    doi: "10.1099/ijsem.0.002416"
+  },
+  Mycobacterium: {
+    full: "Mycobacterium Lehmann and Neumann 1896 (Approved Lists 1980)",
+    etym: "My.co.bac.te'ri.um. Gr. masc. n. mykês (gen. mykêtos), a mushroom, fungus; N.L. neut. n. bacterium, a rod; N.L. neut. n. Mycobacterium, a fungus rodlet",
+    gloss: "fungus rodlet",
+    status: "validly published under the ICNP",
+    gender: "neuter",
+    type: "Mycobacterium tuberculosis",
+    ref: "Lehmann KB, Neumann R (1896) Atlas und Grundriss der Bakteriologie und Lehrbuch der speziellen bakteriologischen Diagnostik. Teil 2: Text, 1st ed. J.F. Lehmann, München."
   }
 };

@@ -165,7 +165,7 @@ python3 scripts/build/build_site_data.py   communities/<id>/build_config.json   
 | `ani_table` | optional skani search of every site genome against the GTDB species reps (`site_ani.sh`); sets the closest relative and the ANI on each tree leaf |
 | `gtdb_taxonomy` | optional full GTDB taxonomy (GTDB-Tk db `taxonomy/gtdb_taxonomy.tsv`) of the newer release, to name tree leaves and skani hits |
 | `ko_list` | optional KofamKOALA `ko_list`; its KO definitions describe highlighted genes whose annotation has none |
-| `extra_genomes.<label>` | stand-alone genomes (step 2): `habitat`, `dir` (the `genome_site_inputs.sh` output), `tree` (GTDB-Tk classify tree file) and `gtdbtk_summary`. Their abundance is shown only for the samples in that habitat's co-assembly |
+| `extra_genomes.<label>` | stand-alone genomes (step 2): `habitat`, `dir` (the `genome_site_inputs.sh` output), `tree` (GTDB-Tk classify tree file), `gtdbtk_summary`, and `domain` (`Archaea` for an archaeon, so its archaeal rRNA calls are kept; default `Bacteria`). Their abundance is shown only for the samples in that habitat's co-assembly |
 
 Check the build log. `[WARN] stations without coordinates` means a rule points at a station
 that is missing from `stations`.

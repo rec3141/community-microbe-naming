@@ -14,7 +14,7 @@ set -euo pipefail
 source "${HELPERS:?export HELPERS=<repo>/scripts/hpc}/env.sh"
 OUT=$(readlink -m "${1:?usage: site_ani.sh <out_dir> <genome.fa> ...}"); shift
 mkdir -p "$OUT/fa"
-for f in "$@"; do ln -sf "$(readlink -f "$f")" "$OUT/fa/"; done
+for f in "$@"; do ln -sf "$(readlink -f "$f")" "$OUT/fa/$(basename "$f")"; done  # keep the given name
 apptainer exec -B "$BIND_DIR" -B "$OUT" -B "$GTDB_SQSH:/data/dbimg/gtdbtk_db:image-src=/" "$MAG_SIF" bash -c "source /opt/conda/etc/profile.d/conda.sh && conda activate /opt/conda/envs/dana-mag-gtdbtk
     cd '$OUT' && skani search -d /data/dbimg/gtdbtk_db/skani/database -t \${SLURM_CPUS_PER_TASK:-16} -n 60 fa/*.fa -o skani.tsv
     cp /data/dbimg/gtdbtk_db/taxonomy/gtdb_taxonomy.tsv gtdb_taxonomy.tsv"

@@ -189,5 +189,69 @@ window.IQ_CONTENT = {
         {key: "piliriqatigiinniq", clue: "It lives all the way from Hudson Bay to the High Arctic islands, in water shared by many communities.", q: "The same water connects many communities. How should they work together to look after it?"},
       ],
     },
+
+    "N7_marimicrobium": {
+      hook: "A fall microbe with a gene for breaking down alkanes, oily molecules like the ones in fuel. It was most common at Itivia and the Dock in early October.",
+      items: [
+        {key: "avatittinnik", clue: "It has an enzyme (CYP153) that starts breaking down alkanes, oily molecules found in fuel and also made in small amounts by algae.", q: "Boats and fuel deliveries come to the shore every open-water season. How do people here watch for spills, and what does caring for the water around the Dock look like?"},
+        {key: "pilimmaksarniq", clue: "It is a fall microbe: millions of its cells in a litre in early October, only a few in late May.", q: "What changes in the inlet between spring and fall? Which signs tell people here that the season is turning, and how do you learn to read them?"},
+      ],
+    },
+
+    "N8_uba9145": {
+      hook: "A swimmer that lives all over Hudson Bay. It was in more than two out of three of our samples near Churchill, but here we found it only in the fall.",
+      items: [
+        {key: "inuuqatigiitsiarniq", clue: "The same species lives in the inlet and all across Hudson Bay near Churchill.", q: "Who travels between Igluligaarjuk and other Hudson Bay communities, and what do they bring back? How are those connections looked after?"},
+        {key: "qanuqtuurniq", clue: "It can swim, catch sunlight and break down oily molecules, so it has more than one way to get by.", q: "When the usual plan does not work out on the water or the land, what do people do instead? How do you learn to have a backup?"},
+      ],
+    },
+
+    "N9_uba10364": {
+      hook: "A glider with a complete genome: it slides over seaweed and bits of algae and cuts up their tough sugars. It also lives among the High Arctic islands.",
+      items: [
+        {key: "avatittinnik", clue: "It cuts up alginate, the slimy sugar in brown seaweed, turning it back into food for other living things.", q: "What lives on and around the seaweed along the shore here? Who notices when it changes, and what do they see?"},
+        {key: "pilimmaksarniq", clue: "It moves by gliding: proteins in its outer layer run along tracks around the cell, like the treads on a snowmobile.", q: "Moving safely over rough ice and snow takes a lot of practice. How do people here learn it, and who do they learn it from?"},
+      ],
+    },
+
+    "N10_uba9320": {
+      hook: "About three out of every four of its genes look like nothing scientists have studied. It was most common in late May, and it turned up in every Churchill River estuary sample we have.",
+      items: [
+        {key: "aajiiqatigiinniq", clue: "Most of its genes are a mystery, so scientists can only guess at much of what it does.", q: "When nobody in the room has the full answer, how do you put together what everyone knows? Which parts can the whole group agree on?"},
+        {key: "inuuqatigiitsiarniq", clue: "It lives on bits of algae and other particles in the water, holding on with almost 50 sticky surface proteins.", q: "What helps people hold together through a long winter? Is 'sticking together' a fair way to describe this microbe, or does the comparison stop working?"},
+      ],
+    },
+
+    "N12_nitrosopumilus": {
+      hook: "Not a bacterium but an archaeon, from a separate branch of life. It lives on ammonia from waste and dead things, and starts the nitrogen cycle in the sea.",
+      items: [
+        {key: "pijitsirniq", clue: "It turns ammonia into nitrite, the first step toward nitrate, which feeds algae.", q: "Where in Igluligaarjuk does what is left over become useful to someone else? Who makes sure it gets there?"},
+        {key: "avatittinnik", clue: "At the Dock in late May a litre of water held about 18 million of its cells; in September, only about 1 million.", q: "What do people here notice about the inlet in late May compared with September? How could those observations and water samples be put side by side?"},
+      ],
+    },
+
+    "N11_caisji01": {
+      hook: "It makes new cells by budding, a bit like yeast, instead of splitting in two. In 2nd Lake one litre of water held about 137 million of them.",
+      items: [
+        {key: "qanuqtuurniq", clue: "It has 28 enzymes that cut sulfate tags off sugars, so it can eat sugars many other microbes cannot.", q: "What foods or materials do people here make use of that others might pass over? How did people learn to use them?"},
+        {key: "pilimmaksarniq", clue: "A new cell starts as a small bud on its parent and grows until it can go off on its own.", q: "How do young people here grow into doing things on their own? What has to happen before someone is ready?"},
+      ],
+    },
+
+    "N13_mycobacterium": {
+      hook: "A new species wrapped in a thick, waxy coat. It lives in 1st Lake, with up to about 31 million cells in a litre of water in September.",
+      items: [
+        {key: "qanuqtuurniq", clue: "Its waxy coat, made of long fatty molecules, keeps it from drying out and protects it from harsh chemicals.", q: "What makes a good outer layer for life in this place, for a person, an animal or a microbe? What does each one need to keep out?"},
+        {key: "aajiiqatigiinniq", clue: "It shares its genus with the bacterium that causes tuberculosis, but most of its relatives live in soil and water and do not make people sick.", q: "A name can bring up worries before people know the facts. How should the group talk about a microbe whose name sounds like a disease? What should everyone know first?"},
+      ],
+    },
+
+    "N14_atzt02": {
+      hook: "A small-genome microbe that fills 3rd Lake in the fall: up to about 180 million cells in a single litre of water. Far to the south, it also lives in lakes near The Pas, Manitoba.",
+      items: [
+        {key: "avatittinnik", clue: "In the fall it is one of the most common microbes in 3rd Lake, but in 1st Lake we found only traces of its cousins.", q: "How are the three lakes behind town different from each other? Who here knows them best, and what do they notice?"},
+        {key: "inuuqatigiitsiarniq", clue: "The same species lives in lakes near The Pas in Manitoba, far to the south.", q: "What links a lake near Igluligaarjuk with a lake far to the south? How could a tiny microbe get from one to the other?"},
+      ],
+    },
   },
 };

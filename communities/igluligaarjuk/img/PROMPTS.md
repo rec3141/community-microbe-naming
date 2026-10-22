@@ -224,3 +224,83 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 **Generation Prompt:**
 > Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small sulfur-oxidizing marine bacterium of the SUP05 group, centered in a circular composition suitable for circular cropping. Morphological accuracy: a small, round to slightly oval coccoid cell with smooth semi-translucent pale lilac cell envelope, a few glowing yellow sulfur specks inside, strictly NO arms, NO legs, NO hands, NO feet, NO flagella, NO tentacles, NO limbs of any kind - only the pure little round bacterial cell body. Big, sleepy-happy cartoon eyes and a gentle smile drawn directly on the cell body. Scene: it drifts in dim, cold, deep blue water of an Arctic inlet near the muddy bottom, catching tiny glowing yellow sulfur crystals and small bubbles that rise from the mud below, with faint light from the surface far above. Crisp bold outlines, clean vector-like digital cartoon style, cold dark marine palette with glowing yellow accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N7_marimicrobium — Marimicrobium, alkane-degrading sea bacterium (Itivia/Dock, marine)
+- **File**: [`microbe_N7_marimicrobium.png`](microbe_N7_marimicrobium.png)
+- **Genome**: `N7_marimicrobium` (Marimicrobium sp. (Halieaceae, marine))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small marine bacterium from the Halieaceae family, centered in a circular composition suitable for circular cropping. Morphological accuracy: a short, plump rod-shaped cell with rounded ends and a smooth semi-translucent peach-coloured cell envelope with a faint purple shimmer from its light-catching rhodopsin pumps, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure little rod-shaped bacterial cell body. Big, cheerful cartoon eyes and a contented little smile drawn directly on the cell body. Scene: it is nibbling tiny rainbow-sheened oily droplets near the surface of cold, dark autumn water in an Arctic inlet on Hudson Bay, turning them into small clean bubbles, with low golden autumn sunlight slanting in and a rocky shore blurred above the water line. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with warm peach and gold accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N8_uba9145 — UBA9145, swimming Hudson Bay bacterium (Itivia/Dock, marine)
+- **File**: [`microbe_N8_uba9145.png`](microbe_N8_uba9145.png)
+- **Genome**: `N8_uba9145` (UBA9145 sp. (Pseudohongiellaceae, marine))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small swimming marine bacterium from the Pseudohongiellaceae family, centered in a circular composition suitable for circular cropping. Morphological accuracy: a slim straight rod-shaped cell with rounded ends and one long, wavy flagellum at one end, smooth semi-translucent sea-green cell envelope with a faint pink glow from a light-catching rhodopsin pump, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind - only the pure little rod-shaped bacterial cell body and its flagellum. Big, adventurous cartoon eyes and an eager grin drawn directly on the cell body. Scene: it is swimming fast through the open cold blue water of Hudson Bay, passing drifting sea-ice floes and a distant pod of white beluga whales, with a long low coastline on the horizon above the water surface. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with sea-green and pink accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N9_uba10364 — UBA10364, gliding seaweed-sugar degrader (Itivia/Tuktuttaa/Dock, marine)
+- **File**: [`microbe_N9_uba10364.png`](microbe_N9_uba10364.png)
+- **Genome**: `N9_uba10364` (UBA10364 sp. (Schleiferiaceae, Flavobacteriales, marine))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small gliding marine bacterium from the Flavobacteriales, centered in a circular composition suitable for circular cropping. Morphological accuracy: a slender rod-shaped cell with rounded ends, smooth semi-translucent golden-yellow cell envelope tinted by carotenoid pigments, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure little rod-shaped bacterial cell body, gliding along a surface. Big, happy cartoon eyes and a wide smile drawn directly on the cell body. Scene: it is gliding along a frond of brown kelp in cold, clear, shallow Arctic water, slicing the slimy kelp surface into small floating pieces, with a rocky shore, smooth pebbles and floating sea-ice pieces blurred above. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with golden-yellow and kelp-brown accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N10_uba9320 — UBA9320, mysterious particle-dwelling bacterium (Tuktuttaa/Itivia/Dock, marine)
+- **File**: [`microbe_N10_uba9320.png`](microbe_N10_uba9320.png)
+- **Genome**: `N10_uba9320` (UBA9320 sp. (order NS11-12g, Bacteroidia, marine))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single small mysterious marine bacterium from the Bacteroidia, centered in a circular composition suitable for circular cropping. Morphological accuracy: a rod-shaped cell with rounded ends, smooth semi-translucent rose-pink cell envelope from a light-catching rhodopsin pump, with several small sticky dots on its surface, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure little rod-shaped bacterial cell body. Big, curious, slightly puzzled cartoon eyes and a small mysterious smile drawn directly on the cell body. Scene: it clings to a drifting green flake of algae under a sheet of late-spring sea ice in an Arctic inlet, with soft blue light filtering down through the ice and a few faint glowing particles drifting by. Crisp bold outlines, clean vector-like digital cartoon style, cold marine palette with rose-pink and algae-green accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N12_nitrosopumilus — Nitrosopumilus, ammonia-oxidizing archaeon (Dock/Tuktuttaa, marine)
+- **File**: [`microbe_N12_nitrosopumilus.png`](microbe_N12_nitrosopumilus.png)
+- **Genome**: `N12_nitrosopumilus` (Nitrosopumilus sp. (Nitrosopumilaceae, Thermoproteota; an archaeon, marine))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single tiny ammonia-oxidizing marine archaeon (not a bacterium), centered in a circular composition suitable for circular cropping. Morphological accuracy: a very small, slender, straight rod-shaped cell with rounded ends, smooth semi-translucent pale aqua cell envelope with a fine, delicate textured surface layer, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure tiny rod-shaped cell body. Big, bright, friendly cartoon eyes and a small happy smile drawn directly on the cell body. Scene: it floats in cold, deep blue Arctic harbour water in late spring, catching tiny glowing pale-green ammonia bubbles that rise from the sea floor and releasing small soft violet sparkles that drift up toward green algae cells, with broken sea ice floating on the surface far above. Crisp bold outlines, clean vector-like digital cartoon style, cold dark marine palette with pale aqua and violet accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N11_caisji01 — CAISJI01, budding Planctomycete (2nd Lake, freshwater)
+- **File**: [`microbe_N11_caisji01.png`](microbe_N11_caisji01.png)
+- **Genome**: `N11_caisji01` (CAISJI01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single budding freshwater bacterium from the Planctomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a plump pear-shaped to oval cell with a smooth semi-translucent coral-pink cell envelope and a small round daughter bud growing from its narrow end, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure bacterial cell body and its bud. Big, proud, gentle cartoon eyes and a warm smile drawn directly on the cell body, and tiny happy closed eyes on the little bud. Scene: it sits among water plants and pebbles in the clear, cold water of a tundra lake in autumn, snipping small tags off floating sugar pieces, with golden-brown tundra hills and a big pale sky blurred above the water surface. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with coral-pink accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N13_mycobacterium — Mycobacterium, waxy-coated lake rod (1st Lake, freshwater)
+- **File**: [`microbe_N13_mycobacterium.png`](microbe_N13_mycobacterium.png)
+- **Genome**: `N13_mycobacterium` (Mycobacterium sp. nov. (Mycobacteriaceae, freshwater))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single rod-shaped freshwater bacterium of the genus Mycobacterium, centered in a circular composition suitable for circular cropping. Morphological accuracy: a straight to very slightly curved rod-shaped cell with rounded ends, covered in a thick, glossy, waxy cream-white coat that makes small water droplets bead up and roll off it, with a faint purple shimmer from light-catching rhodopsin pumps, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure rod-shaped bacterial cell body. Big, calm, friendly cartoon eyes and a relaxed smile drawn directly on the cell body. Scene: it floats in the clear, cold water of a tundra lake in September, with pale sunlight coming through the surface, a few sedges along the shore and low rocky tundra hills blurred above the water line. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with glossy cream and soft purple accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N14_atzt02 — ATZT02, tiny crowd-forming lake bacterium (3rd Lake, freshwater)
+- **File**: [`microbe_N14_atzt02.png`](microbe_N14_atzt02.png)
+- **Genome**: `N14_atzt02` (ATZT02 sp. (UBA5976, order S36-B12, Actinomycetota, freshwater))
+- **Generator**: agy image-generator subagent
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single tiny freshwater bacterium from the Actinomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a very small, short rod-shaped cell with rounded ends and a smooth semi-translucent lilac cell envelope from a light-catching rhodopsin pump, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure tiny rod-shaped bacterial cell body. Big, cheerful cartoon eyes and a big grin drawn directly on the cell body. Scene: it floats in the middle of a huge friendly crowd of identical tiny lilac rod-shaped cells, filling the cold clear water of a tundra lake in autumn, with low golden autumn light from the surface and dark rocky hills blurred above the water line. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with lilac and warm gold accents, perfectly centered. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
