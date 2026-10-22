@@ -66,7 +66,7 @@ scripts/build/            extract_site_data.py, build_site_data.py, make_taxon_n
                           make_pathway_steps.py, add_microbe.py, assemble_site.sh, deploy.sh
 scripts/hpc/              env.sh (cluster paths) + Slurm jobs: map_to_ref.sh, genome_to_site.sh,
                           cand_abund.*, cand_identity.*, ci_specific.py, ci_*_qc.sh, qc_summary.py,
-                          shape_genes.py, genome_site_inputs.* (stand-alone genomes), site_ani.sh,
+                          shape_genes.py, genome_site_inputs.* (stand-alone genomes), site_ani.sh, canthyd.sh,
                           remap_genomes.sh, site_abund.*, mapped_bases.sh (abundance),
                           reassembly/
 ```

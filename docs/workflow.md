@@ -161,6 +161,7 @@ python3 scripts/build/build_site_data.py   communities/<id>/build_config.json   
 | `abundance_dir`, `mapped_bases` | one abundance measure for every genome (step 3): `site_abund.sh` outputs per genome, and `{habitat: mapped_bases.tsv}` of the co-assembly mappings |
 | `detect_min_bp`, `detect_breadth_ratio` | the "found" rule (step 3) |
 | `cells_per_litre`, `mean_genome_bp` | how the page turns a share of mapped DNA into cells per litre: `{habitat: total cells/L}` (default 1e9) and the average genome size in the community (default 3 Mbp) |
+| `canthyd` | optional `canthyd_hits.tsv` from `scripts/hpc/canthyd.sh` (CANT-HYD hydrocarbon-degradation marker genes); adds the "Oil and fuel breakdown" box to the Function tab |
 | `ani_table` | optional skani search of every site genome against the GTDB species reps (`site_ani.sh`); sets the closest relative and the ANI on each tree leaf |
 | `gtdb_taxonomy` | optional full GTDB taxonomy (GTDB-Tk db `taxonomy/gtdb_taxonomy.tsv`) of the newer release, to name tree leaves and skani hits |
 | `ko_list` | optional KofamKOALA `ko_list`; its KO definitions describe highlighted genes whose annotation has none |

@@ -1224,6 +1224,17 @@ for g, (r, tree) in GTDBTK_RUNS.items():  # newer GTDB-Tk runs override (see gtd
     if g in dump_meta:
         dump_evo[g] = evo_from_summary(r)
 
+# optional `canthyd`: canthyd_hits.tsv from scripts/hpc/canthyd.sh (CANT-HYD hydrocarbon-degradation
+# marker genes per genome, with "confident"/"possible" from the HMMs' trusted and noise cutoffs)
+canthyd_all = {}
+if CFG.get("canthyd"):
+    for r in csv.DictReader(open(cfg_path(CFG["canthyd"])), delimiter="\t"):
+        canthyd_all.setdefault(r["genome"], []).append({
+            "model": r["model"], "desc": r["description"], "score": float(r["score"]),
+            "confidence": r["confidence"], "contig": r["contig"], "start": r["start"], "end": r["end"]})
+    for v in canthyd_all.values():
+        v.sort(key=lambda h: (h["confidence"] != "confident", h["model"]))
+
 # closest relative and ANI from skani (ani_table), replacing GTDB-Tk's, which is blank when the
 # nearest species is outside its ANI radius. No hit means nothing in GTDB is above ~80% ANI.
 if ANI_HITS:
@@ -1328,6 +1339,7 @@ bundle = {
     "evo": dump_evo,
     "modules": dump_mods,
     "sketch": sketch_by_mag,
+    "canthyd": {m: canthyd_all.get(m, []) for m in mar_cands + fw_cands} if CFG.get("canthyd") else {},
     # cells per litre on the page = share of mapped DNA x total cells/L x (mean genome / this genome)
     "cellModel": {"cells_per_litre": CFG.get("cells_per_litre", {"marine": 1e9, "freshwater": 1e9}),
                   "mean_genome_bp": CFG.get("mean_genome_bp", 3_000_000)},

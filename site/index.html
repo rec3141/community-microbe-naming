@@ -317,6 +317,7 @@ a.lpsn:hover{color:var(--marine)}
 <script src="explain/pathways.js?v=dev"></script>
 <script src="explain/genes.js?v=dev"></script>
 <script src="explain/services.js?v=dev"></script>
+<script src="explain/canthyd.js?v=dev"></script>
 <script src="reviews.js?v=dev"></script>
 <script src="iq_tab.js?v=dev"></script>
 <script src="iq.js?v=dev"></script>
@@ -753,6 +754,12 @@ function renderFunction(p){
       <div class="card"><h3>💥 Natural-product gene clusters (antiSMASH)</h3>
         ${bgcs.length? `<table><tbody>${bgcs.map(b=>`<tr><td><b>${esc(b.label.replace('BGC: ',''))}</b></td><td class="note">${esc(b.product.replace(/^antiSMASH BGC: [^ ]+/,''))}<br>${esc(b.contig)}</td></tr>`).join('')}</tbody></table>
           <p>Terpenes are often pigments or antioxidants. T3PKS and arylpolyenes make protective compounds. Lanthipeptides and betalactones can act as antimicrobials.</p>` : '<p class="note">No clusters detected.</p>'}</div>
+      ${D.canthyd ? `<div class="card"><h3>🛢️ Oil and fuel breakdown (CANT-HYD)</h3>
+        <p class="note">Genes that start the breakdown of hydrocarbons, the molecules in oil, fuel and natural gas, searched with the CANT-HYD set of 37 marker genes. Click a gene to learn what it does.</p>
+        ${(D.canthyd[c.id]||[]).length ? `<table class="hl ch"><tbody>${D.canthyd[c.id].map((h,k)=>{ const mi = (window.CANTHYD_INFO?.models||{})[h.model]||{}, gi = (window.CANTHYD_INFO?.groups||{})[mi.group]||{};
+            return `<tr tabindex="0" data-ch="${k}"><td><b>${esc(mi.name||h.model)}</b><div class="note">${esc(gi.title||h.desc)}</div></td><td class="note">${h.confidence==='confident'?'<span class="chip" style="border-color:var(--fresh);color:var(--fresh)">confident</span>':'<span class="chip">possible</span>'}</td></tr>`; }).join('')}</tbody></table>
+          <p class="note">Confident = a strong match to the marker gene; possible = a weaker match that may be a related enzyme with another job.</p>`
+          : '<p>None of these genes were found. That is normal: most microbes cannot eat oil or fuel.</p>'}</div>` : ''}
       <div class="card"><h3>🔎 Highlighted genes</h3>
         <p class="note">Click a gene to learn what it does.</p>
         <table class="hl"><tbody>${hl.map((m,k)=>{ const gi = geneInfo(m.label), prod = m.product.replace(/\s*\[[^\]]*\]\s*$/,'').trim();
@@ -763,7 +770,8 @@ function renderFunction(p){
   const act = (el, fn) => { el.addEventListener('click', fn); el.addEventListener('keydown', e=>{ if (e.key==='Enter'||e.key===' '){ e.preventDefault(); fn(); } }); };
   p.querySelectorAll('.flip').forEach(el=>act(el, ()=>{ el.classList.toggle('on'); el.setAttribute('aria-pressed', el.classList.contains('on')); }));
   p.querySelectorAll('.pw').forEach(el=>act(el, ()=>explainPathway(mods.find(m=>m.id===el.dataset.mod))));
-  p.querySelectorAll('.hl tr').forEach(el=>act(el, ()=>explainGene(hl[+el.dataset.hl])));
+  p.querySelectorAll('.hl tr[data-hl]').forEach(el=>act(el, ()=>explainGene(hl[+el.dataset.hl])));
+  p.querySelectorAll('.hl tr[data-ch]').forEach(el=>act(el, ()=>explainCantHyd((D.canthyd[c.id]||[])[+el.dataset.ch])));
   p.querySelectorAll('.steps [data-t]').forEach(el=>{ el.addEventListener('mouseenter', e=>showTip(e, el.dataset.t)); el.addEventListener('mouseleave', hideTip); });
 }
 const roleCol = {producer:'#34d399', transformer:'#38bdf8', consumer:'#fbbf24', inhibitor:'#f87171'};
@@ -805,6 +813,16 @@ function explainPathway(m){
     <p class="note">In ${esc(C[cur].nickname)}: ${f ? `${f.split('').filter(x=>x==='1').length} of ${f.length} steps found` : `${Math.round(m.c*100)}% of steps found`}${keyMissing.length ? `. But the key step${keyMissing.length>1?'s':''} (${esc(keyMissing.join(', '))}) ${keyMissing.length>1?'are':'is'} missing. Only this pathway uses ${keyMissing.length>1?'them':'it'}, so the cell probably does not run it; the steps it does have are shared with other pathways.` : m.c>=1?' — the whole pathway is there.':m.c>=.75?' — most of it is there. A missing step may just be a gene missing from the genome, or done by a different enzyme.':' — only part of it is there, so the cell may use these genes for something else.'}</p>
     ${st.length?`<table><tbody>${st.map((x,i)=>`<tr><td>${f[i]==='1'?'✅':'⬜'}</td><td>${i+1}. ${esc(x.genes)}${(info.key||[]).includes(i)?' <span class="note" style="color:var(--gold)">key step</span>':''}</td><td class="note">${x.kos.join(', ')}</td></tr>`).join('')}</tbody></table>`:''}
     <p class="note" style="margin-top:10px">${esc(m.name)} · <a href="https://www.kegg.jp/entry/${esc(m.id)}" target="_blank" rel="noopener">KEGG ${esc(m.id)} ↗</a></p>`);
+}
+// explainer for a CANT-HYD hit (explain/canthyd.js)
+function explainCantHyd(h){
+  if (!h) return;
+  const I = window.CANTHYD_INFO||{models:{},groups:{}}, mi = I.models[h.model]||{}, gi = I.groups[mi.group]||{};
+  openXpl(`<h3>${esc(mi.name||h.model)}</h3>
+    ${mi.text?`<p><b>${esc(mi.text)}</b></p>`:''}
+    ${gi.text?`<p><b>${esc(gi.title)}.</b> ${esc(gi.text)}</p>`:''}
+    <p class="note">This gene: ${esc(h.desc)} (CANT-HYD model ${esc(h.model)}), score ${fmt(h.score,0)}, ${h.confidence==='confident'?'above the trusted cutoff: a confident match':'between the noise and trusted cutoffs: a possible match, which may be a related enzyme with another job'}.<br>on ${esc(h.contig)}${h.start?`, ${(+h.start).toLocaleString('en-CA')}–${(+h.end).toLocaleString('en-CA')} bp`:''}</p>
+    <p class="note">CANT-HYD: Khot et al. 2022, <i>Frontiers in Microbiology</i> 12:764058. <a href="https://doi.org/10.3389/fmicb.2021.764058" target="_blank" rel="noopener">doi ↗</a></p>`);
 }
 function explainGene(m){
   if (!m) return;

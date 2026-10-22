@@ -576,5 +576,6 @@
   "marine": 1000000000.0,
   "freshwater": 1000000000.0
  },
- "mean_genome_bp": 3000000
+ "mean_genome_bp": 3000000,
+ "canthyd": "~/igluligaarjuk_inputs/newgenomes/canthyd/canthyd_hits.tsv"
 }
