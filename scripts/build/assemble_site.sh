@@ -19,8 +19,6 @@ for f in community.js candidates.js narratives.js site_data.js; do
     [ -f "$SRC/$f" ] || { echo "[ERROR] missing $SRC/$f" >&2; exit 1; }
     cp "$SRC/$f" "$OUT/"
 done
-# optional per-microbe joke reviews for the ecosystem cards (else the generic ones in explain/)
-if [ -f "$SRC/reviews.js" ]; then cp "$SRC/reviews.js" "$OUT/"; else echo "window.MICROBE_REVIEWS = null;" > "$OUT/reviews.js"; fi
 # optional community knowledge tab content (Two Ways of Seeing); the tab is hidden without it
 if [ -f "$SRC/iq.js" ]; then cp "$SRC/iq.js" "$OUT/"; else echo "window.IQ_CONTENT = null;" > "$OUT/iq.js"; fi
 cp -r "$SRC/img" "$OUT/img"
