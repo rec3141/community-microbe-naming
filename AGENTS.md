@@ -11,6 +11,7 @@ This file is the map. The detail lives in `docs/`:
 - [docs/new-community.md](docs/new-community.md): the checklist for adding a community (start here for "set up X")
 - [docs/ethics-and-data.md](docs/ethics-and-data.md): consent, data sovereignty, licensing, personal data. Read it before publishing anything.
 - [docs/deploy.md](docs/deploy.md): hosting, the API key, the daily limit
+- [docs/card_game.md](docs/card_game.md): the microbe card game: rules, how each card number is derived, balance tests
 
 ## Hard rules
 
@@ -53,6 +54,8 @@ site/                     shared page + API (same for every community)
     genes.js              highlighted-gene label / CAZy class and family -> explainer
     services.js           EcoSSDB CICES code -> card title, picture, story
   img/es/                 ecosystem-service card pictures + PROMPTS.md
+  cards.html, cards/      card game: engine.js (data -> cards, TUNE), game.js (rules + computer player),
+                          rules.js, render.js, ui.js, play.js, cards.css; see docs/card_game.md
 communities/<id>/
   community.js            place/language strings, dictionary credit, shape genes  -> window.COMMUNITY
   candidates.js           the microbes, display order, picture file, habitat        -> window.CANDIDATES
@@ -63,7 +66,8 @@ communities/<id>/
   img/                    one picture per microbe + PROMPTS.md (how they were made)
   README.md               what is withheld and where it lives
 scripts/build/            extract_site_data.py, build_site_data.py, make_taxon_names.py,
-                          make_pathway_steps.py, add_microbe.py, assemble_site.sh, deploy.sh
+                          make_pathway_steps.py, add_microbe.py, assemble_site.sh, deploy.sh,
+                          card_sim.js (card game balance check)
 scripts/hpc/              env.sh (cluster paths) + Slurm jobs: map_to_ref.sh, genome_to_site.sh,
                           cand_abund.*, cand_identity.*, ci_specific.py, ci_*_qc.sh, qc_summary.py,
                           shape_genes.py, genome_site_inputs.* (stand-alone genomes), site_ani.sh, canthyd.sh,

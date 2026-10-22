@@ -24,6 +24,9 @@ if [ -f "$SRC/iq.js" ]; then cp "$SRC/iq.js" "$OUT/"; else echo "window.IQ_CONTE
 cp -r "$SRC/img" "$OUT/img"
 # shared explainers (pathways, genes, ecosystem services) and their pictures
 cp -r "$ROOT/site/explain" "$OUT/explain"
+# card game (cards.html + engine, rules, renderer): shared, built from the same data files
+cp "$ROOT/site/cards.html" "$OUT/"
+cp -r "$ROOT/site/cards" "$OUT/cards"
 [ -d "$ROOT/site/img" ] && cp -r "$ROOT/site/img/." "$OUT/img/"
 # optional extra pages (e.g. slides.html) that belong to this community
 find "$SRC" -maxdepth 1 -name '*.html' -exec cp {} "$OUT/" \;

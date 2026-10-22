@@ -1,0 +1,178 @@
+/* Microbe card game: card faces (63 × 88 mm), deck view, big view, print sheets and the play board.
+   Shared by every community. Colours follow the main site (index.html). */
+:root{
+  --bg:#0b1726; --panel:#12233a; --panel2:#18304d; --line:#27466b; --text:#e7f0fa; --muted:#93a9c3;
+  --marine:#38bdf8; --fresh:#34d399; --gold:#fbbf24; --pink:#f472b6; --red:#f87171; --violet:#a78bfa;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.45}
+a{color:var(--marine)}
+button{font:inherit;cursor:pointer}
+.hidden{display:none!important}
+header.top{position:sticky;top:0;z-index:50;background:rgba(11,23,38,.96);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.brand{font-weight:700;font-size:1.05rem;white-space:nowrap;color:var(--text);text-decoration:none}
+.brand small{color:var(--muted);font-weight:400;margin-left:6px}
+.nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}
+.btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px;text-decoration:none;display:inline-block}
+.btn:hover{border-color:var(--marine)}
+.btn.on,.btn.primary{background:var(--marine);color:#04223a;border-color:var(--marine);font-weight:600}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+main{max-width:1280px;margin:0 auto;padding:16px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.panel h2{margin:0 0 8px;font-size:1.2rem}
+.note{color:var(--muted);font-size:.82rem}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+.chip{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:4px 12px;font-size:.85rem}
+.chip.on{border-color:var(--gold);color:var(--gold)}
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(63mm,1fr));gap:14px;justify-items:center}
+.deck .tcard{cursor:pointer;transition:transform .15s}
+.deck .tcard:hover{transform:translateY(-3px)}
+.rules{max-width:820px}
+.rules h3{color:var(--gold);margin:14px 0 4px;font-size:1rem}
+.rules ol,.rules ul{padding-left:22px;margin:4px 0}
+.rules li{margin:3px 0}
+details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
+
+/* ---------- card face ---------- */
+.tcard{width:63mm;height:88mm;flex:none;border-radius:3.2mm;padding:1.3mm;background:var(--life,#64748b);
+  color:#f4f8fc;font-size:6.6pt;line-height:1.18;position:relative;overflow:hidden;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:0 4px 14px rgba(0,0,0,.45)}
+.tcard .frame{height:100%;border-radius:2.3mm;background:linear-gradient(170deg,#163150,#0d1b2d 60%);display:flex;flex-direction:column;padding:1.6mm 2mm 1.3mm;gap:.9mm;overflow:hidden}
+.tcard.place{--life:#38bdf8}.tcard.place.freshwater{--life:#34d399}
+.tcard.event{--life:#fbbf24}
+.tcard .top{display:flex;align-items:baseline;gap:1mm;min-height:4.6mm}
+.tcard .nm{font-weight:800;font-size:9pt;line-height:1.05;flex:1;min-width:0}
+.tcard .nm.n2{font-size:8pt}.tcard .nm.n3{font-size:7.2pt}.tcard .nm.n4{font-size:6.6pt}
+.tcard .peak{font-size:8pt}
+.tcard .hp{font-weight:800;font-size:11pt;color:#fff;white-space:nowrap}
+.tcard .hp small{font-size:5.5pt;font-weight:700;margin-right:.4mm;color:var(--life)}
+.tcard .kindlabel{font-size:5.5pt;font-weight:800;letter-spacing:.06em;color:#0b1726;background:var(--life);border-radius:1mm;padding:.2mm 1mm;align-self:center}
+.tcard .sub{display:flex;justify-content:space-between;gap:1mm;font-size:5.6pt;color:#b9cbe0;border-bottom:.2mm solid rgba(255,255,255,.15);padding-bottom:.6mm}
+.tcard .art{position:relative;height:27mm;flex:none;display:flex;justify-content:center;align-items:center;
+  background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 35%,transparent),transparent 70%);border-radius:1.5mm}
+.tcard .art img{height:26mm;width:26mm;border-radius:50%;object-fit:cover;border:.6mm solid var(--life);background:#000}
+.tcard.freshwater .art img{border-color:var(--fresh)}.tcard.marine .art img{border-color:var(--marine)}
+.tcard .badges{position:absolute;right:0;top:0;display:flex;flex-direction:column;gap:.4mm;font-size:7pt}
+.tcard .badges span{background:rgba(11,23,38,.75);border-radius:50%;width:4.6mm;height:4.6mm;display:flex;align-items:center;justify-content:center}
+.tcard .abil{background:rgba(251,191,36,.12);border:.2mm solid rgba(251,191,36,.5);border-radius:1.2mm;padding:.6mm 1mm;font-size:6pt}
+.tcard .abil b{color:var(--gold)}
+.tcard .atks{display:flex;flex-direction:column;gap:.6mm}
+.tcard .atk{border-bottom:.2mm dashed rgba(255,255,255,.14);padding-bottom:.5mm}
+.tcard .atk-h{display:flex;align-items:center;gap:1mm}
+.tcard .atk-h b{font-size:7.2pt;flex:1;min-width:0}
+.tcard .cost{color:var(--life);font-size:7pt;letter-spacing:-.3mm;min-width:5mm}
+.tcard .cost.free{color:#b9cbe0}
+.tcard .kind{font-size:6.6pt}
+.tcard .dmg{font-weight:800;font-size:10pt;min-width:6mm;text-align:right}
+.tcard .atk-t{font-size:5.7pt;color:#cfe0f2;padding-left:6mm}
+.tcard .wr{display:flex;justify-content:space-between;font-size:6pt;background:rgba(0,0,0,.25);border-radius:1mm;padding:.5mm 1mm}
+.tcard .wr i{font-style:normal;color:#93a9c3;font-size:5pt;text-transform:uppercase;margin-right:.4mm}
+.tcard .sci{font-size:5.5pt;font-style:italic;color:#c4d3e4;flex:1;min-height:0;overflow:hidden}
+.tcard .foot{display:flex;justify-content:space-between;gap:1mm;font-size:5pt;color:#93a9c3;border-top:.2mm solid rgba(255,255,255,.12);padding-top:.5mm}
+.tcard .foot .no{white-space:nowrap}
+/* places */
+.tcard .pl-art{height:20mm;flex:none;border-radius:1.5mm;display:flex;align-items:center;justify-content:center;gap:3mm;font-size:24pt;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--life) 45%,#0b1726),#0b1726)}
+.tcard .pl-art b{font-size:18pt}
+.tcard .pl-rule{font-size:6.4pt;font-weight:600;background:rgba(0,0,0,.25);border-radius:1mm;padding:.8mm 1mm}
+.tcard .pl-rule.small{font-weight:400;font-size:5.6pt}
+.tcard .pl-homes{font-size:6pt;flex:1;min-height:0;overflow:hidden}
+.tcard .pl-homes small{color:#93a9c3;font-size:5pt}
+/* events */
+.tcard .ev-art{height:24mm;flex:none;display:flex;align-items:center;justify-content:center;font-size:30pt;border-radius:1.5mm;
+  background:radial-gradient(circle,rgba(251,191,36,.3),transparent 70%)}
+.tcard .ev-text{font-size:7.6pt;font-weight:600;line-height:1.25;background:rgba(0,0,0,.25);border-radius:1.2mm;padding:1.2mm 1.4mm}
+.tcard.event .sci{font-size:6.2pt}
+/* backs */
+.tcard.back{--life:#27466b}
+.tcard.back .frame{background:repeating-linear-gradient(45deg,#12233a 0 3mm,#0f1e33 3mm 6mm);align-items:center;justify-content:center}
+.tcard.back .bk-in{border:.5mm solid var(--gold);border-radius:3mm;padding:5mm 3mm;text-align:center;background:rgba(11,23,38,.85);width:46mm}
+.tcard.back .bk-icon{font-size:28pt}
+.tcard.back .bk-game{font-weight:800;font-size:12pt;color:var(--gold)}
+.tcard.back .bk-type{letter-spacing:.3em;font-size:8pt;margin:1mm 0}
+.tcard.back .bk-brand{font-size:6pt;color:#93a9c3}
+.tcard.back-place{--life:#38bdf8}.tcard.back-event{--life:#fbbf24}
+
+/* ink-saver: light card faces for printing */
+.ink .tcard{color:#10233a;box-shadow:none}
+.ink .tcard .frame{background:#fff}
+.ink .tcard .hp{color:#10233a}
+.ink .tcard .sub,.ink .tcard .atk-t,.ink .tcard .sci,.ink .tcard .foot,.ink .tcard .wr i,.ink .tcard .pl-homes small{color:#3c5470}
+.ink .tcard .sub{border-color:#cbd5e1}.ink .tcard .atk{border-color:#cbd5e1}.ink .tcard .foot{border-color:#cbd5e1}
+.ink .tcard .wr,.ink .tcard .pl-rule,.ink .tcard .ev-text{background:#eef3f8}
+.ink .tcard .badges span{background:#eef3f8}
+.ink .tcard .abil{background:#fff7e0}
+.ink .tcard .abil b{color:#9a6700}
+.ink .tcard .cost{filter:brightness(.75)}
+.ink .tcard .art{background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 25%,#fff),#fff 70%)}
+.ink .tcard .pl-art{background:linear-gradient(180deg,color-mix(in srgb,var(--life) 35%,#fff),#fff)}
+.ink .tcard .ev-art{background:radial-gradient(circle,rgba(251,191,36,.35),#fff 70%)}
+.ink .tcard.back .frame{background:repeating-linear-gradient(45deg,#f1f5f9 0 3mm,#e2e8f0 3mm 6mm)}
+.ink .tcard.back .bk-in{background:#fff}
+.ink .tcard.back .bk-game{color:#9a6700}
+
+/* ---------- big view ---------- */
+#big{position:fixed;inset:0;z-index:100;background:rgba(4,10,20,.86);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:20px}
+#big.on{display:flex}
+#big .inner{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;justify-content:center;max-width:1100px}
+#big .bigcard{zoom:1.75}
+#big .side{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;max-width:520px;flex:1 1 320px}
+#big .side h3{margin:0 0 8px;color:var(--gold)}
+#big table.why{border-collapse:collapse;font-size:.86rem;width:100%}
+#big table.why th{text-align:left;vertical-align:top;color:var(--marine);padding:5px 8px 5px 0;width:34%;font-weight:600}
+#big table.why td{padding:5px 0;border-bottom:1px solid var(--line);vertical-align:top}
+#big .x{position:fixed;top:12px;right:16px}
+@media(max-width:700px){#big .bigcard{zoom:1.3}}
+
+/* ---------- print settings panel ---------- */
+.printopts label{margin-right:14px;white-space:nowrap}
+#sheets{display:none}
+
+/* ---------- play board ---------- */
+.board{display:grid;gap:10px}
+.side-area{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px}
+.side-area.me{border-color:var(--gold)}
+.side-area h3{margin:0 0 6px;font-size:.95rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.slot{position:relative}
+.slot .tcard{zoom:.82}
+.slot.small .tcard{zoom:.6}
+.slot.sel .tcard{outline:3px solid var(--gold);outline-offset:2px}
+.slot.pick .tcard{outline:3px dashed var(--pink);outline-offset:2px;cursor:pointer}
+.counter{position:absolute;left:4px;bottom:4px;display:flex;gap:4px;z-index:3}
+.counter span{background:#0b1726ee;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-weight:700;font-size:.8rem}
+.counter .d{color:var(--red)}.counter .n{color:var(--fresh)}
+.mid{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.log{flex:1 1 300px;max-height:300px;overflow:auto;background:#0e1f33;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:.82rem}
+.log div{border-bottom:1px solid rgba(39,70,107,.5);padding:2px 0}
+.actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.hand-ev{display:flex;gap:8px;flex-wrap:wrap}
+.hand-ev .slot .tcard{zoom:.6}
+.prompt{background:rgba(244,114,182,.12);border:1px solid var(--pink);border-radius:10px;padding:8px 12px;margin:6px 0;color:#fbcfe8}
+.cover{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;text-align:center;padding:20px}
+.draftpool{display:flex;flex-wrap:wrap;gap:10px}
+.draftpool .slot .tcard{zoom:.72}
+.score{font-weight:800;color:var(--gold)}
+@media(max-width:700px){.slot .tcard{zoom:.62}.slot.small .tcard{zoom:.46}.draftpool .slot .tcard{zoom:.55}}
+
+/* ---------- printing ---------- */
+@media print{
+  body{background:#fff}
+  header.top,main,#big,.noprint{display:none!important}
+  #sheets{display:block}
+  .sheet{position:relative;break-after:page;page-break-after:always;overflow:hidden}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
+  .tcard{box-shadow:none}
+}
+.sheet .grid{position:absolute;display:grid;grid-template-columns:repeat(3,63mm);grid-template-rows:repeat(3,88mm)}
+.sheet .grid .tcard{border-radius:0}
+.sheet .cut{position:absolute;background:#000}
+.sheet .label{position:absolute;font-size:7pt;color:#666;font-family:system-ui,sans-serif}
+.sheet.rulesheet{font-size:10.5pt;color:#10233a}
+.sheet.rulesheet .rbox{position:absolute;border:.4mm solid #10233a;border-radius:3mm;padding:6mm 7mm;columns:2;column-gap:8mm}
+.sheet.rulesheet h2{column-span:all;margin:0 0 2mm;font-size:16pt}
+.sheet.rulesheet h3{margin:3mm 0 1mm;font-size:11pt;color:#9a6700;break-after:avoid}
+.sheet.rulesheet ol,.sheet.rulesheet ul{padding-left:5mm;margin:1mm 0}
+.sheet.tokens .tok{position:absolute;width:16mm;height:16mm;border-radius:50%;border:.3mm dashed #888;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet.tokens .tok.n{background:#d1fae5;color:#065f46}.sheet.tokens .tok.d{background:#fee2e2;color:#991b1b}

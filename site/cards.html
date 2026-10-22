@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microbe Clash</title>
+<link rel="stylesheet" href="cards/cards.css?v=dev">
+<style id="pageStyle">@page{size:A4 portrait;margin:0}</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" id="homeLink" href="index.html">🧫 <span id="brandName"></span> <small>🃏 <span id="gameName"></span></small></a>
+  <nav class="nav">
+    <a class="btn" href="index.html">⌂ Microbes</a>
+    <button class="btn" id="nav-deck">🃏 Cards</button>
+    <button class="btn" id="nav-rules">📜 Rules</button>
+    <button class="btn" id="nav-play">🎲 Play</button>
+    <button class="btn" id="nav-print">🖨️ Print</button>
+  </nav>
+</header>
+
+<main>
+  <section id="view-deck">
+    <div class="panel">
+      <h2>The cards</h2>
+      <p>Every microbe from the workshop is a card. Its HP, attacks and weaknesses come straight from its DNA and from where we found it, so each card teaches something true. Tap a card to see it big and find out where its numbers come from.</p>
+      <p class="note" id="deckCount"></p>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div class="deck" id="deck"></div>
+  </section>
+
+  <section id="view-rules" class="hidden">
+    <div class="panel rules">
+      <h2>How to play</h2>
+      <p class="note">2 players · about 15 minutes · one printed set of cards, plus coins or beads for nutrients.</p>
+      <div id="rulesQuick"></div>
+      <details class="full"><summary>Full rules</summary><div id="rulesFull"></div></details>
+    </div>
+  </section>
+
+  <section id="view-print" class="hidden">
+    <div class="panel printopts">
+      <h2>Print the cards</h2>
+      <p>Cards print at the standard size of 63 × 88 mm, 9 to a page, with cut marks at the edges. In the print dialog, set the margins to <b>None</b> and the scale to <b>100%</b> (or "Actual size").</p>
+      <p>
+        <label>Paper <select id="pPaper"><option value="a4">A4</option><option value="letter">Letter</option></select></label>
+        <label><input type="checkbox" id="pMicrobes" checked> Microbes</label>
+        <label><input type="checkbox" id="pPlaces" checked> Places</label>
+        <label><input type="checkbox" id="pEvents" checked> Events</label>
+        <label><input type="checkbox" id="pRules" checked> Rules sheet</label>
+        <label><input type="checkbox" id="pTokens"> Token sheet</label>
+        <label><input type="checkbox" id="pBacks"> Card backs</label>
+        <label><input type="checkbox" id="pInk" checked> Ink saver (white cards)</label>
+      </p>
+      <p><button class="btn primary" id="doPrint">🖨️ Print</button> <span class="note" id="printInfo"></span></p>
+    </div>
+  </section>
+
+  <section id="view-play" class="hidden"><div id="play"></div></section>
+</main>
+
+<div id="big" role="dialog" aria-modal="true" aria-label="Card">
+  <button class="btn x" aria-label="Close">✕</button>
+  <div class="inner">
+    <div><div class="bigcard" id="bigCard"></div>
+      <p style="text-align:center"><button class="btn" id="bigPrev">◀</button> <button class="btn" id="bigNext">▶</button></p></div>
+    <div class="side" id="bigSide"></div>
+  </div>
+</div>
+<div id="sheets"></div>
+
+<script src="community.js?v=dev"></script>
+<script src="candidates.js?v=dev"></script>
+<script src="narratives.js?v=dev"></script>
+<script src="site_data.js?v=dev"></script>
+<script src="cards/engine.js?v=dev"></script>
+<script src="cards/rules.js?v=dev"></script>
+<script src="cards/render.js?v=dev"></script>
+<script src="cards/game.js?v=dev"></script>
+<script src="cards/play.js?v=dev"></script>
+<script src="cards/ui.js?v=dev"></script>
+</body>
+</html>

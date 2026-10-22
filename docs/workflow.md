@@ -227,6 +227,10 @@ Then test every tab for one marine and one freshwater microbe. The Naming tab sh
 the dictionary, catch a genus that already exists, and (with a key in `.env`) draft an
 etymology. Watch the console for errors.
 
+The card game (`cards.html`, see [card_game.md](card_game.md)) is built from the same data
+when the page loads. After adding microbes, open it, check the new cards, and run
+`node scripts/build/card_sim.js <id> 4000` to see whether the deck is still balanced.
+
 ## 8. Deploy
 
 See [deploy.md](deploy.md).
