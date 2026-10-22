@@ -107,15 +107,20 @@ function buildSheets() {
     html += `<div class="sheet tokens" style="width:${W}mm;height:${H}mm"><div class="label" style="left:12mm;top:5mm">Nutrient tokens (green) and damage tokens (red): cut out, or use coins and beads instead.</div>${t}</div>`;
   }
   $('sheets').className = $('pInk').checked ? 'ink' : '';
-  $('sheets').innerHTML = html;
+  // print sheets are hidden on screen, so lazy images would never load before printing
+  $('sheets').innerHTML = html.replace(/loading="lazy"/g, 'loading="eager"');
   $('pageStyle').textContent = `@page{size:${$('pPaper').value === 'letter' ? 'letter' : 'A4'} portrait;margin:0}`;
   const n = $('sheets').querySelectorAll('.sheet').length;
   $('printInfo').textContent = `${cards.length} cards → ${n} page${n === 1 ? '' : 's'}${backs ? ' (fronts and backs alternate: print double-sided, flip on long edge)' : ''}.`;
 }
 ['pPaper', 'pMicrobes', 'pPlaces', 'pEvents', 'pBacks', 'pRules', 'pTokens', 'pInk'].forEach(id => $(id).addEventListener('change', buildSheets));
-$('doPrint').addEventListener('click', () => { buildSheets(); window.print(); });
+// wait for every picture on the sheets before opening the print dialog
+const sheetsReady = () => Promise.all([...$('sheets').querySelectorAll('img')].map(i => i.complete ? null : new Promise(r => { i.addEventListener('load', r, {once: true}); i.addEventListener('error', r, {once: true}); })));
+$('doPrint').addEventListener('click', async () => {
+  const b = $('doPrint'), t = b.textContent; b.disabled = true; b.textContent = 'Loading pictures…';
+  await sheetsReady(); b.disabled = false; b.textContent = t; window.print();
+});
 $('pPaper').value = /US|CA/.test(navigator.language || '') ? 'letter' : 'a4';
-window.addEventListener('beforeprint', buildSheets);
 
 renderDeck(); buildSheets();
 show(location.hash.slice(1) || 'deck');
