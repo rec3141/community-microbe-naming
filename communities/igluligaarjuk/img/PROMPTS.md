@@ -324,3 +324,33 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 **Generation Prompt:**
 > Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single marine bacterium of the genus Shewanella, centered in a circular composition suitable for circular cropping. Morphological accuracy: a straight rod-shaped cell with rounded ends and one long, wavy flagellum at one end, smooth semi-translucent salmon-pink cell envelope with tiny glowing electric sparks crackling along its surface and a few small glowing orange oil droplets inside, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind - only the pure rod-shaped bacterial cell body and its single flagellum. Big, wide, delighted cartoon eyes and an excited open grin drawn directly on the cell body. Scene: it rests on the dark muddy sea floor of a cold Arctic harbour, touching a rusty orange pebble and sending small bright electric sparks into it, with pale light filtering down through sea ice far above. Crisp bold outlines, clean vector-like digital cartoon style, cold dark marine palette with salmon-pink, rust-orange and electric-yellow accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N15_camcqy01 — CAMCQY01, ice-grabbing 3rd Lake budding bacterium (freshwater)
+- **File**: [`microbe_N15_camcqy01.png`](microbe_N15_camcqy01.png)
+- **Genome**: `N15_camcqy01` (CAMCQY01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
+- **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single budding freshwater bacterium from the Planctomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a plump pear-shaped to oval cell with a smooth semi-translucent icy pale-blue cell envelope and a small round daughter bud growing from its narrow end, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure bacterial cell body and its bud, with a few tiny six-sided ice crystals stuck to its surface like sparkling sequins. Big, calm, cheerful cartoon eyes and a cosy smile drawn directly on the cell body, and tiny sleepy eyes on the little bud. Scene: it floats in cold, clear tundra lake water in late autumn, just under a thin new skin of ice forming at the surface, with frosty golden-brown tundra hills and a pale grey sky blurred above. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with icy pale-blue and silver accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N16_qwop01 — QWOP01, spear-carrying 1st Lake budding bacterium (freshwater)
+- **File**: [`microbe_N16_qwop01.png`](microbe_N16_qwop01.png)
+- **Genome**: `N16_qwop01` (QWOP01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
+- **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single budding freshwater bacterium from the Planctomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a plump pear-shaped to oval cell with a smooth semi-translucent bright lime-green cell envelope and a small round daughter bud growing from its narrow end, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure bacterial cell body and its bud, plus one thin, short, needle-like spike sticking straight out from the side of the cell like a tiny spear. Big, bold, determined cartoon eyes and a cheeky grin drawn directly on the cell body, and tiny curious eyes on the little bud. Scene: it hovers among water plants and pebbles in a clear, shallow tundra lake in September, with a few smaller round microbes keeping a respectful distance from its spike, and golden tundra hills blurred above the water surface. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with lime-green accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.
+
+---
+
+## microbe_N17_camcqy01 — CAMCQY01, lake-hopping budding bacterium (all three lakes, freshwater)
+- **File**: [`microbe_N17_camcqy01.png`](microbe_N17_camcqy01.png)
+- **Genome**: `N17_camcqy01` (CAMCQY01 sp. (UBA1268, Pirellulales, Planctomycetota, freshwater))
+- **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
+
+**Generation Prompt:**
+> Vibrant charming, slightly goofy 2D scientific cartoon illustration of a single budding freshwater bacterium from the Planctomycetota, centered in a circular composition suitable for circular cropping. Morphological accuracy: a plump pear-shaped to oval cell with a smooth semi-translucent warm violet-purple cell envelope and a small round daughter bud growing from its narrow end, strictly NO arms, NO legs, NO hands, NO feet, NO tentacles, NO limbs of any kind, NO flagella - only the pure bacterial cell body and its bud. Big, excited, adventurous cartoon eyes and a wide happy smile drawn directly on the cell body, and tiny eager eyes on the little bud. Scene: it rides a gentle current in a small clear stream of water that links one tundra lake to the next, with two more lakes visible through the water in the blurry distance, pebbles and water plants below, and autumn tundra hills under a big pale sky above the surface. Crisp bold outlines, clean vector-like digital cartoon style, cool freshwater palette with violet-purple accents, perfectly centered, the underwater scene filling the entire square canvas edge to edge, with no white background, no frame and no border. ABSOLUTELY ZERO TEXT, no words, no letters, no numbers, no labels.

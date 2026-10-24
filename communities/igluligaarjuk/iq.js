@@ -185,7 +185,7 @@ window.IQ_CONTENT = {
     "N6_k1": {
       hook: "It makes its own food from carbon dioxide, like a plant, and lives all the way from Hudson Bay to the High Arctic islands.",
       items: [
-        {key: "aajiiqatigiinniq", clue: "Our copy of its genome is only about 90% complete, so scientists have to decide what it does with part of the information missing.", q: "When the ice or weather gives only some of the signs, how do people decide together whether it is safe to go?"},
+        {key: "aajiiqatigiinniq", clue: "Our best copy of its genome is about 95% complete, but it is missing the ribosome genes scientists usually use to place a microbe on the tree of life.", q: "When the ice or weather gives only some of the signs, how do people decide together whether it is safe to go?"},
         {key: "piliriqatigiinniq", clue: "It lives all the way from Hudson Bay to the High Arctic islands, in water shared by many communities.", q: "The same water connects many communities. How should they work together to look after it?"},
       ],
     },
@@ -251,6 +251,30 @@ window.IQ_CONTENT = {
       items: [
         {key: "avatittinnik", clue: "In the fall it is one of the most common microbes in 3rd Lake, but in 1st Lake we found only traces of its cousins.", q: "How are the three lakes behind town different from each other? Who here knows them best, and what do they notice?"},
         {key: "inuuqatigiitsiarniq", clue: "The same species lives in lakes near The Pas in Manitoba, far to the south.", q: "What links a lake near Igluligaarjuk with a lake far to the south? How could a tiny microbe get from one to the other?"},
+      ],
+    },
+
+    "N15_camcqy01": {
+      hook: "It fills 3rd Lake in the fall and carries proteins that can grab onto ice.",
+      items: [
+        {key: "avatittinnik", clue: "We found it in all three lakes, most of all in 3rd Lake, but not in any of our samples from Hudson Bay or the rest of Manitoba.", q: "If a microbe might live only in these lakes, what does that mean for how people here look after them?"},
+        {key: "qanuqtuurniq", clue: "It has four proteins of a kind that cold-water microbes use to grab onto ice crystals, probably to survive freezing.", q: "How do people here get ready for freeze-up? What clever ways have people found to deal with ice and cold?"},
+      ],
+    },
+
+    "N16_qwop01": {
+      hook: "A 1st Lake microbe whose genes build a tiny spear that some bacteria use to stab their neighbours.",
+      items: [
+        {key: "inuuqatigiitsiarniq", clue: "It shares 1st Lake with many other microbes, and its genes build a spear that some bacteria use against competitors.", q: "When many people share the same lake or hunting area, how do they keep good relationships and sort out disagreements?"},
+        {key: "pilimmaksarniq", clue: "Scientists know what the spear is, but not yet what this one shoots. Finding out means growing it and watching it closely.", q: "How do you learn what something does by watching it carefully over time? Who taught you to watch that way?"},
+      ],
+    },
+
+    "N17_camcqy01": {
+      hook: "It lives in all three lakes and turns up again in the Churchill River estuary, far to the south.",
+      items: [
+        {key: "piliriqatigiinniq", clue: "The same microbe lives in 1st, 2nd and 3rd Lake, so the lakes are linked by water and by the life that moves between them.", q: "The lakes are connected. How can people who use different lakes work together to look after all of them?"},
+        {key: "aajiiqatigiinniq", clue: "Its closest known relative shares about 94.7% of its DNA, just under the 95% line for 'same species', so scientists could disagree about whether it is new.", q: "When the evidence sits right on a line, how should a group decide? How are decisions like that made here?"},
       ],
     },
 

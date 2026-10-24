@@ -256,13 +256,12 @@ window.NARRATIVES = {
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
       ["Is the Chesterfield one exactly the same?", "Almost. Reads from the inlet match our genome at about 95–96%, right on the border between 'same species' and 'different species'. The inlet may have its own close cousin."],
-      ["How complete is the genome?", "Our checks say about 90% complete, so a few of its genes are probably missing from what we have."]
+      ["How complete is the genome?", "Our checks say about 95% complete. One thing is missing: we found none of its ribosome genes (16S, 23S and 5S). These genes are almost identical in many related microbes, which makes them hard to piece together from mixed-up water DNA."]
     ],
-    fn: "It has RuBisCO, the same enzyme plants use to turn carbon dioxide from the air and water into sugar. It also has some of the genes its relatives use to get energy from sulfur compounds, and a light-driven pump for extra energy from sunlight. It makes vitamins B1 and B7 (biotin), and brings in glycine betaine to protect itself from salty, cold water.",
+    fn: "It has RuBisCO, the same enzyme plants use to turn carbon dioxide from the air and water into sugar. It also has some of the genes its relatives use to get energy from sulfur compounds. It makes vitamins B1 and B7 (biotin), and brings in glycine betaine to protect itself from salty, cold water.",
     fnMore: [
       ["Carbon catcher (RuBisCO)", "RuBisCO grabs carbon dioxide and turns it into sugar, so this microbe can make its own food instead of eating it."],
       ["Sulfur energy (Sat and Apr)", "Two of the three steps its relatives use to get energy from sulfur. The third step (Dsr) was not found. It may be in the part of the genome we are missing."],
-      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
       ["Vitamins B1 and B7", "It can build thiamine (B1) and biotin (B7) from scratch. Many algae and other microbes need these vitamins but cannot make them."],
       ["Salt and cold protection (glycine betaine)", "Pumps that bring glycine betaine into the cell, where it keeps water from leaving in salty or freezing conditions."]
     ]
@@ -402,6 +401,54 @@ window.NARRATIVES = {
       ["Phosphorus pumps and savings", "A complete phosphate pump and an enzyme that stores spare phosphorus as long chains."],
       ["Rod shape (mreBCD, rodA)", "Genes that build the cell wall in a rod shape."],
       ["Cold-shock proteins", "Small proteins that help the cell keep reading its genes when the water gets near freezing."]
+    ]
+  },
+  "N15_camcqy01": {
+    nickname: "Polar Pirellulid",
+    eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them do not have FtsZ, the protein most bacteria use to pinch in two. Instead they grow a bud that swells into a new cell, a bit like yeast. We did not find FtsZ in this genome either. In Chesterfield Inlet it is a fall microbe of 3rd Lake: about 73 million of its cells in a litre of water on 9 October, about 62 million on 7 October and about 21 to 37 million in mid-September. We also found it in 2nd Lake and 1st Lake in smaller numbers, up to about 10 million in a litre, so it lives in all three lakes. We did not find it in late May, or in any of our samples from Hudson Bay or the rest of Manitoba.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relative shares only about 89% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more. Its genus has only a code name, so both its genus and its species are new."],
+      ["How complete is the genome?", "Our checks say about 84% complete, with very little DNA from other microbes mixed in. About 62% of its 3,250 genes look like nothing scientists have studied before."],
+      ["Why only in the fall?", "We don't know yet. In late May the lakes were just coming out from under the ice. By fall they have had a whole summer of sunlight and growth. Samples from more months would help tell."]
+    ],
+    fn: "It has 26 sulfatases, enzymes that cut sulfate tags off sugars. Many sugars made by algae and water plants carry these tags, and they must come off before the sugar can be eaten. It has four proteins of a kind that cold-water microbes use to grab onto ice crystals and keep them from growing. A light-driven pump gives it extra energy from sunlight, and the genome has the gene that makes retinal, the coloured molecule the pump needs. It makes hopanoids, molecules that stiffen its membrane the way cholesterol does in our cells.",
+    fnMore: [
+      ["Ice grabbers (ice-binding proteins)", "Proteins that stick to the surface of ice crystals. Microbes use them to keep ice from growing and tearing their cells, or to hold onto ice. We do not yet know which job these ones do."],
+      ["Sulfate cutters (sulfatases)", "26 enzymes that snip sulfate groups off sugars, so the cell can eat sugars that other microbes cannot."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Membrane stiffeners (squalene-hopene cyclase)", "This enzyme folds a long oily molecule into hopanoids, ring-shaped molecules that work like cholesterol in our cells and keep the membrane firm."]
+    ]
+  },
+  "N16_qwop01": {
+    nickname: "Piercing Pirellulid",
+    eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them grow a bud that swells into a new cell instead of pinching in two, and we did not find FtsZ, the usual pinching protein, in this genome. In Chesterfield Inlet it lives in 1st Lake. In mid-September there were about 38 to 40 million of its cells in a litre of water there, and about 26 million on 9 October. We found only a little of it in 2nd Lake and none in 3rd Lake. Further south we found it in a few samples from the Churchill River estuary, Cross Lake (Pimicikamak), the Nelson River and the Boreal Shield lakes.",
+    ecoMore: [
+      ["Is it a new species?", "Yes. Its closest known relative shares about 94% of its DNA letters with it, just under the 95% that scientists usually use for 'same species'. Its genus has only a code name, so both its genus and its species are new."],
+      ["How complete is the genome?", "Our checks say about 81% complete, with very little DNA from other microbes mixed in. It has one copy of each ribosome gene (16S, 23S and 5S) and all 20 kinds of tRNA. About 61% of its 3,600 genes look like nothing scientists have studied before."],
+      ["Does it have viruses?", "One piece of DNA in this genome looks like it came from a virus. Many bacteria carry bits of virus DNA like this."]
+    ],
+    fn: "Its genome has the parts of a type VI secretion system, a tiny spear that some bacteria fire into neighbouring cells to deliver poisons. A light-driven pump gives it extra energy from sunlight. It can cut chitin, the tough material in insect and crustacean shells, and it has 9 sulfatases for eating sugars with sulfate tags. It makes hopanoids to stiffen its membrane, and its genome holds 10 clusters of genes for making special chemicals.",
+    fnMore: [
+      ["Tiny spear (type VI secretion system)", "A molecular spear gun, built from parts that look like the tail of a virus. Bacteria use it to stab and poison competing microbes. We found many of its parts, but not yet what it shoots."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Chitin cutters (GH18)", "Enzymes that cut chitin, the tough material in insect and crustacean shells."],
+      ["Special chemicals (antiSMASH)", "10 gene clusters for making natural products such as terpenes and polyketides. Microbes use molecules like these to signal or defend themselves, and some have become medicines."]
+    ]
+  },
+  "N17_camcqy01": {
+    nickname: "Pond-Hopping Pirellulid",
+    eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them grow a bud that swells into a new cell instead of pinching in two, and we did not find FtsZ, the usual pinching protein, in this genome. In Chesterfield Inlet we found it in all three lakes in September and October. It was most common in 2nd Lake, with about 80 million of its cells in a litre of water on 9 October and about 19 to 28 million in mid-September. 1st Lake held up to about 25 million in early October, and 3rd Lake about 5 to 8 million. Further south we found it in 4 of 5 freshwater samples from the Churchill River estuary, and once in the Nelson River.",
+    ecoMore: [
+      ["Is it a new species?", "Probably. Its closest known relative shares about 94.7% of its DNA letters with it, just under the 95% line scientists usually use for 'same species'. Its genus has only a code name, so its genus is new too."],
+      ["How complete is the genome?", "Our checks say about 83% complete, with a little DNA from other microbes mixed in. It has one copy of each ribosome gene (16S, 23S and 5S) and all 20 kinds of tRNA. About 64% of its 3,500 genes look like nothing scientists have studied before."],
+      ["Why is it in all three lakes?", "We don't know yet. The lakes are close together, and water, wind and animals can carry microbes from one to the next. It may also simply be good at living in many kinds of lake water."]
+    ],
+    fn: "It has 23 sulfatases, enzymes that cut sulfate tags off sugars made by algae and water plants, so it can eat sugars many other microbes cannot. A light-driven pump gives it extra energy from sunlight, and the genome has the gene that makes retinal, the coloured molecule the pump needs. It makes hopanoids, molecules that stiffen its membrane the way cholesterol does in our cells, and carotenoid pigments.",
+    fnMore: [
+      ["Sulfate cutters (sulfatases)", "23 enzymes that snip sulfate groups off sugars, so the cell can eat sugars that other microbes cannot."],
+      ["Light pump (rhodopsin)", "A protein in the cell membrane that uses sunlight to push charged particles out of the cell, like charging a battery."],
+      ["Membrane stiffeners (squalene-hopene cyclase)", "This enzyme folds a long oily molecule into hopanoids, ring-shaped molecules that work like cholesterol in our cells and keep the membrane firm."],
+      ["Special chemicals (antiSMASH)", "6 gene clusters for making natural products such as terpenes. Microbes use molecules like these to signal or defend themselves."]
     ]
   },
   "I1_pseudoalteromonas": {

@@ -317,11 +317,11 @@ window.CANDIDATES = [
     img: "microbe_N6_k1.png",
     habitat: "marine",
     nickname: "Pan-Arctic Pseudothioglobus",
-    rrna: "16S + 23S + 5S rRNA, 19/20 tRNAs",
+    rrna: "No rRNA genes, 19/20 tRNAs",
     whereInCI: "Itivia, Dock, Tuktuttaa",
     story: "A tiny sea bacterium that turns carbon dioxide into food. It lives in the inlet in spring and fall, and across Hudson Bay and the High Arctic.",
-    activities: ["Turns carbon dioxide into food (RuBisCO)", "Has sulfur-energy genes like its relatives", "Catches sunlight with a rhodopsin pump"],
-    tags: ["Carbon Catcher", "Sunlight Helper", "Found Across Hudson Bay", "Known Species, No Name"]
+    activities: ["Turns carbon dioxide into food (RuBisCO)", "Has sulfur-energy genes like its relatives", "Makes vitamins B1 and B7"],
+    tags: ["Carbon Catcher", "Vitamin Maker", "Found Across Hudson Bay", "Known Species, No Name"]
   },
   {
     id: "N7_marimicrobium",
@@ -432,5 +432,38 @@ window.CANDIDATES = [
     story: "A new species we grew in the lab from Dock water, even though we could not find its DNA in any water sample. When oxygen runs out, its genes let it breathe rusty iron, passing electrons out through its cell wall like a tiny electric wire.",
     activities: ["Breathes rusty iron and other metals (MtrA, MtrB, MtrC)", "Makes an omega-3 fat that keeps it soft in the cold (pfaABCD)", "Swims with a whip-like tail"],
     tags: ["Grown in the Lab", "New Species", "Metal Breather", "100% Complete Genome"]
+  },
+  {
+    id: "N15_camcqy01",
+    img: "microbe_N15_camcqy01.png",
+    habitat: "freshwater",
+    nickname: "Polar Pirellulid",
+    rrna: "16S + 23S rRNA, 19/20 tRNAs",
+    whereInCI: "3rd Lake, 2nd Lake, 1st Lake",
+    story: "A new species that fills 3rd Lake in the fall: in early October a litre of water held about 73 million of its cells. It carries proteins like the ones some cold-water microbes use to grab onto ice.",
+    activities: ["Cuts sulfate tags off sugars (26 sulfatases)", "Has ice-binding proteins", "Catches sunlight with a rhodopsin pump"],
+    tags: ["3rd Lake Resident", "New Species", "Ice Grabber", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N16_qwop01",
+    img: "microbe_N16_qwop01.png",
+    habitat: "freshwater",
+    nickname: "Piercing Pirellulid",
+    rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "1st Lake, 2nd Lake",
+    story: "A new species from 1st Lake, with up to about 40 million cells in a litre in mid-September. Its genes build a tiny spear that some bacteria use to stab their neighbours.",
+    activities: ["Builds a spear-like injector (type VI secretion system)", "Catches sunlight with a rhodopsin pump", "Cuts chitin, the stuff of insect shells"],
+    tags: ["1st Lake Resident", "New Species", "Spear Thrower", "Needs Genus & Species Name"]
+  },
+  {
+    id: "N17_camcqy01",
+    img: "microbe_N17_camcqy01.png",
+    habitat: "freshwater",
+    nickname: "Pond-Hopping Pirellulid",
+    rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
+    whereInCI: "2nd Lake, 1st Lake, 3rd Lake",
+    story: "A new species found in all three lakes, most of all 2nd Lake, where a litre of water held about 80 million of its cells in early October. It also turns up in the Churchill River estuary.",
+    activities: ["Cuts sulfate tags off sugars (23 sulfatases)", "Catches sunlight with a rhodopsin pump", "Makes hopanoids, molecules that stiffen its membrane"],
+    tags: ["Lives in All Three Lakes", "New Species", "Sunlight Helper", "Needs Genus & Species Name"]
   }
 ];

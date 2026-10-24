@@ -530,9 +530,9 @@
   },
   "N6_k1": {
    "habitat": "marine",
-   "dir": "~/igluligaarjuk_inputs/newgenomes/site2/N6_k1",
-   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.classify.tree.1.tree",
-   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk/gtdbtk.bac120.summary.tsv"
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site29/N6_k1",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/classify/gtdbtk.bac120.classify.tree.1.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/gtdbtk.bac120.summary.tsv"
   },
   "W02_polaribacter": {
    "habitat": "marine",
@@ -618,15 +618,33 @@
    "dir": "~/igluligaarjuk_inputs/newgenomes/site26/I2_shewanella",
    "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_iso/classify/gtdbtk.bac120.classify.tree.1.tree",
    "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_iso/gtdbtk.bac120.summary.tsv"
+  },
+  "N15_camcqy01": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site29/N15_camcqy01",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/classify/gtdbtk.bac120.classify.tree.8.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/gtdbtk.bac120.summary.tsv"
+  },
+  "N16_qwop01": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site29/N16_qwop01",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/classify/gtdbtk.bac120.classify.tree.8.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/gtdbtk.bac120.summary.tsv"
+  },
+  "N17_camcqy01": {
+   "habitat": "freshwater",
+   "dir": "~/igluligaarjuk_inputs/newgenomes/site29/N17_camcqy01",
+   "tree": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/classify/gtdbtk.bac120.classify.tree.8.tree",
+   "gtdbtk_summary": "~/igluligaarjuk_inputs/newgenomes/gtdbtk_n1518/gtdbtk.bac120.summary.tsv"
   }
  },
  "ko_list": "/data/scratch/refdbs/kofam_db/ko_list",
- "gtdb_taxonomy": "~/igluligaarjuk_inputs/newgenomes/ani26/gtdb_taxonomy.tsv",
- "ani_table": "~/igluligaarjuk_inputs/newgenomes/ani26/skani.tsv",
+ "gtdb_taxonomy": "~/igluligaarjuk_inputs/newgenomes/ani30/gtdb_taxonomy.tsv",
+ "ani_table": "~/igluligaarjuk_inputs/newgenomes/ani30/skani.tsv",
  "gtdbtk_runs": [
   "~/igluligaarjuk_inputs/newgenomes/gtdbtk_orig"
  ],
- "abundance_dir": "~/igluligaarjuk_inputs/newgenomes/abund26",
+ "abundance_dir": "~/igluligaarjuk_inputs/newgenomes/abund29",
  "mapped_bases": {
   "freshwater": "~/igluligaarjuk_inputs/mapped_bases500/freshwater.tsv",
   "marine": "~/igluligaarjuk_inputs/mapped_bases500/marine.tsv"
@@ -638,5 +656,5 @@
   "freshwater": 1000000000.0
  },
  "mean_genome_bp": 3000000,
- "canthyd": "~/igluligaarjuk_inputs/newgenomes/canthyd26/canthyd_hits.tsv"
+ "canthyd": "~/igluligaarjuk_inputs/newgenomes/canthyd30/canthyd_hits.tsv"
 }
