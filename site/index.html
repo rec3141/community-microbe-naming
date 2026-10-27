@@ -44,8 +44,10 @@ main{max-width:1280px;margin:0 auto;padding:18px}
 .dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 
 /* ---------- ORGANISM ---------- */
-.banner{display:flex;gap:18px;align-items:center;background:linear-gradient(120deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
-.banner img{width:120px;height:120px;border-radius:50%;border:4px solid var(--marine);flex:none}
+.banner{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"img head" "img tree";gap:0 18px;align-items:center;background:linear-gradient(120deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.banner img{grid-area:img;width:120px;height:120px;border-radius:50%;border:4px solid var(--marine)}
+.banner>div:not(.banner-tree){grid-area:head}
+.banner-tree{grid-area:tree}
 .banner.freshwater img{border-color:var(--fresh)}
 .banner h2{margin:0 0 4px;font-size:1.5rem}
 .banner .id{font-family:ui-monospace,Menlo,monospace;color:var(--muted);font-size:.85rem}
@@ -59,6 +61,7 @@ main{max-width:1280px;margin:0 auto;padding:18px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 @media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.grid2>*,.grid3>*{min-width:0}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:14px}
 .card h3{margin:0 0 10px;font-size:1.08rem}
 .card h4{margin:12px 0 6px;font-size:.95rem;color:var(--gold)}
@@ -253,17 +256,47 @@ a.lpsn:hover{color:var(--marine)}
 #xpl .x{position:absolute;top:10px;right:12px;font-size:1.2rem}
 #xpl table{width:100%;font-size:.84rem}
 #xpl td{padding:3px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+/* ---------- PHONES ---------- */
+@media(max-width:600px){
+  header.top{padding:8px 12px;gap:6px 10px}
+  .brand{white-space:normal;font-size:1rem}
+  .brand small{display:block;margin:0 0 0 1.6em}
+  .selector{flex-wrap:nowrap;width:100%;margin-left:0}
+  .selector select{flex:1;min-width:0;max-width:none}
+  .selector .btn{padding:7px 10px;flex:none}
+  .lbl{display:none}
+  main{padding:12px}
+  #home{overflow-x:clip}
+  .ring{margin-bottom:96px}
+  .ring .center p{position:absolute;left:50%;top:calc(50% + 46vw + 10px);width:88vw;transform:translateX(-50%);margin:0}
+  .banner{grid-template-columns:84px 1fr;grid-template-areas:"img head" "tree tree";gap:0 14px;padding:12px}
+  .banner img{width:84px;height:84px;border-width:3px}
+  .banner h2{font-size:1.3rem}
+  .banner-tree .rank{padding:4px 8px;font-size:.8rem}
+  .lineage{gap:4px}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+  .tab{padding:8px 4px;font-size:.88rem}
+  .card{padding:12px}
+  .card table{display:block;overflow-x:auto}
+  .stats{gap:6px}
+  .stat{padding:8px 4px}
+  .stat b{font-size:1.1rem}
+  .map{height:320px}
+  .map.small{height:280px}
+  .preview .nm{font-size:1.8rem}
+  .dict-controls input{min-width:0}
+}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="brand" onclick="goHome()">🧫 <span id="brandName"></span> <small><span id="brandNative"></span> naming workshop</small></div>
   <div class="selector">
-    <button class="btn" onclick="goHome()">⌂ Home</button>
+    <button class="btn" onclick="goHome()" title="Home">⌂<span class="lbl"> Home</span></button>
     <button class="btn" onclick="step(-1)" title="Previous organism">◀</button>
     <select id="orgSelect" onchange="openOrganism(+this.value)"></select>
     <button class="btn" onclick="step(1)" title="Next organism">▶</button>
-    <a class="btn" href="cards.html" title="Card game: play and print">🃏 Card game</a>
+    <a class="btn" href="cards.html" title="Card game: play and print">🃏<span class="lbl"> Card game</span></a>
   </div>
 </header>
 
@@ -444,6 +477,7 @@ function openOrganism(i){
 function showTab(t, force){
   curTab = t;
   document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
+  document.querySelector('.tab.active')?.scrollIntoView({block:'nearest', inline:'nearest'});
   document.querySelectorAll('.tabpane').forEach(p=>p.classList.add('hidden'));
   const pane = document.getElementById('tab-'+t); pane.classList.remove('hidden');
   maps.forEach(m=>m.remove()); maps=[];
@@ -465,9 +499,9 @@ function renderBanner(){
     <div class="id">${esc(c.id)}</div>
     <span class="pill ${c.habitat}">${c.habitat==='marine'?'🌊 Marine':'💧 Freshwater'}</span>
     <span class="pill gold">✍️ ${esc(need.label)}</span>
-    <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span>
+    <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span></div>
     <div class="banner-tree"><h3>🧬 Family tree</h3>
-    <div class="lineage">${lineageOf(c).map((x,i)=>`${i?'<span class="arrow">›</span>':''}<div class="rank${x.ph?' ph':''}"><small>${x.rank}</small><b>${taxonLink(i, x.name)}</b></div>`).join('')}</div></div></div>`;
+    <div class="lineage">${lineageOf(c).map((x,i)=>`${i?'<span class="arrow">›</span>':''}<div class="rank${x.ph?' ph':''}"><small>${x.rank}</small><b>${taxonLink(i, x.name)}</b></div>`).join('')}</div></div>`;
 }
 
 /* ---------- STORY ---------- */
@@ -630,7 +664,7 @@ function drawTree(box, t){
   (function walk(n, x){ n._x = x + (n.length||0); maxX=Math.max(maxX,n._x);
     if (n.children) n.children.forEach(ch=>walk(ch, n._x)); else { n._y = leaves.length; leaves.push(n); } })(t.root, 0);
   (function setY(n){ if (n.children){ n.children.forEach(setY); n._y = (n.children[0]._y + n.children[n.children.length-1]._y)/2; } })(t.root);
-  const W=980, labelW=380, rowH=26, H=leaves.length*rowH+40, sx=(W-labelW-40)/Math.max(maxX,1e-6), X=v=>20+v*sx, Y=v=>20+v*rowH;
+  const avail = box.clientWidth || 980, labelW = avail < 600 ? 330 : 380, W = Math.max(Math.min(980, avail), labelW + 160), rowH=26, H=leaves.length*rowH+40, sx=(W-labelW-40)/Math.max(maxX,1e-6), X=v=>20+v*sx, Y=v=>20+v*rowH;
   let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
   (function draw(n, px){
     const x=X(n._x), y=Y(n._y);
@@ -655,7 +689,7 @@ function drawCircos(box, d){
   const pt=(r,a)=>[cx+r*Math.cos(a), cy+r*Math.sin(a)];
   const arc=(r1,r2,a1,a2)=>{ const big=(a2-a1)>Math.PI?1:0, [x1,y1]=pt(r2,a1),[x2,y2]=pt(r2,a2),[x3,y3]=pt(r1,a2),[x4,y4]=pt(r1,a1);
     return `M${x1},${y1} A${r2},${r2} 0 ${big} 1 ${x2},${y2} L${x3},${y3} A${r1},${r1} 0 ${big} 0 ${x4},${y4} Z`; };
-  let s = `<svg width="${S+60}" height="${S+60}" viewBox="-30 -30 ${S+60} ${S+60}" style="max-width:100%">`;
+  let s = `<svg width="${S+60}" height="${S+60}" viewBox="-30 -30 ${S+60} ${S+60}" style="max-width:100%;height:auto">`;
   // contigs
   d.contigs.forEach((ct,i)=>{ const a1=ang(ct.start), a2=ang(ct.end)-Math.min(0.004,(ang(ct.end)-ang(ct.start))*0.1);
     s += `<path d="${arc(222,236,a1,Math.max(a1+0.002,a2))}" fill="${i%2?'#3b82f6':'#60a5fa'}" data-t="${esc(ct.id)}<br>${(ct.length/1e3).toFixed(1)} kbp · GC ${ct.gc}%"/>`; });
