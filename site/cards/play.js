@@ -93,7 +93,7 @@ function draftStep() {
     () => take(p, c), 'Pick it')}] : []})).join('');
   const team = t => t.map(c => slotHTML(c, {small: true})).join('') || '<span class="note">none yet</span>';
   root().innerHTML = `<div class="panel"><h2>Draft: ${human ? `${who(p)}, pick a microbe` : 'the computer is picking…'}</h2>
-    <p class="note">Picking order: A, B, B, A, A, B, B, A, A, B. Tip: Hunters (🎯) beat Gram-negative microbes, but Gram-positive ones and archaea can't be hunted. Tap a card to read it.</p>
+    <p class="note">Picking order: A, B, B, A, A, B, B, A, A, B. Tip: Happy Hunters (🎯) beat Gram-negative microbes, but Gram-positive ones and archaea can't be hunted. Tap a card to read it.</p>
     ${S.msg ? `<div class="prompt">${esc(S.msg)}</div>` : ''}
     <div class="row">${pool}</div></div>
     <div class="panel"><h3>${who(0)}</h3><div class="row">${team(S.teams[0])}</div><h3>${who(1)}</h3><div class="row">${team(S.teams[1])}</div></div>`;

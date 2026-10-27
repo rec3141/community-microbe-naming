@@ -144,22 +144,34 @@ current ones. "Local samples" are the community's own samples (`northMap[id].ci_
 cells per litre are worked out exactly as on the Distribution tab: relab % × cells per litre for
 the habitat (`cellModel`) × mean genome size / this genome's size.
 
-### Type (lifestyle)
+### Type (guild)
 
-Checked in this order:
+The five types are the functional guilds in `site/explain/guilds.js` (name, icon and colour come
+from there). A microbe with a `guild` field in `candidates.js` gets that guild as its type:
 
-1. **🎯 Hunter**: GTDB phylum Bdellovibrionota, or a tag says hunter/predator.
-2. **🛢️ Oil-eater**: any CANT-HYD hit in `canthyd[id]`.
+| Type (internal key) | Guild |
+|---|---|
+| 🎒 Peppy Prepper (`chem`) | makes its own food from chemicals |
+| 🥬 Voracious Vegetarian (`recycler`) | eats seaweed, algae and plant sugars |
+| 🎯 Happy Hunter (`hunter`) | eats other bacteria |
+| ☀️ Sunny Scavenger (`sun`) | sips small bits of food, tops up with light |
+| 🗑️ Dumpster Diver (`oil`) | lives on leftovers, oil and metals |
+
+A microbe without a `guild` (a new community that has not chosen yet) falls back to these
+checks, in order:
+
+1. **🎯 Happy Hunter**: GTDB phylum Bdellovibrionota, or a tag says hunter/predator.
+2. **🗑️ Dumpster Diver**: any CANT-HYD hit in `canthyd[id]`.
 3. Otherwise a score from the microbe's own text (`tags` count 3 or 2, `activities` 1) and data:
-   - **⚗️ Chem-eater**: 3 × (tags mention sulfur, thiosulfate, ammonia, nitrite or methanol)
+   - **🎒 Peppy Prepper**: 3 × (tags mention sulfur, thiosulfate, ammonia, nitrite or methanol)
      + 1 × (activities do);
-   - **🍂 Recycler**: 3 × (tags mention seaweed, alginate, laminarin, sugar, fibre, chitin,
+   - **🥬 Voracious Vegetarian**: 3 × (tags mention seaweed, alginate, laminarin, sugar, fibre, chitin,
      sulfatase, organic acid, digest) + 1 × (activities do) + 1 if it has 3+ sulfatase markers;
-   - **☀️ Sun-catcher**: 2 × (tags mention sunlight, rhodopsin or solar) + 1 if it has a
+   - **☀️ Sunny Scavenger**: 2 × (tags mention sunlight, rhodopsin or solar) + 1 if it has a
      rhodopsin marker (or activities mention one).
 
-   Highest score wins; ties go Chem-eater, then Recycler, then Sun-catcher. No clue at all:
-   Recycler (it eats dissolved organic matter).
+   Highest score wins; ties go Peppy Prepper, then Voracious Vegetarian, then Sunny Scavenger. No clue at all:
+   Voracious Vegetarian (it eats dissolved organic matter).
 
 ### HP: how widespread it is
 
@@ -189,20 +201,20 @@ activities, then Function text):
 
 | Type | Attack | Evidence |
 |---|---|---|
-| Hunter | Break-In (🎯 Hunt) | Bdellovibrionota: periplasmic predators |
-| Oil-eater | `<gene>` Oil Crack | first CANT-HYD model, e.g. CYP153 |
-| Chem-eater | Amo Ammonia Burn / Nxr Nitrite Burn / XoxF Methanol Munch / Sox (or Dsr) Sulfur Burn | first of ammonia, nitrite, methanol, sulfur in its text; Sox from the marker or text, Dsr from text |
-| Recycler | Alginate Lyase Slice / Laminarinase Feast / Chitin Chomp / Sulfatase Strip / Organic Acid Sweep / `<top GH>` Sugar Cut | first match in its text, else its most common CAZy GH/PL marker |
-| Sun-catcher | Rhodopsin Surge | rhodopsin marker |
+| Happy Hunter | Break-In (🎯 Hunt) | Bdellovibrionota: periplasmic predators |
+| Dumpster Diver | `<gene>` Oil Crack / Mtr Rust Breath / XoxF Methanol Munch / Organic Acid Sweep / Chitin Chomp / Leftover Feast | an oil gene (first CANT-HYD model, e.g. CYP153) first; else the first of metal breathing (Mtr), methanol, organic acids, chitin in its text; else Leftover Feast |
+| Peppy Prepper | Amo Ammonia Burn / Nxr Nitrite Burn / XoxF Methanol Munch / Sox (or Dsr) Sulfur Burn | first of ammonia, nitrite, methanol, sulfur in its text; Sox from the marker or text, Dsr from text |
+| Voracious Vegetarian | Alginate Lyase Slice / Laminarinase Feast / Chitin Chomp / Sulfatase Strip / Organic Acid Sweep / `<top GH>` Sugar Cut | first match in its text, else its most common CAZy GH/PL marker |
+| Sunny Scavenger | Rhodopsin Surge | rhodopsin marker |
 
 **Quick attack** (cost 1), first that applies:
 1. Hunter: **Chemotaxis Chase** (🎯, 10, may hit a Bench microbe): hunters smell their way to prey.
 2. A toxin gene cluster (antiSMASH marker), first of: lanthipeptide → Lanthipeptide Zap,
    hydrogen-cyanide → Cyanide Puff, betalactone → Betalactone Blast, NRPS → NRPS Brew, T1PKS →
    Polyketide Potion, RiPP → Bacteriocin Shot, NAPAA → Poly-Lysine Lash (🧪 Toxin).
-3. Not a Sun-catcher but has a rhodopsin: **Light Pump** (10, +1 nutrient on itself).
+3. Not a Sunny Scavenger but has a rhodopsin: **Light Pump** (10, +1 nutrient on itself).
 4. Glides or swims (text): **Glide Away / Dash Away** (may switch to the Bench for free).
-5. A Sun-catcher without a toxin: Light Pump.
+5. A Sunny Scavenger without a toxin: Light Pump.
 6. Otherwise **TCA Cycle Spin** (plain metabolism).
 
 ### Cell wall: weakness and resistance
@@ -223,7 +235,7 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
 
 | Ability | When | What it does | Science |
 |---|---|---|---|
-| Burst Out | Hunter | heals fully when it washes out a rival | grows inside its prey and bursts out |
+| Burst Out | Happy Hunter | heals fully when it washes out a rival | grows inside its prey and bursts out |
 | Mystery Genes | `hypo_pct` ≥ 60% | coin flip on attack: heads +20 | most of its genes have unknown jobs |
 | Quorum Sensing | homoserine-lactone BGC | +10 with 2+ on the Bench | bacteria count neighbours with signals |
 | Carbon Catcher | RuBisCO marker or text | heals 10 at the end of your turn | makes its own food from CO₂ |
@@ -234,7 +246,7 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
 
 - **Retreat cost**: 0 if its text says it swims or glides, 2 with Hold Fast, else 1.
 - **Badges** (used by events): ☀ rhodopsin marker or text; ❄ cold-shock protein marker;
-  🧂 osmoprotectant marker or glycine betaine in text; 🛡 CRISPR-Cas marker; 🔹 genome under 1.5 Mbp.
+  🧂 osmoprotectant marker or glycine betaine in text; 🛡 CRISPR-Cas marker; 🔹 genome under 1.5 Mbp; 🛢 a CANT-HYD oil gene.
 - **Found at**: every local site where it was detected, with the seasons (May = 🌸 spring,
   Sept and Oct = 🍁 fall; no date = \*).
 - **Peak season**: the season of its biggest dated count. Hunters were only found in undated
@@ -257,9 +269,9 @@ Event cards are the same for every community:
 | Hungry Grazer | 30 to the rival Active; 🔹 tiny microbes take none | protist grazers miss very small cells |
 | Freeze-Up | Actives without ❄ take 20 | cold-shock proteins keep RNA working near 0 °C |
 | Long Days | +1 nutrient on up to 2 of your ☀ microbes | long northern spring days |
-| Algae Bloom | +2 nutrients on a Recycler (else +1) | sugar-eaters bloom after algae |
-| Mud Stir-Up | +2 nutrients on a Chem-eater (else +1) | mixing releases ammonium and sulfur compounds |
-| Fuel Spill | +2 on each of your Oil-eaters; non-oil Actives take 10 | fuel is toxic, but oil-eaters bloom |
+| Algae Bloom | +2 nutrients on a Voracious Vegetarian (else +1) | sugar-eaters bloom after algae |
+| Mud Stir-Up | +2 nutrients on a Peppy Prepper (else +1) | mixing releases ammonium and sulfur compounds |
+| Fuel Spill | +2 on each of your 🛢 microbes; Actives without 🛢 take 10 | fuel is toxic, but microbes with oil genes bloom (keyed to the 🛢 badge, not the type, since most Dumpster Divers can't eat oil) |
 | Tide Turns | swap the rival Active with a Bench microbe | tides move microbes around |
 | Gene Swap | your Active may use a Bench microbe's attack | horizontal gene transfer |
 | Vitamin Gift | heal 30 | shared B vitamins |
@@ -270,30 +282,35 @@ Event cards are the same for every community:
 
 | # | Microbe | Type | HP | Quick attack | Big attack | Ability | Weak / resist | Retreat | Badges | Peak |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Tidal Thioglobus | Chem-eater | 60 | TCA Cycle Spin (1●, 20) | Sox Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡🔹 | spring |
-| 2 | Peckish Polaribacter | Recycler | 60 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
-| 3 | Snow-Surfing Schleifer | Recycler | 60 | Light Pump (1●, 10) | Laminarinase Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
-| 4 | Gutsy Gamma | Chem-eater | 60 | Light Pump (1●, 10) | Dsr Sulfur Burn (2●, 40) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡🔹 | fall |
-| 5 | Busy Balneatrix | Chem-eater | 60 | Cyanide Puff 🧪 (1●, 10) | Sox Sulfur Burn (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡 | spring |
-| 6 | Methanol-Munching Methylophilid | Chem-eater | 80 | Lanthipeptide Zap 🧪 (1●, 10) | XoxF Methanol Munch (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀🛡🔹 | fall |
-| 7 | Fibre-Feasting Ferruginibacter | Recycler | 60 | Glide Away (1●, 10) | Chitin Chomp (2●, 40) | — | weak Hunt ×2 | 0 |  | fall |
-| 8 | Persistent Polynucleobacter | Recycler | 70 | Betalactone Blast 🧪 (1●, 10) | Organic Acid Sweep (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | 🛡 | fall |
-| 9 | Northern Nitrotoga | Chem-eater | 60 | TCA Cycle Spin (1●, 10) | Nxr Nitrite Burn (2●, 40) | Carbon Catcher | weak Hunt ×2 | 1 | 🛡🔹 | spring |
-| 10 | Pint-sized Planktophila | Sun-catcher | 70 | Cyanide Puff 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Vitamin Share | weak Toxin ×2; Hunt 0 | 1 | ☀❄🛡🔹 | fall |
-| 11 | Sun-sipping Amylibacter | Chem-eater | 70 | Light Pump (1●, 10) | Sox Sulfur Burn (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀🧂🛡 | fall |
-| 12 | Arcane Armatimonad | Sun-catcher | 80 | NRPS Brew 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 13 | Prowling Peredibacter | Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🧂🛡 | — |
-| 14 | Bullet-fast Bdellovibrio | Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | ❄🧂🛡 | — |
-| 15 | Bold Bacteriovoracid | Hunter | 60 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🛡 | — |
-| 16 | Pan-Arctic Pseudothioglobus | Sun-catcher | 80 | Light Pump (1●, 10) | Rhodopsin Surge (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ☀❄🧂🛡 | fall |
-| 17 | Munching Marimicrobium | Oil-eater | 80 | NRPS Brew 🧪 (1●, 20) | CYP153 Oil Crack (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡 | fall |
-| 18 | Paddling Pseudohongiellid | Oil-eater | 70 | Light Pump (1●, 10) | CYP153 Oil Crack (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡 | fall |
-| 19 | Frond-Slicing Flavo | Recycler | 70 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡 | fall |
-| 20 | Baffling Bacteroid | Sun-catcher | 80 | Glide Away (1●, 10) | Rhodopsin Surge (2●, 50) | Mystery Genes | weak Hunt ×2 | 0 | ☀❄🛡 | spring |
-| 21 | Nano Nitrosopumilus | Chem-eater | 60 | TCA Cycle Spin (1●, 20) | Amo Ammonia Burn (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ❄🛡🔹 | spring |
-| 22 | Plentiful Planctomycete | Sun-catcher | 80 | NRPS Brew 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 23 | Mantled Mycobacterium | Sun-catcher | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ☀❄🛡 | fall |
-| 24 | Abundant Actino | Sun-catcher | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Carbon Catcher | weak Toxin ×2; Hunt 0 | 1 | ☀❄🧂🛡🔹 | fall |
+| 1 | Tidal Thioglobus | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Sox Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡🔹 | spring |
+| 2 | Peckish Polaribacter | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
+| 3 | Snow-Surfing Schleifer | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Laminarinase Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
+| 4 | Gutsy Gamma | Peppy Prepper | 60 | Light Pump (1●, 10) | Dsr Sulfur Burn (2●, 40) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡🔹 | fall |
+| 5 | Busy Balneatrix | Dumpster Diver | 60 | Cyanide Puff 🧪 (1●, 10) | Leftover Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡 | spring |
+| 6 | Methanol-Munching Methylophilid | Dumpster Diver | 80 | Lanthipeptide Zap 🧪 (1●, 10) | XoxF Methanol Munch (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀🛡🔹 | fall |
+| 7 | Fibre-Feasting Ferruginibacter | Voracious Vegetarian | 60 | Glide Away (1●, 10) | Chitin Chomp (2●, 40) | — | weak Hunt ×2 | 0 |  | fall |
+| 8 | Persistent Polynucleobacter | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Organic Acid Sweep (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | 🛡 | fall |
+| 9 | Northern Nitrotoga | Peppy Prepper | 60 | TCA Cycle Spin (1●, 10) | Nxr Nitrite Burn (2●, 40) | Carbon Catcher | weak Hunt ×2 | 1 | 🛡🔹 | spring |
+| 10 | Pint-sized Planktophila | Sunny Scavenger | 70 | Cyanide Puff 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Vitamin Share | weak Toxin ×2; Hunt 0 | 1 | ☀❄🛡🔹 | fall |
+| 11 | Sun-sipping Amylibacter | Sunny Scavenger | 70 | Light Pump (1●, 10) | Rhodopsin Surge (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀🧂🛡 | fall |
+| 12 | Arcane Armatimonad | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 13 | Prowling Peredibacter | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🧂🛡 | — |
+| 14 | Bullet-fast Bdellovibrio | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | ❄🧂🛡 | — |
+| 15 | Bold Bacteriovoracid | Happy Hunter | 60 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🛡 | — |
+| 16 | Pan-Arctic Pseudothioglobus | Peppy Prepper | 80 | TCA Cycle Spin (1●, 20) | Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡 | fall |
+| 17 | Munching Marimicrobium | Dumpster Diver | 80 | NRPS Brew 🧪 (1●, 20) | CYP153 Oil Crack (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡🛢 | fall |
+| 18 | Paddling Pseudohongiellid | Dumpster Diver | 70 | Light Pump (1●, 10) | CYP153 Oil Crack (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡🛢 | fall |
+| 19 | Frond-Slicing Flavo | Voracious Vegetarian | 70 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡 | fall |
+| 20 | Baffling Bacteroid | Sunny Scavenger | 80 | Glide Away (1●, 10) | Rhodopsin Surge (2●, 50) | Mystery Genes | weak Hunt ×2 | 0 | ☀❄🛡 | spring |
+| 21 | Nano Nitrosopumilus | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Amo Ammonia Burn (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ❄🛡🔹 | spring |
+| 22 | Plentiful Planctomycete | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 23 | Mantled Mycobacterium | Sunny Scavenger | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ☀❄🛡 | fall |
+| 24 | Abundant Actino | Sunny Scavenger | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Carbon Catcher | weak Toxin ×2; Hunt 0 | 1 | ☀❄🧂🛡🔹 | fall |
+| 25 | Patient Pseudoalteromonas | Voracious Vegetarian | 70 | Bacteriocin Shot 🧪 (1●, 10) | Alginate Lyase Slice (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
+| 26 | Shocking Shewanella | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Mtr Rust Breath (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
+| 27 | Polar Pirellulid | Voracious Vegetarian | 70 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 28 | Piercing Pirellulid | Dumpster Diver | 70 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 60) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 29 | Pond-Hopping Pirellulid | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀ | fall |
 
 Places: Dock (spring, fall), Itivia (spring, fall), Tuktuttaa (spring), 1st Lake (fall),
 2nd Lake (fall), 3rd Lake (spring, fall). 1st Lake in spring is left out: no microbe has a dated
@@ -322,6 +339,7 @@ hunters, all hunt-proof cells, all marine, all freshwater, highest HP); and stra
 | 3 | HP base 60, at most 2 spread points (30% local, 20% regional), big attack 40/50/60/70, hunters 2 ●, no tiny discount | 9 | 41–59% (sd 4.7) | 45–53 | tiny discount had made Methylophilid a 1 ● 40-damage card |
 | 4 | season boost by each microbe's **peak season** from the data, not by type | 9 | 42–61% (sd 4.5) | 47–56 | the data showed most Sun-catchers peak in fall, so "spring = sun" was not true |
 | final | AI and text fixes (Tide Turns heuristic) | 9 | 43–59% random teams, 45–55% drafted | 46–54 | see below |
+| guilds | 29 cards; types follow the functional guilds (9 cards change type); Dumpster Divers get gene-matched big attacks; Fuel Spill keyed to the 🛢 oil-gene badge | 9 | 41–61% random teams, 41–57% drafted (same as the 29-card deck before) | 48–52 random, 49–56 drafted (was 47–57) | types are more even; hunters stacked 3 + 2 random win 50%, drafting still worth 70% |
 
 Other things tried: quick attacks of 20 to 30 damage (a team that only uses quick attacks still
 loses 97–99%, so the big attacks stay the main plan, and quick attacks were left at 10–20);

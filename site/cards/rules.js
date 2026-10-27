@@ -35,7 +35,7 @@ const FULL = `
 <p>The microbe cards, the Place cards and the Event cards (one printed set is enough for 2 players), plus about 30 small tokens for nutrients (coins, beads, beans) and a pencil and paper or tokens for damage.</p>
 <h3>The cards</h3>
 <ul>
-  <li><b>Microbe cards</b> are the real microbes from this workshop. Each has <b>HP</b> (how hard it is to wipe out), a <b>type</b> (how it makes a living), 2 <b>attacks</b>, sometimes an <b>ability</b>, a <b>weakness</b> or <b>resistance</b> from its cell wall, a <b>retreat cost</b>, and <b>badges</b> (☀ rhodopsin, ❄ cold-shock proteins, 🧂 salt protection, 🛡 CRISPR, 🔹 tiny). The bottom shows where it was found and its peak season.</li>
+  <li><b>Microbe cards</b> are the real microbes from this workshop. Each has <b>HP</b> (how hard it is to wipe out), a <b>type</b> (its guild: how it makes a living), 2 <b>attacks</b>, sometimes an <b>ability</b>, a <b>weakness</b> or <b>resistance</b> from its cell wall, a <b>retreat cost</b>, and <b>badges</b> (☀ rhodopsin, ❄ cold-shock proteins, 🧂 salt protection, 🛡 CRISPR, 🔹 tiny, 🛢 oil gene). The bottom shows where it was found and its peak season.</li>
   <li><b>Place cards</b> are the sampling sites in a season. They say if the water is salty or fresh and list the microbes found there in that season (* = found there, date not recorded).</li>
   <li><b>Event cards</b> are things that happen in nature: viruses, grazers, ice, sunshine, spills and more.</li>
 </ul>

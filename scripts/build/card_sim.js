@@ -12,6 +12,7 @@ const ID = args[0] && !args[0].startsWith('--') ? args[0] : 'igluligaarjuk';
 const N = +(args[1] && !args[1].startsWith('--') ? args[1] : 4000);
 global.window = global;
 for (const f of ['community.js', 'candidates.js', 'narratives.js', 'site_data.js']) require(path.join(ROOT, 'communities', ID, f));
+require(path.join(ROOT, 'site/explain/guilds.js'));
 const MC = require(path.join(ROOT, 'site/cards/engine.js'));
 args.forEach((a, i) => { if (a === '--tune') { const [k, v] = args[i + 1].split('='); MC.TUNE[k] = JSON.parse(v); } });
 const MG = require(path.join(ROOT, 'site/cards/game.js'));

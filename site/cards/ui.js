@@ -26,7 +26,7 @@ window.addEventListener('hashchange', () => show(location.hash.slice(1)));
 // ---------- deck ----------
 let filt = 'all';
 const FILTERS = [['all', 'All cards'], ['microbe', 'Microbes'], ['place', 'Places'], ['event', 'Events'],
-  ...Object.entries(MC.LIFESTYLES).filter(([k]) => DECK.microbes.some(c => c.lifestyle === k)).map(([k, L]) => [k, `${L.icon} ${L.name}`])];
+  ...Object.entries(MC.LIFESTYLES).filter(([k]) => DECK.microbes.some(c => c.lifestyle === k)).map(([k, L]) => [k, `${L.icon} ${L.plural || L.name}`])];
 function renderDeck() {
   $('chips').innerHTML = FILTERS.map(([k, n]) => `<button class="chip${k === filt ? ' on' : ''}" data-f="${k}">${n}</button>`).join('');
   const list = ALL.filter(c => filt === 'all' || c.type === filt || c.lifestyle === filt);

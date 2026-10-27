@@ -234,8 +234,8 @@ class Game {
       }
       case 'spill': {
         this.consume(pl, i); this.say('Fuel Spill!');
-        this.inPlay(pl).filter(m => m.card.lifestyle === 'oil').forEach(m => { m.nut += 2; this.say(`${m.card.name} feeds on the fuel: +2 nutrients.`); });
-        [pl.active, opp.active].filter(Boolean).forEach(m => { if (m.card.lifestyle !== 'oil') { this.say(`${m.card.name} takes 10 from the fuel.`); this.damage(m, 10, null); } });
+        this.inPlay(pl).filter(m => m.card.badges.includes('oil')).forEach(m => { m.nut += 2; this.say(`${m.card.name} feeds on the fuel: +2 nutrients.`); });
+        [pl.active, opp.active].filter(Boolean).forEach(m => { if (!m.card.badges.includes('oil')) { this.say(`${m.card.name} takes 10 from the fuel.`); this.damage(m, 10, null); } });
         return true;
       }
       case 'tide': {
@@ -407,7 +407,7 @@ const AI = {
       else if (id === 'freeze') { v = (opp.active && !opp.active.card.badges.includes('cold') ? 20 : 0) - (me && !me.card.badges.includes('cold') ? 20 : 0); }
       else if (id === 'midnightsun') { v = 12 * Math.min(2, g.inPlay(pl).filter(m => m.card.badges.includes('sun')).length); }
       else if (id === 'bloom' || id === 'stirup') { const want = id === 'bloom' ? 'recycler' : 'chem'; const m = g.inPlay(pl).find(x => x.card.lifestyle === want) || me; if (m) { v = m.card.lifestyle === want ? 22 : 10; target = m.uid; } }
-      else if (id === 'spill') { v = 24 * g.inPlay(pl).filter(m => m.card.lifestyle === 'oil').length + (opp.active && opp.active.card.lifestyle !== 'oil' ? 10 : 0) - (me && me.card.lifestyle !== 'oil' ? 10 : 0); }
+      else if (id === 'spill') { v = 24 * g.inPlay(pl).filter(m => m.card.badges.includes('oil')).length + (opp.active && !opp.active.card.badges.includes('oil') ? 10 : 0) - (me && !me.card.badges.includes('oil') ? 10 : 0); }
       else if (id === 'tide' && opp.bench.length && opp.active?.card.ability?.key !== 'hold') {
         const weakest = opp.bench.slice().sort((a, b) => (a.card.hp - a.dmg) - (b.card.hp - b.dmg))[0];
         if (me) { const d = Math.max(0, ...me.card.attacks.filter(a => me.nut + 1 >= a.cost).map(a => g.calcDamage(me, a, weakest))); v = d >= weakest.card.hp - weakest.dmg ? 70 : 0; }

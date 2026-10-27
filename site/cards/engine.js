@@ -32,18 +32,23 @@ const TUNE = {
 };
 
 // ---------- lifestyles (card "types") ----------
+// One per functional guild (site/explain/guilds.js); a microbe's `guild` sets its type.
+// Icon, colour and text come from GUILD_INFO when it is loaded; these are the fallbacks.
+const GUILD_INFO = root.GUILD_INFO || {};
 const LIFESTYLES = {
-  hunter:   {name: 'Hunter',      icon: '🎯', color: '#f87171',
-    text: 'Eats other bacteria.'},
-  oil:      {name: 'Oil-eater',   icon: '🛢️', color: '#fbbf24',
-    text: 'Breaks down oily hydrocarbons.'},
-  chem:     {name: 'Chem-eater',  icon: '⚗️', color: '#a78bfa',
-    text: 'Gets energy from chemicals like sulfur, ammonia, nitrite or methanol, even in the dark.'},
-  recycler: {name: 'Recycler',    icon: '🍂', color: '#34d399',
-    text: 'Breaks down dead algae, seaweed and plant material.'},
-  sun:      {name: 'Sun-catcher', icon: '☀️', color: '#38bdf8',
-    text: 'Uses a rhodopsin pump to catch extra energy from light.'},
+  chem:     {guild: 'peppy-preppers',        name: 'Peppy Prepper',        plural: 'Peppy Preppers',        icon: '🎒', color: '#f472b6',
+    text: 'Makes its own food from chemicals, even in the dark.'},
+  recycler: {guild: 'voracious-vegetarians', name: 'Voracious Vegetarian', plural: 'Voracious Vegetarians', icon: '🥬', color: '#34d399',
+    text: 'Eats the tough sugars of seaweed, algae and plants.'},
+  hunter:   {guild: 'happy-hunters',         name: 'Happy Hunter',         plural: 'Happy Hunters',         icon: '🎯', color: '#f87171',
+    text: 'Hunts and eats other bacteria.'},
+  sun:      {guild: 'sunny-scavengers',      name: 'Sunny Scavenger',      plural: 'Sunny Scavengers',      icon: '☀️', color: '#fbbf24',
+    text: 'Sips small bits of food and tops up with sunlight.'},
+  oil:      {guild: 'dumpster-divers',       name: 'Dumpster Diver',       plural: 'Dumpster Divers',       icon: '🗑️', color: '#a78bfa',
+    text: 'Lives on what others leave behind.'},
 };
+Object.values(LIFESTYLES).forEach(L => { const g = GUILD_INFO[L.guild]; if (g) Object.assign(L, {icon: g.icon, color: g.color}); });
+const LIFE_OF_GUILD = Object.fromEntries(Object.entries(LIFESTYLES).map(([k, L]) => [L.guild, k]));
 // what an attack does to whom (weakness / resistance)
 const KINDS = {
   grow:  {name: 'Outgrow', icon: '🍽️', text: 'Wins the race for food or light.'},
@@ -57,6 +62,7 @@ const BADGES = {
   salt:  {icon: '🧂', name: 'Salt-proof', text: 'makes or pumps in glycine betaine-type salt protectors'},
   crispr:{icon: '🛡', name: 'CRISPR', text: 'has a CRISPR-Cas immune system against viruses'},
   tiny:  {icon: '🔹', name: 'Tiny', text: 'has a tiny genome (under 1.5 million letters), so it is probably a very small cell'},
+  oil:   {icon: '🛢', name: 'Oil gene', text: 'has a gene for breaking down oil'},
 };
 // cell envelope -> weakness / resistance
 const ENVELOPES = {
@@ -101,6 +107,10 @@ const SIG = {  // big attack, one per lifestyle (chem/recycler pick the best-sup
     why: () => 'More than 20 transporters let it sweep up small organic acids washed into lakes from the tundra.'},
   sugar:   {name: f => `${f.topGH || 'Glycoside Hydrolase'} Sugar Cut`, kind: 'grow',
     why: f => `Its sugar-cutting enzymes${f.topGH ? ` (like ${f.topGH})` : ''} break long sugar chains into food.`},
+  metal:   {name: () => 'Mtr Rust Breath', kind: 'grow',
+    why: () => 'Its MtrA, MtrB and MtrC proteins pass electrons out through its cell wall to rusty iron, so it can breathe metal when oxygen runs out.'},
+  leftovers:{name: () => 'Leftover Feast', kind: 'grow',
+    why: () => 'It takes in many kinds of small molecules, so it can live on what other microbes leave behind.'},
   sun:     {name: () => 'Rhodopsin Surge', kind: 'grow',
     why: () => 'A rhodopsin light pump charges the cell like a tiny solar panel, giving it extra energy on top of its food.'},
 };
@@ -108,6 +118,7 @@ const SIG = {  // big attack, one per lifestyle (chem/recycler pick the best-sup
 const CHEM_TRAITS = [['ammonia', /ammonia|\bamo[ABC]?\b/i], ['nitrite', /nitrite|\bNxr\b/i], ['methanol', /methanol|XoxF/i], ['sulfur', /sulfur|thiosulfate|\bSox\b|\bDsr\b/i]];
 const REC_TRAITS = [['alginate', /alginate|\bPL(6|7|17)\b/i], ['laminarin', /laminarin|\bGH16\b/i], ['chitin', /chitin|fibre|fiber/i],
   ['sulfatase', /sulfatase/i], ['organic', /organic acid/i]];
+const DIVE_TRAITS = [['metal', /metal breath|\bMtr[ABC]\b/i], ['methanol', /methanol|XoxF/i], ['organic', /organic acid/i], ['chitin', /chitin/i]];
 const TOXINS = [  // antiSMASH cluster type -> quick toxin attack (first match wins)
   ['lanthipeptide', 'Lanthipeptide Zap', 'Lanthipeptides are natural antibiotics that punch holes in other bacteria, mostly Gram-positive ones.'],
   ['hydrogen-cyanide', 'Cyanide Puff', 'It has genes to make hydrogen cyanide, a gas that poisons the breathing enzymes of nearby cells.'],
@@ -155,7 +166,7 @@ function facts(c, nar, D) {
   const oDet = others.reduce((a, r) => a + (r.detected || 0), 0), oN = others.reduce((a, r) => a + (r.n_samples || 0), 0);
   const canthyd = [...new Set((D.canthyd?.[id] || []).map(h => h.model || h.gene || h.name).filter(Boolean))];
   return {
-    id, n, markers, modules, lineage, bgc, canthyd, found, maxCells, maxCellsText: cellsText(maxCells),
+    id, n, guild: n.guild, markers, modules, lineage, bgc, canthyd, found, maxCells, maxCellsText: cellsText(maxCells),
     phylum: (lineage.p || '').replace(/_[A-Z]$/, ''), domain: lineage.d || 'Bacteria',
     sizeMbp: (meta.size || 0) / 1e6, hypo: meta.hypo_pct, completeness: meta.completeness,
     localFrac: ci.n_samples ? ci.detected / ci.n_samples : 0, localDet: ci.detected, localN: ci.n_samples,
@@ -174,6 +185,7 @@ function pickTrait(f, list) {
 const count = (s, re) => (s.match(new RegExp(re.source, 'gi')) || []).length;
 
 function lifestyleOf(f) {
+  if (LIFE_OF_GUILD[f.guild]) return LIFE_OF_GUILD[f.guild];  // the community chose a guild for it
   if (/Bdellovibrionota/.test(f.phylum) || /\bhunter\b|predator|eats other bacteria/i.test(f.text.tags)) return 'hunter';
   if (f.canthyd.length) return 'oil';
   const chemRe = /sulfur|thiosulfate|ammonia|nitrite|methanol/i, recRe = /seaweed|alginate|laminarin|sugar|fibre|fiber|chitin|sulfatase|organic acid|digest/i,
@@ -201,6 +213,7 @@ function badgesOf(f) {
   if (f.markers.Osmoprotectant || /glycine betaine|osmoprotect/i.test(f.text.tags + f.text.acts)) b.push('salt');
   if (f.markers['CRISPR-Cas'] || /CRISPR/i.test(f.text.tags + f.text.acts)) b.push('crispr');
   if (f.sizeMbp && f.sizeMbp < TUNE.tinyMbp) b.push('tiny');
+  if (f.canthyd.length) b.push('oil');
   return b;
 }
 
@@ -244,6 +257,7 @@ function attacksOf(f, life, b, badges) {
   let sig = life;
   if (life === 'chem') sig = pickTrait(f, CHEM_TRAITS) || 'sulfur';
   if (life === 'recycler') sig = pickTrait(f, REC_TRAITS) || 'sugar';
+  if (life === 'oil') sig = f.canthyd.length ? 'oil' : pickTrait(f, DIVE_TRAITS) || 'leftovers';
   const S = SIG[sig];
   const a2 = {slot: 2, key: sig, name: S.name(f), kind: S.kind, cost: life === 'hunter' ? TUNE.hunterCost : Math.max(1, TUNE.a2Cost[b] - (tiny ? TUNE.tinyDiscount : 0)),
     dmg: life === 'hunter' ? TUNE.hunterA2 : TUNE.a2Dmg[b], why: S.why(f), effect: null};
@@ -273,7 +287,7 @@ function attacksOf(f, life, b, badges) {
 function scienceLine(f, life, card) {
   const lead = {
     hunter: 'It belongs to a group of bacteria that hunt and eat other bacteria.',
-    oil: `Its genome has ${f.canthyd.join(' and ')}, a gene for breaking down oil.`,
+    oil: f.canthyd.length ? `Its genome has ${f.canthyd.join(' and ')}, a gene for breaking down oil.` : null,
     sun: 'A rhodopsin pump lets it catch energy from light.',
   }[life] || card.attacks[1].why.split('. ')[0].replace(/\.$/, '') + '.';
   const top = f.found.slice().sort((a, b) => b.cells - a.cells)[0];
@@ -376,14 +390,14 @@ const EVENTS = [
     text: 'Put 1 nutrient on each of up to 2 of your ☀ microbes.',
     why: 'Spring days in the North are very long, so microbes with light-catching pumps get extra energy.'},
   {id: 'bloom', name: 'Algae Bloom', icon: '🌿', target: 'own',
-    text: 'Put 2 nutrients on one of your 🍂 Recyclers, or 1 on any other microbe.',
+    text: 'Put 2 nutrients on one of your 🥬 Voracious Vegetarians, or 1 on any other microbe.',
     why: 'When algae bloom and die, sugar-eating bacteria bloom right after them.'},
   {id: 'stirup', name: 'Mud Stir-Up', icon: '🌊', target: 'own',
-    text: 'Put 2 nutrients on one of your ⚗️ Chem-eaters, or 1 on any other microbe.',
-    why: 'Wind and waves stir up bottom mud, releasing ammonium and sulfur compounds that chemical-eaters burn.'},
+    text: 'Put 2 nutrients on one of your 🎒 Peppy Preppers, or 1 on any other microbe.',
+    why: 'Wind and waves stir up bottom mud, releasing ammonium and sulfur compounds that Peppy Preppers burn for energy.'},
   {id: 'spill', name: 'Fuel Spill', icon: '🛢️', target: 'none',
-    text: 'Put 2 nutrients on each of your 🛢️ Oil-eaters. Every Active microbe that is not an Oil-eater takes 10 damage.',
-    why: 'Fuel is toxic to most microbes, but oil-eaters can use it as food and bloom after a spill.'},
+    text: 'Put 2 nutrients on each of your 🛢 microbes (oil gene). Every Active microbe without 🛢 takes 10 damage.',
+    why: 'Fuel is toxic to most microbes, but those with oil-eating genes can use it as food and bloom after a spill.'},
   {id: 'tide', name: 'Tide Turns', icon: '↔️', target: 'rivalBench',
     text: 'Switch the rival Active with one of their bench microbes (you choose).',
     why: 'Tides and currents mix the water and carry microbes from place to place.'},
