@@ -49,6 +49,14 @@ main{max-width:1280px;margin:0 auto;padding:18px}
 .ring.filtering .bug:not(.on){opacity:.22;filter:grayscale(.7)}
 .ring.filtering .bug.on img{box-shadow:0 0 0 4px var(--g),0 6px 24px rgba(0,0,0,.5)}
 .pill.guild{background:color-mix(in srgb,var(--g) 15%,transparent);color:var(--g);border:1px solid var(--g);cursor:pointer;font-family:inherit}
+.gnav{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 40px 12px}
+.gnav .btn{padding:4px 14px;font-size:1.2rem;line-height:1}
+.gdot{width:12px;height:12px;border-radius:50%;padding:0;border:2px solid var(--g);background:transparent;transition:transform .15s}
+.gdot.on{background:var(--g);transform:scale(1.3)}
+.gslide.fwd{animation:gin-r .25s ease-out}
+.gslide.back{animation:gin-l .25s ease-out}
+@keyframes gin-r{from{opacity:0;transform:translateX(24px)}}
+@keyframes gin-l{from{opacity:0;transform:translateX(-24px)}}
 .gmembers{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}
 .gmembers button{background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:8px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.82rem;text-align:center}
 .gmembers button:hover{border-color:var(--gold)}
@@ -493,12 +501,29 @@ function buildRing(){
 /* ---------- guilds ---------- */
 const GUILDS = window.GUILD_INFO || {};
 const guildPill = c => { const g = GUILDS[c.guild]; return g ? `<button class="pill guild" style="--g:${g.color}" onclick="showGuild('${c.guild}')" title="${esc(g.short)}">${g.icon} ${esc(g.name)}</button>` : ''; };
-function showGuild(id){
+const usedGuilds = () => Object.keys(GUILDS).filter(id=>C.some(c=>c.guild===id));
+let xplGuild = null;  // guild shown in the pop-up, so arrows / swipes can move to the next one
+function showGuild(id, dir){
   const g = GUILDS[id]; if (!g) return;
-  const members = C.map((c,i)=>[c,i]).filter(([c])=>c.guild===id);
-  openXpl(`<h3>${g.icon} ${esc(g.name)}</h3><p>${esc(g.text)}</p>
-    <div class="gmembers">${members.map(([c,i])=>`<button class="${c.habitat}" onclick="closeXpl();openOrganism(${i})"><img src="${img(i)}" alt="">${esc(c.nickname)}</button>`).join('')}</div>`);
+  const ids = usedGuilds(), members = C.map((c,i)=>[c,i]).filter(([c])=>c.guild===id);
+  openXpl(`<div class="gnav"><button class="btn" onclick="stepGuild(-1)" aria-label="Previous guild">‹</button>
+      ${ids.map(k=>`<button class="gdot${k===id?' on':''}" style="--g:${GUILDS[k].color}" onclick="showGuild('${k}', ${ids.indexOf(k)>ids.indexOf(id)?1:-1})" title="${esc(GUILDS[k].name)}" aria-label="${esc(GUILDS[k].name)}"></button>`).join('')}
+      <button class="btn" onclick="stepGuild(1)" aria-label="Next guild">›</button></div>
+    <div class="gslide${dir>0?' fwd':dir<0?' back':''}"><h3>${g.icon} ${esc(g.name)}</h3><p>${esc(g.text)}</p>
+    <div class="gmembers">${members.map(([c,i])=>`<button class="${c.habitat}" onclick="closeXpl();openOrganism(${i})"><img src="${img(i)}" alt="">${esc(c.nickname)}</button>`).join('')}</div></div>`);
+  xplGuild = id;
+  document.querySelector('#xpl .box').scrollTop = 0;
+  if (homeGuild && homeGuild !== id) pickGuild(id);  // keep the ring highlight in step on the home page
 }
+function stepGuild(d){
+  const ids = usedGuilds(); if (!xplGuild || !ids.length) return;
+  showGuild(ids[(ids.indexOf(xplGuild)+d+ids.length)%ids.length], d);
+}
+document.addEventListener('keydown', e=>{ if (xplGuild && document.getElementById('xpl').classList.contains('on') && /^Arrow(Left|Right)$/.test(e.key)) stepGuild(e.key==='ArrowLeft'?-1:1); });
+{ let x0 = null, y0 = null; const box = document.querySelector('#xpl .box');
+  box.addEventListener('touchstart', e=>{ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+  box.addEventListener('touchend', e=>{ if (x0==null || !xplGuild) return; const dx = e.changedTouches[0].clientX-x0, dy = e.changedTouches[0].clientY-y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5*Math.abs(dy)) stepGuild(dx<0?1:-1); x0 = null; }, {passive:true}); }
 // home: one chip per guild in use; tapping one highlights its members on the ring
 let homeGuild = null;
 function buildGuildRow(){
@@ -878,11 +903,11 @@ function geneInfo(label){
     return {title: `${cls.title||'Carbohydrate-active enzyme'} · family ${m[1]}${m[2]}`, family: fam, text: cls.text||''}; }
   return {title: label, text: ''};
 }
-function openXpl(html){ document.getElementById('xplBody').innerHTML = html; const x = document.getElementById('xpl'); x.classList.add('on'); x.querySelector('.x').focus(); }
+function openXpl(html){ xplGuild = null; document.getElementById('xplBody').innerHTML = html; const x = document.getElementById('xpl'); x.classList.add('on'); x.querySelector('.x').focus(); }
 // full-size cartoon over the page; click or Esc closes it
 function zoomImg(src, alt){ const z = document.getElementById('zoom'), i = z.querySelector('img'); i.src = src; i.alt = alt||''; z.classList.add('on'); }
 document.addEventListener('keydown', e=>{ if (e.key==='Escape') document.getElementById('zoom').classList.remove('on'); });
-function closeXpl(){ document.getElementById('xpl').classList.remove('on'); }
+function closeXpl(){ document.getElementById('xpl').classList.remove('on'); xplGuild = null; }
 document.addEventListener('keydown', e=>{ if (e.key==='Escape') closeXpl(); });
 function explainPathway(m){
   if (!m) return;
