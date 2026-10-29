@@ -28,11 +28,13 @@ const QUICK = `
 <h3>Washed out</h3>
 <p>When a microbe's damage reaches its HP, it is washed out: put it aside. Its owner picks a new Active, then looks at the top 2 Place cards and puts one in play (the old Place goes to the bottom).</p>
 <h3>Wrong water</h3>
-<p>At the start of your turn, a lake microbe Active in a salty Place, or a sea microbe Active in a lake, takes 10 damage. 🧂 microbes are fine in salt water.</p>`;
+<p>At the start of your turn, a lake microbe Active in a salty Place, or a sea microbe Active in a lake, takes 10 damage. 🧂 microbes are fine in salt water.</p>
+<h3>3 or 4 players</h3>
+<p>Lay out ${T.teamSize || 5} microbes per player and pick in a snake (A, B, C, then C, B, A, …). Deal 2 Events each. Take turns going left; nobody attacks in the first round. When you attack or play an Event, choose which rival it hits. First to wash out ${T.winScore || 3} microbes wins.</p>`;
 
 const FULL = `
 <h3>What you need</h3>
-<p>The microbe cards, the Place cards and the Event cards (one printed set is enough for 2 players), plus about 30 small tokens for nutrients (coins, beads, beans) and a pencil and paper or tokens for damage.</p>
+<p>The microbe cards, the Place cards and the Event cards (one printed set is enough for 2 to 4 players), plus about 30 small tokens for nutrients (coins, beads, beans) and a pencil and paper or tokens for damage.</p>
 <h3>The cards</h3>
 <ul>
   <li><b>Microbe cards</b> are the real microbes from this workshop. Each has <b>HP</b> (how hard it is to wipe out), a <b>type</b> (its guild: how it makes a living), 2 <b>attacks</b>, sometimes an <b>ability</b>, a <b>weakness</b> or <b>resistance</b> from its cell wall, a <b>retreat cost</b>, and <b>badges</b> (☀ rhodopsin, ❄ cold-shock proteins, 🧂 salt protection, 🛡 CRISPR, 🔹 tiny, 🛢 oil gene). The bottom shows where it was found and its peak season.</li>
@@ -71,6 +73,18 @@ const FULL = `
 <p>At the start of your turn, if your Active is a freshwater (lake) microbe and the Place is salty, or a marine microbe and the Place is a lake, it takes 10 damage. Lake microbes with 🧂 (salt protectors) do not.</p>
 <h3>Winning</h3>
 <p>The first player to wash out ${T.winScore || 3} rival microbes wins. You also win if your rival has no microbes left in play or in hand.</p>
+<h3>3 or 4 players</h3>
+<p>One printed set is enough for up to 4 players. Everything works as in a 2-player game, with these changes:</p>
+<ul>
+  <li><b>Draft</b>: lay out ${T.teamSize || 5} microbes per player (15 for 3 players, 20 for 4) and pick in a snake: A, B, C, D, then D, C, B, A, and so on, until everyone has ${T.teamSize || 5}.</li>
+  <li><b>Events</b>: deal 2 to each player instead of ${T.handStart || 3}, so the Event pile does not run out at the start.</li>
+  <li><b>Turns</b> go to the left. Nobody attacks in the first round.</li>
+  <li><b>Choose your rival</b>: each attack, and each Event that hits "the rival" (Hungry Grazer, Tide Turns), goes to one rival of your choice. Chemotaxis Chase can hit any rival's microbe. Phage Attack picks from every player's microbes in play, and Freeze-Up hits every player's Active.</li>
+  <li><b>Washing out</b>: the player whose microbe washed out picks the next Place, as usual. The player who did it scores 1.</li>
+  <li><b>Winning</b>: the first player to wash out ${T.winScore || 3} microbes (from any rivals) wins. A player with no microbes left in play or in hand is out; play goes on without them.</li>
+</ul>
+<h3>Teams of 2 (4 players)</h3>
+<p>Partners sit across from each other, so turns go A1, B1, A2, B2. Each player drafts and plays their own ${T.teamSize || 5} microbes, but partners may talk and show each other their hands. Wash-outs count for the team, and the first team to wash out ${T.winScore + 1 || 4} rival microbes wins.</p>
 <h3>Fine print</h3>
 <ul>
   <li>An ability works on its own; you do not choose to use it.</li>

@@ -392,7 +392,7 @@ const SEASON_TEXT = {
 // ---------- events (support cards): the same for every community ----------
 const EVENTS = [
   {id: 'phage', name: 'Phage Attack', icon: '🦠', target: 'none',
-    text: 'The microbe in play (either side) with the most HP left takes 30 damage. 🛡 CRISPR microbes take 10 less.',
+    text: 'The microbe in play (any player\'s) with the most HP left takes 30 damage. 🛡 CRISPR microbes take 10 less.',
     why: '"Kill the winner": viruses spread fastest through the most common microbe. CRISPR-Cas cuts up viruses it remembers.'},
   {id: 'grazer', name: 'Hungry Grazer', icon: '🍴', target: 'none',
     text: '30 damage to the rival Active. 🔹 Tiny microbes take no damage.',

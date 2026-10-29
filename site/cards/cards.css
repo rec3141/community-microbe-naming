@@ -197,16 +197,16 @@ body.asking main{padding-bottom:200px}
   body{background:#fff}
   header.top,main,#big,.noprint{display:none!important}
   #sheets{display:block}
-  .sheet{position:relative;break-after:page;page-break-after:always;overflow:hidden}
+  .sheet{position:relative;margin:0 auto;break-after:page;page-break-after:always;overflow:hidden}  /* no margin of our own; centred in the printer's */
   .sheet:last-child{break-after:auto;page-break-after:auto}
   .tcard{box-shadow:none}
 }
-.sheet .grid{position:absolute;display:grid;grid-template-columns:repeat(3,63mm);grid-template-rows:repeat(3,88mm)}
+.sheet .grid{position:absolute;inset:0;display:grid}
 .sheet .grid .tcard{border-radius:0}
-.sheet .cut{position:absolute;background:#000}
+.sheet .grid>.tcard{outline:.15mm solid #9aa5b1;outline-offset:-.075mm}  /* cut lines along the card edges */
 .sheet .label{position:absolute;font-size:7pt;color:#666;font-family:system-ui,sans-serif}
 .sheet.rulesheet{font-size:10.5pt;color:#10233a}
-.sheet.rulesheet .rbox{position:absolute;border:.4mm solid #10233a;border-radius:3mm;padding:6mm 7mm;columns:2;column-gap:8mm}
+.sheet.rulesheet .rbox{position:absolute;inset:0;border:.4mm solid #10233a;border-radius:3mm;padding:6mm 7mm;columns:2;column-gap:8mm}
 .sheet.rulesheet h2{column-span:all;margin:0 0 2mm;font-size:16pt}
 .sheet.rulesheet h3{margin:3mm 0 1mm;font-size:11pt;color:#9a6700;break-after:avoid}
 .sheet.rulesheet ol,.sheet.rulesheet ul{padding-left:5mm;margin:1mm 0}

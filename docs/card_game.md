@@ -86,7 +86,7 @@ microbe Active in a lake, takes 10 damage. 🧂 microbes are fine in salt water.
 
 ## Full rules
 
-**What you need.** The microbe, Place and Event cards (one printed set is enough for 2 players),
+**What you need.** The microbe, Place and Event cards (one printed set is enough for 2 to 4 players),
 about 30 tokens for nutrients (coins, beads, beans, or the printable token sheet) and a pencil
 and paper or damage tokens.
 
@@ -136,6 +136,24 @@ Active in a lake, takes 10 damage. Lake microbes with 🧂 are not hurt in salt 
 uses weakness and resistance. Damage from Events and wrong water ignores them. If an Event makes
 two microbes tie (Phage Attack), the player who played it chooses. Seed Bank sends a microbe
 back to the hand with no damage and no nutrients.
+
+**3 or 4 players** (one printed set is enough): draft 5 per player in a snake (A, B, C, D, D, C,
+B, A, ...), deal 2 Events each instead of 3, turns go left and nobody attacks in the first round.
+Each attack, and each Event that hits "the rival" (Hungry Grazer, Tide Turns), goes to one rival of
+your choice; Chemotaxis Chase can hit any rival's microbe; Phage Attack picks from everyone's
+microbes and Freeze-Up hits every Active. The owner of a washed-out microbe still picks the next
+Place. First to wash out 3 microbes from any rivals wins; a player with nothing left is out.
+
+**Teams of 2** (4 players): partners sit across (turns A1, B1, A2, B2), play their own 5 microbes,
+may talk and show hands, and score together; first team to 4 wash-outs wins.
+
+The on-screen game and the balance simulator are 2-player only; the multiplayer rules have not
+been simulated.
+
+**Printing**: each sheet is just the block of cards, with thin cut lines on the card edges and no
+margin of its own; it is centred inside the printer's normal margins. A4 prints 3 x 3 portrait
+(189 x 264 mm); Letter is too short for that, so it prints 4 x 2 landscape (252 x 176 mm). Print
+at 100%.
 
 ## How every number is made
 

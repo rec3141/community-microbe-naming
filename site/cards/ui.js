@@ -32,7 +32,7 @@ function renderDeck() {
   const list = ALL.filter(c => filt === 'all' || c.type === filt || c.lifestyle === filt);
   $('deck').innerHTML = list.map(c => R.face(c, TOTAL)).join('');
   const waiting = (window.CANDIDATES || []).filter(c => !DECK.microbes.some(m => m.id === c.id)).map(c => c.nickname || c.id);
-  $('deckCount').textContent = `${DECK.microbes.length} microbes, ${DECK.places.length} places and ${DECK.events.length} events: ${TOTAL} cards, ${Math.ceil(TOTAL / 9)} printed pages.`
+  $('deckCount').textContent = `${DECK.microbes.length} microbes, ${DECK.places.length} places and ${DECK.events.length} events: ${TOTAL} cards, ${Math.ceil(TOTAL / 9)} printed pages on A4.`
     + (waiting.length ? ` Waiting for data before they get a card: ${waiting.join(', ')}.` : '');
 }
 $('chips').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (b) { filt = b.dataset.f; renderDeck(); } });
@@ -65,54 +65,48 @@ $('rulesQuick').innerHTML = RU.QUICK;
 $('rulesFull').innerHTML = RU.FULL;
 
 // ---------- print ----------
-const PAPER = {a4: [210, 297], letter: [215.9, 279.4]};
+// Every sheet is just the block of cards with no margin of its own: the printer's normal margins
+// frame it, and each sheet is centred across the page so fronts and backs line up. Cut lines run
+// along the card edges. A4 portrait fits 3 x 3 cards (189 x 264 mm) inside ~10 mm margins; Letter
+// is too short for that, so it prints landscape, 4 x 2 (252 x 176 mm).
 const CW = 63, CH = 88;
-function sheetFor(cards, [W, H], mirror) {
-  const ox = (W - 3 * CW) / 2, oy = (H - 3 * CH) / 2;
-  const cells = Array(9).fill('<div></div>');
-  cards.forEach((html, i) => { const r = Math.floor(i / 3), c = i % 3; cells[r * 3 + (mirror ? 2 - c : c)] = html; });
-  let marks = '';
-  const L = 5, gap = 1, w = 0.2;
-  [0, 1, 2, 3].forEach(i => {
-    const x = ox + i * CW, y = oy + i * CH;
-    marks += `<div class="cut" style="left:${x - w / 2}mm;top:${oy - gap - L}mm;width:${w}mm;height:${L}mm"></div>`;
-    marks += `<div class="cut" style="left:${x - w / 2}mm;top:${oy + 3 * CH + gap}mm;width:${w}mm;height:${L}mm"></div>`;
-    marks += `<div class="cut" style="top:${y - w / 2}mm;left:${ox - gap - L}mm;height:${w}mm;width:${L}mm"></div>`;
-    marks += `<div class="cut" style="top:${y - w / 2}mm;left:${ox + 3 * CW + gap}mm;height:${w}mm;width:${L}mm"></div>`;
-  });
-  return `<div class="sheet" style="width:${W}mm;height:${H}mm">${marks}<div class="grid" style="left:${ox}mm;top:${oy}mm">${cells.join('')}</div></div>`;
+const LAYOUT = {a4: {size: 'A4', orient: 'portrait', cols: 3, rows: 3}, letter: {size: 'letter', orient: 'landscape', cols: 4, rows: 2}};
+const layout = () => LAYOUT[$('pPaper').value] || LAYOUT.a4;
+function sheetFor(cards, mirror, {cols, rows}) {
+  const cells = Array(cols * rows).fill('<div></div>');
+  cards.forEach((html, i) => { const r = Math.floor(i / cols), c = i % cols; cells[r * cols + (mirror ? cols - 1 - c : c)] = html; });
+  return `<div class="sheet" style="width:${cols * CW}mm;height:${rows * CH}mm"><div class="grid" style="grid-template-columns:repeat(${cols},${CW}mm);grid-template-rows:repeat(${rows},${CH}mm)">${cells.join('')}</div></div>`;
 }
 function buildSheets() {
-  const paper = PAPER[$('pPaper').value] || PAPER.a4;
   const want = {microbe: $('pMicrobes').checked, place: $('pPlaces').checked, event: $('pEvents').checked};
   const cards = ALL.filter(c => want[c.type]);
-  const backs = $('pBacks').checked;
+  const backs = $('pBacks').checked, L = layout(), per = L.cols * L.rows, SW = L.cols * CW, SH = L.rows * CH;
   let html = '';
-  for (let i = 0; i < cards.length; i += 9) {
-    const page = cards.slice(i, i + 9);
-    html += sheetFor(page.map(c => R.face(c, TOTAL)), paper, false);
-    if (backs) html += sheetFor(page.map(c => R.back(c.type, brand, RU.GAME_NAME)), paper, true);
+  for (let i = 0; i < cards.length; i += per) {
+    const page = cards.slice(i, i + per);
+    html += sheetFor(page.map(c => R.face(c, TOTAL)), false, L);
+    if (backs) html += sheetFor(page.map(c => R.back(c.type, brand, RU.GAME_NAME)), true, L);
   }
   // rules after the cards, so double-sided printing keeps each card page with its backs
   if ($('pRules').checked) {
-    const [W, H] = paper, m = 12;
-    html += `<div class="sheet rulesheet" style="width:${W}mm;height:${H}mm"><div class="rbox" style="left:${m}mm;top:${m}mm;width:${W - 2 * m}mm;height:${H - 2 * m}mm">
+    html += `<div class="sheet rulesheet" style="width:${SW}mm;height:${SH}mm"><div class="rbox" style="columns:${SW > SH ? 3 : 2}">
       <h2>${R.esc(RU.GAME_NAME)}: quick rules</h2>${RU.QUICK}<p style="font-size:8.5pt;color:#3c5470">Every card's numbers come from real DNA data from the ${R.esc(CM.placeName || '')} samples. Full rules and the science behind each card: cards.html on the workshop site.</p></div></div>`;
   }
   if ($('pTokens').checked) {
-    const [W, H] = paper; let t = '';
-    for (let r = 0; r < 14; r++) for (let c = 0; c < 10; c++) {
-      const kind = r < 7 ? 'n' : 'd', label = kind === 'n' ? '●' : (c % 5 === 4 ? '50' : '10');
-      t += `<div class="tok ${kind}" style="left:${(W - 10 * 18) / 2 + c * 18}mm;top:${12 + r * 19}mm">${label}</div>`;
+    let t = '';
+    const tc = Math.floor(SW / 18), tr = Math.floor((SH - 8) / 19.5);
+    for (let r = 0; r < tr; r++) for (let c = 0; c < tc; c++) {
+      const kind = r < Math.ceil(tr / 2) ? 'n' : 'd', label = kind === 'n' ? '●' : (c % 5 === 4 ? '50' : '10');
+      t += `<div class="tok ${kind}" style="left:${(SW - tc * 18) / 2 + 1 + c * 18}mm;top:${8 + r * 19.5}mm">${label}</div>`;
     }
-    html += `<div class="sheet tokens" style="width:${W}mm;height:${H}mm"><div class="label" style="left:12mm;top:5mm">Nutrient tokens (green) and damage tokens (red): cut out, or use coins and beads instead.</div>${t}</div>`;
+    html += `<div class="sheet tokens" style="width:${SW}mm;height:${SH}mm"><div class="label" style="left:2mm;top:1mm">Nutrient tokens (green) and damage tokens (red): cut out, or use coins and beads instead.</div>${t}</div>`;
   }
   $('sheets').className = $('pInk').checked ? 'ink' : '';
   // print sheets are hidden on screen, so lazy images would never load before printing
   $('sheets').innerHTML = html.replace(/loading="lazy"/g, 'loading="eager"');
-  $('pageStyle').textContent = `@page{size:${$('pPaper').value === 'letter' ? 'letter' : 'A4'} portrait;margin:0}`;
+  $('pageStyle').textContent = `@page{size:${L.size} ${L.orient}}`;  // the printer sets the margins
   const n = $('sheets').querySelectorAll('.sheet').length;
-  $('printInfo').textContent = `${cards.length} cards → ${n} page${n === 1 ? '' : 's'}${backs ? ' (fronts and backs alternate: print double-sided, flip on long edge)' : ''}.`;
+  $('printInfo').textContent = `${cards.length} cards → ${n} page${n === 1 ? '' : 's'}${backs ? ` (fronts and backs alternate: print double-sided, flip on ${L.orient === 'landscape' ? 'short' : 'long'} edge)` : ''}.`;
 }
 ['pPaper', 'pMicrobes', 'pPlaces', 'pEvents', 'pBacks', 'pRules', 'pTokens', 'pInk'].forEach(id => $(id).addEventListener('change', buildSheets));
 // wait for every picture on the sheets before opening the print dialog
