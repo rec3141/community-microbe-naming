@@ -318,9 +318,9 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-where{font-size:9.5pt}
 .sh-cols{display:grid;grid-template-columns:1fr 1fr;gap:.25in}
 .sh-note{font-size:8.5pt;color:#5b6b80;margin-top:2pt!important}
-.sh-words{display:grid;grid-template-columns:1fr 1fr;gap:0 .25in;font-size:9.5pt}
-.sh-words div{display:flex;gap:6pt;align-items:baseline;padding:1.5pt 0;border-bottom:1px solid #e2e8f0;white-space:nowrap;min-width:0}
-.sh-words div span{flex:1;min-width:0;color:#334155;overflow:hidden;text-overflow:ellipsis}  /* one line per word; long meanings end in … */
+.sh-words{display:grid;grid-template-columns:1fr 1fr;gap:0 .25in;font-size:9pt}
+.sh-words div{padding:1pt 0;border-bottom:1px solid #e2e8f0;line-height:1.25}  /* word, syllabics and meaning flow as text, so long ones wrap */
+.sh-words div span{margin-left:5pt;color:#334155}
 .sh-lines{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:0 .25in;margin:2pt 0 6pt}  /* fills the gap above the worksheet */
 .sh-lines div{background:repeating-linear-gradient(to bottom,transparent 0 19pt,#cbd5e1 19pt 20pt)}
 .sh-work{display:flex;flex-direction:column;gap:8pt;border:1.5px solid #10233a;border-radius:8pt;padding:9pt 12pt}
