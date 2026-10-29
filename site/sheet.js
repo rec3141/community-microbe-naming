@@ -102,13 +102,15 @@ function sheetFor(i) {
     return `<tr><th>${x.rank}</th><td>${x.ph ? `${code ? `<span class="sh-code">${esc(code)}</span> ` : ''}<span class="sh-new">no name yet</span>` : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`; }).join('');
   const rr = (c.rrna || '').replace(/\d+\s*[×x]\s*/g, '');  // '9× 16S + 9× 23S' -> '16S + 23S'
   const asm = [
-    `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`,
-    `${fmt(m.completeness)}% complete, ${fmt(m.contamination, 2)}% contamination`,
-    `${m.n_contigs ?? '—'} contigs${m.n50 ? ` (N50 ${fmt(m.n50 / 1e3, 0)} kbp)` : ''}`,
-    `${(m.n_genes || 0).toLocaleString('en-CA')} genes${m.hypo_pct != null ? ` (${fmt(m.hypo_pct, 0)}% unknown)` : ''}`,
-    m.gc != null ? `GC ${fmt(m.gc * 100, 1)}%` : '',
-    rr ? esc(rr) : '',
-  ].filter(Boolean).join(' · ');
+    ['Size', `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`],
+    ['Complete', `${fmt(m.completeness)}%`],
+    ['Contamination', `${fmt(m.contamination, 2)}%`],
+    ['Pieces', `${m.n_contigs ?? '—'} contigs${m.n50 ? `, N50 ${fmt(m.n50 / 1e3, 0)} kbp` : ''}`],
+    ['Genes', `${(m.n_genes || 0).toLocaleString('en-CA')}${m.hypo_pct != null ? `, ${fmt(m.hypo_pct, 0)}% unknown` : ''}`],
+    ['GC', m.gc != null ? `${fmt(m.gc * 100, 1)}%` : ''],
+    ['rRNA', rr ? esc(rr.replace(/\s*rRNA/, '')) : ''],
+    ['ID', `<code>${esc(c.id)}</code>`],
+  ].filter(([, v]) => v).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
   const line = (label, n = 1) => `<div class="sh-fill"><b>${label}</b>${'<span></span>'.repeat(n)}</div>`;
   // two blanks side by side (genus word, species word); a known genus is printed in the first
   const pair = (label, first = '') => `<div class="sh-fill sh-pair"><b>${label}:</b><span${first ? ' class="sh-fixed"' : ''}>${first}</span><span></span></div>`;
@@ -130,20 +132,21 @@ function sheetFor(i) {
       <div><h3>🌳 Its closest relatives</h3>${sheetTree(c)}</div>
     </div>
     <p class="sh-credit">Relatives: GTDB tree · ★ this microbe · <i>italic</i><sup>T</sup> type strain, the reference for a named species · %: how much of its DNA matches (ANI).</p>
-    <p class="sh-asm"><b>🧩 Its genome:</b> ${asm} · ID <code>${esc(c.id)}</code></p>
     <div class="sh-maps">
       <div><h3>📍 Around ${esc(LOCAL)}</h3><div class="sh-map" data-map="local" data-i="${i}"></div></div>
       <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
     </div>
     <p class="sh-credit">Bigger dot: more cells per litre · grey: sampled, not found · gold ring: ${esc(LOCAL)} · Maps © OpenStreetMap contributors</p>
     <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}. ${peak(c)}</p>
-    <h3>📖 Its story</h3>
-    <p class="sh-story">${esc(c.eco || c.story || '')}</p>
+    <div class="sh-cols3">
+      <div><h3>📖 Its story</h3><p class="sh-story">${esc(c.eco || c.story || '')}</p></div>
+      <div><h3>🧩 Its genome</h3><table class="sh-tree sh-asm">${asm}</table></div>
+    </div>
   </section>
   <section class="sh-page sh-back">
     ${head}
     <h2>${esc(c.nickname)}: help name it</h2>
-    ${es.length ? `<h3>🌿 What it does for the ecosystem <span class="sh-note">(predicted from its genes, EcoSSDB)</span></h3>
+    ${es.length ? `<h3>🌿 What it does for the ecosystem</h3>
       <div class="sh-es">${es.map(x => { const info = SI[x.code] || {};
         const pt = (c.esPoints || {})[x.code];  // narratives.js: this microbe's own point in the category
         return `<div><span class="sh-note">${x.icon} ${esc(info.title || x.short_name)}</span><b class="sh-es-h">${esc(pt ? pt[0] : info.title || x.short_name)}</b><p>${esc(pt ? pt[1] : info.front || x.desc)}</p><p class="sh-note">${x.gene_count} gene${x.gene_count === 1 ? '' : 's'} linked to this</p></div>`; }).join('')}</div>
@@ -252,6 +255,12 @@ function showSheets(list) {
   ps.textContent = '@page{size:letter portrait}';  // the printer sets the margins
   document.title = one ? `${C[i].nickname}: printable sheet` : 'Printable microbe sheets';
   window.scrollTo(0, 0);
+  // a story too long for its page loses its last sentences until the page fits
+  box.querySelectorAll('.sh-front').forEach(pg => {
+    const st = pg.querySelector('.sh-story'); if (!st) return;
+    let parts = st.textContent.match(/[^.!?]+[.!?]+(\s+|$)/g) || [st.textContent];
+    while (pg.scrollHeight > pg.clientHeight + 1 && parts.length > 1) { parts = parts.slice(0, -1); st.textContent = parts.join('').trim(); }
+  });
   drawMaps(box, () => { const b = document.getElementById('shPrint'); if (b) { b.disabled = false; b.textContent = '🖨️ Print'; } });
 }
 function route() {
