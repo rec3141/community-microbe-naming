@@ -151,7 +151,7 @@
           ${(intro.more || []).map(([q,a]) => `<p><b>${esc(q)}</b> ${esc(a)}</p>`).join('')}
           ${intro.respect ? `<p>🤝 ${esc(intro.respect)}</p>` : ''}
           ${P.length ? `<p><b>${esc(label(content,'allPrinciples','The guiding principles'))}</b></p>
-            <ul class="iq-list">${P.map(p => `<li><b>${esc(p.iu)}</b>: ${esc(p.en)}${p.note ? ` (${esc(p.note)})` : ''}</li>`).join('')}</ul>
+            <ul class="iq-list">${P.map(p => `<li><b>${esc(p.iu)}</b>${p.syl ? ` ${esc(p.syl)}` : ''}: ${esc(p.en)}${p.note ? ` (${esc(p.note)})` : ''}</li>`).join('')}</ul>
             ${content.principlesSource ? `<p class="note">${esc(content.principlesSource)}</p>` : ''}` : ''}
           ${refs.length ? `<p><b>${esc(label(content,'refsTitle','Sources'))}</b></p>
             <ul class="iq-list iq-refs">${refs.map(r => `<li>${esc(r.cite)}${r.url ? ` <a href="${esc(r.url)}" target="_blank" rel="noopener">link ↗</a>` : ''}</li>`).join('')}</ul>` : ''}

@@ -101,16 +101,16 @@ function sheetFor(i) {
   const tree = L.map(x => { const code = x.ph && !/^\(no name/.test(x.name) ? (x.rank === 'Species' ? x.name.split(' ').pop() : x.name) : '';
     return `<tr><th>${x.rank}</th><td>${x.ph ? `${code ? `<span class="sh-code">${esc(code)}</span> ` : ''}<span class="sh-new">no name yet</span>` : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`; }).join('');
   const rr = (c.rrna || '').replace(/\d+\s*[×x]\s*/g, '');  // '9× 16S + 9× 23S' -> '16S + 23S'
-  const asm = [
-    ['Size', `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`],
-    ['Complete', `${fmt(m.completeness)}%`],
-    ['Contamination', `${fmt(m.contamination, 2)}%`],
-    ['Pieces', `${m.n_contigs ?? '—'} contigs${m.n50 ? `, N50 ${fmt(m.n50 / 1e3, 0)} kbp` : ''}`],
-    ['Genes', `${(m.n_genes || 0).toLocaleString('en-CA')}${m.hypo_pct != null ? `, ${fmt(m.hypo_pct, 0)}% unknown` : ''}`],
-    ['GC', m.gc != null ? `${fmt(m.gc * 100, 1)}%` : ''],
-    ['rRNA', rr ? esc(rr.replace(/\s*rRNA/, '')) : ''],
-    ['ID', `<code>${esc(c.id)}</code>`],
-  ].filter(([, v]) => v).map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
+  // genome as tiles: a big number with a small label, two per row; then rRNA and the ID
+  const tiles = [
+    [fmt((m.size || 0) / 1e6, 2) + ' M', 'DNA letters'], [fmt(m.completeness) + '%', 'complete'],
+    [fmt(m.contamination, 2) + '%', 'contamination'], [m.n_contigs ?? '—', 'pieces (contigs)'],
+    [m.n50 ? fmt(m.n50 / 1e3, 0) + ' k' : '—', 'N50 piece size'], [(m.n_genes || 0).toLocaleString('en-CA'), 'genes'],
+    [m.hypo_pct != null ? fmt(m.hypo_pct, 0) + '%' : '—', 'genes unknown'], [m.gc != null ? fmt(m.gc * 100, 0) + '%' : '—', 'G + C'],
+  ];
+  const asm = `<div class="sh-gtiles">${tiles.map(([v, l]) => `<div><b>${v}</b><span>${l}</span></div>`).join('')}</div>
+    ${rr ? `<p class="sh-gline">${esc(rr.replace(/\s*rRNA/, ' rRNA'))}</p>` : ''}
+    <p class="sh-gline">ID <code>${esc(c.id)}</code></p>`;
   const line = (label, n = 1) => `<div class="sh-fill"><b>${label}</b>${'<span></span>'.repeat(n)}</div>`;
   // two blanks side by side (genus word, species word); a known genus is printed in the first
   const pair = (label, first = '') => `<div class="sh-fill sh-pair"><b>${label}:</b><span${first ? ' class="sh-fixed"' : ''}>${first}</span><span></span></div>`;
@@ -140,7 +140,7 @@ function sheetFor(i) {
     <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}. ${peak(c)}</p>
     <div class="sh-cols3">
       <div><h3>📖 Its story</h3><p class="sh-story">${esc(c.eco || c.story || '')}</p></div>
-      <div><h3>🧩 Its genome</h3><table class="sh-tree sh-asm">${asm}</table></div>
+      <div class="sh-genome"><h3>🧩 Its genome</h3>${asm}</div>
     </div>
   </section>
   <section class="sh-page sh-back">
@@ -156,24 +156,28 @@ function sheetFor(i) {
       ? `It needs a <b>new genus and species</b>: two new words. The genus (first word) starts with a capital letter; the species (second word) is all lowercase.`
       : `It belongs to the genus <i>${esc(need.genusName)}</i>${gen ? `, which means “${esc(gen.gloss)}”` : ''}. It needs a new <b>species</b> name: the second word, all lowercase.`}
       A good name often says where it lives, what it does or what it looks like.</p>
-    ${words.length ? `<h3>💡 ${esc(LANG)} words that might fit</h3>
-      <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${otherDialect(h.e) ? '‡' : ''}${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>
-      <p class="sh-note sh-cite">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` · ‡ = ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}` : ''}</p>` : ''}
-    <div class="sh-lines"><div></div><div></div></div>
     <div class="sh-split">
-      <div class="sh-work">
-        <h4>✍️ Our name</h4>
-        ${pair('Name', need.genus ? '' : `<i>${esc(need.genusName)}</i>`)}
-        ${pair(esc(LANG))}
-        ${pair(esc(CM.languageNative || 'Syllabics'))}
-        ${pair('Meaning')}
-        ${line('Notes:', 3)}
+      <div class="sh-wcol">
+  ${words.length ? `<h3>💡 ${esc(LANG)} words that might fit</h3>
+          <p class="sh-note sh-cite">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` · ‡ = ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}` : ''}</p>
+          <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${otherDialect(h.e) ? '‡' : ''}${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>` : ''}
+        <div class="sh-lines"><div></div></div>
       </div>
       ${(window.IQ_CONTENT?.principles || []).length ? `<div class="sh-iq">
         <h4>🧭 Which IQ principles does it relate to?</h4>
-        ${IQ_CONTENT.principles.map(p => `<div><span class="sh-box"></span><span><b>${esc(p.iu)}</b> ${esc(p.en)}</span></div>`).join('')}
+        ${IQ_CONTENT.principles.map(p => `<div><span class="sh-box"></span><span><b>${esc(p.iu)}</b>${p.syl ? ` <span class="sh-syl">${esc(p.syl)}</span>` : ''} ${esc(p.en)}</span></div>`).join('')}
       </div>` : ''}
     </div>
+      <div class="sh-work sh-full">
+        <h4>✍️ Our name</h4>
+        <div class="sh-pairs">
+          ${pair('Name', need.genus ? '' : `<i>${esc(need.genusName)}</i>`)}
+          ${pair(esc(LANG))}
+          ${pair(esc(CM.languageNative || 'Syllabics'))}
+          ${pair('Meaning')}
+        </div>
+        ${line('Notes:', 2)}
+      </div>
     <p class="sh-note sh-url">More about this microbe, and a tool to build the Latin name: ${esc(site)}</p>
   </section>`;
 }

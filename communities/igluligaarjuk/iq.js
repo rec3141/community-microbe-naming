@@ -7,8 +7,8 @@
 // and scientists) to talk about.
 // Rules: ask, don't tell. Never state what Inuit knowledge "says" about a microbe and never
 // invent traditional knowledge or Inuktitut words. Clues must agree with narratives.js and
-// site_data.js. Principle names and glosses are copied from the Government of Nunavut list
-// (Education Act).
+// site_data.js. Principle names, syllabics and English meanings are the Igluligaarjuk workshop's own
+// (2026), which differ in places from the Government of Nunavut list (Education Act): keep them as given.
 window.IQ_CONTENT = {
   labels: {
     tab: "🧭 ScIQ",
@@ -34,16 +34,16 @@ window.IQ_CONTENT = {
   // one picture per card, drawn from the text on its back (img/iq/PROMPTS.md)
   cardImages: "img/iq/{id}_{n}.jpg",
 
-  principlesSource: "Names and English meanings as written in the Nunavut Education Act, listed in Government of Nunavut (2013), Incorporating Inuit Societal Values. Spellings can differ between dialects: how do people in Igluligaarjuk say and write them?",
+  principlesSource: "Names, syllabics and English meanings as written by the Igluligaarjuk workshop (2026). Other communities and the Nunavut Education Act may spell them differently.",
   principles: [
-    {key: "inuuqatigiitsiarniq", iu: "Inuuqatigiitsiarniq", en: "respecting others, relationships and caring for people"},
-    {key: "tunnganarniq", iu: "Tunnganarniq", en: "fostering good spirit by being open, welcoming and inclusive"},
-    {key: "pijitsirniq", iu: "Pijitsirniq", en: "serving and providing for family or community, or both"},
-    {key: "aajiiqatigiinniq", iu: "Aajiiqatigiinniq", en: "decision making through discussion and consensus"},
-    {key: "pilimmaksarniq", iu: "Pilimmaksarniq", en: "development of skills through practice, effort and action", note: "also Pijariuqsarniq"},
-    {key: "piliriqatigiinniq", iu: "Piliriqatigiinniq", en: "working together for a common cause", note: "also Ikajuqtigiinniq"},
-    {key: "qanuqtuurniq", iu: "Qanuqtuurniq", en: "being innovative and resourceful"},
-    {key: "avatittinnik", iu: "Avatittinnik Kamatsiarniq", en: "respect and care for the land, animals and the environment"},
+    {key: "inuuqatigiitsiarniq", iu: "Innuqatigiitsiarniq", syl: "ᐃᓄᖃᑎᒌᖕᓯᐋᓂᖅ", en: "respecting others, relationships and caring for people"},
+    {key: "tunnganarniq", iu: "Tunnganarniq", syl: "ᑐᙵᓇᕐᓂᖅ", en: "fostering good spirit by being open, welcoming and inclusive"},
+    {key: "pijitsirniq", iu: "Pijitsirniq", syl: "ᐱᔨᑦᓯᕐᓂᖅ", en: "concept of serving"},
+    {key: "aajiiqatigiinniq", iu: "Aajiiqatigiingniq", syl: "ᐋᔩᖃᑎᒌᖕᓂᖅ", en: "consensus decision making"},
+    {key: "pilimmaksarniq", iu: "Pilimmaksarniq", syl: "ᐱᓕᒻᒪᒃᓴᕐᓂᖅ", en: "concept of skills and knowledge acquisition"},
+    {key: "piliriqatigiinniq", iu: "Piliriqatigiingniq", syl: "ᐱᓕᕆᖃᑎᒌᖕᓂᖅ", en: "working together for a common cause"},
+    {key: "qanuqtuurniq", iu: "Qanuqtuurniq", syl: "ᖃᓄᖅᑑᕐᓂᖅ", en: "being innovative and resourceful in seeking solutions"},
+    {key: "avatittinnik", iu: "Avatiptinni Kamatsiarniq", syl: "ᐊᕙᑎᑉᑎᓐᓂ ᑲᒪᑦᓯᐊᕐᓂᖅ", en: "respect and care for the land, animals and the environment"},
   ],
 
   references: [
