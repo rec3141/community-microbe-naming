@@ -78,12 +78,13 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .tcard .art-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .tcard .season-chip{position:absolute;right:1mm;top:1mm;font-style:normal;font-size:9pt;background:rgba(11,23,38,.7);border-radius:50%;width:6mm;height:6mm;display:none;align-items:center;justify-content:center;z-index:2}
 .tcard .art-img~.season-chip{display:flex}
-.tcard .pl-art{aspect-ratio:5/2;flex:none;border-radius:1.5mm;display:flex;align-items:center;justify-content:center;gap:3mm;font-size:24pt;
+.tcard .pl-art{aspect-ratio:600/335;flex:none;border-radius:1.5mm;display:flex;align-items:center;justify-content:center;gap:3mm;font-size:24pt;
   background:linear-gradient(180deg,color-mix(in srgb,var(--life) 45%,#0b1726),#0b1726)}
 .tcard .pl-art b{font-size:18pt}
 .tcard .pl-rule{font-size:7.2pt;font-weight:600;background:rgba(0,0,0,.25);border-radius:1mm;padding:.8mm 1mm}
 .tcard .pl-rule.small{font-weight:400;font-size:6.8pt}
 .tcard .pl-homes{font-size:6.8pt;flex:1;min-height:0;overflow:hidden}
+.tcard .pl-homes.long{font-size:6.3pt;line-height:1.1}  /* very long home lists, e.g. the Dock cards */
 .tcard .pl-homes small{color:#93a9c3;font-size:6.2pt}
 /* events */
 .tcard .ev-art{aspect-ratio:16/9;flex:none;display:flex;align-items:center;justify-content:center;font-size:30pt;border-radius:1.5mm;

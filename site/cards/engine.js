@@ -379,8 +379,8 @@ function placeCards(cards, D, community) {
   return out;
 }
 const SEASON_TEXT = {
-  spring: 'Microbes that peak in spring (🌨️ on their card) do +10 damage here.',
-  fall: 'Microbes that peak in fall (🌬️ on their card) do +10 damage here.',
+  spring: '🌨️ spring microbes do +10 damage here.',
+  fall: '🌬️ fall microbes do +10 damage here.',
   summer: 'Microbes that peak in summer do +10 damage here.', winter: 'Microbes that peak in winter do +10 damage here.',
 };
 

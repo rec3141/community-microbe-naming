@@ -57,8 +57,8 @@ function placeFace(p, total) {
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
     <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}<i class="season-chip">${S.icon}</i></div>
     <div class="pl-rule">${esc(p.text)}</div>
-    <div class="pl-homes"><b>Found here then (they get 2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
-    <div class="pl-rule small">Wrong water: at the start of your turn, a ${salty ? 'lake microbe (unless 🧂)' : 'sea microbe'} Active here takes 10 damage.</div>
+    <div class="pl-homes${p.homes.map(h => h.name).join(', ').length > 280 ? ' long' : ''}"><b>Home microbes (+2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
+    <div class="pl-rule small">Wrong water: a ${salty ? 'lake microbe Active here (unless 🧂)' : 'sea microbe Active here'} takes 10 at the start of your turn.</div>
     <div class="foot"><span class="home">Sampled here in ${esc(p.months.join(' & '))}</span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
   </div></div>`;
 }
