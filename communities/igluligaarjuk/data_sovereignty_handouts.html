@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Waters, Our Say: Handouts</title>
+  <!--
+    Printable handouts that go with data_sovereignty.html (the slides). Three letter-size pages:
+    1. summary, 2. decision sheet (the six decisions, options and our suggestion), 3. your choices.
+    Audience: many readers have a grade 6-8 education, so keep sentences short and plain.
+    Workshop choices are provisional until a written agreement with the HTO is signed.
+    Page 3 explains people's choices; it is NOT the consent form (the signed consent form is the
+    one the university ethics board approved). Inuktitut versions need a translator: do not
+    machine-translate or invent Inuktitut text here.
+  -->
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #cbd5e1;
+      --sea: #0369a1;
+      --lake: #047857;
+      --gold: #b45309;
+      --gold-bg: #fef3c7;
+      --rose: #be123c;
+      --paper: #ffffff;
+      --desk: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--desk);
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 5; display: flex; gap: 1rem; align-items: center; justify-content: space-between;
+      padding: 0.7rem 1.5rem; background: #0f172a; color: #fff;
+    }
+    .toolbar a { color: #7dd3fc; text-decoration: none; font-weight: 600; font-size: 0.95rem; }
+    .toolbar button {
+      background: #fbbf24; color: #1a1300; border: 0; border-radius: 8px; padding: 0.5rem 1rem;
+      font-weight: 800; font-size: 0.95rem; cursor: pointer;
+    }
+    .page {
+      width: 8.5in; min-height: 11in; margin: 1.5rem auto; padding: 0.6in 0.65in 0.5in;
+      background: var(--paper); box-shadow: 0 6px 24px rgba(15,23,42,0.18);
+      display: flex; flex-direction: column;
+    }
+    .top { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 3px solid var(--ink); padding-bottom: 0.35rem; margin-bottom: 0.8rem; }
+    .top .place { font-size: 11pt; font-weight: 700; color: var(--muted); }
+    .top .syl { color: var(--gold); }
+    h1 { font-size: 26pt; line-height: 1.1; margin-bottom: 0.35rem; }
+    h2 { font-size: 15pt; margin: 0.9rem 0 0.35rem; }
+    p, li { font-size: 12.5pt; }
+    p.intro { font-size: 13.5pt; margin-bottom: 0.4rem; }
+    ul { padding-left: 1.2rem; }
+    li { margin-bottom: 0.3rem; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 0.4rem; }
+    .card { border: 2px solid var(--line); border-radius: 12px; padding: 0.6rem 0.8rem; }
+    .card h3 { font-size: 12.5pt; margin-bottom: 0.3rem; }
+    .card.sea { border-color: var(--sea); } .card.sea h3 { color: var(--sea); }
+    .card.lake { border-color: var(--lake); } .card.lake h3 { color: var(--lake); }
+    .card.rose { border-color: var(--rose); } .card.rose h3 { color: var(--rose); }
+    .card.gold { border-color: var(--gold); background: var(--gold-bg); } .card.gold h3 { color: var(--gold); }
+    .card li, .card p { font-size: 11.5pt; }
+    .three { display: flex; gap: 0.6rem; margin: 0.4rem 0; }
+    .three div { flex: 1; text-align: center; border-radius: 10px; padding: 0.45rem; font-weight: 800; font-size: 13pt; border: 2px solid; }
+    .three .y { border-color: var(--lake); color: var(--lake); }
+    .three .c { border-color: var(--gold); color: var(--gold); }
+    .three .n { border-color: var(--rose); color: var(--rose); }
+    .callout { margin-top: 0.6rem; padding: 0.55rem 0.8rem; border-radius: 10px; background: #f1f5f9; border-left: 5px solid var(--ink); font-size: 12pt; }
+    .callout.gold { background: var(--gold-bg); border-left-color: var(--gold); }
+    /* decision sheet */
+    .decision { border: 1.5px solid var(--line); border-radius: 10px; padding: 0.45rem 0.7rem 0.5rem; margin-bottom: 0.45rem; break-inside: avoid; }
+    .decision h3 { font-size: 12pt; margin-bottom: 0.25rem; }
+    .decision h3 span { color: var(--muted); font-weight: 700; margin-right: 0.3rem; }
+    .opt { display: flex; gap: 0.45rem; align-items: flex-start; font-size: 10.8pt; margin: 0.12rem 0; line-height: 1.3; }
+    .box { flex: none; width: 0.95em; height: 0.95em; border: 1.6px solid var(--ink); border-radius: 3px; margin-top: 0.15em; }
+    .opt b { white-space: nowrap; }
+    .opt.pick { background: var(--gold-bg); border-radius: 6px; padding: 0.1rem 0.3rem; margin-left: -0.3rem; }
+    .star { color: var(--gold); font-weight: 800; white-space: nowrap; }
+    .other { font-size: 10.8pt; color: var(--muted); margin-top: 0.15rem; }
+    .other i { display: inline-block; width: 70%; border-bottom: 1px solid var(--line); height: 0.9em; vertical-align: bottom; }
+    .draft { margin: 0.2rem 0 0.6rem; padding: 0.45rem 0.7rem; border: 2px dashed var(--gold); border-radius: 10px; background: var(--gold-bg); font-size: 11.5pt; }
+    .foot { margin-top: auto; padding-top: 0.5rem; border-top: 1px solid var(--line); font-size: 9.5pt; color: var(--muted); display: flex; justify-content: space-between; gap: 1rem; }
+    .choices { width: 100%; border-collapse: collapse; margin-top: 0.4rem; }
+    .choices td { border-bottom: 1px solid var(--line); padding: 0.45rem 0.35rem; font-size: 12pt; vertical-align: top; }
+    .choices td:first-child { font-size: 15pt; width: 2rem; }
+    .choices td b { display: block; }
+    @media screen and (max-width: 900px) {
+      .page { width: auto; min-height: 0; margin: 0.8rem; padding: 1.2rem 1rem; }
+      .grid2 { grid-template-columns: 1fr; }
+      .three { flex-direction: column; }
+    }
+    /* page 1 holds the most, so it runs a little tighter */
+    .dense h1 { font-size: 22pt; }
+    .dense p.intro { font-size: 12pt; }
+    .dense h2 { font-size: 13.5pt; margin: 0.55rem 0 0.25rem; }
+    .dense p { font-size: 11.5pt; }
+    .dense .card li { font-size: 10.8pt; margin-bottom: 0.15rem; }
+    .dense .card { padding: 0.45rem 0.7rem; }
+    .dense .grid2 { gap: 0.5rem; margin-top: 0.3rem; }
+    .dense .three { margin: 0.25rem 0; }
+    .dense .three div { padding: 0.25rem; font-size: 12pt; }
+    @page { size: letter; margin: 0; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none; }
+      .page { margin: 0; box-shadow: none; width: 8.5in; height: 11in; min-height: 0; page-break-after: always; overflow: hidden; }
+      .card.gold, .opt.pick, .draft, .callout { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="toolbar">
+  <a href="data_sovereignty.html">← Slides</a>
+  <button onclick="window.print()">🖨️ Print the handouts</button>
+</div>
+
+<!-- Page 1: summary -->
+<section class="page dense">
+  <div class="top"><span class="place">Igluligaarjuk · <span class="syl">ᐃᒡᓗᓕᒑᕐᔪᒃ</span> · Microbe naming workshop</span><span class="place">Handout 1 of 3</span></div>
+  <h1>Our waters, our say</h1>
+  <p class="intro">We took water from the inlet and the lakes. We read the DNA of the microbes in it, and we are now giving some of them names in Inuktitut. Before we share anything, we want to agree together on <b>who decides what</b>. This is called <b>data sovereignty</b>.</p>
+
+  <div class="grid2">
+    <div class="card sea">
+      <h3>What Inuit organizations have said</h3>
+      <ul>
+        <li>Inuit Tapiriit Kanatami (2018): "Ensure Inuit access, ownership, and control over data and information."</li>
+        <li>Inuit Circumpolar Council (2022): this includes "scientific information and data" collected on Inuit lands and waters. Inuit should review results before they are made public.</li>
+      </ul>
+    </div>
+    <div class="card lake">
+      <h3>The law and research rules</h3>
+      <ul>
+        <li>No law says who owns microbe DNA.</li>
+        <li>Research rules say the work must <b>benefit the community</b>, and ownership should be <b>written in an agreement</b>.</li>
+        <li>We will write one short agreement with the <b>HTO</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Three ways to answer</h2>
+  <div class="three"><div class="y">Yes</div><div class="c">Yes, with conditions</div><div class="n">No</div></div>
+  <p>We wait for a clear answer; silence is not taken as a yes. You can take part and still say no to photos, recordings or having your name used.</p>
+
+  <h2>Making a name official</h2>
+  <p>To make a name official, the rules for naming microbes (the <b>SeqCode</b>) say that microbe's genome is shared in the world's public DNA library. Once it is shared, <b>scientists anywhere can use it, and it stays there</b>.</p>
+  <div class="grid2">
+    <div class="card lake">
+      <h3>Stays with us</h3>
+      <ul>
+        <li>Water samples and DNA</li>
+        <li>Genomes we are not naming</li>
+        <li>Exact sampling spots</li>
+        <li>The stories behind the names</li>
+      </ul>
+    </div>
+    <div class="card sea">
+      <h3>Shared publicly, after the community says yes</h3>
+      <ul>
+        <li>The genome of each named microbe</li>
+        <li>Its name and what the name means</li>
+        <li>Only the location details we agree to</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card gold">
+      <h3>What the community gets</h3>
+      <ul>
+        <li>Credit in every name</li>
+        <li>Pay for Elders, knowledge holders and interpreters</li>
+        <li>Local jobs and training for youth</li>
+        <li>Results brought back here, in Inuktitut</li>
+        <li>Anyone who wants to make money from these genomes must come to the community first</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>What our research licence promises</h3>
+      <ul>
+        <li>A report every year, in Inuktitut and English</li>
+        <li>No new use of the samples without permission</li>
+        <li>No giving samples to anyone outside the project</li>
+        <li>We come back to share the results</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Our waters, our say · Igluligaarjuk naming workshop 2026</span><span>This handout explains the plan. It is not legal advice.</span></div>
+</section>
+
+<!-- Page 2: decision sheet -->
+<section class="page">
+  <div class="top"><span class="place">Igluligaarjuk · <span class="syl">ᐃᒡᓗᓕᒑᕐᔪᒃ</span> · Microbe naming workshop</span><span class="place">Handout 2 of 3</span></div>
+  <h1>Six decisions</h1>
+  <p class="draft">📝 <b>First draft.</b> Tick the option you like. Today's choices become final only when we sign a written agreement with the <b>HTO</b>. <span class="star">★</span> marks our suggestion.</p>
+
+  <div class="decision">
+    <h3><span>1</span>After the workshop, who makes these decisions?</h3>
+    <div class="opt"><span class="box"></span><span><b>A. The HTO board alone.</b> Already reviews research here, but Elders and youth may not have a voice.</span></div>
+    <div class="opt pick"><span class="box"></span><span><b>B. A data group led by the HTO</b>, with an Elder, a youth and someone from the Hamlet. <span class="star">★ Why:</span> the HTO keeps the lead, and Elders and youth are part of every decision.</span></div>
+    <div class="opt"><span class="box"></span><span><b>C. A public meeting every time.</b> Everyone gets a say, but it is hard to meet for each decision.</span></div>
+  </div>
+
+  <div class="decision">
+    <h3><span>2</span>When does a genome go public?</h3>
+    <div class="opt"><span class="box"></span><span><b>A. Post all of them now.</b> Fastest, but the community gives up its say before the names are chosen.</span></div>
+    <div class="opt pick"><span class="box"></span><span><b>B. One at a time, after the name is approved.</b> <span class="star">★ Why:</span> names become official, and the community still decides each one.</span></div>
+    <div class="opt"><span class="box"></span><span><b>C. Post none.</b> Everything stays here, but there are no official names.</span></div>
+  </div>
+
+  <div class="decision">
+    <h3><span>3</span>How exact should the locations be?</h3>
+    <div class="opt"><span class="box"></span><span><b>A. Exact GPS points.</b> Most useful to scientists, but shows exact spots.</span></div>
+    <div class="opt pick"><span class="box"></span><span><b>B. Place names only</b>, like Itivia or Puirsuk (1st Lake). <span class="star">★ Why:</span> uses Inuktitut names, shows nothing new, and still says sea or lake.</span></div>
+    <div class="opt"><span class="box"></span><span><b>C. "Chesterfield Inlet" only.</b> Shows the least, but loses sea versus lake.</span></div>
+  </div>
+
+  <div class="decision">
+    <h3><span>4</span>Who gets credit for each name?</h3>
+    <div class="opt"><span class="box"></span><span><b>A. Only the person who suggested it.</b> Honours them, but leaves out everyone who helped.</span></div>
+    <div class="opt"><span class="box"></span><span><b>B. Only "the people of Igluligaarjuk".</b> Shared by all, but nobody can have their own name on it.</span></div>
+    <div class="opt pick"><span class="box"></span><span><b>C. Both.</b> <span class="star">★ Why:</span> the community is always named, and each person can be named too, if they want.</span></div>
+  </div>
+
+  <div class="decision">
+    <h3><span>5</span>What happens to the water samples and DNA?</h3>
+    <div class="opt pick"><span class="box"></span><span><b>A. Kept frozen at the university, owned by the community.</b> <span class="star">★ Why:</span> they stay usable for the community's future questions. Any new use needs permission, and the community can ask for them to be destroyed.</span></div>
+    <div class="opt"><span class="box"></span><span><b>B. Sent back to Igluligaarjuk.</b> Here in town, but DNA spoils without a very cold freezer (−80 °C).</span></div>
+    <div class="opt"><span class="box"></span><span><b>C. Destroyed when the project ends.</b> Nobody can misuse them, but no future studies either.</span></div>
+  </div>
+
+  <div class="decision">
+    <h3><span>6</span>Where do we keep the community's copy of the results?</h3>
+    <div class="opt"><span class="box"></span><span><b>A. Paper reports at the HTO and the school.</b> Easy to read, but can't hold the full data.</span></div>
+    <div class="opt"><span class="box"></span><span><b>B. Online only.</b> Holds everything, but hard with slow internet.</span></div>
+    <div class="opt pick"><span class="box"></span><span><b>C. Both: paper here, full data online.</b> <span class="star">★ Why:</span> everyone can read the results, and nothing is lost.</span></div>
+  </div>
+
+  <p class="other">Other ideas or comments: <i></i></p>
+  <div class="foot"><span>Our waters, our say · Igluligaarjuk naming workshop 2026</span><span>First draft, for discussion with the HTO</span></div>
+</section>
+
+<!-- Page 3: your choices -->
+<section class="page">
+  <div class="top"><span class="place">Igluligaarjuk · <span class="syl">ᐃᒡᓗᓕᒑᕐᔪᒃ</span> · Microbe naming workshop</span><span class="place">Handout 3 of 3</span></div>
+  <h1>Your choices</h1>
+  <p class="intro">Taking part is your choice. You can say yes to some things and no to others. You will sign a consent form at the workshop; this page explains the choices on it.</p>
+
+  <table class="choices">
+    <tr><td>🙋</td><td><b>Taking part</b>You can join in, listen only, or leave at any time. No reason needed.</td></tr>
+    <tr><td>📷</td><td><b>Photos</b>You can say yes or no to being in photos.</td></tr>
+    <tr><td>🎙️</td><td><b>Recordings</b>You can say yes or no to being recorded (sound or video).</td></tr>
+    <tr><td>🏷️</td><td><b>Your name on a microbe name</b>If you suggest a name, you choose: your own name is listed, or only "the people of Igluligaarjuk".</td></tr>
+    <tr><td>💬</td><td><b>Your words</b>You can say yes or no to being quoted in a report or paper.</td></tr>
+    <tr><td>📖</td><td><b>Stories and knowledge you share</b>They stay yours. We only use them in the ways you agree to.</td></tr>
+    <tr><td>👪</td><td><b>Youth</b>Young people need a parent or guardian to agree as well.</td></tr>
+  </table>
+
+  <div class="callout gold"><b>Changing your mind.</b> You can change your mind about a microbe name until it is published. After a name is published, we can't take it back. Later, scientists may move the microbe to a new group and give it a new name, but the record of your name stays.</div>
+  <div class="callout"><b>Clear answers.</b> We will always ask and wait for a clear answer. Silence is not taken as a yes.</div>
+
+  <h2>Who to talk to</h2>
+  <p>Ask the workshop leaders or the interpreter at any time. You can also talk to the HTO. They will help decide how the community's data is looked after.</p>
+
+  <div class="foot"><span>Our waters, our say · Igluligaarjuk naming workshop 2026</span><span>This page explains your choices. The consent form you sign is separate.</span></div>
+</section>
+
+</body>
+</html>

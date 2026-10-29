@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Waters, Our Say: Data Sovereignty Slides</title>
+  <!--
+    Data sovereignty slides for the Igluligaarjuk naming workshop.
+    Audience: community members, many with a grade 6-8 education, so slide text stays short and
+    plain, with no hedging. Decisions are shown as 2-3 options with reasons and our suggestion. Choices made at
+    the workshop are provisional until a written agreement with the HTO is signed.
+    Content comes from docs/data_sovereignty.md (the dossier); every slide's speaker notes
+    (press N) give the sources and the dossier's check flags. Items flagged [S] or [U] in the
+    dossier must be checked before the workshop: see "Check before presenting" in the notes.
+    Keys: ←/→ or space to move, N for notes, P to print every slide (one per page).
+    IQ principle spellings are the workshop's own, from iq.js. Do not add Inuktitut words here
+    that did not come from the community.
+  -->
+  <style>
+    :root {
+      --bg: #05101a;
+      --card: #0c2135;
+      --marine: #38bdf8;
+      --fresh: #34d399;
+      --gold: #fbbf24;
+      --rose: #fb7185;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --soft: #cbd5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 15%, #102d47 0%, var(--bg) 75%);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: rgba(5, 16, 26, 0.75);
+      z-index: 10;
+    }
+    .topbar a { color: var(--marine); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .topbar .right { display: flex; gap: 1.25rem; align-items: center; }
+    .slide-counter, .hint { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+    .deck {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem 4rem;
+      overflow-y: auto;
+    }
+    .slide {
+      display: none;
+      max-width: 1180px;
+      width: 100%;
+      background: rgba(12, 33, 53, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 24px;
+      padding: 2.6rem 3.25rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.45);
+      animation: fadeIn 0.25s ease-out;
+    }
+    .slide.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .kicker {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.3rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--marine);
+    }
+    .kicker.fresh { background: rgba(52, 211, 153, 0.15); color: var(--fresh); }
+    .kicker.gold { background: rgba(251, 191, 36, 0.15); color: var(--gold); }
+    .kicker.rose { background: rgba(251, 113, 133, 0.15); color: var(--rose); }
+    h1 { font-size: clamp(2.2rem, 3.8vw, 3.3rem); font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    h2 { font-size: clamp(1.7rem, 2.7vw, 2.4rem); font-weight: 800; margin-bottom: 0.75rem; line-height: 1.2; }
+    p.lead { font-size: 1.3rem; color: var(--soft); line-height: 1.55; margin-bottom: 1.25rem; }
+    .syl { color: var(--gold); font-weight: 700; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; margin-top: 1.1rem; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 1.1rem; }
+    .box {
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 1.3rem 1.5rem;
+    }
+    .box h3 {
+      font-size: 1.05rem;
+      color: var(--gold);
+      margin-bottom: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .box.marine { border-color: rgba(56,189,248,0.45); }
+    .box.fresh { border-color: rgba(52,211,153,0.45); }
+    .box.fresh h3 { color: var(--fresh); }
+    .box.rose { border-color: rgba(251,113,133,0.45); }
+    .box.rose h3 { color: var(--rose); }
+    .box p { font-size: 1.1rem; line-height: 1.5; color: var(--soft); }
+    ul.bullets { list-style: none; }
+    ul.bullets li {
+      font-size: 1.15rem;
+      margin-bottom: 0.7rem;
+      padding-left: 1.4rem;
+      position: relative;
+      line-height: 1.45;
+    }
+    ul.bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--marine); }
+    blockquote {
+      font-size: 1.3rem;
+      line-height: 1.5;
+      border-left: 4px solid var(--gold);
+      padding: 0.4rem 0 0.4rem 1.2rem;
+      margin: 0.6rem 0 0.4rem;
+    }
+    cite { display: block; font-size: 0.95rem; color: var(--muted); font-style: normal; margin-bottom: 1rem; }
+    /* the journal: water to name */
+    .chain { display: flex; align-items: stretch; gap: 0.5rem; margin: 1.4rem 0 0.6rem; }
+    .chain .step {
+      flex: 1;
+      background: rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 1rem 0.8rem;
+      text-align: center;
+    }
+    .chain .step .ico { font-size: 2.1rem; display: block; margin-bottom: 0.35rem; }
+    .chain .step b { display: block; font-size: 1.08rem; margin-bottom: 0.3rem; }
+    .chain .step span { font-size: 0.92rem; color: var(--muted); line-height: 1.35; display: block; }
+    .chain .arrow { align-self: center; color: var(--marine); font-size: 1.6rem; }
+    /* yes / yes with conditions / no */
+    .answers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.3rem 0; }
+    .answer { border-radius: 18px; padding: 1.4rem; text-align: center; font-size: 1.6rem; font-weight: 800; }
+    .answer small { display: block; font-size: 1rem; font-weight: 500; color: var(--soft); margin-top: 0.45rem; }
+    .answer.yes { background: rgba(52,211,153,0.16); border: 2px solid var(--fresh); }
+    .answer.cond { background: rgba(251,191,36,0.14); border: 2px solid var(--gold); }
+    .answer.no { background: rgba(251,113,133,0.14); border: 2px solid var(--rose); }
+    .silence {
+      text-align: center; font-size: 1.45rem; font-weight: 800; padding: 0.9rem;
+      border: 2px dashed rgba(255,255,255,0.3); border-radius: 14px;
+    }
+    /* release gate */
+    .gate { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: stretch; margin-top: 1.2rem; }
+    .gate .door {
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      background: rgba(251,191,36,0.12); border: 2px solid var(--gold); border-radius: 18px;
+      padding: 1rem 1.1rem; width: 15rem;
+    }
+    .gate .door .ico { font-size: 2.4rem; }
+    .gate .door b { font-size: 1.2rem; margin: 0.4rem 0; }
+    .gate .door span { font-size: 1.12rem; color: var(--soft); line-height: 1.4; }
+    /* tables */
+    table.grid { width: 100%; border-collapse: collapse; margin-top: 0.9rem; font-size: 1.2rem; }
+    table.grid th {
+      text-align: left; color: var(--gold); font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 0.04em; padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    table.grid td { padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; line-height: 1.35; }
+    table.grid td:first-child { font-weight: 700; }
+    .tag { display: inline-block; font-size: 0.85rem; font-weight: 700; padding: 0.12rem 0.55rem; border-radius: 999px; white-space: nowrap; }
+    .tag.y { background: rgba(52,211,153,0.18); color: var(--fresh); }
+    .tag.n { background: rgba(251,113,133,0.18); color: var(--rose); }
+    .tag.m { background: rgba(251,191,36,0.18); color: var(--gold); }
+    ol.steps { list-style: none; counter-reset: s; columns: 2; column-gap: 2rem; margin-top: 1rem; }
+    ol.steps li {
+      counter-increment: s; break-inside: avoid; position: relative; padding: 0.55rem 0 0.55rem 2.8rem;
+      font-size: 1.08rem; line-height: 1.4;
+    }
+    ol.steps li::before {
+      content: counter(s); position: absolute; left: 0; top: 0.5rem; width: 2rem; height: 2rem; border-radius: 50%;
+      background: rgba(56,189,248,0.2); color: var(--marine); font-weight: 800; display: flex; align-items: center; justify-content: center;
+    }
+    ol.steps li.key::before { background: rgba(251,191,36,0.3); color: var(--gold); }
+    ol.steps li small { display: block; color: var(--muted); font-size: 0.92rem; }
+    .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem 1.4rem; margin-top: 1rem; }
+    .principle { background: rgba(0,0,0,0.25); border-radius: 12px; padding: 0.7rem 1rem; }
+    .principle .syl { font-size: 1.15rem; }
+    .principle .iu { font-weight: 700; margin-left: 0.4rem; }
+    .principle .en { display: block; color: var(--soft); font-size: 0.98rem; margin-top: 0.15rem; }
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.85rem; margin: 1.1rem 0; }
+    .stat-pill {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 0.9rem; text-align: center;
+    }
+    .stat-pill .v { font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+    .stat-pill .l { font-size: 0.85rem; color: var(--muted); text-transform: uppercase; margin-top: 0.2rem; }
+    .small { font-size: 0.95rem; color: var(--muted); line-height: 1.45; }
+    .sources li { font-size: 0.95rem; margin-bottom: 0.45rem; color: var(--soft); line-height: 1.4; }
+    .sources a { color: var(--marine); }
+    /* speaker notes: hidden until N is pressed */
+    aside.notes {
+      display: none; margin-top: 1.4rem; padding: 1rem 1.2rem; border-radius: 12px;
+      background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.25);
+      font-size: 0.95rem; line-height: 1.5; color: var(--soft);
+    }
+    aside.notes b { color: var(--gold); }
+    aside.notes a { color: var(--marine); }
+    body.show-notes aside.notes { display: block; }
+    .controls {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 3rem; border-top: 1px solid rgba(255,255,255,0.08); background: rgba(5, 16, 26, 0.85);
+    }
+    .nav-btn {
+      background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.65rem 1.4rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    }
+    .nav-btn:hover { background: rgba(56, 189, 248, 0.25); }
+    .progress-dots { display: flex; gap: 0.4rem; flex-wrap: wrap; justify-content: center; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; }
+    .dot.active { background: var(--marine); transform: scale(1.25); }
+    @media (max-width: 800px) {
+      .deck { padding: 1rem; }
+      .slide { padding: 1.5rem 1.2rem; }
+      .two-col, .three-col, .answers, .principles, .stat-row { grid-template-columns: 1fr; }
+      .chain { flex-direction: column; }
+      .chain .arrow { transform: rotate(90deg); }
+      .gate { grid-template-columns: 1fr; }
+      .gate .door { width: auto; }
+      ol.steps { columns: 1; }
+      .controls { padding: 0.8rem 1rem; }
+    }
+    @media print {
+      body { overflow: visible; height: auto; display: block; background: #fff; color: #000; }
+      .topbar, .controls { display: none; }
+      .deck { display: block; padding: 0; overflow: visible; }
+      .slide { display: block !important; page-break-after: always; box-shadow: none; border: 1px solid #999; animation: none; background: #fff; }
+      p.lead, .box p, .principle .en, .answer small, .chain .step span, .sources li, aside.notes { color: #222; }
+      .box, .chain .step, .principle, .stat-pill { background: #f4f6f8; }
+    }
+    /* decision slides: 2 or 3 options, one marked as our suggestion */
+    .question { font-size: 1.35rem; color: var(--soft); margin-bottom: 1rem; line-height: 1.45; }
+    .options { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .option {
+      position: relative; background: rgba(0,0,0,0.28); border: 2px solid rgba(255,255,255,0.14);
+      border-radius: 18px; padding: 1.3rem 1.3rem 1.1rem;
+    }
+    .option .letter { font-size: 0.9rem; font-weight: 800; color: var(--muted); letter-spacing: 0.06em; }
+    .option h3 { font-size: 1.3rem; margin: 0.3rem 0 0.6rem; line-height: 1.25; }
+    .option p { font-size: 1.05rem; line-height: 1.45; color: var(--soft); margin-bottom: 0.5rem; }
+    .option p.good::before { content: "👍 "; }
+    .option p.bad::before { content: "👎 "; }
+    .option.pick { border-color: var(--gold); background: rgba(251,191,36,0.10); }
+    .option.pick::after {
+      content: "★ Our suggestion"; position: absolute; top: -0.85rem; right: 1rem;
+      background: var(--gold); color: #1a1300; font-weight: 800; font-size: 0.85rem;
+      padding: 0.2rem 0.7rem; border-radius: 999px;
+    }
+    .why { margin-top: 1rem; font-size: 1.1rem; color: var(--soft); }
+    .why b { color: var(--gold); }
+    .draft {
+      margin-top: 0.8rem; font-size: 1rem; color: var(--soft); padding: 0.55rem 0.9rem;
+      border-radius: 10px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.25);
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html">← Back to the microbes</a>
+  <div class="right">
+    <a href="data_sovereignty_handouts.html">Handouts</a>
+    <a href="data_sovereignty.pptx" download>PowerPoint</a>
+    <span class="hint">N = notes · P = print</span>
+    <div class="slide-counter" id="slideCounter">Slide 1</div>
+  </div>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- 1. Title -->
+  <div class="slide active">
+    <span class="kicker gold">Igluligaarjuk · <span class="syl">ᐃᒡᓗᓕᒑᕐᔪᒃ</span> · Naming workshop</span>
+    <h1>Our waters, our say</h1>
+    <p class="lead">
+      We took water from the inlet and the lakes, read the DNA of the microbes in it, and are now
+      giving some of them names.
+    </p>
+    <p class="lead">
+      Before we share anything, we want to agree together on who decides what. This is called
+      data sovereignty.
+    </p>
+    <aside class="notes">
+      Audience note: many people in the room have a grade 6–8 education. Keep to the slide words, use the interpreter, and give time for questions after each decision slide.
+      This deck describes rules and what other communities have done. It is not legal advice.
+      Before presenting, check the dossier's verification list (docs/data_sovereignty.md §6). Slides with an unchecked item say so in these notes.
+    </aside>
+  </div>
+
+  <!-- 2. Water to name -->
+  <div class="slide">
+    <span class="kicker">What we have</span>
+    <h2>From a bottle of water to a name</h2>
+    <div class="chain">
+      <div class="step"><span class="ico">🧪</span><b>Water</b><span>from the harbour, Itivia and the lakes</span></div>
+      <div class="arrow">→</div>
+      <div class="step"><span class="ico">🧬</span><b>DNA</b><span>taken out of the water and kept frozen</span></div>
+      <div class="arrow">→</div>
+      <div class="step"><span class="ico">🦠</span><b>Genomes</b><span>the full set of genes of one microbe</span></div>
+      <div class="arrow">→</div>
+      <div class="step"><span class="ico">🏷️</span><b>Names</b><span>Inuktitut words and their meanings</span></div>
+    </div>
+    <p class="lead" style="margin-top:1rem">Each step produces something different, and each can have its own rules about who keeps it and who can see it.</p>
+    <aside class="notes">
+      Also part of the "data": where and when we sampled, what people share at the workshop, photos and recordings, and papers and posters.
+      A free-living bacterium's genome from seawater contains no human genetic information. The sensitive parts are where it came from, any money it could make, and who tells the story of its name.
+    </aside>
+  </div>
+
+  <!-- 3. Data sovereignty -->
+  <div class="slide">
+    <span class="kicker">The idea</span>
+    <h2>What is data sovereignty?</h2>
+    <p class="lead" style="font-size:1.5rem">
+      Inuit decide how information about their people, land, water and animals
+      is collected, kept, used and shared.
+    </p>
+    <div class="two-col">
+      <div class="box">
+        <h3>Scientists like to share</h3>
+        <p>Scientists put their data online so others can check it and learn from it.</p>
+      </div>
+      <div class="box fresh">
+        <h3>Communities have a say</h3>
+        <p>Communities also want to know who agreed to the research, how it benefits them, and who looks after the data.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:1.2rem">The two can work together: we share what we agree to share and look after the rest.</p>
+    <aside class="notes">
+      Indigenous data sovereignty grew from Indigenous networks worldwide from about 2015 (Kukutai &amp; Taylor 2016, ANU Press).
+      Other frameworks you may be asked about: CARE (Global Indigenous Data Alliance, worldwide) and OCAP® (a First Nations framework, not an Inuit one). The Inuit documents are on the next slide.
+    </aside>
+  </div>
+
+  <!-- 4. Inuit have said it -->
+  <div class="slide">
+    <span class="kicker gold">Inuit have already said this</span>
+    <h2>What Inuit organizations have said about research data</h2>
+    <div class="two-col">
+      <div class="box marine">
+        <h3>Inuit Tapiriit Kanatami (2018)</h3>
+        <blockquote>"Ensure Inuit access, ownership, and control over data and information."</blockquote>
+        <p>This covers data about Inuit land, water and animals, not only about people.</p>
+      </div>
+      <div class="box fresh">
+        <h3>Inuit Circumpolar Council (2022)</h3>
+        <blockquote>"Inuit access to all raw information and data collected within Inuit Nunaat should be agreed upon and ensured. Including scientific information and data."</blockquote>
+        <p>It also asks that Inuit review results before they are made public.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      ITK National Inuit Strategy on Research, Priority Area 4 [V]. ITK's own page describes it as data about "our people, wildlife, and environment" [S: confirm on itk.ca].
+      ICC Circumpolar Inuit Protocols for Equitable and Ethical Engagement, Protocol 7, pp. 26–28 [V]. The Nunavut Research Institute asks every licence applicant to read the ITK strategy.
+      ITK's National Inuit Data Strategy and NTI's Nunavut Data Strategy are still being written (as of Feb 2026). Check for news before the workshop.
+    </aside>
+  </div>
+
+  <!-- 5. Consent -->
+  <div class="slide">
+    <span class="kicker gold">Saying yes or no</span>
+    <h2>Three ways to answer</h2>
+    <div class="answers">
+      <div class="answer yes">Yes<small>go ahead</small></div>
+      <div class="answer cond">Yes, with conditions<small>go ahead, in the way agreed</small></div>
+      <div class="answer no">No<small>do not go ahead</small></div>
+    </div>
+    <div class="silence">We wait for a clear answer. Silence is not taken as a yes.</div>
+    <p class="lead" style="margin-top:1rem">
+      You can take part and still say no to photos, to recordings, or to having your own name in a paper.
+    </p>
+    <aside class="notes">
+      ICC Protocol 1, p. 17 [V]: consent includes "the ability to say 'yes', 'yes with conditions', and 'no'"; "silence does not mean agreement or yes".
+      Individual choices on the consent form: take part; photos; audio/video; named as a name's proposer; quoted. Check these match the REB-approved form; additions need an REB amendment.
+      Youth need a parent's or guardian's consent. People can change their mind about a name until it is published. After that it can't be withdrawn, though taxonomists may later move the microbe and rename it as group boundaries are redrawn; the original name stays in the record as a synonym.
+    </aside>
+  </div>
+
+  <!-- 6. IQ -->
+  <div class="slide">
+    <span class="kicker fresh">Inuit Qaujimajatuqangit</span>
+    <h2>The IQ principles guide how we decide</h2>
+    <div class="principles">
+      <div class="principle"><span class="syl">ᐋᔩᖃᑎᒌᖕᓂᖅ</span><span class="iu">Aajiiqatigiingniq</span><span class="en">decision making through discussion and consensus</span></div>
+      <div class="principle"><span class="syl">ᐱᓕᕆᖃᑎᒌᖕᓂᖅ</span><span class="iu">Piliriqatigiingniq</span><span class="en">working together for a common cause</span></div>
+      <div class="principle"><span class="syl">ᐱᔨᑦᓯᕐᓂᖅ</span><span class="iu">Pijitsirniq</span><span class="en">serving and providing for family or community, or both</span></div>
+      <div class="principle"><span class="syl">ᐊᕙᑎᑉᑎᓐᓂ ᑲᒪᑦᓯᐊᕐᓂᖅ</span><span class="iu">Avatiptinni Kamatsiarniq</span><span class="en">respect and care for the land, animals and the environment</span></div>
+      <div class="principle"><span class="syl">ᐱᓕᒻᒪᒃᓴᕐᓂᖅ</span><span class="iu">Pilimmaksarniq</span><span class="en">development of skills through practice, effort and action</span></div>
+      <div class="principle"><span class="syl">ᖃᓄᖅᑑᕐᓂᖅ</span><span class="iu">Qanuqtuurniq</span><span class="en">being innovative and resourceful</span></div>
+    </div>
+    <aside class="notes">
+      Spellings, syllabics and meanings are the Igluligaarjuk workshop's own (communities/igluligaarjuk/iq.js). Do not swap in the GN list.
+      Let Elders and facilitators say how each principle applies. The dossier's IQ-to-CARE pairings are our own synthesis, not a published source.
+    </aside>
+  </div>
+
+  <!-- 7. The law -->
+  <div class="slide">
+    <span class="kicker">What the law says</span>
+    <h2>The law and microbe DNA</h2>
+    <div class="two-col">
+      <div class="box">
+        <h3>What the laws cover</h3>
+        <ul class="bullets">
+          <li>Canada has not joined the international treaty on sharing benefits from genetic resources (the Nagoya Protocol).</li>
+          <li>The Nunavut Agreement does not cover DNA.</li>
+          <li>No law says who owns microbe DNA.</li>
+        </ul>
+      </div>
+      <div class="box fresh">
+        <h3>What research rules say</h3>
+        <ul class="bullets">
+          <li>Research with Inuit communities should benefit the community.</li>
+          <li>Ownership and use of data should be set out in a written agreement.</li>
+          <li>Our agreement with the HTO will do this.</li>
+        </ul>
+      </div>
+    </div>
+    <aside class="notes">
+      Nagoya: ECCC says it "is not legally binding on Canada" [V; page dated Sept 2022, no later accession found]. Canada has no national access and benefit-sharing law [V].
+      UNDRIP Art. 31 names "genetic resources" as part of Indigenous heritage, but binds governments, not researchers [U wording].
+      TCPS 2 Chapter 9: Art. 9.13 (research should benefit the community) and 9.18 (intellectual property set out in a research agreement) [V]. Tri-Agency data policy: data plans for Inuit research "must be co-developed" with communities [V].
+    </aside>
+  </div>
+
+  <!-- 8. Licence -->
+  <div class="slide">
+    <span class="kicker fresh">Already in place</span>
+    <h2>What our research licence requires</h2>
+    <p class="lead">This project has a licence from the Nunavut Research Institute and approval from the university's ethics board. Under these approvals:</p>
+    <div class="two-col">
+      <div class="box">
+        <h3>Every year</h3>
+        <ul class="bullets">
+          <li>We send a report, in Inuktitut and English.</li>
+          <li>We send copies of everything we publish.</li>
+          <li>We come back and share the results here.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>Before anything new</h3>
+        <ul class="bullets">
+          <li>The samples are not used for anything new without permission.</li>
+          <li>The samples are not shared outside the project.</li>
+        </ul>
+      </div>
+    </div>
+    <aside class="notes">
+      NRI licence guide (May 2025) [V]: no sharing of samples "outside the scope of your original licensed project"; an amendment is needed "for any secondary research or analysis of archived samples".
+      To confirm before the workshop (item 16): that the licence and REB approval cover publishing the names, their meanings and any knowledge recorded with them. Item 17: whether every annual report must be translated.
+      Add the licence number here.
+    </aside>
+  </div>
+
+  <!-- 9. Must go public -->
+  <div class="slide">
+    <span class="kicker">Making a name official</span>
+    <h2>An official name comes with a public genome</h2>
+    <p class="lead">
+      The rules for naming microbes (the SeqCode) accept a name once that
+      microbe's genome is shared in the world's public DNA library.
+    </p>
+    <div class="three-col">
+      <div class="box"><h3>Open to all</h3><p>Scientists anywhere can look at it.</p></div>
+      <div class="box"><h3>Free to use</h3><p>The library does not set rules on how it is used.</p></div>
+      <div class="box"><h3>Permanent</h3><p>It stays there for good.</p></div>
+    </div>
+    <p class="lead" style="margin-top:1.2rem">For this reason, the community decides on each genome before it is shared.</p>
+    <aside class="notes">
+      SeqCode Rule 18a: the type sequence "must be available in the International Nucleotide Sequence Database Collaboration (INSDC)"; Rule 26 makes valid publication depend on it [V, SeqCode v1.2.0]. INSDC: "free and unrestricted access with no use restrictions", permanent [V].
+      Open question (item 22): whether the Registry also requires the raw reads. Sources conflict, so don't promise anything about raw reads until it's checked on registry.seqco.de.
+    </aside>
+  </div>
+
+  <!-- 10. Release gate -->
+  <div class="slide">
+    <span class="kicker gold">Sharing step by step</span>
+    <h2>Deciding what is shared</h2>
+    <div class="gate">
+      <div class="box fresh">
+        <h3>Stays with us</h3>
+        <ul class="bullets">
+          <li>Water samples and DNA</li>
+          <li>Genomes we are not naming</li>
+          <li>Exact sampling spots</li>
+          <li>The stories behind the names</li>
+        </ul>
+      </div>
+      <div class="door">
+        <span class="ico">🤝</span>
+        <b>Community review</b>
+        <span>For each microbe we name, the community, led by the HTO, says yes, yes with conditions, or no.</span>
+      </div>
+      <div class="box marine">
+        <h3>Shared publicly</h3>
+        <ul class="bullets">
+          <li>The genome of each named microbe</li>
+          <li>Its name and what the name means</li>
+          <li>Only the location details we agree to</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:1rem">The community reviews each genome and its name before it is shared.</p>
+    <aside class="notes">
+      Dossier §5 "release gate". A "no" means that microbe can't get an official SeqCode name; it can still have a community name.
+      The water samples and DNA are the community's strongest control, because the naming rules only need the genome, not the samples.
+      Model: the Kākāpō125+ genome terms (NZ Department of Conservation and Te Rūnanga o Ngāi Tahu) allow deposit only "as journals require" and ban passing anything else on [V].
+    </aside>
+  </div>
+
+  <!-- 11. Others -->
+  <div class="slide">
+    <span class="kicker">Others have done this</span>
+    <h2>How other Indigenous groups manage DNA research</h2>
+    <div class="three-col">
+      <div class="box fresh">
+        <h3>Nunavik</h3>
+        <p>In their health survey, "Nunavik institutions own all data and biological samples." A regional committee approves every use.</p>
+      </div>
+      <div class="box fresh">
+        <h3>Greenland</h3>
+        <p>A 2016 law covers DNA from Greenland, including microbes. Researchers need a permit, must share benefits, and must say the DNA came from Greenland.</p>
+      </div>
+      <div class="box fresh">
+        <h3>New Zealand</h3>
+        <p>Māori guardians decide who can use the genomes of plants and animals that matter to them.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      Nunavik: Ayotte et al. 2024 (PMC10830945), describing Qanuilirpitaa? 2017 governance [V].
+      Greenland Act No. 3 of 3 June 2016 (FAOLEX grl201579) [V, Danish original; the English here is a translation].
+      Aotearoa Genomic Data Repository: guardians (kaitiaki) approve access [V]; Kukutai &amp; Black 2024, <i>Science</i> [S].
+    </aside>
+  </div>
+
+  <!-- 12. Labels -->
+  <div class="slide">
+    <span class="kicker">Labels</span>
+    <h2>Labels that show where the DNA came from</h2>
+    <p class="lead">
+      An online label can be attached to the public genomes. It shows where the DNA came from
+      and what the community expects.
+    </p>
+    <div class="two-col">
+      <div class="box fresh">
+        <h3>What a label does</h3>
+        <ul class="bullets">
+          <li>Names Igluligaarjuk as the place the DNA came from.</li>
+          <li>Only the community can choose its labels.</li>
+          <li>The community can change them later.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>What a label does not do</h3>
+        <ul class="bullets">
+          <li>It does not limit who can download the genome.</li>
+          <li>It states the community's expectations; it is not a legal rule.</li>
+        </ul>
+      </div>
+    </div>
+    <aside class="notes">
+      Local Contexts Biocultural (BC) Labels are applied only by communities; researchers can add a BC Notice until then [S]. Labels are fetched live through the Hub API, so changes show up everywhere [V].
+      There's no dedicated NCBI/ENA field yet: put the Hub link in the BioProject description, a custom BioSample attribute, the paper's data statement and the protologue.
+      Nunavut example: the MAGIC muskox genomics project, co-led by Nunavut HTOs [S].
+    </aside>
+  </div>
+
+  <!-- 13. Names -->
+  <div class="slide">
+    <span class="kicker gold">Choosing names</span>
+    <h2>What goes into a name</h2>
+    <div class="two-col">
+      <div class="box">
+        <h3>Each name will record</h3>
+        <ul class="bullets">
+          <li>The word in syllabics and Roman letters</li>
+          <li>What it means</li>
+          <li>That it came from Igluligaarjuk</li>
+          <li>Who suggested it, if they want to be named</li>
+        </ul>
+        <p class="small" style="margin-top:0.6rem">Once a name is published, we can't take it back. As scientists learn more, they may move a microbe to a new group and rename it, but the record of the first name, and who chose it, stays.</p>
+      </div>
+      <div class="box marine">
+        <h3>An earlier Inuktitut name</h3>
+        <p><strong><em>Tariuqbacter</em></strong> (2023) is a microbe from Ellesmere Island. Scientists picked the name and talked it over with an Elder in Grise Fiord, Larry Audlaluk.</p>
+        <p style="margin-top:0.8rem">In this workshop, community members choose the names. We have not found an earlier example of this.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      Vigneron, Vincent &amp; Lovejoy 2023, <i>ISME Communications</i> 3:82, doi:10.1038/s43705-023-00287-9. The acknowledgements thank Larry Audlaluk "for discussions in Grise Fiord about this work and the naming in Inuktitut" [V].
+      Check the protologue's gloss of "tariuq" before saying it aloud (item 25).
+      SeqCode Rec. 9(3) prefers Latin roots, but recommendations aren't rules; each protologue should give the cultural reason for using Inuktitut roots.
+      "Not done before" = no earlier community-chosen Inuktitut prokaryote names found in this research.
+    </aside>
+  </div>
+
+  <!-- 14. Benefits -->
+  <div class="slide">
+    <span class="kicker gold">What the community gets</span>
+    <h2>Benefits for the community</h2>
+    <div class="two-col">
+      <div class="box fresh">
+        <h3>What the agreement will include</h3>
+        <ul class="bullets">
+          <li>Credit for the community in every name</li>
+          <li>Pay for Elders, knowledge holders and interpreters</li>
+          <li>Paid local jobs and training for youth</li>
+          <li>Results brought back here, in Inuktitut</li>
+          <li>Anyone who wants to use these genomes commercially must ask the community first</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>The UN fund</h3>
+        <p>In 2024 the UN set up a fund for companies that profit from public DNA data. It has collected less than $10,000 worldwide so far, and payments go to a global fund rather than to the places the DNA came from.</p>
+      </div>
+    </div>
+    <aside class="notes">
+      Cali Fund, CBD Decision 16/2 [V]; about US$6,000 to US$8,990 deposited by late Oct 2026 [S]. COP17 (Yerevan) closes 30 Oct 2026: update if anything changes.
+      GN honoraria benchmark (FAM 810-1, from 1 Jan 2023): $650 a full day, $325 a half day for Elders and IQ knowledge holders [V]. Check for a 2026 update (item 30).
+    </aside>
+  </div>
+
+  <!-- 15. Coming back -->
+  <div class="slide">
+    <span class="kicker">Returning results</span>
+    <h2>Bringing results back to the community</h2>
+    <p class="lead">A study in Nunatsiavut found that about two out of three research projects from 2011 to 2021 did not return their results to the community. Our plan:</p>
+    <div class="box">
+      <h3>How results will come back</h3>
+      <ul class="bullets">
+        <li>A short report in Inuktitut and English, plus posters and radio.</li>
+        <li>The official names sent to the Hamlet and the HTO.</li>
+        <li>A copy of all the data kept here, in the community.</li>
+      </ul>
+    </div>
+    <aside class="notes">
+      Ortenzi et al., <i>Ambio</i> (PMC11662125) [V].
+      Licence reviewers in Nunavut asked for "more direct engagement with researchers and better access to research outcomes" (Beltrano et al. 2025, <i>Arctic</i>) [V].
+    </aside>
+  </div>
+
+  <!-- 16. Decision 1 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 1 of 6</span>
+    <h2>After the workshop, who makes these decisions?</h2>
+    <div class="options">
+      <div class="option">
+        <div class="letter">OPTION A</div>
+        <h3>The HTO board alone</h3>
+        <p class="good">Already reviews research here, and will sign our agreement.</p>
+        <p class="bad">Elders and youth may not have a voice.</p>
+      </div>
+      <div class="option pick">
+        <div class="letter">OPTION B</div>
+        <h3>A data group led by the HTO</h3>
+        <p class="good">The HTO leads, with an Elder, a youth and someone from the Hamlet. They learn the details and can meet quickly.</p>
+        <p class="bad">Takes some effort to set up.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION C</div>
+        <h3>A public meeting every time</h3>
+        <p class="good">Everyone gets a say.</p>
+        <p class="bad">Hard to bring everyone together for each decision.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why B:</b> the HTO signs the agreement and keeps the lead, and Elders and youth are part of every decision.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      The written agreement is with the Aqigiq HTO; the data group works under it. The HTO decides who else joins. The research team should not name members. Possible members from the dossier: an Elder, a youth representative, the Hamlet, the Sapujiyiit Society, and the DEA where youth are involved.
+      The Hamlet, HTO and DEA already review every Nunavut research licence (NRI guide) [V].
+    </aside>
+  </div>
+
+  <!-- 17. Decision 2 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 2 of 6</span>
+    <h2>When does a genome go public?</h2>
+    <div class="options">
+      <div class="option">
+        <div class="letter">OPTION A</div>
+        <h3>Post all of them now</h3>
+        <p class="good">The fastest option; scientists can use them right away.</p>
+        <p class="bad">The community gives up its say before the names are chosen.</p>
+      </div>
+      <div class="option pick">
+        <div class="letter">OPTION B</div>
+        <h3>One at a time, after the name is approved</h3>
+        <p class="good">The data group sees each final name and says yes or no for that genome.</p>
+        <p class="bad">Takes longer.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION C</div>
+        <h3>Post none</h3>
+        <p class="good">Everything stays here.</p>
+        <p class="bad">No official names at all.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why B:</b> the names become official, and the community still decides each one.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      This is the release gate (slide 10). Only genomes that carry a name need to go public. All other genomes stay under the agreement unless the data group decides otherwise.
+      Data can be held privately until the paper or Registry entry is ready (NCBI hold-until-publication). Check the maximum hold period (item 23).
+    </aside>
+  </div>
+
+  <!-- 18. Decision 3 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 3 of 6</span>
+    <h2>How exact should the locations be?</h2>
+    <div class="options">
+      <div class="option">
+        <div class="letter">OPTION A</div>
+        <h3>Exact GPS points</h3>
+        <p class="good">Most useful to scientists.</p>
+        <p class="bad">Shows exact spots, which may include private places.</p>
+      </div>
+      <div class="option pick">
+        <div class="letter">OPTION B</div>
+        <h3>The place name only</h3>
+        <p class="good">"Itivia" or "Puirsuk (1st Lake)". These are already on our website.</p>
+        <p class="bad">Less exact for scientists.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION C</div>
+        <h3>"Chesterfield Inlet" only</h3>
+        <p class="good">Shares the least detail.</p>
+        <p class="bad">Loses the difference between sea and lake.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why B:</b> it uses Inuktitut place names, shows nothing new, and still tells scientists whether a microbe lives in the sea or a lake.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      The public DNA library requires country and collection date; exact coordinates are optional [V].
+      If any site is sensitive (a harvesting spot, a cabin lake), drop it, as docs/ethics-and-data.md says.
+    </aside>
+  </div>
+
+  <!-- 19. Decision 4 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 4 of 6</span>
+    <h2>Who gets credit for each name?</h2>
+    <div class="options">
+      <div class="option">
+        <div class="letter">OPTION A</div>
+        <h3>Only the person who suggested it</h3>
+        <p class="good">Honours that person.</p>
+        <p class="bad">Leaves out everyone who helped.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION B</div>
+        <h3>Only "the people of Igluligaarjuk"</h3>
+        <p class="good">Everyone shares it.</p>
+        <p class="bad">People who want their own name on it can't have it.</p>
+      </div>
+      <div class="option pick">
+        <div class="letter">OPTION C</div>
+        <h3>Both</h3>
+        <p class="good">The community is always named. Each person can also be named, if they want to be.</p>
+        <p class="bad">One more question on the consent form.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why C:</b> the community always gets credit, and nobody is named who doesn't want to be.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      Suggested wording for each name's record: "proposed by participants of the Igluligaarjuk community naming workshop, 2026", plus individual names only with opt-in consent.
+      Community members listed as authors of the publication become part of the name's permanent citation; offer this as well.
+    </aside>
+  </div>
+
+  <!-- 20. Decision 5 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 5 of 6</span>
+    <h2>What happens to the water samples and DNA?</h2>
+    <div class="options">
+      <div class="option pick">
+        <div class="letter">OPTION A</div>
+        <h3>Kept frozen at the university, owned by the community</h3>
+        <p class="good">They stay safe in the special freezers they need. Any new use needs the data group's permission.</p>
+        <p class="bad">They are far away.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION B</div>
+        <h3>Sent back to Igluligaarjuk</h3>
+        <p class="good">Physically here.</p>
+        <p class="bad">DNA spoils without a very cold freezer (−80 °C).</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION C</div>
+        <h3>Destroyed when the project ends</h3>
+        <p class="good">Nobody can ever misuse them.</p>
+        <p class="bad">No future studies, even ones the community wants.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why A:</b> the samples stay usable for the community's future questions. The community can still ask for them to be destroyed at any time.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      In the agreement: the community owns the samples; the university is the steward; no new use without the data group and an NRI licence amendment; destroy on request, with a letter confirming it.
+      Models: Memorial University / Nunatsiavut agreement ("samples" included in Indigenous Data) [V]; Alberta FNIGC data-sharing framework (letter confirming destruction or return) [V].
+    </aside>
+  </div>
+
+  <!-- 21. Decision 6 -->
+  <div class="slide">
+    <span class="kicker gold">Decision 6 of 6</span>
+    <h2>Where do we keep the community's copy of the results?</h2>
+    <div class="options">
+      <div class="option">
+        <div class="letter">OPTION A</div>
+        <h3>Paper reports at the HTO and the school</h3>
+        <p class="good">Easy for anyone to read.</p>
+        <p class="bad">Can't hold the full data.</p>
+      </div>
+      <div class="option">
+        <div class="letter">OPTION B</div>
+        <h3>Online only</h3>
+        <p class="good">Holds everything; easy to update.</p>
+        <p class="bad">Hard to use with slow internet.</p>
+      </div>
+      <div class="option pick">
+        <div class="letter">OPTION C</div>
+        <h3>Both: paper here, full data online</h3>
+        <p class="good">Everyone can read the results, and nothing is lost.</p>
+        <p class="bad">A little more work for the researchers.</p>
+      </div>
+    </div>
+    <p class="why"><b>Why C:</b> people can read the results here, and the full data stays safe online for the future.</p>
+    <p class="draft">📝 First draft: today's choices become final only when we sign a written agreement with the HTO.</p>
+    <aside class="notes">
+      Paper: a plain-language report in Inuktitut and English, plus posters. Online: the workshop website (already live), with a full data copy on a drive held by the HTO, or on an Inuit-built platform such as SIKU, whose terms say users own their content [S].
+    </aside>
+  </div>
+
+  <!-- 22. Summary -->
+  <div class="slide">
+    <span class="kicker gold">Our suggestions, all together</span>
+    <h2>What we suggest (first draft)</h2>
+    <table class="grid">
+      <thead><tr><th>Decision</th><th>Our suggestion</th></tr></thead>
+      <tbody>
+        <tr><td>1. Who decides</td><td>A data group led by the HTO, with an Elder, a youth and the Hamlet</td></tr>
+        <tr><td>2. Genomes going public</td><td>One at a time, after the group approves each name</td></tr>
+        <tr><td>3. Locations</td><td>Place names only, like Itivia and Puirsuk</td></tr>
+        <tr><td>4. Credit</td><td>The community always, plus any person who wants to be named</td></tr>
+        <tr><td>5. Samples and DNA</td><td>Kept frozen at the university, owned by the community, destroyed if asked</td></tr>
+        <tr><td>6. Our copy</td><td>Paper reports here, full data online</td></tr>
+      </tbody>
+    </table>
+    <p class="lead" style="margin-top:1.2rem">These are a first draft. We will write them into one short agreement, in Inuktitut and English, and they become final when the HTO signs it.</p>
+    <aside class="notes">
+      Built from tested clauses in the dossier's catalogue (§4): Memorial University / Nunatsiavut agreement, NWT traditional knowledge template ("only a license … it does not convey title"), Kākāpō125+ genome terms, and NSERC's new Indigenous Engagement and Collaboration Agreement Template.
+      Two drafting rules: (1) the community must give a clear answer before anything is published; never "no reply means yes". (2) "Return or destroy on request" can't cover genomes already posted publicly, so say so plainly in the agreement.
+    </aside>
+  </div>
+
+  <!-- 23. Sources -->
+  <div class="slide">
+    <span class="kicker">Where this comes from</span>
+    <h2>Sources</h2>
+    <ul class="sources">
+      <li>Inuit Tapiriit Kanatami (2018). <a href="https://www.itk.ca/wp-content/uploads/2020/10/ITK-National-Inuit-Strategy-on-Research.pdf">National Inuit Strategy on Research</a>.</li>
+      <li>Inuit Circumpolar Council (2022). <a href="https://www.inuitcircumpolar.com/wp-content/uploads/EEE-Protocols-LR-WEB.pdf">Circumpolar Inuit Protocols for Equitable and Ethical Engagement</a>.</li>
+      <li>Nunavut Research Institute (2025). <a href="https://www.nri.nu.ca/sites/default/files/License%20Application%20Guidleines_May2025.pdf">Obtaining a Research License under Nunavut's Scientists Act</a>.</li>
+      <li>Panel on Research Ethics (2022). <a href="https://ethics.gc.ca/eng/tcps2-eptc2_2022_chapter9-chapitre9.html">TCPS 2, Chapter 9: Research Involving the First Nations, Inuit and Métis Peoples of Canada</a>.</li>
+      <li>SeqCode (v1.2.0). <a href="https://registry.seqco.de/page/seqcode">The Code of Nomenclature of Prokaryotes Described from Sequence Data</a>.</li>
+      <li>Local Contexts. <a href="https://localcontexts.org/labels/biocultural-labels/">Biocultural Labels and Notices</a>.</li>
+      <li>Convention on Biological Diversity (2024). <a href="https://www.cbd.int/doc/decisions/cop-16/cop-16-dec-02-en.pdf">Decision 16/2 on digital sequence information</a>.</li>
+      <li>Vigneron, Vincent &amp; Lovejoy (2023). <a href="https://doi.org/10.1038/s43705-023-00287-9">Discovery of a novel bacterial class (Tariuqbacteria)</a>. <i>ISME Communications</i> 3:82.</li>
+    </ul>
+    <aside class="notes">The full dossier, with every source and the list of things still to check, is docs/data_sovereignty.md. Have the ITK, ICC and NRI documents printed on the table.</aside>
+  </div>
+
+</div>
+
+<div class="controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">← Previous</button>
+  <div class="progress-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dotsContainer = document.getElementById('dots');
+  let current = 0;
+
+  slides.forEach((_, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (idx === 0 ? ' active' : '');
+    d.onclick = () => showSlide(idx);
+    dotsContainer.appendChild(d);
+  });
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    document.getElementById('slideCounter').textContent = `Slide ${current + 1} / ${slides.length}`;
+    history.replaceState(null, '', '#' + (current + 1));
+  }
+
+  function changeSlide(dir) {
+    showSlide(current + dir);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft') changeSlide(-1);
+    if (e.key === 'n' || e.key === 'N') document.body.classList.toggle('show-notes');
+    if (e.key === 'p' || e.key === 'P') window.print();
+  });
+
+  // open at #n so a link can point at one slide
+  const start = parseInt(location.hash.slice(1), 10);
+  showSlide(start >= 1 && start <= slides.length ? start - 1 : 0);
+</script>
+</body>
+</html>

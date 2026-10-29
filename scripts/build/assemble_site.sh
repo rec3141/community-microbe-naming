@@ -28,8 +28,8 @@ cp -r "$ROOT/site/explain" "$OUT/explain"
 cp "$ROOT/site/cards.html" "$OUT/"
 cp -r "$ROOT/site/cards" "$OUT/cards"
 [ -d "$ROOT/site/img" ] && cp -r "$ROOT/site/img/." "$OUT/img/"
-# optional extra pages (e.g. slides.html) that belong to this community
-find "$SRC" -maxdepth 1 -name '*.html' -exec cp {} "$OUT/" \;
+# optional extra pages (e.g. slides.html) and their PowerPoint exports that belong to this community
+find "$SRC" -maxdepth 1 \( -name '*.html' -o -name '*.pptx' \) -exec cp {} "$OUT/" \;
 DICT=${2:-$SRC/dictionary.js}
 if [ -f "$DICT" ]; then cp "$DICT" "$OUT/dictionary.js"
 else echo "[WARN] no dictionary: word search will be empty" >&2; echo "window.DICTIONARY = [];" > "$OUT/dictionary.js"; fi
