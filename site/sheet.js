@@ -51,7 +51,7 @@ function wordPlan() {
 
 // glossary credit for print: community.js dictionaryCreditHtml with links written out as text
 const dictCredit = () => { const h = CM.dictionaryCreditHtml || '', urls = [...h.matchAll(/href="https?:\/\/([^"]+)"/g)].map(m => m[1]);
-  return h.replace(/<[^>]+>/g, '').replace(/\.?\s*$/, urls.length ? ` (${urls.join(', ')}).` : '.'); };
+  return h.replace(/<[^>]+>/g, '').replace(/^Words from the /, '').replace(/\.?\s*$/, '') + (urls.length ? ` (${urls.join(', ')})` : ''); };
 // the community's own dialect (CM.dialect, default: the first word of the credit's dialect) vs. words from others
 const HOME_DIALECT = CM.dialect || ((CM.dictionaryCreditHtml || '').match(/(\w+) dialect/) || [])[1] || '';
 const dialectOf = e => (e.dialect || '').replace(/\s*\(.*$/, '') || (e.source || '').replace(/^.*\(|\)$/g, '');
@@ -110,6 +110,8 @@ function sheetFor(i) {
     rr ? esc(rr) : '',
   ].filter(Boolean).join(' · ');
   const line = (label, n = 1) => `<div class="sh-fill"><b>${label}</b>${'<span></span>'.repeat(n)}</div>`;
+  // two blanks side by side (genus word, species word); a known genus is printed in the first
+  const pair = (label, first = '') => `<div class="sh-fill sh-pair"><b>${label}:</b><span${first ? ' class="sh-fixed"' : ''}>${first}</span><span></span></div>`;
   return `
   <section class="sh-page sh-front ${c.habitat}" id="sheet-${i + 1}">
     ${head}
@@ -153,16 +155,16 @@ function sheetFor(i) {
       A good name often says where it lives, what it does or what it looks like.</p>
     ${words.length ? `<h3>💡 ${esc(LANG)} words that might fit</h3>
       <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${otherDialect(h.e) ? '‡' : ''}${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>
-      <p class="sh-note">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` ‡ ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}, not ${esc(HOME_DIALECT)}.` : ''}</p>` : ''}
+      <p class="sh-note sh-cite">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` · ‡ = ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}` : ''}</p>` : ''}
     <div class="sh-lines"><div></div><div></div></div>
     <div class="sh-split">
       <div class="sh-work">
         <h4>✍️ Our name</h4>
-        ${need.genus ? line('Genus') : `<div class="sh-fill"><b>Genus</b><span class="sh-fixed"><i>${esc(need.genusName)}</i></span></div>`}
-        ${line('Species')}
-        ${line('Syllabics')}
-        ${line('Meanings')}
-        ${line('Why', 2)}
+        ${pair('Name', need.genus ? '' : `<i>${esc(need.genusName)}</i>`)}
+        ${pair(esc(LANG))}
+        ${pair(esc(CM.languageNative || 'Syllabics'))}
+        ${pair('Meaning')}
+        ${line('Notes:', 3)}
       </div>
       ${(window.IQ_CONTENT?.principles || []).length ? `<div class="sh-iq">
         <h4>🧭 Which IQ principles does it match?</h4>

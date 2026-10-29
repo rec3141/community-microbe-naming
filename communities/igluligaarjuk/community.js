@@ -12,6 +12,7 @@ window.COMMUNITY = {
   foundWhere: 'in the inlet and the lakes behind town',
   habitats: {marine: 'harbour, Itivia, inlet', freshwater: 'Puirsuk, Akulliit and Amaruqtalik (1st, 2nd and 3rd Lake)'},
   language: 'Inuktitut',
+  languageNative: 'ᐃᓄᒃᑎᑐᑦ',                 // the language's name in its own script (labels the syllabics line on the sheets)
   scriptName: 'syllabics',                  // leave empty if the language is written in roman letters only
   wordExamples: ['ice', 'siku', 'ᓯᑯ'],
   meaningExample: 'Chesterfield Inlet',
