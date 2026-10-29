@@ -29,11 +29,29 @@ function peak(c) {
   return `<b>Most:</b> about ${amt} cells per litre (${esc(top.site)}${when}).`;
 }
 
+// Suggested words for every microbe at once, so the printed set varies: each microbe takes its 8 best
+// words, but a word already given to earlier microbes counts for less (and at most 4 times), so common
+// habitat words like 'sea' or 'ice' don't fill every sheet. Same picks on one sheet or all of them.
+let WORD_PLAN = null;
+function wordPlan() {
+  if (WORD_PLAN) return WORD_PLAN;
+  const uses = new Map(), MAX_USES = 4, key = h => (h.e.roman || '').toLowerCase();  // count by spelling: some words have several entries
+  WORD_PLAN = C.map(c => {
+    const cands = typeof suggestWords === 'function' && DICT_SHOWN.length ? suggestWords(c) : [];
+    const seen = new Set(), pick = cands.filter(h => (uses.get(key(h)) || 0) < MAX_USES)
+      .map(h => ({h, v: h.score / (1 + 1.5 * (uses.get(key(h)) || 0))}))
+      .sort((a, b) => b.v - a.v).filter(x => !seen.has(key(x.h)) && seen.add(key(x.h))).slice(0, 8).map(x => x.h);
+    pick.forEach(h => uses.set(key(h), (uses.get(key(h)) || 0) + 1));
+    return pick;
+  });
+  return WORD_PLAN;
+}
+
 function sheetFor(i) {
   const c = C[i], need = namingNeed(c), L = lineageOf(c), g = GUILDS[c.guild], m = D.meta[c.id] || {};
   const where = [...foundRows(c), ...(c.isolated ? [`grown in the lab from ${esc(c.isolated.site)} water (${esc(c.isolated.season || '')})`] : [])];
   const gen = !need.genus && (window.GENERA || {})[need.genusName];
-  const words = (typeof suggestWords === 'function' && DICT_SHOWN.length ? suggestWords(c) : []).slice(0, 8);
+  const words = wordPlan()[i];
   const SI = window.SERVICE_INFO || {}, es = (D.ecossdb[c.id] || []).slice().sort((a, b) => b.weighted_score - a.weighted_score).slice(0, 4);
   const site = `${location.origin}${location.pathname}#${i + 1}`;
   const head = `<div class="sh-head"><span>${esc(CM.brand || CM.placeName || '')} · ${esc(CM.nativeName || '')}</span><span>Microbe ${i + 1} of ${C.length}</span></div>`;
