@@ -60,7 +60,6 @@ function sheetFor(i) {
           <span>${c.habitat === 'marine' ? '🌊 Sea microbe' : '💧 Lake microbe'}</span>
           ${c.isolated ? '<span>🔬 Grown in the lab</span>' : ''}
           ${topEnriched().has(i) ? `<span>⭐ ${foldText(ciFold(c))} more common in ${esc(LOCAL)}</span>` : ''}
-          ${g ? `<span>${g.icon} ${esc(g.name)}</span>` : ''}
         </div>
         ${g ? `<p class="sh-guild">${g.icon} <b>${esc(g.name)}</b>: ${esc(g.short)}</p>` : ''}</div>
     </div>
