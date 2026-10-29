@@ -253,13 +253,15 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
   marked "(grown in the lab)".
 - **Peak season**: the season of its biggest dated count, else the season its isolate was
   collected. Hunters were only found in undated samples, so they have no peak season.
-- **Science line**: the first sentence of its big attack's explanation (or its type's).
+- **Science line**: the community's own fact about this microbe (`cardFact` in narratives.js), written
+  so that no two cards share a fact and none repeats the genes behind its attacks; else the first
+  sentence of its big attack's explanation (or its type's).
 - **Cells badge** (left of the picture, under habitat and peak season): one randomly coloured dot
   per million cells in its biggest local count (seeded by the microbe id, so it prints the same
   every time); a single dot means under a million (or grown in the lab and not seen in the water).
 - **Badge slots**: each badge kind has a fixed place on every card. Right of the picture:
-  ☀ ❄ 🧂 down the outer column, 🛡 beside the top one, 🛢 beside the bottom one. Left: habitat,
-  peak season, cells, with 🔹 beside the cells badge.
+  ☀ ❄ 🧂 down the outer column, 🛡 🔹 🛢 down the inner one. Left: habitat, peak season, cells.
+  The cartoon is set off-centre, between the one left column and the two right ones.
 
 ### Places and events
 

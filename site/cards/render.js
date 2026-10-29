@@ -55,7 +55,7 @@ function microbeFace(c, total) {
   <div class="frame">
     <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span><span class="hp"><small>HP</small>${c.hp}</span></div>
     <div class="sub"><span>${esc(c.className || c.envelopeName)}</span><span>${L.icon} ${esc(L.name)}</span></div>
-    <div class="art"><div class="badges left">${left}${c.badges.filter(b => b === 'tiny').map(badge).join('')}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.filter(b => b !== 'tiny').map(badge).join('')}</div></div>
+    <div class="art"><div class="badges left">${left}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(badge).join('')}</div></div>
     <div class="atks">${c.attacks.map(attack).join('')}</div>
     ${wrRow(c)}
     <div class="sci">${esc(c.science)}</div>

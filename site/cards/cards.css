@@ -51,18 +51,19 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .tcard .hp small{font-size:6.4pt;font-weight:700;margin-right:.4mm;color:var(--life)}
 .tcard .kindlabel{font-size:6.2pt;font-weight:800;letter-spacing:.06em;color:#0b1726;background:var(--life);border-radius:1mm;padding:.2mm 1mm;align-self:center}
 .tcard .sub{display:flex;justify-content:space-between;gap:1mm;font-size:6.4pt;color:#b9cbe0;border-bottom:.2mm solid rgba(255,255,255,.15);padding-bottom:.6mm}
-.tcard .art{position:relative;height:27.5mm;flex:none;display:flex;justify-content:center;align-items:center;
-  background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 35%,transparent),transparent 70%);border-radius:1.5mm}
+.tcard .art{position:relative;height:27.5mm;padding:0 calc(16.6mm + 1.4mm) 0 calc(8mm + 1.4mm);flex:none;display:flex;justify-content:center;align-items:center;
+  background:radial-gradient(circle at 42% 50%,color-mix(in srgb,var(--life) 35%,transparent),transparent 70%);border-radius:1.5mm}
 .tcard .art img{height:27mm;width:27mm;border-radius:50%;object-fit:cover;border:.6mm solid var(--life);background:#000}
 .tcard.freshwater .art img{border-color:var(--fresh)}.tcard.marine .art img{border-color:var(--marine)}
 /* badges fill the picture's height: 3 rows of 8 mm, and each kind always sits in the same slot.
-   Right (outer column): ☀ rhodopsin, ❄ cold-shock, 🧂 salt; beside them, where the round cartoon leaves
-   room: 🛡 CRISPR at the top, 🛢 oil gene at the bottom. Left: habitat, peak season, cells; 🔹 tiny beside cells. */
+   Right (outer column): ☀ rhodopsin, ❄ cold-shock, 🧂 salt; inner column:
+   room: 🛡 CRISPR, 🔹 tiny, 🛢 oil gene. Left: habitat, peak season, cells. The cartoon sits between the
+   one left column and the two right ones. */
 .tcard .badges{--b:8mm;position:absolute;right:0;top:0;bottom:0;display:grid;grid-template-columns:repeat(2,var(--b));grid-template-rows:repeat(3,var(--b));align-content:space-between;column-gap:.6mm;font-size:11.5pt}
 .tcard .badges span{background:rgba(11,23,38,.75);border-radius:50%;width:var(--b);height:var(--b);display:flex;align-items:center;justify-content:center}
-.tcard .b-sun{grid-area:1/2}.tcard .b-cold{grid-area:2/2}.tcard .b-salt{grid-area:3/2}.tcard .b-crispr{grid-area:1/1}.tcard .b-oil{grid-area:3/1}
+.tcard .b-sun{grid-area:1/2}.tcard .b-cold{grid-area:2/2}.tcard .b-salt{grid-area:3/2}.tcard .b-crispr{grid-area:1/1}.tcard .b-tiny{grid-area:2/1}.tcard .b-oil{grid-area:3/1}
 .tcard .badges.left{right:auto;left:0}
-.tcard .b-hab{grid-area:1/1}.tcard .b-season{grid-area:2/1}.tcard .b-cells{grid-area:3/1}.tcard .b-tiny{grid-area:3/2}
+.tcard .b-hab{grid-area:1/1}.tcard .b-season{grid-area:2/1}.tcard .b-cells{grid-area:3/1}
 .tcard .badges.left span{filter:drop-shadow(0 0 .25px #0b1726) contrast(1.2) saturate(1.3)}  /* pale 🌨️ / 🌬️ on white paper */
 .tcard .badges .cells svg{width:80%;height:80%;border-radius:50%;background:#0b1726}
 .tcard .abil{background:rgba(251,191,36,.12);border:.2mm solid rgba(251,191,36,.5);border-radius:1.2mm;padding:.6mm 1mm;font-size:6.8pt}
@@ -126,7 +127,7 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .ink .tcard .abil{background:#fff7e0}
 .ink .tcard .abil b{color:#9a6700}
 .ink .tcard .cost{filter:brightness(.75)}
-.ink .tcard .art{background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 25%,#fff),#fff 70%)}
+.ink .tcard .art{background:radial-gradient(circle at 42% 50%,color-mix(in srgb,var(--life) 25%,#fff),#fff 70%)}
 .ink .tcard .pl-art{background:linear-gradient(180deg,color-mix(in srgb,var(--life) 35%,#fff),#fff)}
 .ink .tcard .ev-art{background:radial-gradient(circle,rgba(251,191,36,.35),#fff 70%)}
 .ink .tcard.back .frame{background:repeating-linear-gradient(45deg,#f1f5f9 0 3mm,#e2e8f0 3mm 6mm)}

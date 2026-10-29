@@ -284,7 +284,10 @@ function attacksOf(f, life, b, badges) {
   return [a1, a2];
 }
 
+// the card's science line: the community's own fact about this microbe (narratives.js `cardFact`),
+// else the first sentence explaining its type or big attack
 function scienceLine(f, life, card) {
+  if (f.n.cardFact) return f.n.cardFact;
   const lead = {
     hunter: 'It belongs to a group of bacteria that hunt and eat other bacteria.',
     oil: f.canthyd.length ? `Its genome has ${f.canthyd.join(' and ')}, a gene for breaking down oil.` : null,
