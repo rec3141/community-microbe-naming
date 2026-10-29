@@ -648,6 +648,7 @@ function renderBanner(){
     <div class="id">${esc(c.id)}</div>
     <span class="pill ${c.habitat}">${c.habitat==='marine'?'🌊 Marine':'💧 Freshwater'}</span>
     ${c.isolated?`<span class="pill" style="border:1px solid var(--line)" title="We grew it in the lab from ${esc(c.isolated.site)} water">🔬 Grown in the lab</span>`:''}
+    ${topEnriched().has(cur)?`<span class="pill gold" title="One of the 3 ${c.habitat==='marine'?'sea':'lake'} microbes most enriched in ${esc(LOCAL)}">⭐ ${foldText(ciFold(c))} more common here</span>`:''}
     ${guildPill(c)}
     <span class="pill gold">✍️ ${esc(need.label)}</span>
     <span class="pill" style="border:1px solid var(--line)">${fmt(m.completeness)}% complete · ${fmt(m.contamination,2)}% contamination</span></div>

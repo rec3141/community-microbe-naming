@@ -59,6 +59,7 @@ function sheetFor(i) {
         <div class="sh-pills">
           <span>${c.habitat === 'marine' ? '🌊 Sea microbe' : '💧 Lake microbe'}</span>
           ${c.isolated ? '<span>🔬 Grown in the lab</span>' : ''}
+          ${topEnriched().has(i) ? `<span>⭐ ${foldText(ciFold(c))} more common in ${esc(LOCAL)}</span>` : ''}
           ${g ? `<span>${g.icon} ${esc(g.name)}</span>` : ''}
         </div>
         ${g ? `<p class="sh-guild">${g.icon} <b>${esc(g.name)}</b>: ${esc(g.short)}</p>` : ''}</div>
@@ -72,9 +73,8 @@ function sheetFor(i) {
       <div><h3>📍 Around ${esc(LOCAL)}</h3><div class="sh-map" data-map="local" data-i="${i}"></div></div>
       <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
     </div>
-    <p class="sh-credit">Maps © OpenStreetMap contributors · Leaflet</p>
+    <p class="sh-credit">Bigger dot: more cells per litre · grey: sampled, not found · gold ring: ${esc(LOCAL)} · Maps © OpenStreetMap contributors</p>
     <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}. ${peak(c)}</p>
-    <p class="sh-note">Bigger dots: more of its cells per litre. Grey dots: sampled, but not found. Gold ring: ${esc(LOCAL)}.</p>
     <h3>📖 Its story</h3>
     <p class="sh-story">${esc(c.eco || c.story || '')}</p>
   </section>
