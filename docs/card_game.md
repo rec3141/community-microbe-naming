@@ -76,7 +76,7 @@ pictures; prompts are in the `PROMPTS.md` next to them. A card without a picture
    damage to your rival's Active. Nutrients stay on the card. Your turn ends.
 
 **Damage.** Weakness ×2 · Resistance −20 · Can't hurt: 0 damage · +10 if the Place's season
-matches the attacker's peak season (🌸 spring, 🍁 fall).
+matches the attacker's peak season (🌨️ spring, 🌬️ fall).
 
 **Washed out.** When a microbe's damage reaches its HP, it is washed out. Its owner picks a new
 Active, then looks at the top 2 Place cards and puts one in play (the old Place goes to the bottom).
@@ -95,7 +95,7 @@ and paper or damage tokens.
   weakness or resistance from its cell wall, a retreat cost, badges (☀ rhodopsin, ❄ cold-shock
   proteins, 🧂 salt protection, 🛡 CRISPR, 🔹 tiny genome), where it was found and its peak season.
 - **Place cards**: a sampling site in a season. Salt or fresh water, and the microbes found there
-  in that season (\* = found there, but the sample date was not recorded).
+  in that season.
 - **Event cards**: things that happen in nature: viruses, grazers, ice, long days, spills and more.
 
 **Set up**
@@ -247,10 +247,12 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
 - **Retreat cost**: 0 if its text says it swims or glides, 2 with Hold Fast, else 1.
 - **Badges** (used by events): ☀ rhodopsin marker or text; ❄ cold-shock protein marker;
   🧂 osmoprotectant marker or glycine betaine in text; 🛡 CRISPR-Cas marker; 🔹 genome under 1.5 Mbp; 🛢 a CANT-HYD oil gene.
-- **Found at**: every local site where it was detected, with the seasons (May = 🌸 spring,
-  Sept and Oct = 🍁 fall; no date = \*).
-- **Peak season**: the season of its biggest dated count. Hunters were only found in undated
-  samples, so they have no peak season.
+- **Found at**: every local site where it was detected, with the seasons (May = 🌨️ spring,
+  Sept and Oct = 🌬️ fall; a sample with no date shows the site alone). A microbe grown in the lab
+  (`isolated: {site, season}` in candidates.js) also counts as found where its water was collected,
+  marked "(grown in the lab)".
+- **Peak season**: the season of its biggest dated count, else the season its isolate was
+  collected. Hunters were only found in undated samples, so they have no peak season.
 - **Science line**: the first sentence of its big attack's explanation (or its type's), plus its
   biggest count with place and month.
 
@@ -258,8 +260,8 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
 
 Place cards: one per site × season that was sampled with a date (`ciSites` and dated
 `ci_samples`), kept only if at least 2 microbes were found there in that season. Home microbes
-are those detected there in that season (or there with no date, marked \*). Spring places boost
-🌸 microbes and fall places 🍁 microbes by +10 damage.
+are those detected there in that season (or there with no date), plus isolates collected there then. Spring places boost
+🌨️ microbes and fall places 🌬️ microbes by +10 damage.
 
 Event cards are the same for every community:
 

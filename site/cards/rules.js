@@ -24,7 +24,7 @@ const QUICK = `
   <li><b>Attack</b>: if your Active has at least as many nutrients as an attack's cost (●), do that damage to your rival's Active. Nutrients stay on the card. Your turn ends.</li>
 </ol>
 <h3>Damage</h3>
-<p><b>Weakness</b> ×${T.weakMult || 2} · <b>Resistance</b> −${T.resist || 20} · <b>Can't hurt</b>: 0 damage · <b>+${T.seasonBonus || 10}</b> if the Place's season matches the attacker's peak season (🌸 spring, 🍁 fall). Keep track with tokens or a pencil.</p>
+<p><b>Weakness</b> ×${T.weakMult || 2} · <b>Resistance</b> −${T.resist || 20} · <b>Can't hurt</b>: 0 damage · <b>+${T.seasonBonus || 10}</b> if the Place's season matches the attacker's peak season (🌨️ spring, 🌬️ fall). Keep track with tokens or a pencil.</p>
 <h3>Washed out</h3>
 <p>When a microbe's damage reaches its HP, it is washed out: put it aside. Its owner picks a new Active, then looks at the top 2 Place cards and puts one in play (the old Place goes to the bottom).</p>
 <h3>Wrong water</h3>
@@ -36,7 +36,7 @@ const FULL = `
 <h3>The cards</h3>
 <ul>
   <li><b>Microbe cards</b> are the real microbes from this workshop. Each has <b>HP</b> (how hard it is to wipe out), a <b>type</b> (its guild: how it makes a living), 2 <b>attacks</b>, sometimes an <b>ability</b>, a <b>weakness</b> or <b>resistance</b> from its cell wall, a <b>retreat cost</b>, and <b>badges</b> (☀ rhodopsin, ❄ cold-shock proteins, 🧂 salt protection, 🛡 CRISPR, 🔹 tiny, 🛢 oil gene). The bottom shows where it was found and its peak season.</li>
-  <li><b>Place cards</b> are the sampling sites in a season. They say if the water is salty or fresh and list the microbes found there in that season (* = found there, date not recorded).</li>
+  <li><b>Place cards</b> are the sampling sites in a season. They say if the water is salty or fresh and list the microbes found there in that season.</li>
   <li><b>Event cards</b> are things that happen in nature: viruses, grazers, ice, sunshine, spills and more.</li>
 </ul>
 <h3>Set up</h3>
@@ -61,7 +61,7 @@ const FULL = `
 <h3>Working out damage</h3>
 <ol>
   <li>Start with the number on the attack.</li>
-  <li>Add ${T.seasonBonus || 10} if the Place's season is the attacker's peak season (🌸 or 🍁 next to its name).</li>
+  <li>Add ${T.seasonBonus || 10} if the Place's season is the attacker's peak season (🌨️ or 🌬️ next to its name).</li>
   <li>Add any ability bonus (Mystery Genes, Quorum Sensing).</li>
   <li>If the defender is <b>weak</b> to the attack's kind (🎯 Hunt or 🧪 Toxin), multiply by ${T.weakMult || 2}. If it <b>resists</b> it, subtract ${T.resist || 20}. If it <b>can't be hurt</b> by that kind, the damage is 0.</li>
 </ol>

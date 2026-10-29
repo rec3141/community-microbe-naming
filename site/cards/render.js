@@ -23,15 +23,17 @@ function wrRow(c) {
     : c.resist ? `${K[c.resist].icon} −${MC.TUNE.resist}` : '—';
   return `<div class="wr"><span><i>weak</i> ${weak}</span><span><i>resist</i> ${res}</span><span><i>retreat</i> ${c.retreat ? dots(c.retreat) : '0'}</span></div>`;
 }
+// a season icon with a thin dark outline, so the pale 🌨️ / 🌬️ stay visible on white printed cards
+const ssn = k => MC.SEASONS[k] ? `<span class="ssn" title="${MC.SEASONS[k].name}">${MC.SEASONS[k].icon}</span>` : '';
 function homeRow(c) {
-  const S = MC.SEASONS;
-  const parts = c.home.map(h => `${esc(h.site)} ${h.seasons.map(s => s ? S[s].icon : '<span title="date not recorded">*</span>').join('')}`);
+  // each site stays on one line with its seasons; lines break only between sites
+  const parts = c.home.map(h => `<span class="hs">${esc(h.site)} ${h.seasons.map(ssn).join('')}${h.lab ? ' (grown in the lab)' : ''}</span>`);
   return parts.length ? parts.join(' · ') : 'not found in local samples yet';
 }
 
 function microbeFace(c, total) {
   const L = MC.LIFESTYLES[c.lifestyle], H = HAB[c.habitat] || {name: c.habitat, icon: ''};
-  const peak = c.peak ? `<span class="peak" title="peak season">${MC.SEASONS[c.peak].icon}</span>` : '';
+  const peak = c.peak ? `<span class="peak" title="peak season">${ssn(c.peak)}</span>` : '';
   const attack = a => `<div class="atk"><div class="atk-h">${dots(a.cost)}<b>${esc(a.name)}</b>${kindTag(a.kind)}<span class="dmg">${a.dmg}</span></div>${a.text ? `<div class="atk-t">${esc(a.text)}</div>` : ''}</div>`;
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
@@ -51,13 +53,13 @@ function placeFace(p, total) {
   const salty = p.water === 'marine';
   return `<div class="tcard place ${p.water}" data-id="${esc(p.id)}">
   <div class="frame">
-    <div class="top"><span class="kindlabel">PLACE</span><span class="nm${nameSize(p.name, 5)}">${esc(p.name)}</span><span class="hp">${S.icon}</span></div>
+    <div class="top"><span class="kindlabel">PLACE</span><span class="nm${nameSize(p.name, 5)}">${esc(p.name)}</span><span class="hp">${ssn(p.season) || S.icon}</span></div>
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
     <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}<i class="season-chip">${S.icon}</i></div>
     <div class="pl-rule">${esc(p.text)}</div>
-    <div class="pl-homes"><b>Found here then (they get 2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name) + (h.undated ? '*' : '')).join(', ') || '—'}${p.homes.some(h => h.undated) ? '<br><small>* found here; the sample date was not recorded</small>' : ''}</div>
+    <div class="pl-homes"><b>Found here then (they get 2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
     <div class="pl-rule small">Wrong water: at the start of your turn, a ${salty ? 'lake microbe (unless 🧂)' : 'sea microbe'} Active here takes 10 damage.</div>
-    <div class="foot"><span class="home">Real samples, ${esc(p.months.join(' & '))}</span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
+    <div class="foot"><span class="home">Sampled here in ${esc(p.months.join(' & '))}</span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
   </div></div>`;
 }
 

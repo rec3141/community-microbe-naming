@@ -443,6 +443,7 @@ window.CANDIDATES = [
     nickname: "Patient Pseudoalteromonas",
     rrna: "9× 16S + 9× 23S + 2× 5S rRNA, 20/20 tRNAs",
     whereInCI: "Dock (grown in the lab)",
+    isolated: {site: "Dock", season: "fall"},  // grown from Dock water collected in fall
     story: "A sea bacterium we grew in the lab from Dock water. In the water's DNA it was only a faint trace, but rare microbes like this can wait for the right moment: near Churchill, one sample held about 56 million of its cells in a litre.",
     activities: ["Cuts up seaweed sugars (alginate lyases)", "Breaks down proteins (proteases)", "Swims with a whip-like tail"],
     tags: ["Grown in the Lab", "Seaweed Sugar Cutter", "100% Complete Genome", "Known Species, No Name"]
@@ -455,6 +456,7 @@ window.CANDIDATES = [
     nickname: "Shocking Shewanella",
     rrna: "10× 16S + 13× 23S + 12× 5S rRNA, 20/20 tRNAs",
     whereInCI: "Dock (grown in the lab)",
+    isolated: {site: "Dock", season: "fall"},  // grown from Dock water collected in fall
     story: "A new species we grew in the lab from Dock water, even though we could not find its DNA in any water sample. When oxygen runs out, its genes let it breathe rusty iron, passing electrons out through its cell wall like a tiny electric wire.",
     activities: ["Breathes rusty iron and other metals (MtrA, MtrB, MtrC)", "Makes an omega-3 fat that keeps it soft in the cold (pfaABCD)", "Swims with a whip-like tail"],
     tags: ["Grown in the Lab", "New Species", "Metal Breather", "100% Complete Genome"]

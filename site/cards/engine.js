@@ -131,7 +131,7 @@ const TOXINS = [  // antiSMASH cluster type -> quick toxin attack (first match w
 
 // ---------- helpers ----------
 const SEASON_OF = m => m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'fall' : 'winter';
-const SEASONS = {spring: {name: 'Spring', icon: '🌸'}, summer: {name: 'Summer', icon: '🌞'}, fall: {name: 'Fall', icon: '🍁'}, winter: {name: 'Winter', icon: '❄️'}};
+const SEASONS = {spring: {name: 'Spring', icon: '🌨️'}, summer: {name: 'Summer', icon: '🌞'}, fall: {name: 'Fall', icon: '🌬️'}, winter: {name: 'Winter', icon: '❄️'}};
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 const tier = (v, cuts) => cuts.filter(c => v >= c).length;
 const cellsText = n => n >= 1e6 ? `${n >= 1e7 ? Math.round(n / 1e6) : Math.round(n / 1e5) / 10} million` : n >= 1e3 ? `${Math.round(n / 1e3)} thousand` : 'a few';
@@ -319,10 +319,17 @@ function microbeCard(c, nar, D, num) {
   const bySite = {};
   f.found.forEach(r => { (bySite[r.site] = bySite[r.site] || new Set()).add(r.season); });
   card.home = Object.entries(bySite).map(([site, s]) => ({site, seasons: [...s]}));
+  // a microbe grown in the lab (candidates.js `isolated`) also counts as found where its water was collected
+  const iso = f.n.isolated;
+  if (iso && iso.site) {
+    const h = card.home.find(x => x.site === iso.site);
+    if (h) { if (!h.seasons.includes(iso.season || null)) h.seasons.push(iso.season || null); h.lab = true; }
+    else card.home.push({site: iso.site, seasons: [iso.season || null], lab: true});
+  }
   card.homeText = card.home.map(h => h.site).join(', ');
   // peak season: the season of its highest count among dated samples (none if no sample had a date)
   const dated = f.found.filter(r => r.season).sort((a, b) => b.cells - a.cells);
-  card.peak = dated.length ? dated[0].season : null;
+  card.peak = dated.length ? dated[0].season : iso && iso.season || null;
   card.science = scienceLine(f, life, card);
   card.stats = statNotes(f, card, spread, b, big, move);
   return card;
@@ -372,8 +379,8 @@ function placeCards(cards, D, community) {
   return out;
 }
 const SEASON_TEXT = {
-  spring: 'Microbes that peak in spring (🌸 on their card) do +10 damage here.',
-  fall: 'Microbes that peak in fall (🍁 on their card) do +10 damage here.',
+  spring: 'Microbes that peak in spring (🌨️ on their card) do +10 damage here.',
+  fall: 'Microbes that peak in fall (🌬️ on their card) do +10 damage here.',
   summer: 'Microbes that peak in summer do +10 damage here.', winter: 'Microbes that peak in winter do +10 damage here.',
 };
 
