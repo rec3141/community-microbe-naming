@@ -39,7 +39,7 @@ function microbeFace(c, total) {
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
     <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span><span class="hp"><small>HP</small>${c.hp}</span></div>
-    <div class="sub"><span>${L.icon} ${esc(L.name)}</span><span>${esc(c.className || c.envelopeName)}</span></div>
+    <div class="sub"><span>${esc(c.className || c.envelopeName)}</span><span>${L.icon} ${esc(L.name)}</span></div>
     <div class="art"><div class="badges left">${left}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
     ${c.ability ? `<div class="abil"><b>✦ ${esc(c.ability.name)}</b> ${esc(c.ability.text)}</div>` : ''}
     <div class="atks">${c.attacks.map(attack).join('')}</div>

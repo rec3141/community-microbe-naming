@@ -1,6 +1,6 @@
 # Microbe Cartoon Prompts & Generation Metadata
 
-This directory contains the 12 circular cartoon microbe illustrations created for the Chesterfield Inlet Bacterial Naming Workshop.
+This directory contains the circular cartoon microbe illustrations for the Chesterfield Inlet (Igluligaarjuk) naming workshop. Each section lists the nickname the microbe has on the site now (nicknames change; the file names and MAG ids do not).
 
 - **Generator Engine**: Google **Imagen 3** (via Google Vertex AI / GenAI `generate_image` endpoint)
 - **Aspect Ratio**: `1:1` square, centered circular composition, cropped to circle
@@ -34,7 +34,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_01 — The Harbor Sulfur Eater
+## microbe_01 — Tidal Thio (#1) — The Harbor Sulfur Eater
+- **Nickname on the site**: Tidal Thio (microbe #1, `dastool-lorbin_055`)
 - **File**: [`microbe_01.png`](microbe_01.png)
 - **Candidate MAG**: `dastool-lorbin_055`
 - **Taxonomic Rank/Status**: *Thioglobus_A sp. nov.* (Marine)
@@ -44,7 +45,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_02 — The Ice-Shelf Grazer
+## microbe_02 — Peckish Penny (#2) — The Ice-Shelf Grazer
+- **Nickname on the site**: Peckish Penny (microbe #2, `W02_polaribacter`)
 - **File**: [`microbe_02.png`](microbe_02.png)
 - **Candidate MAG**: `dastool-metabat_11223`
 - **Taxonomic Rank/Status**: *Polaribacter sp. nov.* (Marine)
@@ -54,7 +56,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_03 — The Marine Snow Glider
+## microbe_03 — Surfing Shelly (#3) — The Marine Snow Glider
+- **Nickname on the site**: Surfing Shelly (microbe #3, `dastool-metabat_11223`)
 - **File**: [`microbe_03.png`](microbe_03.png)
 - **Candidate MAG**: `dastool-semibin_075`
 - **Taxonomic Rank/Status**: *TMED14 / Schleiferiaceae gen. nov.* (Marine)
@@ -64,7 +67,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_04 — The Harbor Virus Defender
+## microbe_04 — Gutsy Gamma (#4) — The Harbor Virus Defender
+- **Nickname on the site**: Gutsy Gamma (microbe #4, `dastool-semibin_075`)
 - **File**: [`microbe_04.png`](microbe_04.png)
 - **Candidate MAG**: `dastool-lorbin_002`
 - **Taxonomic Rank/Status**: *UBA4466 / Thioglobaceae gen. nov.* (Marine)
@@ -74,7 +78,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_05 — The Arctic Harbor Producer
+## microbe_05 — Busy Bea (#5) — The Arctic Harbor Producer
+- **Nickname on the site**: Busy Bea (microbe #5, `dastool-lorbin_002`)
 - **File**: [`microbe_05.png`](microbe_05.png)
 - **Candidate MAG**: `dastool-lorbin_051`
 - **Taxonomic Rank/Status**: *Belliella sp. nov.* (Marine)
@@ -84,7 +89,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_06 — The Solar Carbon Recycler
+## microbe_06 — Leftover Lily (#6) — The Solar Carbon Recycler
+- **Nickname on the site**: Leftover Lily (microbe #6, `W06_methylophilid`)
 - **File**: [`microbe_06.png`](microbe_06.png)
 - **Candidate MAG**: `dastool-comebin_832`
 - **Taxonomic Rank/Status**: *Pelagibacteraceae gen. nov.* (Marine)
@@ -94,7 +100,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_07 — The Lakebed Glider
+## microbe_07 — Feasting Fern (#7) — The Lakebed Glider
+- **Nickname on the site**: Feasting Fern (microbe #7, `dastool-comebin_6520`)
 - **File**: [`microbe_07.png`](microbe_07.png)
 - **Candidate MAG**: `dastool-lorbin_006`
 - **Taxonomic Rank/Status**: *Ferruginibacter sp. nov.* (Freshwater)
@@ -105,6 +112,7 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 ---
 
 ## microbe_08 — The Moss-Dwelling Mother
+- **Nickname on the site**: none (this picture is not used on the site now)
 - **File**: [`microbe_08.png`](microbe_08.png)
 - **Candidate MAG**: `dastool-lorbin_030`
 - **Taxonomic Rank/Status**: *Isosphaeraceae gen. nov.* (Freshwater)
@@ -114,7 +122,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_09 — The C-Shaped Plankton
+## microbe_09 — Persistent Polly (#8) — The C-Shaped Plankton
+- **Nickname on the site**: Persistent Polly (microbe #8, `W09_polynucleobacter`)
 - **File**: [`microbe_09.png`](microbe_09.png)
 - **Candidate MAG**: `dastool-metabat_4130`
 - **Taxonomic Rank/Status**: *Polynucleobacter sp. nov.* (Freshwater)
@@ -125,6 +134,7 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 ---
 
 ## microbe_10 — The Flagellated Grazer
+- **Nickname on the site**: none (this picture is not used on the site now)
 - **File**: [`microbe_10.png`](microbe_10.png)
 - **Candidate MAG**: `dastool-lorbin_069`
 - **Taxonomic Rank/Status**: *Planctomycetaceae gen. nov.* (Freshwater)
@@ -134,7 +144,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_11 — The Sub-Zero Nitrogen Purifier
+## microbe_11 — Northern Toga (#9) — The Sub-Zero Nitrogen Purifier
+- **Nickname on the site**: Northern Toga (microbe #9, `W11_nitrotoga`)
 - **File**: [`microbe_11.png`](microbe_11.png)
 - **Candidate MAG**: `dastool-comebin_3630`
 - **Taxonomic Rank/Status**: *Nitrotoga sp. nov.* (Freshwater)
@@ -145,6 +156,7 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 ---
 
 ## microbe_12 — The Sun-Lit Tundra Lake Recycler
+- **Nickname on the site**: none (this picture is not used on the site now)
 - **File**: [`microbe_12.png`](microbe_12.png)
 - **Candidate MAG**: `dastool-lorbin_054`
 - **Taxonomic Rank/Status**: *Aurantibacillus sp. nov.* (Freshwater)
@@ -156,7 +168,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_A2_planktophila — The Tiny Lake Sun-Sipper
+## microbe_A2_planktophila — Pint-sized Phil (#10) — The Tiny Lake Sun-Sipper
+- **Nickname on the site**: Pint-sized Phil (microbe #10, `A2_planktophila`)
 - **File**: [`microbe_A2_planktophila.png`](microbe_A2_planktophila.png)
 - **Candidate MAG**: `A2_Planktophila_semibin_003` (Chesterfield-only freshwater co-assembly, Flye reassembly from >=96%-identity reads)
 - **Taxonomic Rank/Status**: *Planktophila sp. nov.* (Freshwater; Nanopelagicaceae, acI lineage)
@@ -167,7 +180,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N1_amylibacter — Amylibacter (Itivia, marine)
+## microbe_N1_amylibacter — Sunny Amy (#11) — Amylibacter (Itivia, marine)
+- **Nickname on the site**: Sunny Amy (microbe #11, `N1_amylibacter`)
 - **File**: [`microbe_N1_amylibacter.png`](microbe_N1_amylibacter.png)
 - **Genome**: `N1_amylibacter` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -177,7 +191,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N2_caivzm01 — CAIVZM01, Armatimonadota (2nd Lake)
+## microbe_N2_caivzm01 — Arcane Ari (#12) — CAIVZM01, Armatimonadota (2nd Lake)
+- **Nickname on the site**: Arcane Ari (microbe #12, `N2_caivzm01`)
 - **File**: [`microbe_N2_caivzm01.png`](microbe_N2_caivzm01.png)
 - **Genome**: `N2_caivzm01` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -187,7 +202,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N3_peredibacter — Peredibacter, a predator (1st Lake)
+## microbe_N3_peredibacter — Pouncing Perry (#13) — Peredibacter, a predator (1st Lake)
+- **Nickname on the site**: Pouncing Perry (microbe #13, `N3_peredibacter`)
 - **File**: [`microbe_N3_peredibacter.png`](microbe_N3_peredibacter.png)
 - **Genome**: `N3_peredibacter` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -197,7 +213,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N4_bdellovibrio — Bdellovibrio, a predator (2nd Lake)
+## microbe_N4_bdellovibrio — Dashing Della (#14) — Bdellovibrio, a predator (2nd Lake)
+- **Nickname on the site**: Dashing Della (microbe #14, `N4_bdellovibrio`)
 - **File**: [`microbe_N4_bdellovibrio.png`](microbe_N4_bdellovibrio.png)
 - **Genome**: `N4_bdellovibrio` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -207,7 +224,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N5_uba845 — UBA845, a predator (Tuktuttaa/Dock, marine)
+## microbe_N5_uba845 — Bold Bax (#15) — UBA845, a predator (Tuktuttaa/Dock, marine)
+- **Nickname on the site**: Bold Bax (microbe #15, `N5_uba845`)
 - **File**: [`microbe_N5_uba845.png`](microbe_N5_uba845.png)
 - **Genome**: `N5_uba845` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -217,7 +235,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N6_k1 — Pseudothioglobaceae sulfur oxidizer (Itivia, marine)
+## microbe_N6_k1 — Wandering Wanda (#16) — Pseudothioglobaceae sulfur oxidizer (Itivia, marine)
+- **Nickname on the site**: Wandering Wanda (microbe #16, `N6_k1`)
 - **File**: [`microbe_N6_k1.png`](microbe_N6_k1.png)
 - **Genome**: `N6_k1` (community-only bin, mapped and annotated on its own)
 - **Generator**: agy image-generator subagent
@@ -227,7 +246,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N7_marimicrobium — Marimicrobium, alkane-degrading sea bacterium (Itivia/Dock, marine)
+## microbe_N7_marimicrobium — Mighty Mari (#17) — Marimicrobium, alkane-degrading sea bacterium (Itivia/Dock, marine)
+- **Nickname on the site**: Mighty Mari (microbe #17, `N7_marimicrobium`)
 - **File**: [`microbe_N7_marimicrobium.png`](microbe_N7_marimicrobium.png)
 - **Genome**: `N7_marimicrobium` (Marimicrobium sp. (Halieaceae, marine))
 - **Generator**: agy image-generator subagent
@@ -237,7 +257,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N8_uba9145 — UBA9145, swimming Hudson Bay bacterium (Itivia/Dock, marine)
+## microbe_N8_uba9145 — Plucky Paddler (#18) — UBA9145, swimming Hudson Bay bacterium (Itivia/Dock, marine)
+- **Nickname on the site**: Plucky Paddler (microbe #18, `N8_uba9145`)
 - **File**: [`microbe_N8_uba9145.png`](microbe_N8_uba9145.png)
 - **Genome**: `N8_uba9145` (UBA9145 sp. (Pseudohongiellaceae, marine))
 - **Generator**: agy image-generator subagent
@@ -247,7 +268,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N9_uba10364 — UBA10364, gliding seaweed-sugar degrader (Itivia/Tuktuttaa/Dock, marine)
+## microbe_N9_uba10364 — Seaweed Sam (#19) — UBA10364, gliding seaweed-sugar degrader (Itivia/Tuktuttaa/Dock, marine)
+- **Nickname on the site**: Seaweed Sam (microbe #19, `N9_uba10364`)
 - **File**: [`microbe_N9_uba10364.png`](microbe_N9_uba10364.png)
 - **Genome**: `N9_uba10364` (UBA10364 sp. (Schleiferiaceae, Flavobacteriales, marine))
 - **Generator**: agy image-generator subagent
@@ -257,7 +279,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N10_uba9320 — UBA9320, mysterious particle-dwelling bacterium (Tuktuttaa/Itivia/Dock, marine)
+## microbe_N10_uba9320 — Mystery Max (#20) — UBA9320, mysterious particle-dwelling bacterium (Tuktuttaa/Itivia/Dock, marine)
+- **Nickname on the site**: Mystery Max (microbe #20, `N10_uba9320`)
 - **File**: [`microbe_N10_uba9320.png`](microbe_N10_uba9320.png)
 - **Genome**: `N10_uba9320` (UBA9320 sp. (order NS11-12g, Bacteroidia, marine))
 - **Generator**: agy image-generator subagent
@@ -267,7 +290,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N12_nitrosopumilus — Nitrosopumilus, ammonia-oxidizing archaeon (Dock/Tuktuttaa, marine)
+## microbe_N12_nitrosopumilus — Nano Nitro (#21) — Nitrosopumilus, ammonia-oxidizing archaeon (Dock/Tuktuttaa, marine)
+- **Nickname on the site**: Nano Nitro (microbe #21, `N12_nitrosopumilus`)
 - **File**: [`microbe_N12_nitrosopumilus.png`](microbe_N12_nitrosopumilus.png)
 - **Genome**: `N12_nitrosopumilus` (Nitrosopumilus sp. (Nitrosopumilaceae, Thermoproteota; an archaeon, marine))
 - **Generator**: agy image-generator subagent
@@ -277,7 +301,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N11_caisji01 — CAISJI01, budding Planctomycete (2nd Lake, freshwater)
+## microbe_N11_caisji01 — Sweet Sue (#22) — CAISJI01, budding Planctomycete (2nd Lake, freshwater)
+- **Nickname on the site**: Sweet Sue (microbe #22, `N11_caisji01`)
 - **File**: [`microbe_N11_caisji01.png`](microbe_N11_caisji01.png)
 - **Genome**: `N11_caisji01` (CAISJI01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
 - **Generator**: agy image-generator subagent
@@ -287,7 +312,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N13_mycobacterium — Mycobacterium, waxy-coated lake rod (1st Lake, freshwater)
+## microbe_N13_mycobacterium — Mantled Myco (#23) — Mycobacterium, waxy-coated lake rod (1st Lake, freshwater)
+- **Nickname on the site**: Mantled Myco (microbe #23, `N13_mycobacterium`)
 - **File**: [`microbe_N13_mycobacterium.png`](microbe_N13_mycobacterium.png)
 - **Genome**: `N13_mycobacterium` (Mycobacterium sp. nov. (Mycobacteriaceae, freshwater))
 - **Generator**: agy image-generator subagent
@@ -297,7 +323,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N14_atzt02 — ATZT02, tiny crowd-forming lake bacterium (3rd Lake, freshwater)
+## microbe_N14_atzt02 — Abundant Actino (#24) — ATZT02, tiny crowd-forming lake bacterium (3rd Lake, freshwater)
+- **Nickname on the site**: Abundant Actino (microbe #24, `N14_atzt02`)
 - **File**: [`microbe_N14_atzt02.png`](microbe_N14_atzt02.png)
 - **Genome**: `N14_atzt02` (ATZT02 sp. (UBA5976, order S36-B12, Actinomycetota, freshwater))
 - **Generator**: agy image-generator subagent
@@ -307,7 +334,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_I1_pseudoalteromonas — Pseudoalteromonas, lab-grown seaweed-cutting rod (Dock isolate, marine)
+## microbe_I1_pseudoalteromonas — Patient Pearl (#25) — Pseudoalteromonas, lab-grown seaweed-cutting rod (Dock isolate, marine)
+- **Nickname on the site**: Patient Pearl (microbe #25, `I1_pseudoalteromonas`)
 - **File**: [`microbe_I1_pseudoalteromonas.png`](microbe_I1_pseudoalteromonas.png)
 - **Genome**: `I1_pseudoalteromonas` (Pseudoalteromonas sp000239855 (Alteromonadaceae, Gammaproteobacteria; isolate grown from Dock water, marine))
 - **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), cropped to the circle and resized to 560x560 PNG
@@ -317,7 +345,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_I2_shewanella — Shewanella, lab-grown metal-breathing rod (Dock isolate, marine)
+## microbe_I2_shewanella — Shocking Shay (#26) — Shewanella, lab-grown metal-breathing rod (Dock isolate, marine)
+- **Nickname on the site**: Shocking Shay (microbe #26, `I2_shewanella`)
 - **File**: [`microbe_I2_shewanella.png`](microbe_I2_shewanella.png)
 - **Genome**: `I2_shewanella` (Shewanella sp. nov. (Shewanellaceae, Gammaproteobacteria; isolate grown from Dock water, marine))
 - **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), cropped to the circle and resized to 560x560 PNG
@@ -327,7 +356,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N15_camcqy01 — CAMCQY01, ice-grabbing 3rd Lake budding bacterium (freshwater)
+## microbe_N15_camcqy01 — Polar Ella (#27) — CAMCQY01, ice-grabbing 3rd Lake budding bacterium (freshwater)
+- **Nickname on the site**: Polar Ella (microbe #27, `N15_camcqy01`)
 - **File**: [`microbe_N15_camcqy01.png`](microbe_N15_camcqy01.png)
 - **Genome**: `N15_camcqy01` (CAMCQY01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
 - **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
@@ -337,7 +367,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N16_qwop01 — QWOP01, spear-carrying 1st Lake budding bacterium (freshwater)
+## microbe_N16_qwop01 — Piercing Percy (#28) — QWOP01, spear-carrying 1st Lake budding bacterium (freshwater)
+- **Nickname on the site**: Piercing Percy (microbe #28, `N16_qwop01`)
 - **File**: [`microbe_N16_qwop01.png`](microbe_N16_qwop01.png)
 - **Genome**: `N16_qwop01` (QWOP01 sp. nov. (UBA1268, Pirellulales, Planctomycetota, freshwater))
 - **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
@@ -347,7 +378,8 @@ agy -p "Use the image-generator subagent to create: $PROMPT. Save to communities
 
 ---
 
-## microbe_N17_camcqy01 — CAMCQY01, lake-hopping budding bacterium (all three lakes, freshwater)
+## microbe_N17_camcqy01 — Hopping Pip (#29) — CAMCQY01, lake-hopping budding bacterium (all three lakes, freshwater)
+- **Nickname on the site**: Hopping Pip (microbe #29, `N17_camcqy01`)
 - **File**: [`microbe_N17_camcqy01.png`](microbe_N17_camcqy01.png)
 - **Genome**: `N17_camcqy01` (CAMCQY01 sp. (UBA1268, Pirellulales, Planctomycetota, freshwater))
 - **Generator**: OpenRouter `google/gemini-3.1-flash-image` (1:1), resized to 560x560 PNG
