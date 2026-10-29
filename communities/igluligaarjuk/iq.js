@@ -119,7 +119,7 @@ window.IQ_CONTENT = {
     },
 
     "W09_polynucleobacter": {
-      hook: "Dip a cup into 2nd Lake in the fall and you scoop up millions of these tiny cells, feeding on what washes in from the land.",
+      hook: "Dip a cup into Akulliit (2nd Lake) in the fall and you scoop up millions of these tiny cells, feeding on what washes in from the land.",
       items: [
         {key: "inuuqatigiitsiarniq", clue: "Its relatives were first found living as partners inside a single-celled pond creature.", q: "Where do you see living things, or people, depending on partners to get by here?"},
         {key: "pijitsirniq", clue: "It feeds on simple molecules washed in from the land, passing that carbon on into the lake's food web.", q: "What does the land give the lakes, and what do the lakes give back to the animals and people around them?"},
@@ -127,7 +127,7 @@ window.IQ_CONTENT = {
     },
 
     "W11_nitrotoga": {
-      hook: "It turns nitrite, which can harm fish, into nitrate, which feeds algae and plants. We found it only in 3rd Lake in late May, when the lake was still cold and probably still under ice.",
+      hook: "It turns nitrite, which can harm fish, into nitrate, which feeds algae and plants. We found it only in Amaruqtalik (3rd Lake) in late May, when the lake was still cold and probably still under ice.",
       items: [
         {key: "pilimmaksarniq", clue: "Nitrite can harm fish if it builds up. This microbe's genes suggest it clears nitrite away.", q: "How do people who fish tell whether a lake or its fish are healthy? How is that skill learned?"},
         {key: "piliriqatigiinniq", clue: "It does one step of the nitrogen cycle; other microbes do the steps before and after it.", q: "Think of a job here that passes from person to person, each doing one step. What happens when one step is missing?"},
@@ -151,15 +151,15 @@ window.IQ_CONTENT = {
     },
 
     "N2_caivzm01": {
-      hook: "The 2nd Lake mystery: it lives in 2nd Lake but hardly at all in 1st or 3rd Lake, and two out of three of its genes look like nothing scientists have studied.",
+      hook: "The Akulliit (2nd Lake) mystery: it lives in Akulliit (2nd Lake) but hardly at all in 1st or Amaruqtalik (3rd Lake), and two out of three of its genes look like nothing scientists have studied.",
       items: [
-        {key: ["aajiiqatigiinniq", "qanuqtuurniq"], clue: "Each lake has its own depth, water chemistry and plants, and small differences can decide which microbes do well.", q: "Why only 2nd Lake? Put together what everyone in the room knows about the three lakes. Can you agree on a best explanation?"},
+        {key: ["aajiiqatigiinniq", "qanuqtuurniq"], clue: "Each lake has its own depth, water chemistry and plants, and small differences can decide which microbes do well.", q: "Why only Akulliit (2nd Lake)? Put together what everyone in the room knows about the three lakes. Can you agree on a best explanation?"},
         {key: "tunnganarniq", clue: "Scientists know very little about its group, and two of every three of its genes are a mystery.", q: "How should a group approach something nobody understands yet? What makes it easy to say 'I don't know' out loud?"},
       ],
     },
 
     "N3_peredibacter": {
-      hook: "A hunter: its relatives swim into a bigger bacterium, eat it from the inside and burst out as new cells. In one 1st Lake sample there were about 140 million of them in a litre of water.",
+      hook: "A hunter: its relatives swim into a bigger bacterium, eat it from the inside and burst out as new cells. In one Puirsuk (1st Lake) sample there were about 140 million of them in a litre of water.",
       items: [
         {key: "avatittinnik", clue: "Hunters like this keep other bacteria in check, a little like wolves and caribou.", q: "How do people know when there are too many or too few of an animal? Does caring for the land include the hunters as well as the hunted?"},
         {key: "pilimmaksarniq", clue: "To hunt, it swims and steers toward chemical signals until it finds its prey.", q: "How do young hunters learn to read signs and find their way? Who teaches them, and how?"},
@@ -231,7 +231,7 @@ window.IQ_CONTENT = {
     },
 
     "N11_caisji01": {
-      hook: "It makes new cells by budding, a bit like yeast, instead of splitting in two. In 2nd Lake one litre of water held about 137 million of them.",
+      hook: "It makes new cells by budding, a bit like yeast, instead of splitting in two. In Akulliit (2nd Lake) one litre of water held about 137 million of them.",
       items: [
         {key: "qanuqtuurniq", clue: "It has 28 enzymes that cut sulfate tags off sugars, so it can eat sugars many other microbes cannot.", q: "What foods or materials do people here make use of that others might pass over? How did people learn to use them?"},
         {key: "pilimmaksarniq", clue: "A new cell starts as a small bud on its parent and grows until it can go off on its own.", q: "How do young people here grow into doing things on their own? What has to happen before someone is ready?"},
@@ -239,7 +239,7 @@ window.IQ_CONTENT = {
     },
 
     "N13_mycobacterium": {
-      hook: "A new species wrapped in a thick, waxy coat. It lives in 1st Lake, with up to about 31 million cells in a litre of water in September.",
+      hook: "A new species wrapped in a thick, waxy coat. It lives in Puirsuk (1st Lake), with up to about 31 million cells in a litre of water in September.",
       items: [
         {key: "qanuqtuurniq", clue: "Its waxy coat, made of long fatty molecules, keeps it from drying out and protects it from harsh chemicals.", q: "What makes a good outer layer for life in this place, for a person, an animal or a microbe? What does each one need to keep out?"},
         {key: "aajiiqatigiinniq", clue: "It shares its genus with the bacterium that causes tuberculosis, but most of its relatives live in soil and water and do not make people sick.", q: "A name can bring up worries before people know the facts. How should the group talk about a microbe whose name sounds like a disease? What should everyone know first?"},
@@ -247,25 +247,25 @@ window.IQ_CONTENT = {
     },
 
     "N14_atzt02": {
-      hook: "A small-genome microbe that fills 3rd Lake in the fall: up to about 180 million cells in a single litre of water. Far to the south, it also lives in lakes near The Pas, Manitoba.",
+      hook: "A small-genome microbe that fills Amaruqtalik (3rd Lake) in the fall: up to about 180 million cells in a single litre of water. Far to the south, it also lives in lakes near The Pas, Manitoba.",
       items: [
-        {key: "avatittinnik", clue: "In the fall it is one of the most common microbes in 3rd Lake, but in 1st Lake we found only traces of its cousins.", q: "How are the three lakes behind town different from each other? Who here knows them best, and what do they notice?"},
+        {key: "avatittinnik", clue: "In the fall it is one of the most common microbes in Amaruqtalik (3rd Lake), but in Puirsuk (1st Lake) we found only traces of its cousins.", q: "How are the three lakes behind town different from each other? Who here knows them best, and what do they notice?"},
         {key: "inuuqatigiitsiarniq", clue: "The same species lives in lakes near The Pas in Manitoba, far to the south.", q: "What links a lake near Igluligaarjuk with a lake far to the south? How could a tiny microbe get from one to the other?"},
       ],
     },
 
     "N15_camcqy01": {
-      hook: "It fills 3rd Lake in the fall and carries proteins that can grab onto ice.",
+      hook: "It fills Amaruqtalik (3rd Lake) in the fall and carries proteins that can grab onto ice.",
       items: [
-        {key: "avatittinnik", clue: "We found it in all three lakes, most of all in 3rd Lake, but not in any of our samples from Hudson Bay or the rest of Manitoba.", q: "If a microbe might live only in these lakes, what does that mean for how people here look after them?"},
+        {key: "avatittinnik", clue: "We found it in all three lakes, most of all in Amaruqtalik (3rd Lake), but not in any of our samples from Hudson Bay or the rest of Manitoba.", q: "If a microbe might live only in these lakes, what does that mean for how people here look after them?"},
         {key: "qanuqtuurniq", clue: "It has four proteins of a kind that cold-water microbes use to grab onto ice crystals, probably to survive freezing.", q: "How do people here get ready for freeze-up? What clever ways have people found to deal with ice and cold?"},
       ],
     },
 
     "N16_qwop01": {
-      hook: "A 1st Lake microbe whose genes build a tiny spear that some bacteria use to stab their neighbours.",
+      hook: "A Puirsuk (1st Lake) microbe whose genes build a tiny spear that some bacteria use to stab their neighbours.",
       items: [
-        {key: "inuuqatigiitsiarniq", clue: "It shares 1st Lake with many other microbes, and its genes build a spear that some bacteria use against competitors.", q: "When many people share the same lake or hunting area, how do they keep good relationships and sort out disagreements?"},
+        {key: "inuuqatigiitsiarniq", clue: "It shares Puirsuk (1st Lake) with many other microbes, and its genes build a spear that some bacteria use against competitors.", q: "When many people share the same lake or hunting area, how do they keep good relationships and sort out disagreements?"},
         {key: "pilimmaksarniq", clue: "Scientists know what the spear is, but not yet what this one shoots. Finding out means growing it and watching it closely.", q: "How do you learn what something does by watching it carefully over time? Who taught you to watch that way?"},
       ],
     },
@@ -273,7 +273,7 @@ window.IQ_CONTENT = {
     "N17_camcqy01": {
       hook: "It lives in all three lakes and turns up again in the Churchill River estuary, far to the south.",
       items: [
-        {key: "piliriqatigiinniq", clue: "The same microbe lives in 1st, 2nd and 3rd Lake, so the lakes are linked by water and by the life that moves between them.", q: "The lakes are connected. How can people who use different lakes work together to look after all of them?"},
+        {key: "piliriqatigiinniq", clue: "The same microbe lives in Puirsuk, Akulliit and Amaruqtalik (1st, 2nd and 3rd Lake), so the lakes are linked by water and by the life that moves between them.", q: "The lakes are connected. How can people who use different lakes work together to look after all of them?"},
         {key: "aajiiqatigiinniq", clue: "Its closest known relative shares about 94.7% of its DNA, just under the 95% line for 'same species', so scientists could disagree about whether it is new.", q: "When the evidence sits right on a line, how should a group decide? How are decisions like that made here?"},
       ],
     },

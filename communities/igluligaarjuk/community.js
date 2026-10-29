@@ -10,7 +10,7 @@ window.COMMUNITY = {
   englishName: 'Chesterfield Inlet',
   localLabel: 'Chesterfield',               // short name used in tables: "an average Chesterfield sample"
   foundWhere: 'in the inlet and the lakes behind town',
-  habitats: {marine: 'harbour, Itivia, inlet', freshwater: '1st, 2nd and 3rd Lake'},
+  habitats: {marine: 'harbour, Itivia, inlet', freshwater: 'Puirsuk, Akulliit and Amaruqtalik (1st, 2nd and 3rd Lake)'},
   language: 'Inuktitut',
   scriptName: 'syllabics',                  // leave empty if the language is written in roman letters only
   wordExamples: ['ice', 'siku', 'ᓯᑯ'],

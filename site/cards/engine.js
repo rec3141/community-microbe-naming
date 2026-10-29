@@ -365,7 +365,9 @@ function placeCards(cards, D, community) {
   // a place card is only worth printing if at least 2 microbes were found there in that season
   const keep = out.filter(p => p.homes.filter(h => !h.undated).length >= 2);
   out.length = 0; out.push(...keep);
-  out.sort((a, b) => (a.water === b.water ? 0 : a.water === 'marine' ? -1 : 1) || a.name.localeCompare(b.name) || a.season.localeCompare(b.season));
+  // order by the familiar name in brackets when there is one, e.g. 'Puirsuk (1st Lake)' sorts as '1st Lake'
+  const sortName = n => (/\(([^)]+)\)\s*$/.exec(n) || [, n])[1];
+  out.sort((a, b) => (a.water === b.water ? 0 : a.water === 'marine' ? -1 : 1) || sortName(a.name).localeCompare(sortName(b.name)) || a.season.localeCompare(b.season));
   out.forEach((p, i) => { p.num = cards.length + i + 1; });
   return out;
 }

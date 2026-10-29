@@ -187,16 +187,16 @@ window.CANDIDATES = [
     n50: "450 kbp",
     gc: "40.0%",
     rrna: "16S + 2× 23S rRNA, 20/20 tRNAs",
-    ciEnrichment: "A very close cousin in 1st & 2nd Lake (reads match at ~95–96%), up to ~3 million cells/L in September & October",
-    whereInCI: "1st Lake, 2nd Lake",
-    story: "A completely unnamed species of Ferruginibacter whose very close cousin lives in Chesterfield Inlet's 1st Lake and 2nd Lake! With a 97.3%-complete genome (N50 450 kbp) and full rRNAs/tRNAs, it breaks down tundra plant polysaccharides and crustacean/insect chitin washed into the lakes.",
+    ciEnrichment: "A very close cousin in Puirsuk & Akulliit (1st & 2nd Lake) (reads match at ~95–96%), up to ~3 million cells/L in September & October",
+    whereInCI: "Puirsuk (1st Lake), Akulliit (2nd Lake)",
+    story: "A completely unnamed species of Ferruginibacter whose very close cousin lives in Chesterfield Inlet's Puirsuk (1st Lake) and Akulliit (2nd Lake)! With a 97.3%-complete genome (N50 450 kbp) and full rRNAs/tRNAs, it breaks down tundra plant polysaccharides and crustacean/insect chitin washed into the lakes.",
     activities: [
       "Rich suite of carbohydrate-active enzymes (15 GT2, 8 GT4, GH92, GH36, GH3, xylan & alginate lyases)",
       "Uses 20+ TonB-dependent receptors and Type IX Secretion System (PorP/SprF) for gliding & polymer digestion",
       "Produces protective carotenoids/terpenes and T3PKS secondary metabolites",
       "Top EcoSSDB score (0.78) for filtering wastes and pollutants out of lake water"
     ],
-    tags: ["Novel Ferruginibacter Species", "1st & 2nd Lake Resident", "97.3% Complete (N50 450 kbp)", "Tundra Plant & Chitin Recycler"],
+    tags: ["Novel Ferruginibacter Species", "Puirsuk & Akulliit (1st & 2nd Lake) Resident", "97.3% Complete (N50 450 kbp)", "Tundra Plant & Chitin Recycler"],
     defaultGenus: "Ferruginibacter"
   },
   {
@@ -215,16 +215,16 @@ window.CANDIDATES = [
     n50: "328 kbp",
     gc: "45.0%",
     rrna: "16S + 23S rRNA, 19/20 tRNAs",
-    ciEnrichment: "5–10 million cells/L in almost every 2nd Lake sample (Sept & Oct); also 1st Lake in fall and 3rd Lake in late May; widespread in Manitoba lakes",
-    whereInCI: "2nd Lake, 1st Lake, 3rd Lake",
-    story: "At 99.8% completeness and only 0.06% contamination, this is one of the most complete genomes on this site! It turns up again and again in 2nd Lake, with about 5 to 10 million cells in a litre in September and October, feeding on the organic acids that wash in from the tundra.",
+    ciEnrichment: "5–10 million cells/L in almost every Akulliit (2nd Lake) sample (Sept & Oct); also Puirsuk (1st Lake) in fall and Amaruqtalik (3rd Lake) in late May; widespread in Manitoba lakes",
+    whereInCI: "Akulliit (2nd Lake), Puirsuk (1st Lake), Amaruqtalik (3rd Lake)",
+    story: "At 99.8% completeness and only 0.06% contamination, this is one of the most complete genomes on this site! It turns up again and again in Akulliit (2nd Lake), with about 5 to 10 million cells in a litre in September and October, feeding on the organic acids that wash in from the tundra.",
     activities: [
       "22 complete metabolic modules—full TCA cycle, gluconeogenesis, Sox sulfur oxidation, and ATP synthesis",
       "20+ ABC & Tripartite tricarboxylate transporters to clean up dissolved organic acids from tundra runoff",
       "Synthesizes Biotin (Vitamin B7), Pantothenate (Vitamin B5), Folate (B9), and betalactones",
-      "Found in almost every September and October sample from 2nd Lake, plus 1st Lake in fall and 3rd Lake in spring"
+      "Found in almost every September and October sample from Akulliit (2nd Lake), plus Puirsuk (1st Lake) in fall and Amaruqtalik (3rd Lake) in spring"
     ],
-    tags: ["99.8% Complete Genome", "2nd Lake Regular", "22 Complete Pathways", "Clean-Water Organic Acid Consumer"],
+    tags: ["99.8% Complete Genome", "Akulliit (2nd Lake) Regular", "22 Complete Pathways", "Clean-Water Organic Acid Consumer"],
     defaultGenus: "Polynucleobacter"
   },
   {
@@ -243,16 +243,16 @@ window.CANDIDATES = [
     n50: "203 kbp",
     gc: "51.0%",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    ciEnrichment: "Found only in 3rd Lake in late May (~3 million cells/L); also in the Churchill River estuary and northern Manitoba rivers & lakes",
-    whereInCI: "3rd Lake",
-    story: "Nitrotoga are cold-loving nitrite-oxidizing bacteria that keep Arctic freshwater safe for fish (like Arctic char) by converting toxic nitrite (NO2-) into harmless nitrate (NO3-) at near-0°C temperatures! We found this one only in 3rd Lake in late May, with about 3 million cells in a litre, while the lake was still cold.",
+    ciEnrichment: "Found only in Amaruqtalik (3rd Lake) in late May (~3 million cells/L); also in the Churchill River estuary and northern Manitoba rivers & lakes",
+    whereInCI: "Amaruqtalik (3rd Lake)",
+    story: "Nitrotoga are cold-loving nitrite-oxidizing bacteria that keep Arctic freshwater safe for fish (like Arctic char) by converting toxic nitrite (NO2-) into harmless nitrate (NO3-) at near-0°C temperatures! We found this one only in Amaruqtalik (3rd Lake) in late May, with about 3 million cells in a litre, while the lake was still cold.",
     activities: [
       "Oxidizes toxic nitrite to nitrate via Nitrite Oxidoreductase (Nxr) and many Cytochrome c proteins",
       "Fixes carbon dioxide with RuBisCO (Calvin cycle), powered by nitrite instead of sunlight",
       "Synthesizes Biotin (B7), Tetrahydrofolate (B9), Thiamine (B1), Proline, and scavenges iron",
       "0.02% contamination with 16S + 23S + 5S rRNA and all 20 tRNAs; high EcoSSDB water-chemistry score (0.85)"
     ],
-    tags: ["Cold-Water Nitrite Oxidizer", "Protects Fish Water Quality", "0.02% Contamination", "Spring Find in 3rd Lake"],
+    tags: ["Cold-Water Nitrite Oxidizer", "Protects Fish Water Quality", "0.02% Contamination", "Spring Find in Amaruqtalik (3rd Lake)"],
     defaultGenus: "Nitrotoga"
   },
   {
@@ -262,7 +262,7 @@ window.CANDIDATES = [
     guild: "sunny-scavengers",
     nickname: "Pint-sized Planktophila",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    whereInCI: "2nd Lake, 3rd Lake, 1st Lake",
+    whereInCI: "Akulliit (2nd Lake), Amaruqtalik (3rd Lake), Puirsuk (1st Lake)",
     story: "A tiny lake bacterium with a light-catching pump, found in all three lakes behind town.",
     activities: ["Catches sunlight with a rhodopsin pump", "Breaks down sugars", "Makes vitamin B2"],
     tags: ["Tiny Cell", "Sunlight Helper", "Chesterfield Lakes Specialist", "New Species"]
@@ -286,10 +286,10 @@ window.CANDIDATES = [
     guild: "voracious-vegetarians",
     nickname: "Arcane Armatimonad",
     rrna: "16S + 23S rRNA, 18/20 tRNAs",
-    whereInCI: "2nd Lake, 1st Lake",
-    story: "A rare kind of bacterium that lives in 2nd Lake, where a litre of water can hold about 70 million of its cells. Most of its genes are a mystery.",
+    whereInCI: "Akulliit (2nd Lake), Puirsuk (1st Lake)",
+    story: "A rare kind of bacterium that lives in Akulliit (2nd Lake), where a litre of water can hold about 70 million of its cells. Most of its genes are a mystery.",
     activities: ["Catches sunlight with a rhodopsin pump", "Breaks down plant fibres and chitin", "Fights viruses with CRISPR"],
-    tags: ["2nd Lake Resident", "68% Mystery Genes", "Sunlight Helper", "Needs Genus & Species Name"]
+    tags: ["Akulliit (2nd Lake) Resident", "68% Mystery Genes", "Sunlight Helper", "Needs Genus & Species Name"]
   },
   {
     id: "N3_peredibacter",
@@ -298,10 +298,10 @@ window.CANDIDATES = [
     guild: "happy-hunters",
     nickname: "Prowling Peredibacter",
     rrna: "2× 16S + 3× 23S + 5S rRNA, 19/20 tRNAs",
-    whereInCI: "1st Lake",
-    story: "A fast-swimming hunter from 1st Lake that belongs to a group of bacteria that eat other bacteria.",
+    whereInCI: "Puirsuk (1st Lake)",
+    story: "A fast-swimming hunter from Puirsuk (1st Lake) that belongs to a group of bacteria that eat other bacteria.",
     activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
-    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in 1st Lake", "New Species"]
+    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in Puirsuk (1st Lake)", "New Species"]
   },
   {
     id: "N4_bdellovibrio",
@@ -310,10 +310,10 @@ window.CANDIDATES = [
     guild: "happy-hunters",
     nickname: "Bullet-fast Bdellovibrio",
     rrna: "16S + 23S + 5S rRNA, 19/20 tRNAs",
-    whereInCI: "2nd Lake",
-    story: "A tiny, curved hunter from 2nd Lake. Its relatives are some of the fastest swimmers for their size and eat other bacteria from the inside.",
+    whereInCI: "Akulliit (2nd Lake)",
+    story: "A tiny, curved hunter from Akulliit (2nd Lake). Its relatives are some of the fastest swimmers for their size and eat other bacteria from the inside.",
     activities: ["Swims with a whip-like tail", "Senses where to go (chemotaxis)", "Belongs to a group that eats other bacteria"],
-    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in 2nd Lake", "New Species"]
+    tags: ["Bacteria Hunter", "Fast Swimmer", "Only in Akulliit (2nd Lake)", "New Species"]
   },
   {
     id: "N5_uba845",
@@ -406,10 +406,10 @@ window.CANDIDATES = [
     guild: "voracious-vegetarians",
     nickname: "Plentiful Planctomycete",
     rrna: "16S + 23S + 5S rRNA, 18/20 tRNAs",
-    whereInCI: "2nd Lake, 1st Lake",
-    story: "A big-genome bacterium from 2nd Lake, where a litre of water held up to about 137 million of its cells. Its relatives make new cells by budding instead of splitting in two.",
+    whereInCI: "Akulliit (2nd Lake), Puirsuk (1st Lake)",
+    story: "A big-genome bacterium from Akulliit (2nd Lake), where a litre of water held up to about 137 million of its cells. Its relatives make new cells by budding instead of splitting in two.",
     activities: ["Cuts sulfate tags off sugars (28 sulfatases)", "Catches sunlight with a rhodopsin pump", "Makes hopanoids, molecules that stiffen its membrane"],
-    tags: ["2nd Lake Resident", "Big Genome", "Sunlight Helper", "Needs Genus & Species Name"]
+    tags: ["Akulliit (2nd Lake) Resident", "Big Genome", "Sunlight Helper", "Needs Genus & Species Name"]
   },
   {
     id: "N13_mycobacterium",
@@ -418,10 +418,10 @@ window.CANDIDATES = [
     guild: "sunny-scavengers",
     nickname: "Mantled Mycobacterium",
     rrna: "16S + 2× 23S + 2× 5S rRNA, 20/20 tRNAs",
-    whereInCI: "1st Lake, 2nd Lake",
-    story: "A new species of Mycobacterium from 1st Lake, wrapped in a thick, waxy coat. It was common in mid-September, with up to about 31 million cells in a litre of water.",
+    whereInCI: "Puirsuk (1st Lake), Akulliit (2nd Lake)",
+    story: "A new species of Mycobacterium from Puirsuk (1st Lake), wrapped in a thick, waxy coat. It was common in mid-September, with up to about 31 million cells in a litre of water.",
     activities: ["Builds a waxy coat (mycolic acids)", "Catches sunlight with rhodopsin pumps", "Has RuBisCO, the enzyme plants use to catch carbon dioxide"],
-    tags: ["New Species", "Waxy Coat", "Sunlight Helper", "1st Lake Resident"]
+    tags: ["New Species", "Waxy Coat", "Sunlight Helper", "Puirsuk (1st Lake) Resident"]
   },
   {
     id: "N14_atzt02",
@@ -430,10 +430,10 @@ window.CANDIDATES = [
     guild: "sunny-scavengers",
     nickname: "Abundant Actino",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    whereInCI: "3rd Lake, 2nd Lake",
-    story: "A small-genome lake bacterium that crowds 3rd Lake in the fall: up to about 180 million of its cells in a litre of water.",
+    whereInCI: "Amaruqtalik (3rd Lake), Akulliit (2nd Lake)",
+    story: "A small-genome lake bacterium that crowds Amaruqtalik (3rd Lake) in the fall: up to about 180 million of its cells in a litre of water.",
     activities: ["Catches sunlight with a rhodopsin pump", "Protects itself with glycine betaine", "Gets by with a small genome"],
-    tags: ["3rd Lake Resident", "Tiny Genome", "Sunlight Helper", "Needs Genus & Species Name"]
+    tags: ["Amaruqtalik (3rd Lake) Resident", "Tiny Genome", "Sunlight Helper", "Needs Genus & Species Name"]
   },
   {
     id: "I1_pseudoalteromonas",
@@ -466,10 +466,10 @@ window.CANDIDATES = [
     guild: "voracious-vegetarians",
     nickname: "Polar Pirellulid",
     rrna: "16S + 23S rRNA, 19/20 tRNAs",
-    whereInCI: "3rd Lake, 2nd Lake, 1st Lake",
-    story: "A new species that fills 3rd Lake in the fall: in early October a litre of water held about 73 million of its cells. It carries proteins like the ones some cold-water microbes use to grab onto ice.",
+    whereInCI: "Amaruqtalik (3rd Lake), Akulliit (2nd Lake), Puirsuk (1st Lake)",
+    story: "A new species that fills Amaruqtalik (3rd Lake) in the fall: in early October a litre of water held about 73 million of its cells. It carries proteins like the ones some cold-water microbes use to grab onto ice.",
     activities: ["Cuts sulfate tags off sugars (26 sulfatases)", "Has ice-binding proteins", "Catches sunlight with a rhodopsin pump"],
-    tags: ["3rd Lake Resident", "New Species", "Ice Grabber", "Needs Genus & Species Name"]
+    tags: ["Amaruqtalik (3rd Lake) Resident", "New Species", "Ice Grabber", "Needs Genus & Species Name"]
   },
   {
     id: "N16_qwop01",
@@ -478,10 +478,10 @@ window.CANDIDATES = [
     guild: "dumpster-divers",
     nickname: "Piercing Pirellulid",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    whereInCI: "1st Lake, 2nd Lake",
-    story: "A new species from 1st Lake, with up to about 40 million cells in a litre in mid-September. Its genes build a tiny spear that some bacteria use to stab their neighbours.",
+    whereInCI: "Puirsuk (1st Lake), Akulliit (2nd Lake)",
+    story: "A new species from Puirsuk (1st Lake), with up to about 40 million cells in a litre in mid-September. Its genes build a tiny spear that some bacteria use to stab their neighbours.",
     activities: ["Builds a spear-like injector (type VI secretion system)", "Catches sunlight with a rhodopsin pump", "Cuts chitin, the stuff of insect shells"],
-    tags: ["1st Lake Resident", "New Species", "Spear Thrower", "Needs Genus & Species Name"]
+    tags: ["Puirsuk (1st Lake) Resident", "New Species", "Spear Thrower", "Needs Genus & Species Name"]
   },
   {
     id: "N17_camcqy01",
@@ -490,8 +490,8 @@ window.CANDIDATES = [
     guild: "voracious-vegetarians",
     nickname: "Pond-Hopping Pirellulid",
     rrna: "16S + 23S + 5S rRNA, 20/20 tRNAs",
-    whereInCI: "2nd Lake, 1st Lake, 3rd Lake",
-    story: "A new species found in all three lakes, most of all 2nd Lake, where a litre of water held about 80 million of its cells in early October. It also turns up in the Churchill River estuary.",
+    whereInCI: "Akulliit (2nd Lake), Puirsuk (1st Lake), Amaruqtalik (3rd Lake)",
+    story: "A new species found in all three lakes, most of all Akulliit (2nd Lake), where a litre of water held about 80 million of its cells in early October. It also turns up in the Churchill River estuary.",
     activities: ["Cuts sulfate tags off sugars (23 sulfatases)", "Catches sunlight with a rhodopsin pump", "Makes hopanoids, molecules that stiffen its membrane"],
     tags: ["Lives in All Three Lakes", "New Species", "Sunlight Helper", "Needs Genus & Species Name"]
   }

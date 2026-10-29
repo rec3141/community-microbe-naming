@@ -312,8 +312,8 @@ Event cards are the same for every community:
 | 28 | Piercing Pirellulid | Dumpster Diver | 70 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 60) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
 | 29 | Pond-Hopping Pirellulid | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀ | fall |
 
-Places: Dock (spring, fall), Itivia (spring, fall), Tuktuttaa (spring), 1st Lake (fall),
-2nd Lake (fall), 3rd Lake (spring, fall). 1st Lake in spring is left out: no microbe has a dated
+Places: Dock (spring, fall), Itivia (spring, fall), Tuktuttaa (spring), Puirsuk (1st Lake) (fall),
+Akulliit (2nd Lake) (fall), Amaruqtalik (3rd Lake) (spring, fall). Puirsuk in spring is left out: no microbe has a dated
 spring detection there.
 
 ## Balance: playtests and what changed

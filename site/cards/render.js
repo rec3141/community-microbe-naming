@@ -5,7 +5,8 @@
 const MC = root.MicrobeCards;
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
 const dots = n => n ? '<span class="cost">' + '●'.repeat(n) + '</span>' : '<span class="cost free">0</span>';
-const nameSize = s => s.length <= 18 ? '' : s.length <= 24 ? ' n2' : s.length <= 29 ? ' n3' : ' n4';
+// smaller type for long names; `extra` counts room taken by a label on the same line (PLACE, EVENT)
+const nameSize = (s, extra = 0) => { const n = s.length + extra; return n <= 18 ? '' : n <= 24 ? ' n2' : n <= 29 ? ' n3' : ' n4'; };
 const HAB = {marine: {name: 'Sea', icon: '🌊'}, freshwater: {name: 'Lake', icon: '💧'}};
 const imgSrc = c => c.img ? `img/${c.img}` : 'img/placeholder.svg';
 // card art over the emoji; if the picture is missing it removes itself and the emoji shows
@@ -50,7 +51,7 @@ function placeFace(p, total) {
   const salty = p.water === 'marine';
   return `<div class="tcard place ${p.water}" data-id="${esc(p.id)}">
   <div class="frame">
-    <div class="top"><span class="kindlabel">PLACE</span><span class="nm">${esc(p.name)}</span><span class="hp">${S.icon}</span></div>
+    <div class="top"><span class="kindlabel">PLACE</span><span class="nm${nameSize(p.name, 5)}">${esc(p.name)}</span><span class="hp">${S.icon}</span></div>
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
     <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}<i class="season-chip">${S.icon}</i></div>
     <div class="pl-rule">${esc(p.text)}</div>

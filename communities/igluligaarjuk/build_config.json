@@ -312,14 +312,14 @@
    "Dock": "Dock",
    "Tuktuttaa": "Tuktuttaa",
    "Tuktuttaa algae": "Tuktuttaa",
-   "1st_Lake": "1st Lake",
-   "2nd_Lake": "2nd Lake",
-   "3rd_Lake": "3rd Lake"
+   "1st_Lake": "Puirsuk (1st Lake)",
+   "2nd_Lake": "Akulliit (2nd Lake)",
+   "3rd_Lake": "Amaruqtalik (3rd Lake)"
   },
   "freshwater_sites": [
-   "1st Lake",
-   "2nd Lake",
-   "3rd Lake"
+   "Puirsuk (1st Lake)",
+   "Akulliit (2nd Lake)",
+   "Amaruqtalik (3rd Lake)"
   ],
   "exclude_samples": {
    "FAZ28565_barcode09": "extraction control"

@@ -912,7 +912,10 @@ with open(CI_META_TSV) as f:
     for r in csv.DictReader(f, delimiter="\t"):
         loc = (r.get("location") or "").strip()
         site = CI_SITE_NAMES.get(loc)
-        entry = {"site": site, "loc_label": loc.replace("_", " ") if site else "",
+        raw = loc.replace("_", " ")
+        # show the page's site name when it already holds the raw label ("Puirsuk (1st Lake)" for
+        # "1st_Lake"); keep a raw label that says more than the site ("Tuktuttaa algae")
+        entry = {"site": site, "loc_label": (site if raw in site else raw) if site else "",
                  "station_id": r.get("station_id", ""), "date": (r.get("sample_date") or "").replace("-", "")}
         ci_sample_meta[f"{r['flowcell']}_{r['barcode']}"] = entry
         if site and r.get("lat") and r.get("lon"):
