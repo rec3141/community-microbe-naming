@@ -156,6 +156,14 @@ margin of its own; it is centred inside the printer's normal margins. A4 prints 
 it prints 4 x 2 landscape (10 x 7 in). Print
 at 100%.
 
+**Ordering printed decks** (MakePlayingCards.com, poker size): `python3 scripts/build/export_mpc.py
+dist/<id>` renders every card in headless Chrome to `dist/<id>-mpc/` (outside the deployed site):
+one 816 x 1110 px PNG per card at 300 dpi (2.72 x 3.70 in with bleed; cut 2.48 x 3.46 in = 63 x 88 mm;
+text inside MPC's 2.28 x 3.27 in safe area), one back per card type, and `manifest.csv` with the upload
+order and which back goes with each front. The frame colour fills the bleed. Add `--ink` for the white
+ink-saver faces. Suggested order: S30 stock, full colour, MPC finish, tuck box; about 8-10 decks for a
+class of 30.
+
 ## How every number is made
 
 All rules live in `site/cards/engine.js`. The knobs are in `TUNE`; the values below are the
