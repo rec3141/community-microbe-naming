@@ -257,6 +257,9 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
 - **Cells badge** (left of the picture, under habitat and peak season): one randomly coloured dot
   per million cells in its biggest local count (seeded by the microbe id, so it prints the same
   every time); a single dot means under a million (or grown in the lab and not seen in the water).
+- **Badge slots**: each badge kind has a fixed place on every card. Right of the picture:
+  ☀ ❄ 🧂 down the outer column, 🛡 beside the top one, 🛢 beside the bottom one. Left: habitat,
+  peak season, cells, with 🔹 beside the cells badge.
 
 ### Places and events
 

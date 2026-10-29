@@ -37,7 +37,7 @@ function cellsBadge(c) {
   for (let i = spots.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [spots[i], spots[j]] = [spots[j], spots[i]]; }
   const px = spots.slice(0, Math.min(n, spots.length)).map(([x, y]) => `<rect x="${x}" y="${y}" width="1" height="1" fill="${DOT_COLORS[Math.floor(rnd() * DOT_COLORS.length)]}"/>`).join('');
   const t = m ? `About ${c.maxCellsText} cells per litre at most: one dot per million` : 'Fewer than a million cells per litre in any local sample';
-  return `<span class="cells" title="${esc(t)}"><svg viewBox="0 0 ${G} ${G}" shape-rendering="crispEdges">${px}</svg></span>`;
+  return `<span class="cells b-cells" title="${esc(t)}"><svg viewBox="0 0 ${G} ${G}" shape-rendering="crispEdges">${px}</svg></span>`;
 }
 function homeRow(c) {
   // each site stays on one line with its seasons; lines break only between sites
@@ -48,13 +48,14 @@ function homeRow(c) {
 function microbeFace(c, total) {
   const L = MC.LIFESTYLES[c.lifestyle], H = HAB[c.habitat] || {name: c.habitat, icon: ''};
   // left of the cartoon: where it lives and when it peaks (badges on the right are its genes)
-  const left = `<span title="${esc(H.name)} microbe">${H.icon}</span>` + (c.peak ? `<span title="Peaks in ${esc(MC.SEASONS[c.peak].name.toLowerCase())}">${MC.SEASONS[c.peak].icon}</span>` : '') + cellsBadge(c);
+  const badge = b => `<span class="b-${b}" title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`;
+  const left = `<span class="b-hab" title="${esc(H.name)} microbe">${H.icon}</span>` + (c.peak ? `<span class="b-season" title="Peaks in ${esc(MC.SEASONS[c.peak].name.toLowerCase())}">${MC.SEASONS[c.peak].icon}</span>` : '') + cellsBadge(c);
   const attack = a => `<div class="atk"><div class="atk-h">${dots(a.cost)}<b>${esc(a.name)}</b>${kindTag(a.kind)}<span class="dmg">${a.dmg}</span></div>${a.text ? `<div class="atk-t">${esc(a.text)}</div>` : ''}</div>`;
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
     <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span><span class="hp"><small>HP</small>${c.hp}</span></div>
     <div class="sub"><span>${esc(c.className || c.envelopeName)}</span><span>${L.icon} ${esc(L.name)}</span></div>
-    <div class="art"><div class="badges left">${left}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
+    <div class="art"><div class="badges left">${left}${c.badges.filter(b => b === 'tiny').map(badge).join('')}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.filter(b => b !== 'tiny').map(badge).join('')}</div></div>
     <div class="atks">${c.attacks.map(attack).join('')}</div>
     ${wrRow(c)}
     <div class="sci">${esc(c.science)}</div>
@@ -72,10 +73,10 @@ function placeFace(p, total) {
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
     <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}</div>
     <div class="pl-fx">
-      <div class="fx good ${esc(p.season)}" title="${esc(p.text)}"><b>+10 ${ssn(p.season) || S.icon}</b><span>${esc(S.name.toLowerCase())} microbes hit harder here</span></div>
-      <div class="fx bad" title="Wrong water"><b>−10 ${salty ? '💧' : '🌊'}</b><span>${salty ? 'a lake Active (not 🧂) takes 10 each turn' : 'a sea Active takes 10 each turn'}</span></div>
+      <div class="fx good ${esc(p.season)}" title="${esc(p.text)}"><b>+10 <i class="fxi">${ssn(p.season) || S.icon}</i></b><span class="cap">${esc(S.name.toLowerCase())} microbes hit harder here</span></div>
+      <div class="fx bad" title="Wrong water: at the start of your turn, a ${salty ? 'lake microbe Active here takes 10 damage, unless it is 🧂 salt-proof' : 'sea microbe Active here takes 10 damage'}."><b>−10 <i class="fxi">${salty ? '💧' : '🌊'}</i></b><span class="cap">${salty ? 'lake microbes hurt, except 🧂' : 'sea microbes get hurt here'}</span></div>
     </div>
-    <div class="pl-homes${p.homes.map(h => h.name).join(', ').length > 280 ? ' long' : ''}"><b>Home microbes (+2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
+    <div class="pl-homes${p.homes.map(h => h.name).join(', ').length > 280 ? ' long' : ''}"><div><b>Home microbes (+2 ● when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div></div>
     <div class="foot"><span class="home"></span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
   </div></div>`;
 }
