@@ -36,14 +36,14 @@ window.IQ_CONTENT = {
 
   principlesSource: "Names, syllabics and English meanings as written by the Igluligaarjuk workshop (2026). Other communities and the Nunavut Education Act may spell them differently.",
   principles: [
-    {key: "inuuqatigiitsiarniq", iu: "Innuqatigiitsiarniq", syl: "ᐃᓄᖃᑎᒌᖕᓯᐋᓂᖅ", en: "respecting others, relationships and caring for people"},
-    {key: "tunnganarniq", iu: "Tunnganarniq", syl: "ᑐᙵᓇᕐᓂᖅ", en: "fostering good spirit by being open, welcoming and inclusive"},
-    {key: "pijitsirniq", iu: "Pijitsirniq", syl: "ᐱᔨᑦᓯᕐᓂᖅ", en: "concept of serving"},
-    {key: "aajiiqatigiinniq", iu: "Aajiiqatigiingniq", syl: "ᐋᔩᖃᑎᒌᖕᓂᖅ", en: "consensus decision making"},
-    {key: "pilimmaksarniq", iu: "Pilimmaksarniq", syl: "ᐱᓕᒻᒪᒃᓴᕐᓂᖅ", en: "concept of skills and knowledge acquisition"},
+    {key: "pijitsirniq", iu: "Pijitsirniq", syl: "ᐱᔨᑦᓯᕐᓂᖅ", en: "serving and providing for family or community, or both"},
     {key: "piliriqatigiinniq", iu: "Piliriqatigiingniq", syl: "ᐱᓕᕆᖃᑎᒌᖕᓂᖅ", en: "working together for a common cause"},
-    {key: "qanuqtuurniq", iu: "Qanuqtuurniq", syl: "ᖃᓄᖅᑑᕐᓂᖅ", en: "being innovative and resourceful in seeking solutions"},
     {key: "avatittinnik", iu: "Avatiptinni Kamatsiarniq", syl: "ᐊᕙᑎᑉᑎᓐᓂ ᑲᒪᑦᓯᐊᕐᓂᖅ", en: "respect and care for the land, animals and the environment"},
+    {key: "qanuqtuurniq", iu: "Qanuqtuurniq", syl: "ᖃᓄᖅᑑᕐᓂᖅ", en: "being innovative and resourceful"},
+    {key: "pilimmaksarniq", iu: "Pilimmaksarniq", syl: "ᐱᓕᒻᒪᒃᓴᕐᓂᖅ", en: "development of skills through practice, effort and action"},
+    {key: "inuuqatigiitsiarniq", iu: "Innuqatigiitsiarniq", syl: "ᐃᓄᖃᑎᒌᖕᓯᐋᓂᖅ", en: "respecting others, relationships and caring for people"},
+    {key: "tunnganarniq", iu: "Tunnganarniq", syl: "ᑐᙵᓇᕐᓂᖅ", en: "fostering good spirit by being open, welcoming, and inclusive"},
+    {key: "aajiiqatigiinniq", iu: "Aajiiqatigiingniq", syl: "ᐋᔩᖃᑎᒌᖕᓂᖅ", en: "decision making through discussion and consensus"},
   ],
 
   references: [
