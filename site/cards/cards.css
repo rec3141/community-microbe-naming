@@ -1,4 +1,4 @@
-/* Microbe card game: card faces (63 × 88 mm), deck view, big view, print sheets and the play board.
+/* Microbe card game: card faces (2.5 × 3.5 in, poker size), deck view, big view, print sheets and the play board.
    Shared by every community. Colours follow the main site (index.html). */
 :root{
   --bg:#0b1726; --panel:#12233a; --panel2:#18304d; --line:#27466b; --text:#e7f0fa; --muted:#93a9c3;
@@ -35,7 +35,7 @@ main{max-width:1280px;margin:0 auto;padding:16px}
 details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 
 /* ---------- card face ---------- */
-.tcard{width:63mm;height:88mm;flex:none;border-radius:3.2mm;padding:1.3mm;background:var(--life,#64748b);
+.tcard{width:2.5in;height:3.5in;flex:none;border-radius:3.2mm;padding:1.3mm;background:var(--life,#64748b);
   color:#f4f8fc;font-size:7.4pt;line-height:1.16;position:relative;overflow:hidden;
   -webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:0 4px 14px rgba(0,0,0,.45)}
 .tcard .frame{height:100%;border-radius:2.3mm;background:linear-gradient(170deg,#163150,#0d1b2d 60%);display:flex;flex-direction:column;padding:1.6mm 2mm 1.3mm;gap:.8mm;overflow:hidden}
@@ -157,10 +157,10 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .side-area.me{border-color:var(--gold)}
 .side-area h3{margin:0 0 6px;font-size:.95rem;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .row{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
-.slot{position:relative;--z:.8;display:flex;flex-direction:column;align-items:stretch;width:calc(63mm * var(--z))}
+.slot{position:relative;--z:.8;display:flex;flex-direction:column;align-items:stretch;width:calc(2.5in * var(--z))}
 .slot.small{--z:.6}
 .slot .tcard{zoom:var(--z);cursor:zoom-in}
-.counter{position:absolute;left:4px;top:calc(88mm * var(--z) - 26px);display:flex;gap:4px;z-index:3;pointer-events:none}
+.counter{position:absolute;left:4px;top:calc(3.5in * var(--z) - 26px);display:flex;gap:4px;z-index:3;pointer-events:none}
 .counter span{background:#0b1726ee;border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-weight:700;font-size:.8rem}
 .counter .d{color:var(--red)}.counter .n{color:var(--fresh)}
 .newtag{position:absolute;top:-8px;left:-6px;z-index:4;background:var(--pink);color:#2a0717;font-weight:800;font-size:.7rem;border-radius:999px;padding:1px 8px}
@@ -170,7 +170,7 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .mv.primary{background:rgba(56,189,248,.16);border-color:var(--marine);font-weight:600}
 .mv:disabled{opacity:.55;cursor:not-allowed}
 .mv small{display:block;color:var(--muted);font-weight:400;font-size:.7rem}
-.emptyslot{width:calc(63mm * .8);height:calc(88mm * .8);border:1px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.emptyslot{width:calc(2.5in * .8);height:calc(3.5in * .8);border:1px dashed var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .status{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--gold);border-radius:12px;padding:8px 12px;position:sticky;top:58px;z-index:20}
 .status.cpu{border-color:var(--violet)}
 .status.win{border-color:var(--gold);color:var(--gold);font-weight:700}
@@ -197,8 +197,10 @@ body.asking main{padding-bottom:200px}
   body{background:#fff}
   header.top,main,#big,.noprint{display:none!important}
   #sheets{display:block}
-  .sheet{position:relative;margin:0 auto;break-after:page;page-break-after:always;overflow:hidden}  /* no margin of our own; centred in the printer's */
-  .sheet:last-child{break-after:auto;page-break-after:auto}
+  /* no margin of our own: each sheet is centred, both ways, in whatever area the printer leaves */
+  .sheet{position:relative;overflow:hidden;flex:none}
+  .page{height:100vh;display:flex;align-items:center;justify-content:center;break-after:page;page-break-after:always;overflow:hidden}
+  .page:last-child{break-after:auto;page-break-after:auto}
   .tcard{box-shadow:none}
 }
 .sheet .grid{position:absolute;inset:0;display:grid}

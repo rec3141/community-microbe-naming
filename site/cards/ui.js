@@ -67,15 +67,15 @@ $('rulesFull').innerHTML = RU.FULL;
 // ---------- print ----------
 // Every sheet is just the block of cards with no margin of its own: the printer's normal margins
 // frame it, and each sheet is centred across the page so fronts and backs line up. Cut lines run
-// along the card edges. A4 portrait fits 3 x 3 cards (189 x 264 mm) inside ~10 mm margins; Letter
-// is too short for that, so it prints landscape, 4 x 2 (252 x 176 mm).
-const CW = 63, CH = 88;
+// along the card edges. Cards are poker size, 2.5 x 3.5 in. A4 portrait takes 3 x 3 (190.5 x 266.7 mm);
+// Letter is too short for 3 rows inside normal margins, so it prints landscape, 4 x 2 (10 x 7 in).
+const CW = 63.5, CH = 88.9;
 const LAYOUT = {a4: {size: 'A4', orient: 'portrait', cols: 3, rows: 3}, letter: {size: 'letter', orient: 'landscape', cols: 4, rows: 2}};
 const layout = () => LAYOUT[$('pPaper').value] || LAYOUT.a4;
 function sheetFor(cards, mirror, {cols, rows}) {
   const cells = Array(cols * rows).fill('<div></div>');
   cards.forEach((html, i) => { const r = Math.floor(i / cols), c = i % cols; cells[r * cols + (mirror ? cols - 1 - c : c)] = html; });
-  return `<div class="sheet" style="width:${cols * CW}mm;height:${rows * CH}mm"><div class="grid" style="grid-template-columns:repeat(${cols},${CW}mm);grid-template-rows:repeat(${rows},${CH}mm)">${cells.join('')}</div></div>`;
+  return `<div class="page"><div class="sheet" style="width:${cols * CW}mm;height:${rows * CH}mm"><div class="grid" style="grid-template-columns:repeat(${cols},${CW}mm);grid-template-rows:repeat(${rows},${CH}mm)">${cells.join('')}</div></div></div>`;
 }
 function buildSheets() {
   const want = {microbe: $('pMicrobes').checked, place: $('pPlaces').checked, event: $('pEvents').checked};
@@ -89,8 +89,8 @@ function buildSheets() {
   }
   // rules after the cards, so double-sided printing keeps each card page with its backs
   if ($('pRules').checked) {
-    html += `<div class="sheet rulesheet" style="width:${SW}mm;height:${SH}mm"><div class="rbox" style="columns:${SW > SH ? 3 : 2}">
-      <h2>${R.esc(RU.GAME_NAME)}: quick rules</h2>${RU.QUICK}<p style="font-size:8.5pt;color:#3c5470">Every card's numbers come from real DNA data from the ${R.esc(CM.placeName || '')} samples. Full rules and the science behind each card: cards.html on the workshop site.</p></div></div>`;
+    html += `<div class="page"><div class="sheet rulesheet" style="width:${SW}mm;height:${SH}mm"><div class="rbox" style="columns:${SW > SH ? 3 : 2}">
+      <h2>${R.esc(RU.GAME_NAME)}: quick rules</h2>${RU.QUICK}<p style="font-size:8.5pt;color:#3c5470">Every card's numbers come from real DNA data from the ${R.esc(CM.placeName || '')} samples. Full rules and the science behind each card: cards.html on the workshop site.</p></div></div></div>`;
   }
   if ($('pTokens').checked) {
     let t = '';
@@ -99,7 +99,7 @@ function buildSheets() {
       const kind = r < Math.ceil(tr / 2) ? 'n' : 'd', label = kind === 'n' ? '●' : (c % 5 === 4 ? '50' : '10');
       t += `<div class="tok ${kind}" style="left:${(SW - tc * 18) / 2 + 1 + c * 18}mm;top:${8 + r * 19.5}mm">${label}</div>`;
     }
-    html += `<div class="sheet tokens" style="width:${SW}mm;height:${SH}mm"><div class="label" style="left:2mm;top:1mm">Nutrient tokens (green) and damage tokens (red): cut out, or use coins and beads instead.</div>${t}</div>`;
+    html += `<div class="page"><div class="sheet tokens" style="width:${SW}mm;height:${SH}mm"><div class="label" style="left:2mm;top:1mm">Nutrient tokens (green) and damage tokens (red): cut out, or use coins and beads instead.</div>${t}</div></div>`;
   }
   $('sheets').className = $('pInk').checked ? 'ink' : '';
   // print sheets are hidden on screen, so lazy images would never load before printing

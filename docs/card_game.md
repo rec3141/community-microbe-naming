@@ -20,7 +20,7 @@ Files:
 | `site/cards/engine.js` | The rules that turn data into cards (`MicrobeCards.buildDeck`), the balance knobs (`TUNE`), event cards |
 | `site/cards/game.js` | The rules engine (`MicrobeGame.Game`) and the computer player (`MicrobeGame.AI`) |
 | `site/cards/rules.js` | Quick and full rules as HTML, with numbers read from `TUNE` |
-| `site/cards/render.js`, `cards.css` | Card faces (63 × 88 mm), backs, the "where the numbers come from" panel |
+| `site/cards/render.js`, `cards.css` | Card faces (2.5 × 3.5 in, poker size), backs, the "where the numbers come from" panel |
 | `site/cards/ui.js`, `play.js`, `site/cards.html` | Deck view, big view, rules, print sheets, on-screen game |
 | `scripts/build/card_sim.js` | Balance simulator: `node scripts/build/card_sim.js igluligaarjuk 4000` |
 
@@ -152,7 +152,8 @@ been simulated.
 
 **Printing**: each sheet is just the block of cards, with thin cut lines on the card edges and no
 margin of its own; it is centred inside the printer's normal margins. A4 prints 3 x 3 portrait
-(189 x 264 mm); Letter is too short for that, so it prints 4 x 2 landscape (252 x 176 mm). Print
+(190.5 x 266.7 mm, cards 2.5 x 3.5 in); Letter is too short for 3 rows inside normal margins, so
+it prints 4 x 2 landscape (10 x 7 in). Print
 at 100%.
 
 ## How every number is made

@@ -1,5 +1,5 @@
 // HTML for card faces, card backs and the "where do the numbers come from" panel.
-// Shared by every community; styles are in cards.css. Cards are 63 × 88 mm.
+// Shared by every community; styles are in cards.css. Cards are 2.5 × 3.5 in (poker size).
 (function (root) {
 'use strict';
 const MC = root.MicrobeCards;
