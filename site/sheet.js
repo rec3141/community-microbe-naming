@@ -16,6 +16,19 @@ function foundRows(c) {
     .map(([site, s]) => `${esc(site)}${s.months.size ? ` (${[...s.months].sort((a, b) => a - b).map(m => MONTHS[m - 1]).join(', ')})` : ''}`);
 }
 
+// its biggest local count, in cells per litre, worked out as on the Distribution tab
+function peak(c) {
+  const rows = (D.northMap[c.id]?.ci_samples || []).filter(r => r.detected && r.relab > 0);
+  if (!rows.length) return '';
+  const top = rows.reduce((a, b) => b.relab > a.relab ? b : a);
+  const CMOD = D.cellModel || {cells_per_litre: {}, mean_genome_bp: 3e6};
+  const perL = (CMOD.cells_per_litre || {})[c.habitat] || 1e9, size = (D.meta[c.id] || {}).size || CMOD.mean_genome_bp;
+  const n = top.relab / 100 * perL * (CMOD.mean_genome_bp || 3e6) / size;
+  const amt = n >= 1e6 ? `${fmt(n / 1e6, n < 1e7 ? 1 : 0)} million` : n >= 1e3 ? `${Math.round(n / 1e3).toLocaleString('en-CA')} thousand` : 'under a thousand';
+  const when = /^\d{8}$/.test(top.date || '') ? `, ${MONTHS[+top.date.slice(4, 6) - 1]}` : '';
+  return `<b>Most:</b> about ${amt} cells per litre (${esc(top.site)}${when}).`;
+}
+
 function sheetFor(i) {
   const c = C[i], need = namingNeed(c), L = lineageOf(c), g = GUILDS[c.guild], m = D.meta[c.id] || {};
   const where = [...foundRows(c), ...(c.isolated ? [`grown in the lab from ${esc(c.isolated.site)} water (${esc(c.isolated.season || '')})`] : [])];
@@ -25,9 +38,9 @@ function sheetFor(i) {
   const site = `${location.origin}${location.pathname}#${i + 1}`;
   const head = `<div class="sh-head"><span>${esc(CM.brand || CM.placeName || '')} · ${esc(CM.nativeName || '')}</span><span>Microbe ${i + 1} of ${C.length}</span></div>`;
   // ranks with no Latin name show the code name scientists use for now (e.g. TMED14, sp028352435)
-  const tree = L.map(x => { const code = x.ph && !/^\(no name/.test(x.name) ? x.name : '';
+  const tree = L.map(x => { const code = x.ph && !/^\(no name/.test(x.name) ? (x.rank === 'Species' ? x.name.split(' ').pop() : x.name) : '';
     return `<tr><th>${x.rank}</th><td>${x.ph ? `${code ? `<span class="sh-code">${esc(code)}</span> ` : ''}<span class="sh-new">no name yet</span>` : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`; }).join('');
-  const rr = c.rrna || '';
+  const rr = (c.rrna || '').replace(/\d+\s*[×x]\s*/g, '');  // '9× 16S + 9× 23S' -> '16S + 23S'
   const asm = [
     ['Genome', `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`],
     ['Complete', `${fmt(m.completeness)}% (contamination ${fmt(m.contamination, 2)}%)`],
@@ -47,7 +60,6 @@ function sheetFor(i) {
           <span>${c.habitat === 'marine' ? '🌊 Sea microbe' : '💧 Lake microbe'}</span>
           ${c.isolated ? '<span>🔬 Grown in the lab</span>' : ''}
           ${g ? `<span>${g.icon} ${esc(g.name)}</span>` : ''}
-          <span>✍️ ${esc(need.label)}</span>
         </div>
         ${g ? `<p class="sh-guild">${g.icon} <b>${esc(g.name)}</b>: ${esc(g.short)}</p>` : ''}</div>
     </div>
@@ -61,7 +73,7 @@ function sheetFor(i) {
       <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
     </div>
     <p class="sh-credit">Maps © OpenStreetMap contributors · Leaflet</p>
-    <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}.</p>
+    <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}. ${peak(c)}</p>
     <p class="sh-note">Bigger dots: more of its cells per litre. Grey dots: sampled, but not found. Gold ring: ${esc(LOCAL)}.</p>
     <h3>📖 Its story</h3>
     <p class="sh-story">${esc(c.eco || c.story || '')}</p>
@@ -71,15 +83,17 @@ function sheetFor(i) {
     <h2>${esc(c.nickname)}: help name it</h2>
     ${es.length ? `<h3>🌿 What it does for the ecosystem</h3>
       <div class="sh-es">${es.map(x => { const info = SI[x.code] || {};
-        return `<div><b>${x.icon} ${esc(info.title || x.short_name)}</b><p>${esc(info.front || x.desc)}</p><p class="sh-note">${x.gene_count} gene${x.gene_count === 1 ? '' : 's'} linked to this</p></div>`; }).join('')}</div>
+        const pt = (c.esPoints || {})[x.code];  // narratives.js: this microbe's own point in the category
+        return `<div><span class="sh-note">${x.icon} ${esc(info.title || x.short_name)}</span><b class="sh-es-h">${esc(pt ? pt[0] : info.title || x.short_name)}</b><p>${esc(pt ? pt[1] : info.front || x.desc)}</p><p class="sh-note">${x.gene_count} gene${x.gene_count === 1 ? '' : 's'} linked to this</p></div>`; }).join('')}</div>
       <p class="sh-note">Predicted from its genes (EcoSSDB).</p>` : ''}
     <h3>✍️ What are we naming?</h3>
     <p>${need.genus
       ? `It needs a <b>new genus and species</b>: two new words. The genus (first word) starts with a capital letter; the species (second word) is all lowercase.`
-      : `It belongs to the genus <i>${esc(need.genusName)}</i>${gen ? `, which means “${esc(gen.gloss)}”` : ''}. That name stays. It needs a new <b>species</b> name: the second word, all lowercase.`}
+      : `It belongs to the genus <i>${esc(need.genusName)}</i>${gen ? `, which means “${esc(gen.gloss)}”` : ''}. It needs a new <b>species</b> name: the second word, all lowercase.`}
       A good name often says where it lives, what it does or what it looks like.</p>
     ${words.length ? `<h3>💡 ${esc(LANG)} words that might fit</h3>
       <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>` : ''}
+    <div class="sh-lines"><div></div><div></div></div>
     <div class="sh-work">
       ${need.genus ? `${line(`Genus word (${esc(LANG)})`)}${line('It means')}` : `<div class="sh-fill"><b>Genus</b><span class="sh-fixed"><i>${esc(need.genusName)}</i></span></div>`}
       ${line(`Species word (${esc(LANG)})`)}${line('It means')}

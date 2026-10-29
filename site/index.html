@@ -256,6 +256,7 @@ a.lpsn:hover{color:var(--marine)}
 .flip img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:8px;background:var(--panel)}
 .flip .t{font-weight:700;font-size:1rem}
 .flip p{margin:0;font-size:.88rem;line-height:1.45}
+.flip .es-pt{background:rgba(251,191,36,.12);border-left:3px solid var(--gold);padding:4px 7px;border-radius:4px}
 .flip .hint{margin-top:auto;font-size:.75rem;color:var(--muted);text-align:right}
 .pw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:5px 6px;border-radius:8px;cursor:pointer}
 .pw:hover,.pw:focus-visible{background:var(--panel2);outline:none}
@@ -300,10 +301,11 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-tree.sh-asm td{font-size:9.5pt}
 .sh-code{font-family:ui-monospace,Menlo,monospace;font-size:9.5pt}
 .sh-maps{display:grid;grid-template-columns:1fr 1.7in;gap:.2in}
-.sh-map{height:2in;border:1px solid #cbd5e1;border-radius:4pt;background:#e2e8f0}
+.sh-map{height:1.9in;border:1px solid #cbd5e1;border-radius:4pt;background:#e2e8f0}
 .sh-credit{font-size:7pt;color:#64748b;margin-top:-3pt!important;text-align:left}  /* OSM credit, under the maps' lower left */
 .sh-es{display:grid;grid-template-columns:1fr 1fr;gap:5pt .2in;font-size:9pt;line-height:1.3}
 .sh-es p{margin:1pt 0 0}
+.sh-es .sh-es-h{display:block;font-size:11pt}
 .sh-bar select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:15em;flex:none}  /* fixed, so ◀ ▶ stay put */
 .sh-bar .sh-name{width:12em;flex:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .sh-bar .sh-print{margin-left:auto}
@@ -319,7 +321,9 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-words{display:grid;grid-template-columns:1fr 1fr;gap:0 .25in;font-size:9.5pt}
 .sh-words div{display:flex;gap:6pt;align-items:baseline;padding:1.5pt 0;border-bottom:1px solid #e2e8f0}
 .sh-words div span{flex:1;color:#334155}
-.sh-work{margin-top:auto;display:flex;flex-direction:column;gap:8pt;border:1.5px solid #10233a;border-radius:8pt;padding:9pt 12pt}
+.sh-lines{flex:1 1 0;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:0 .25in;margin:2pt 0 6pt}  /* fills the gap above the worksheet */
+.sh-lines div{background:repeating-linear-gradient(to bottom,transparent 0 19pt,#cbd5e1 19pt 20pt)}
+.sh-work{display:flex;flex-direction:column;gap:8pt;border:1.5px solid #10233a;border-radius:8pt;padding:9pt 12pt}
 .sh-fill{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4pt 8pt;font-size:11pt}
 .sh-fill b{white-space:nowrap}
 .sh-fill span{flex:1 1 60%;border-bottom:1px solid #64748b;min-height:16pt}
@@ -907,6 +911,7 @@ function renderFunction(p){
         <div class="face front">
           ${info.img?`<img src="${esc(info.img)}" alt="" loading="lazy" onerror="this.remove()">`:''}
           <div class="t">${x.icon} ${esc(info.title||x.short_name)}</div>
+          ${(c.esPoints||{})[x.code] ? `<p class="es-pt"><b>${esc(c.esPoints[x.code][0])}</b>: ${esc(c.esPoints[x.code][1])}</p>` : ''}
           <p>${esc(info.front||x.desc)}</p>
           <p class="note">This microbe has <b style="color:var(--text)">${x.gene_count}</b> gene${x.gene_count===1?'':'s'} linked to this.</p>
           <div class="hint">tap to turn over ↻</div></div>
