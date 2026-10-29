@@ -167,7 +167,7 @@ function sheetFor(i) {
         ${line('Notes:', 3)}
       </div>
       ${(window.IQ_CONTENT?.principles || []).length ? `<div class="sh-iq">
-        <h4>🧭 Which IQ principles does it match?</h4>
+        <h4>🧭 Which IQ principles does it relate to?</h4>
         ${IQ_CONTENT.principles.map(p => `<div><span class="sh-box"></span><span><b>${esc(p.iu)}</b> ${esc(p.en)}</span></div>`).join('')}
       </div>` : ''}
     </div>
