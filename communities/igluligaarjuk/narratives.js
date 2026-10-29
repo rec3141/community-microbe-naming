@@ -5,7 +5,7 @@
 // Facts here should match the data on the page (sites, seasons, same-species checks).
 window.NARRATIVES = {
   "dastool-lorbin_055": {
-    nickname: "Tidal Thioglobus",
+    nickname: "Tidal Thio",
     eco: "Chesterfield Inlet sits where a long inlet meets Hudson Bay, and for much of the year its water lies under sea ice. In the harbour, mud and rotting seaweed slowly release sulfur compounds, the source of that rotten-egg smell you sometimes notice at low tide. This microbe makes its living from that sulfur: it pulls energy out of it and uses the energy to build its body from carbon dioxide dissolved in the water, the way plants do with sunlight, except it works in the dark. Its close relatives, called the SUP05 group, are some of the most common bacteria in low-oxygen parts of the world's oceans, where they clean up sulfur and help control how much nitrogen is lost from the sea. Finding this one thriving in shallow harbour water is unusual, and it seems to have its stronghold right here in Igluligaarjuk: at the Dock in late May there were about 55 million of its cells in a litre of water. It also makes B-vitamins that algae and other plankton need but cannot make for themselves, so it quietly supports the food web around it.",
     ecoMore: [
       ["Why is Chesterfield Inlet special for it?", "We compared nearly 300 seawater samples from Chesterfield, Hudson Bay near Churchill and the High Arctic islands. Here we found it at the Dock and Tuktuttaa in late May and at Itivia in September and October, with up to about 55 million cells in a litre. Near Churchill it turned up in only 6 of about 190 samples, never more than about 2 million in a litre, and we did not find it among the High Arctic islands. The reads here match its genome at 96–97%, so it is the same species. Its relatives (the SUP05 group) usually live where there is little oxygen, like deep fjords."],
@@ -22,7 +22,7 @@ window.NARRATIVES = {
     ]
   },
   "W02_polaribacter": {
-    nickname: "Peckish Polaribacter",
+    nickname: "Peckish Penny",
     eco: "When the sun returns in spring, algae start growing on the underside of the sea ice and then in the open water as the ice breaks up. These algae, along with kelp along the shore, are the base of the Arctic food web, but much of what they make is locked up in tough sugars that most animals cannot digest. That is where Polaribacter comes in. Bacteria in this group are among the first to grow when algae bloom and die, and they break the sugars down into pieces that other microbes, and eventually small animals, can use. Scientists care about this step because it decides how much of the algae's carbon sinks to the sea floor and how much goes back into the water and air as carbon dioxide. This particular Polaribacter is a new species. We found the most of it at Tuktuttaa in late May, about 12 million cells in a litre of water, and smaller numbers at the Dock and Itivia in spring and fall. It is not only a Chesterfield microbe: it also lives in most of our samples from the Churchill River estuary and in some from Hudson Bay and the High Arctic islands. Its genome has genes for golden pigments that work like sunscreen against bright spring light reflecting off the ice, and a light-catching pump that gives it a little extra energy.",
     ecoMore: [
       ["What makes it new?", "Its DNA is only about 94% the same as the closest species scientists have read. Scientists usually call two genomes the same species when they share 95% or more, so it is a new species in a genus that already has a name."],
@@ -39,7 +39,7 @@ window.NARRATIVES = {
     ]
   },
   "dastool-metabat_11223": {
-    nickname: "Snow-Surfing Schleifer",
+    nickname: "Surfing Shelly",
     eco: "Out in the water column, dead algae, waste and slime clump together into fluffy flakes that drift slowly down, a process scientists call 'marine snow'. Marine snow carries a large share of the ocean's carbon from the surface down to the sea floor, which is one reason the ocean helps take carbon dioxide out of the atmosphere. This microbe lives on those flakes. It holds on with sticky patches on its surface and nibbles the sugars stored inside the algae, so it helps decide how much of that carbon is recycled near the surface and how much keeps sinking. Its genus has only a code name, TMED14. In Chesterfield Inlet it was common in late May, with about 10 to 15 million cells in a litre of water at Tuktuttaa and the Dock. By September only a few hundred thousand were left, a small sign of how the microbial community changes through the year.",
     ecoMore: [
       ["What is marine snow?", "Sinking clumps of dead plankton, waste and slime. It is one of the main ways carbon travels from the sea surface down to the sea floor."],
@@ -64,14 +64,14 @@ window.NARRATIVES = {
     ],
     fn: "It gets energy from sulfur, grabs iron, makes biotin and NAD, and uses CRISPR to remember and fight off viruses.",
     fnMore: [
-      ["Sulfur energy (Dsr, Apr, Sat)", "The same sulfur-processing assembly line used by Tidal Thioglobus."],
+      ["Sulfur energy (Dsr, Apr, Sat)", "The same sulfur-processing assembly line used by Tidal Thio."],
       ["Iron grabbing (siderophore transport)", "It takes up iron-catching molecules made by its neighbours."],
       ["Biotin (B7) and NAD", "Biotin is a vitamin; NAD is a helper molecule every cell uses to move energy around."],
       ["CRISPR-Cas immune system", "A genetic memory. The cell saves short pieces of virus DNA and uses them to recognise and cut that virus if it attacks again."]
     ]
   },
   "dastool-lorbin_002": {
-    nickname: "Busy Balneatrix",
+    nickname: "Busy Bea",
     eco: "Some microbes are specialists that do one job very well. This one is a generalist: its genome contains a long list of complete chemical pathways, so it can switch between many different foods and ways of getting energy, including using sulfur. One of its most useful habits is making vitamins. Many algae need vitamin B12 to grow but cannot make it; they depend on bacteria nearby to supply it. By making B12 parts along with vitamins B2, B5 and B7, a microbe like this one can help algae grow, which in turn feeds everything else in the inlet. It also makes natural antifreeze molecules that protect it in cold, salty water. Its genus, Njordibacter, was proposed in 2025 by scientists studying Arctic sea bacteria and is named after Njord, the Norse god of wind and the sea. Its family is named after a bacterium called Balneatrix. It is one of the cleanest, most complete genomes we found. We found it at all three seawater sites in spring and fall, with the most at Tuktuttaa in late May, about 11 million cells in a litre of water. It also lives in Hudson Bay near Churchill and among the High Arctic islands.",
     ecoMore: [
       ["Why 'Balneatrix'?", "Its family, the Balneatricaceae, is named after the genus Balneatrix, Latin for 'bather'. Its own genus, Njordibacter, is named after Njord, the Norse god of wind and the sea."],
@@ -81,14 +81,14 @@ window.NARRATIVES = {
     fn: "It eats a wide menu, gets energy from sulfur, makes vitamins and antifreeze molecules, and carries instructions for a few special chemicals.",
     fnMore: [
       ["Energy roundabout (TCA cycle)", "The cell's main loop for burning food into energy."],
-      ["Sulfur energy (Sox)", "A different set of sulfur enzymes from Tidal Thioglobus, also turning thiosulfate into sulfate."],
+      ["Sulfur energy (Sox)", "A different set of sulfur enzymes from Tidal Thio, also turning thiosulfate into sulfate."],
       ["Vitamins (B2, B5, B7, B12 parts)", "Riboflavin, pantothenate, biotin and pieces of cobalamin, which many plankton need but can't make."],
       ["Antifreeze molecules (glycine betaine, proline)", "Small molecules that protect the cell from cold and salt."],
       ["Special chemicals (biosynthetic gene clusters)", "Groups of genes that build unusual molecules, here a terpene, a betalactone and others. Some of these act as signals or antibiotics."]
     ]
   },
   "W06_methylophilid": {
-    nickname: "Methanol-Munching Methylophilid",
+    nickname: "Leftover Lily",
     eco: "When algae grow and when they die, they release very small carbon molecules into the water, things like methanol and formate. These one-carbon compounds are easy to overlook, but there is a lot of them, and if nobody used them some would build up or escape to the air. This microbe specialises in eating exactly these leftovers, so the carbon stays in the food web. It belongs to a family of bacteria called the 'methyl-lovers' (Methylophilaceae) because of that taste. It also carries a light-catching protein called a rhodopsin, related to the one in our own eyes, that works like a tiny solar panel and gives it extra energy on sunny days. Scientists first discovered these light pumps in ocean bacteria about 25 years ago and have since found them almost everywhere in sunlit seawater. Here we found it at all three seawater sites in spring and fall, up to about 9 million cells in a litre of water. It is just as much at home across Hudson Bay: it turned up in more than half of our samples from near Churchill, and in some from the High Arctic islands.",
     ecoMore: [
       ["Why 'Methylophilid'?", "Its family, the Methylophilaceae, means 'methyl-lovers', after their taste for one-carbon (methyl) compounds. Its genus has only a code (BACL14)."],
@@ -105,7 +105,7 @@ window.NARRATIVES = {
     ]
   },
   "dastool-comebin_6520": {
-    nickname: "Fibre-Feasting Ferruginibacter",
+    nickname: "Feasting Fern",
     eco: "The lakes behind Chesterfield Inlet sit in tundra and stay frozen for much of the year. When the snow melts, water carries dead plant material from the land into the lakes, and every summer insects such as midges and mosquitoes hatch and shed their tough outer shells. Somebody has to recycle all of that, and bacteria like Ferruginibacter are among the main recyclers. This one glides along surfaces at the bottom and edges of the lakes and digests plant fibre and chitin, the hard material in insect shells, turning them back into nutrients that algae and other microbes can use. The genome comes mostly from lake samples further south in Manitoba; in Chesterfield's lakes we find a very close cousin, right on the line between being the same species and a different one.",
     ecoMore: [
       ["Is it really from here?", "The genome was built mostly from lake samples further south in Manitoba. In Chesterfield's lakes we find a very close cousin: its reads match at about 95–96%, right on the border between 'same species' and 'different species'. We found it in Puirsuk and Akulliit (1st and 2nd Lake) in September and October, up to about 3 million cells in a litre of water."],
@@ -121,7 +121,7 @@ window.NARRATIVES = {
     ]
   },
   "W09_polynucleobacter": {
-    nickname: "Persistent Polynucleobacter",
+    nickname: "Persistent Polly",
     eco: "Members of this genus are tiny, free-floating cells found in lakes and ponds all over the world. Tundra lakes are often slightly tea-coloured because water from the surrounding land carries dissolved organic matter into them. Polynucleobacter feeds on the small, simple molecules in that mix, such as acetate and citrate, and in doing so it passes carbon from the land into the lake's food web. Interestingly, the genus was first described not from lake water but from inside a single-celled pond animal (the ciliate Euplotes), where its relatives live as partners; free-living cousins like this one were found later. This species is already known from other lakes, but only by a code number. Here it turns up again and again in Akulliit (2nd Lake): in September and October there were about 5 to 10 million of its cells in a litre of water. We also found it in Puirsuk (1st Lake) in the fall and a little in Amaruqtalik (3rd Lake) in late May.",
     ecoMore: [
       ["Where do we find it?", "Mostly in Akulliit (2nd Lake), in almost every sample from September and October. Once, in Puirsuk (1st Lake) in early October, there were about 9 million cells in a litre. The reads match its genome at about 95–97%, so it is the same species. Polynucleobacter are among the most widespread freshwater bacteria in the world, and we also found this species in lakes across Manitoba, from Lake Winnipeg to the Boreal Shield."],
@@ -138,7 +138,7 @@ window.NARRATIVES = {
     ]
   },
   "W11_nitrotoga": {
-    nickname: "Northern Nitrotoga",
+    nickname: "Northern Toga",
     eco: "Every lake has a nitrogen cycle. Animal waste and dead organisms release ammonia, other microbes turn ammonia into nitrite, and nitrite can harm fish if it builds up. Nitrotoga does the next step: it turns nitrite into nitrate, which algae and plants can use as fertilizer. What makes Nitrotoga special is that it keeps working in the cold. Scientists first grew it from frozen soil in Siberia in 2007, and it is often the main nitrite cleaner in cold lakes and soils where other microbes slow down. In Chesterfield Inlet we found it only in Amaruqtalik (3rd Lake) in late May, about 3 million cells in a litre of water, when the lake was still cold and probably still ice-covered, which fits its cold-loving lifestyle. Further south it lives in the Churchill River estuary and in rivers and lakes across Manitoba, especially in the north.",
     ecoMore: [
       ["What is the nitrogen cycle?", "Nitrogen moves from animal waste (ammonia) to nitrite to nitrate, which plants and algae can use. Nitrotoga does the nitrite → nitrate step."],
@@ -155,7 +155,7 @@ window.NARRATIVES = {
     ]
   },
   "A2_planktophila": {
-    nickname: "Pint-sized Planktophila",
+    nickname: "Pint-sized Phil",
     eco: "Planktophila means 'plankton-loving'. Its relatives, called acI bacteria, are some of the most common bacteria in lakes all over the world, and they are tiny: hundreds of them could line up across the width of a hair. This one has one of the smallest genomes of any microbe on this site, about 1.2 million letters. Small cells with small genomes waste little energy, which helps in lakes where food is scarce. We found it in all three lakes behind town, in May, September and October. It was most common in Akulliit and Amaruqtalik (2nd and 3rd Lake) in mid-September, about 50 to 60 million cells in a litre of water, and there were about 40 million in a litre in Amaruqtalik (3rd Lake) in late May. In hundreds of samples from lakes and rivers across Manitoba and around Hudson Bay we found this species only once, in small numbers in the Churchill River estuary; everywhere else there were only its cousins. As far as we know, the lakes behind town are its home.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relatives share only about 91% of their DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
@@ -172,7 +172,7 @@ window.NARRATIVES = {
     ]
   },
   "N1_amylibacter": {
-    nickname: "Sun-sipping Amylibacter",
+    nickname: "Sunny Amy",
     eco: "Amylibacter means 'starch rod'. Its relatives are small rod-shaped bacteria that float in cold ocean water and live on tiny bits of food that algae and other living things leave behind. We found the most of it at Itivia in mid-September, about 25 million cells in a litre of water. It was also at the Dock in late May and September and at Itivia again in October. It travels widely: we also found it in most of our samples from the Churchill River estuary on Hudson Bay, in many from Hudson Bay near Churchill and in some from the High Arctic islands. Its genome is about 2.2 million DNA letters long, and our checks say we have all of its genes.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at 99.7%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
@@ -187,7 +187,7 @@ window.NARRATIVES = {
     ]
   },
   "N2_caivzm01": {
-    nickname: "Arcane Armatimonad",
+    nickname: "Arcane Ari",
     eco: "This bacterium belongs to a group called Armatimonadota. Scientists know very little about this group, and only a few of its members have ever been grown in a lab. In Chesterfield Inlet it lives in Akulliit (2nd Lake). We found it in every sample from Akulliit (2nd Lake) in September and October, and in mid-September there were about 70 million of its cells in a litre of water, one of the highest counts for any microbe on this site. We found only a little of it in Puirsuk (1st Lake) and almost none in Amaruqtalik (3rd Lake). In lake and river samples from Manitoba we found only its cousins, not this species.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, from somewhere else, and our genome matches it at 98.9%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
@@ -203,7 +203,7 @@ window.NARRATIVES = {
     ]
   },
   "N3_peredibacter": {
-    nickname: "Prowling Peredibacter",
+    nickname: "Pouncing Perry",
     eco: "Peredibacter means 'bacterium-devourer'. Its relatives are hunters: they swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Hunters like this help keep other bacteria in check, a little like wolves and caribou. We found this one in Puirsuk (1st Lake), where one sample held about 140 million of its cells in a litre of water, a huge number for a hunter. Another Puirsuk (1st Lake) sample had about 25 million, and we found almost none in the other lakes. We did not find it anywhere else we have samples from.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares only about 87% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
@@ -219,7 +219,7 @@ window.NARRATIVES = {
     ]
   },
   "N4_bdellovibrio": {
-    nickname: "Bullet-fast Bdellovibrio",
+    nickname: "Dashing Della",
     eco: "Bdellovibrio means 'leech-like vibrio', a vibrio being a small curved rod. Its relatives are famous hunters: they are among the fastest swimmers for their size, crash into a bigger bacterium, drill through its wall, eat it from the inside and burst out as new cells. We found this one in Akulliit (2nd Lake). In one sample there were about 180 million of its cells in a litre of water, a lot for a hunter. We found almost none in our other lake samples, and none anywhere else we have samples from.",
     ecoMore: [
       ["Is it a new species?", "Yes. No genome scientists have read so far is close enough for our tools to measure how similar it is, so it is quite far from every known Bdellovibrio."],
@@ -236,7 +236,7 @@ window.NARRATIVES = {
     ]
   },
   "N5_uba845": {
-    nickname: "Bold Bacteriovoracid",
+    nickname: "Bold Bax",
     eco: "This bacterium belongs to a family of hunters called Bacteriovoracaceae, which means 'bacteria-eaters'. Its relatives swim into a bigger bacterium, slip inside its outer wall, eat it from the inside and then burst out as several new cells. Many of them live in salty water. We found this one at the Dock and at Tuktuttaa, where one sample from each place held about 150 million of its cells in a litre of water, a lot for a hunter. There may be a trace at Itivia too. In our samples from Hudson Bay near Churchill and from the High Arctic islands we found only its cousins, not this species.",
     ecoMore: [
       ["Is it a new species?", "Yes, and it does not fit in any named genus either. Its closest known relative shares only about 86% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more."],
@@ -251,7 +251,7 @@ window.NARRATIVES = {
     ]
   },
   "N6_k1": {
-    nickname: "Pan-Arctic Pseudothioglobus",
+    nickname: "Wandering Wanda",
     eco: "Pseudothioglobus means 'false sulfur ball'. Its relatives are small round or curved cells that are common in the ocean, especially where the water holds little oxygen. Many of them get energy from sulfur and use it to turn carbon dioxide into food, the way plants do with sunlight. In Chesterfield Inlet we found it at Itivia, the Dock and Tuktuttaa. There were about 30 to 40 million of its cells in a litre of water at the Dock in late May and at Itivia in mid-September, so it is here in both spring and fall. It is not only a Chesterfield microbe: we also found it in about a third of our samples from Hudson Bay near Churchill and from the High Arctic islands.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
@@ -267,7 +267,7 @@ window.NARRATIVES = {
     ]
   },
   "N7_marimicrobium": {
-    nickname: "Munching Marimicrobium",
+    nickname: "Mighty Mari",
     eco: "Marimicrobium means 'small marine microbe'. The first member of this genus to be described was found in sea sand, and its relatives live in seawater. In Chesterfield Inlet this one is a fall microbe. We found the most of it at Itivia in early October, about 36 million cells in a litre of water, and about 25 million at the Dock on the same day. In mid-September there were about 18 million in a litre at the Dock and about 13 million at Itivia. In late May we found only a few million at Tuktuttaa and the Dock. It is even more at home further south: we found it in every one of our samples from the Churchill River estuary on Hudson Bay, in about two out of three samples from the High Arctic islands and in many from Hudson Bay near Churchill.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 96%. But nobody has ever described it or given it a name. As far as science is concerned, it is still a new species."],
@@ -285,7 +285,7 @@ window.NARRATIVES = {
     ]
   },
   "N8_uba9145": {
-    nickname: "Paddling Pseudohongiellid",
+    nickname: "Plucky Paddler",
     eco: "This bacterium belongs to a family called Pseudohongiellaceae, but its genus and species have only code names. In Chesterfield Inlet we found it in the fall: about 9 million of its cells in a litre of water at Itivia in mid-September, and about 5 million at Itivia in early October and at the Dock in mid-September. It is much more common out in Hudson Bay. It turned up in more than two out of three of our samples from Hudson Bay near Churchill, where one sample held about 74 million cells in a litre. We also found it in most of our samples from the Churchill River estuary and in some from the High Arctic islands.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 97%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
@@ -302,7 +302,7 @@ window.NARRATIVES = {
     ]
   },
   "N9_uba10364": {
-    nickname: "Frond-Slicing Flavo",
+    nickname: "Seaweed Sam",
     eco: "This bacterium belongs to the Flavobacteriales, a big group of bacteria that are experts at breaking down the sugars in seaweed and algae. Its genus and species have only code names. We found it at all three seawater sites: about 14 million of its cells in a litre of water at Itivia in mid-September, about 12 million at Tuktuttaa and 11 million at the Dock in late May, and about 6 million at the Dock in mid-September. It is also at home in the High Arctic: it turned up in more than half of our samples from the High Arctic islands, where one sample held about 35 million cells in a litre. We also found it in about half of our samples from the Churchill River estuary and in some from Hudson Bay near Churchill.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98.5%. But nobody has ever described it or given it a name, and the same is true for the group of species it belongs to. As far as science is concerned, both its genus and its species are still new."],
@@ -319,7 +319,7 @@ window.NARRATIVES = {
     ]
   },
   "N10_uba9320": {
-    nickname: "Baffling Bacteroid",
+    nickname: "Mystery Max",
     eco: "This bacterium belongs to a branch of the Bacteroidia called NS11-12. Its order, family, genus and species all have only code names. In Chesterfield Inlet it was most common in late May: there were about 14 million of its cells in a litre of water at Tuktuttaa, and about 9 million at Itivia and at the Dock. In mid-September there were still about 6 million in a litre at the Dock and 4 million at Itivia. It is not only a Chesterfield microbe: we found it in every one of our samples from the Churchill River estuary, in almost half of those from the High Arctic islands and in more than a third of those from Hudson Bay near Churchill.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 96%. Only about half of our genome could be compared, so the match is less certain than usual. Nobody has ever described this species or its genus or given them names, so both are still new."],
@@ -336,7 +336,7 @@ window.NARRATIVES = {
     ]
   },
   "N12_nitrosopumilus": {
-    nickname: "Nano Nitrosopumilus",
+    nickname: "Nano Nitro",
     eco: "Nitrosopumilus means 'a dwarf producing nitrite'. It is not a bacterium but an archaeon. Archaea look a lot like bacteria under a microscope, but they are a separate branch of life, with their own kind of cell membrane. Its relatives are tiny rod-shaped cells, and they are among the most common microbes in the ocean. They get their energy from ammonia, which comes from animal waste and dead things, and turn it into nitrite: the first step of the nitrogen cycle in the sea. In Chesterfield Inlet we found it only in late May: about 27 million of its cells in a litre of water at the Dock and about 13 million at Tuktuttaa. In our September and October samples we could not find it. We also found it in some of our samples from the Churchill River estuary, from Hudson Bay near Churchill and from the High Arctic islands.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 95.3%, just above the 95% line for 'same species', across about three quarters of our genome. Nobody has ever described this species or given it a name."],
@@ -353,7 +353,7 @@ window.NARRATIVES = {
     ]
   },
   "N11_caisji01": {
-    nickname: "Plentiful Planctomycete",
+    nickname: "Sweet Sue",
     eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria. Many of them do not have FtsZ, the protein most bacteria use to pinch in two. Instead they grow a bud that swells into a new cell, a bit like yeast. We did not find FtsZ in this genome either. Its genome is big, about 4.6 million DNA letters. In Chesterfield Inlet it lives in Akulliit (2nd Lake). We found it in every dated sample from Akulliit (2nd Lake) in September and October, with about 137 million of its cells in a litre of water in early October and about 64 million in mid-September. We found smaller numbers in Puirsuk (1st Lake), up to about 6 million in a litre, and none in Amaruqtalik (3rd Lake). Further south we found it in small numbers in 3 of 5 freshwater samples from the Churchill River estuary, and not at all in our hundreds of lake samples from Manitoba.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares only about 91.5% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more. Its genus has only a code name, so both its genus and its species are new."],
@@ -370,7 +370,7 @@ window.NARRATIVES = {
     ]
   },
   "N13_mycobacterium": {
-    nickname: "Mantled Mycobacterium",
+    nickname: "Mantled Myco",
     eco: "Mycobacterium means 'fungus rodlet'. These rod-shaped bacteria wrap themselves in a thick, waxy coat, which makes them tough and hard to dry out. Most kinds live in soil and water. In Chesterfield Inlet this one lives in Puirsuk (1st Lake). In mid-September there were about 23 to 31 million of its cells in a litre of water in all three samples from Puirsuk (1st Lake), and about 11 million in early October. We found only a little of it in Akulliit (2nd Lake), and the DNA there matched a bit less closely, so it may be a cousin. Further south we found it in most of our samples from the Churchill River estuary and the Churchill River weir, and in some lakes in southern Manitoba and on the Boreal Shield.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares about 94% of its DNA letters with it, just under the 95% line scientists use for 'same species'."],
@@ -404,7 +404,7 @@ window.NARRATIVES = {
     ]
   },
   "N15_camcqy01": {
-    nickname: "Polar Pirellulid",
+    nickname: "Polar Ella",
     eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them do not have FtsZ, the protein most bacteria use to pinch in two. Instead they grow a bud that swells into a new cell, a bit like yeast. We did not find FtsZ in this genome either. In Chesterfield Inlet it is a fall microbe of Amaruqtalik (3rd Lake): about 73 million of its cells in a litre of water on 9 October, about 62 million on 7 October and about 21 to 37 million in mid-September. We also found it in Akulliit (2nd Lake) and Puirsuk (1st Lake) in smaller numbers, up to about 10 million in a litre, so it lives in all three lakes. We did not find it in late May, or in any of our samples from Hudson Bay or the rest of Manitoba.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares only about 89% of its DNA letters with it. Scientists usually call two genomes the same species when they share 95% or more. Its genus has only a code name, so both its genus and its species are new."],
@@ -420,7 +420,7 @@ window.NARRATIVES = {
     ]
   },
   "N16_qwop01": {
-    nickname: "Piercing Pirellulid",
+    nickname: "Piercing Percy",
     eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them grow a bud that swells into a new cell instead of pinching in two, and we did not find FtsZ, the usual pinching protein, in this genome. In Chesterfield Inlet it lives in Puirsuk (1st Lake). In mid-September there were about 38 to 40 million of its cells in a litre of water there, and about 26 million on 9 October. We found only a little of it in Akulliit (2nd Lake) and none in Amaruqtalik (3rd Lake). Further south we found it in a few samples from the Churchill River estuary, Cross Lake (Pimicikamak), the Nelson River and the Boreal Shield lakes.",
     ecoMore: [
       ["Is it a new species?", "Yes. Its closest known relative shares about 94% of its DNA letters with it, just under the 95% that scientists usually use for 'same species'. Its genus has only a code name, so both its genus and its species are new."],
@@ -436,7 +436,7 @@ window.NARRATIVES = {
     ]
   },
   "N17_camcqy01": {
-    nickname: "Pond-Hopping Pirellulid",
+    nickname: "Hopping Pip",
     eco: "This bacterium belongs to the Planctomycetota, an unusual group of bacteria, and to the Pirellulales, whose best-known member is Pirellula, the 'very small pear'. Many of them grow a bud that swells into a new cell instead of pinching in two, and we did not find FtsZ, the usual pinching protein, in this genome. In Chesterfield Inlet we found it in all three lakes in September and October. It was most common in Akulliit (2nd Lake), with about 80 million of its cells in a litre of water on 9 October and about 19 to 28 million in mid-September. Puirsuk (1st Lake) held up to about 25 million in early October, and Amaruqtalik (3rd Lake) about 5 to 8 million. Further south we found it in 4 of 5 freshwater samples from the Churchill River estuary, and once in the Nelson River.",
     ecoMore: [
       ["Is it a new species?", "Probably. Its closest known relative shares about 94.7% of its DNA letters with it, just under the 95% line scientists usually use for 'same species'. Its genus has only a code name, so its genus is new too."],
@@ -452,7 +452,7 @@ window.NARRATIVES = {
     ]
   },
   "I1_pseudoalteromonas": {
-    nickname: "Patient Pseudoalteromonas",
+    nickname: "Patient Pearl",
     eco: "Pseudoalteromonas means 'false Alteromonas': it was split off from a look-alike genus called Alteromonas. Its relatives are common sea bacteria. We grew this one in the lab from water taken at the Dock, so we know it was there. But when we read the DNA in our water samples, we found only a faint trace of it at the Dock: at most about 0.02% of the DNA, in mid-September. That is too little to count as found, so it was found in 0 of our 15 samples from the inlet. Near Churchill it was a different story. It turned up in 8 of 174 samples from Hudson Bay, and one of those samples held about 56 million of its cells in a litre of water. We also found it in 1 of 19 samples from the Churchill River estuary, but not in the High Arctic islands.",
     ecoMore: [
       ["Is it a new species?", "Not quite. Scientists have read the DNA of this species before, and our genome matches it at about 98% across about 85% of the genome. But nobody has ever described this species or given it a name."],
@@ -469,7 +469,7 @@ window.NARRATIVES = {
     ]
   },
   "I2_shewanella": {
-    nickname: "Shocking Shewanella",
+    nickname: "Shocking Shay",
     eco: "Shewanella is named after James Shewan, a scientist who studied the microbes that live on fish. Its relatives live in seawater, sea ice and mud around the world. We grew this one in the lab from water taken at the Dock, so we know it was there. But we could not find its DNA in any of our water samples: not in the inlet, not near Churchill and not in the High Arctic islands. Other kinds of Shewanella do show up in our Dock and Itivia water, but not this one. It probably lives here in very small numbers, or mostly in places we did not sample, like mud on the sea floor.",
     ecoMore: [
       ["Is it a new species?", "Probably yes. Its closest known relative, Shewanella halifaxensis, shares only about 85.5% of its DNA letters with it, and only across about 29% of the genome. Scientists usually call two genomes the same species when they share 95% or more."],

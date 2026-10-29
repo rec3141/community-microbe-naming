@@ -33,13 +33,14 @@ function homeRow(c) {
 
 function microbeFace(c, total) {
   const L = MC.LIFESTYLES[c.lifestyle], H = HAB[c.habitat] || {name: c.habitat, icon: ''};
-  const peak = c.peak ? `<span class="peak" title="peak season">${ssn(c.peak)}</span>` : '';
+  // left of the cartoon: where it lives and when it peaks (badges on the right are its genes)
+  const left = `<span title="${esc(H.name)} microbe">${H.icon}</span>` + (c.peak ? `<span title="Peaks in ${esc(MC.SEASONS[c.peak].name.toLowerCase())}">${MC.SEASONS[c.peak].icon}</span>` : '');
   const attack = a => `<div class="atk"><div class="atk-h">${dots(a.cost)}<b>${esc(a.name)}</b>${kindTag(a.kind)}<span class="dmg">${a.dmg}</span></div>${a.text ? `<div class="atk-t">${esc(a.text)}</div>` : ''}</div>`;
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
-    <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span>${peak}<span class="hp"><small>HP</small>${c.hp}</span></div>
-    <div class="sub"><span>${L.icon} ${esc(L.name)}</span><span>${H.icon} ${H.name}</span><span>${esc(c.className || c.envelopeName)}</span></div>
-    <div class="art"><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
+    <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span><span class="hp"><small>HP</small>${c.hp}</span></div>
+    <div class="sub"><span>${L.icon} ${esc(L.name)}</span><span>${esc(c.className || c.envelopeName)}</span></div>
+    <div class="art"><div class="badges left">${left}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
     ${c.ability ? `<div class="abil"><b>✦ ${esc(c.ability.name)}</b> ${esc(c.ability.text)}</div>` : ''}
     <div class="atks">${c.attacks.map(attack).join('')}</div>
     ${wrRow(c)}

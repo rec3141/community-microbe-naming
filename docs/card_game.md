@@ -40,7 +40,7 @@ hides each player's cards between turns).
   Bench microbes, Put on Bench under microbes in hand, Play under Event cards, Pick in the draft.
 - **Every move is two steps**: the move opens a confirm bar at the bottom of the screen with a
   preview, worked out by trying the move on a copy of the game (e.g. "Break-In: 80 damage to
-  Busy Balneatrix" with "40, weak to Hunt ×2 → 80 damage (it has 60 HP left)"), then Confirm or Cancel. Ending the turn,
+  Busy Bea" with "40, weak to Hunt ×2 → 80 damage (it has 60 HP left)"), then Confirm or Cancel. Ending the turn,
   choosing the next Place and picking a new Active are confirmed the same way.
 - The only automatic step is the draw at the start of a turn, which is announced and marked NEW.
 - **The computer's turn is replayed step by step**: each step is shown with the board as it was
@@ -284,35 +284,35 @@ Event cards are the same for every community:
 
 | # | Microbe | Type | HP | Quick attack | Big attack | Ability | Weak / resist | Retreat | Badges | Peak |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Tidal Thioglobus | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Sox Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡🔹 | spring |
-| 2 | Peckish Polaribacter | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
-| 3 | Snow-Surfing Schleifer | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Laminarinase Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
+| 1 | Tidal Thio | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Sox Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡🔹 | spring |
+| 2 | Peckish Penny | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
+| 3 | Surfing Shelly | Voracious Vegetarian | 60 | Light Pump (1●, 10) | Laminarinase Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡 | spring |
 | 4 | Gutsy Gamma | Peppy Prepper | 60 | Light Pump (1●, 10) | Dsr Sulfur Burn (2●, 40) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🛡🔹 | fall |
-| 5 | Busy Balneatrix | Dumpster Diver | 60 | Cyanide Puff 🧪 (1●, 10) | Leftover Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡 | spring |
-| 6 | Methanol-Munching Methylophilid | Dumpster Diver | 80 | Lanthipeptide Zap 🧪 (1●, 10) | XoxF Methanol Munch (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀🛡🔹 | fall |
-| 7 | Fibre-Feasting Ferruginibacter | Voracious Vegetarian | 60 | Glide Away (1●, 10) | Chitin Chomp (2●, 40) | — | weak Hunt ×2 | 0 |  | fall |
-| 8 | Persistent Polynucleobacter | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Organic Acid Sweep (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | 🛡 | fall |
-| 9 | Northern Nitrotoga | Peppy Prepper | 60 | TCA Cycle Spin (1●, 10) | Nxr Nitrite Burn (2●, 40) | Carbon Catcher | weak Hunt ×2 | 1 | 🛡🔹 | spring |
-| 10 | Pint-sized Planktophila | Sunny Scavenger | 70 | Cyanide Puff 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Vitamin Share | weak Toxin ×2; Hunt 0 | 1 | ☀❄🛡🔹 | fall |
-| 11 | Sun-sipping Amylibacter | Sunny Scavenger | 70 | Light Pump (1●, 10) | Rhodopsin Surge (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀🧂🛡 | fall |
-| 12 | Arcane Armatimonad | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 13 | Prowling Peredibacter | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🧂🛡 | — |
-| 14 | Bullet-fast Bdellovibrio | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | ❄🧂🛡 | — |
-| 15 | Bold Bacteriovoracid | Happy Hunter | 60 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🛡 | — |
-| 16 | Pan-Arctic Pseudothioglobus | Peppy Prepper | 80 | TCA Cycle Spin (1●, 20) | Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡 | fall |
-| 17 | Munching Marimicrobium | Dumpster Diver | 80 | NRPS Brew 🧪 (1●, 20) | CYP153 Oil Crack (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡🛢 | fall |
-| 18 | Paddling Pseudohongiellid | Dumpster Diver | 70 | Light Pump (1●, 10) | CYP153 Oil Crack (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡🛢 | fall |
-| 19 | Frond-Slicing Flavo | Voracious Vegetarian | 70 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡 | fall |
-| 20 | Baffling Bacteroid | Sunny Scavenger | 80 | Glide Away (1●, 10) | Rhodopsin Surge (2●, 50) | Mystery Genes | weak Hunt ×2 | 0 | ☀❄🛡 | spring |
-| 21 | Nano Nitrosopumilus | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Amo Ammonia Burn (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ❄🛡🔹 | spring |
-| 22 | Plentiful Planctomycete | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 23 | Mantled Mycobacterium | Sunny Scavenger | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ☀❄🛡 | fall |
+| 5 | Busy Bea | Dumpster Diver | 60 | Cyanide Puff 🧪 (1●, 10) | Leftover Feast (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡 | spring |
+| 6 | Leftover Lily | Dumpster Diver | 80 | Lanthipeptide Zap 🧪 (1●, 10) | XoxF Methanol Munch (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | ☀🛡🔹 | fall |
+| 7 | Feasting Fern | Voracious Vegetarian | 60 | Glide Away (1●, 10) | Chitin Chomp (2●, 40) | — | weak Hunt ×2 | 0 |  | fall |
+| 8 | Persistent Polly | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Organic Acid Sweep (2●, 50) | Vitamin Share | weak Hunt ×2 | 1 | 🛡 | fall |
+| 9 | Northern Toga | Peppy Prepper | 60 | TCA Cycle Spin (1●, 10) | Nxr Nitrite Burn (2●, 40) | Carbon Catcher | weak Hunt ×2 | 1 | 🛡🔹 | spring |
+| 10 | Pint-sized Phil | Sunny Scavenger | 70 | Cyanide Puff 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Vitamin Share | weak Toxin ×2; Hunt 0 | 1 | ☀❄🛡🔹 | fall |
+| 11 | Sunny Amy | Sunny Scavenger | 70 | Light Pump (1●, 10) | Rhodopsin Surge (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀🧂🛡 | fall |
+| 12 | Arcane Ari | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 13 | Pouncing Perry | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🧂🛡 | — |
+| 14 | Dashing Della | Happy Hunter | 70 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | ❄🧂🛡 | — |
+| 15 | Bold Bax | Happy Hunter | 60 | Chemotaxis Chase 🎯 (1●, 10) | Break-In 🎯 (2●, 40) | Burst Out | — | 0 | 🛡 | — |
+| 16 | Wandering Wanda | Peppy Prepper | 80 | TCA Cycle Spin (1●, 20) | Sulfur Burn (3●, 60) | Carbon Catcher | weak Hunt ×2 | 1 | ❄🧂🛡 | fall |
+| 17 | Mighty Mari | Dumpster Diver | 80 | NRPS Brew 🧪 (1●, 20) | CYP153 Oil Crack (3●, 60) | Vitamin Share | weak Hunt ×2 | 1 | ☀❄🧂🛡🛢 | fall |
+| 18 | Plucky Paddler | Dumpster Diver | 70 | Light Pump (1●, 10) | CYP153 Oil Crack (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡🛢 | fall |
+| 19 | Seaweed Sam | Voracious Vegetarian | 70 | Light Pump (1●, 10) | Alginate Lyase Slice (2●, 50) | — | weak Hunt ×2 | 0 | ☀❄🛡 | fall |
+| 20 | Mystery Max | Sunny Scavenger | 80 | Glide Away (1●, 10) | Rhodopsin Surge (2●, 50) | Mystery Genes | weak Hunt ×2 | 0 | ☀❄🛡 | spring |
+| 21 | Nano Nitro | Peppy Prepper | 60 | TCA Cycle Spin (1●, 20) | Amo Ammonia Burn (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ❄🛡🔹 | spring |
+| 22 | Sweet Sue | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 23 | Mantled Myco | Sunny Scavenger | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 60) | Carbon Catcher | Hunt 0; Toxin −20 | 1 | ☀❄🛡 | fall |
 | 24 | Abundant Actino | Sunny Scavenger | 60 | Betalactone Blast 🧪 (1●, 20) | Rhodopsin Surge (3●, 70) | Carbon Catcher | weak Toxin ×2; Hunt 0 | 1 | ☀❄🧂🛡🔹 | fall |
-| 25 | Patient Pseudoalteromonas | Voracious Vegetarian | 70 | Bacteriocin Shot 🧪 (1●, 10) | Alginate Lyase Slice (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
-| 26 | Shocking Shewanella | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Mtr Rust Breath (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
-| 27 | Polar Pirellulid | Voracious Vegetarian | 70 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 28 | Piercing Pirellulid | Dumpster Diver | 70 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 60) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
-| 29 | Pond-Hopping Pirellulid | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀ | fall |
+| 25 | Patient Pearl | Voracious Vegetarian | 70 | Bacteriocin Shot 🧪 (1●, 10) | Alginate Lyase Slice (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
+| 26 | Shocking Shay | Dumpster Diver | 70 | Betalactone Blast 🧪 (1●, 10) | Mtr Rust Breath (2●, 40) | Vitamin Share | weak Hunt ×2 | 0 | ❄🧂🛡 | — |
+| 27 | Polar Ella | Voracious Vegetarian | 70 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 28 | Piercing Percy | Dumpster Diver | 70 | NRPS Brew 🧪 (1●, 20) | Chitin Chomp (3●, 60) | Mystery Genes | weak Hunt ×2 | 1 | ☀🛡 | fall |
+| 29 | Hopping Pip | Voracious Vegetarian | 80 | NRPS Brew 🧪 (1●, 20) | Sulfatase Strip (3●, 70) | Mystery Genes | weak Hunt ×2 | 1 | ☀ | fall |
 
 Places: Dock (spring, fall), Itivia (spring, fall), Tuktuttaa (spring), Puirsuk (1st Lake) (fall),
 Akulliit (2nd Lake) (fall), Amaruqtalik (3rd Lake) (spring, fall). Puirsuk in spring is left out: no microbe has a dated
@@ -357,8 +357,8 @@ random teams, greedy play
   the player who lost the first microbe still won 31.5% of games
   turns per game: median 9, 10th pct 7, 90th pct 12
   by type: Oil-eater 54.4%, Sun-catcher 52.9%, Hunter 52.9%, Recycler 47.4%, Chem-eater 46.5%
-  by card: Baffling Bacteroid 58.5%, Munching Marimicrobium 58.4%, Pan-Arctic Pseudothioglobus 55.1%,
-           ... Tidal Thioglobus 44.4%, Peckish Polaribacter 43.7%, Northern Nitrotoga 42.6%
+  by card: Mystery Max 58.5%, Mighty Mari 58.4%, Wandering Wanda 55.1%,
+           ... Tidal Thio 44.4%, Peckish Penny 43.7%, Northern Toga 42.6%
 greedy draft, greedy play
   first player 47.8%; median 9 turns; card win rates 44.8% to 55.0%; types 48.7% to 54.0%
 greedy player vs random player ................................ 98.2% (skill matters)

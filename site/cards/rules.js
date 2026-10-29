@@ -61,7 +61,7 @@ const FULL = `
 <h3>Working out damage</h3>
 <ol>
   <li>Start with the number on the attack.</li>
-  <li>Add ${T.seasonBonus || 10} if the Place's season is the attacker's peak season (🌨️ or 🌬️ next to its name).</li>
+  <li>Add ${T.seasonBonus || 10} if the Place's season is the attacker's peak season (🌨️ or 🌬️ to the left of its picture).</li>
   <li>Add any ability bonus (Mystery Genes, Quorum Sensing).</li>
   <li>If the defender is <b>weak</b> to the attack's kind (🎯 Hunt or 🧪 Toxin), multiply by ${T.weakMult || 2}. If it <b>resists</b> it, subtract ${T.resist || 20}. If it <b>can't be hurt</b> by that kind, the damage is 0.</li>
 </ol>
