@@ -57,6 +57,38 @@ const HOME_DIALECT = CM.dialect || ((CM.dictionaryCreditHtml || '').match(/(\w+)
 const dialectOf = e => (e.dialect || '').replace(/\s*\(.*$/, '') || (e.source || '').replace(/^.*\(|\)$/g, '');
 const otherDialect = e => HOME_DIALECT && !new RegExp(HOME_DIALECT, 'i').test(e.dialect || e.source || '');
 
+// compact copy of the Diversity tab's GTDB tree: this microbe (gold star), its relatives, type strains (T)
+function sheetTree(c) {
+  const t = D.trees[c.id];
+  if (!t) return '<p class="sh-note">No tree available.</p>';
+  const leaves = []; let maxX = 0;
+  (function walk(n, x) { n._x = x + (n.length || 0); maxX = Math.max(maxX, n._x);
+    if (n.children) n.children.forEach(ch => walk(ch, n._x)); else { n._y = leaves.length; leaves.push(n); } })(t.root, 0);
+  (function setY(n) { if (n.children) { n.children.forEach(setY); n._y = (n.children[0]._y + n.children[n.children.length - 1]._y) / 2; } })(t.root);
+  const W = 340, labelW = 205, rowH = 12.5, H = leaves.length * rowH + 22, sx = (W - labelW - 20) / Math.max(maxX, 1e-6);
+  const X = v => 8 + v * sx, Y = v => 8 + v * rowH;
+  let s = `<svg viewBox="0 0 ${W} ${H}" class="sh-phylo">`;
+  (function draw(n, px) {
+    const x = X(n._x), y = Y(n._y);
+    s += `<line x1="${X(px)}" y1="${y}" x2="${x}" y2="${y}"/>`;
+    if (n.children) {
+      s += `<line x1="${x}" y1="${Y(n.children[0]._y)}" x2="${x}" y2="${Y(n.children[n.children.length - 1]._y)}"/>`;
+      n.children.forEach(ch => draw(ch, n._x));
+    } else {
+      // fixed size so the text stays readable; very long names are cut short with …
+      const ani = n.ani ? ` · ${(+n.ani).toFixed(1)}%` : '', room = 44 - ani.length;
+      let lbl = n.is_target ? `★ ${c.nickname}` : (n.label || n.name).replace(/\s*\[[^\]]*\]\s*$/, '');
+      if (lbl.length > room) lbl = lbl.slice(0, room - 1) + '…';
+      const cls = n.is_target ? 'tg' : n.is_type ? 'ty' : n.is_user_bin ? 'ub' : '';
+      s += `<circle cx="${x}" cy="${y}" r="${n.is_target ? 3.5 : 2.2}" class="${cls}"/>`;
+      s += `<text x="${x + 6}" y="${y + 3.5}" class="${cls}">${n.is_type ? `<tspan font-style="italic">${esc(lbl)}</tspan><tspan baseline-shift="super" font-size="6">T</tspan>` : esc(lbl)}${ani}</text>`;
+    }
+  })(t.root, 0);
+  const bar = [0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002, 0.001].find(b => b * sx <= 60) || 0.001;  // a scale bar that fits
+  s += `<line x1="8" y1="${H - 6}" x2="${8 + bar * sx}" y2="${H - 6}"/><text x="${12 + bar * sx}" y="${H - 3}" class="sc">${bar} changes per site</text>`;
+  return s + '</svg>';
+}
+
 function sheetFor(i) {
   const c = C[i], need = namingNeed(c), L = lineageOf(c), g = GUILDS[c.guild], m = D.meta[c.id] || {};
   const where = [...foundRows(c), ...(c.isolated ? [`grown in the lab from ${esc(c.isolated.site)} water (${esc(c.isolated.season || '')})`] : [])];
@@ -70,13 +102,13 @@ function sheetFor(i) {
     return `<tr><th>${x.rank}</th><td>${x.ph ? `${code ? `<span class="sh-code">${esc(code)}</span> ` : ''}<span class="sh-new">no name yet</span>` : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`; }).join('');
   const rr = (c.rrna || '').replace(/\d+\s*[×x]\s*/g, '');  // '9× 16S + 9× 23S' -> '16S + 23S'
   const asm = [
-    ['Genome', `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`],
-    ['Complete', `${fmt(m.completeness)}% (contamination ${fmt(m.contamination, 2)}%)`],
-    ['Pieces', `${m.n_contigs ?? '—'} contigs${m.n50 ? `, N50 ${fmt(m.n50 / 1e3, 0)} kbp` : ''}`],
-    ['Genes', `${(m.n_genes || 0).toLocaleString('en-CA')}${m.hypo_pct != null ? `, ${fmt(m.hypo_pct, 0)}% unknown` : ''}`],
-    ['GC', m.gc != null ? `${fmt(m.gc * 100, 1)}%` : '—'],
-    ...(rr ? [['rRNA', esc(rr)]] : []),
-  ].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
+    `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`,
+    `${fmt(m.completeness)}% complete, ${fmt(m.contamination, 2)}% contamination`,
+    `${m.n_contigs ?? '—'} contigs${m.n50 ? ` (N50 ${fmt(m.n50 / 1e3, 0)} kbp)` : ''}`,
+    `${(m.n_genes || 0).toLocaleString('en-CA')} genes${m.hypo_pct != null ? ` (${fmt(m.hypo_pct, 0)}% unknown)` : ''}`,
+    m.gc != null ? `GC ${fmt(m.gc * 100, 1)}%` : '',
+    rr ? esc(rr) : '',
+  ].filter(Boolean).join(' · ');
   const line = (label, n = 1) => `<div class="sh-fill"><b>${label}</b>${'<span></span>'.repeat(n)}</div>`;
   return `
   <section class="sh-page sh-front ${c.habitat}" id="sheet-${i + 1}">
@@ -93,9 +125,10 @@ function sheetFor(i) {
     </div>
     <div class="sh-top">
       <div><h3>🧬 Family tree</h3><table class="sh-tree">${tree}</table></div>
-      <div><h3>🧩 Its genome</h3><table class="sh-tree sh-asm">${asm}</table>
-        <p class="sh-note">ID <code>${esc(c.id)}</code></p></div>
+      <div><h3>🌳 Its closest relatives</h3>${sheetTree(c)}</div>
     </div>
+    <p class="sh-credit">Relatives: GTDB tree · ★ this microbe · <i>italic</i><sup>T</sup> type strain, the reference for a named species · %: how much of its DNA matches (ANI).</p>
+    <p class="sh-asm"><b>🧩 Its genome:</b> ${asm} · ID <code>${esc(c.id)}</code></p>
     <div class="sh-maps">
       <div><h3>📍 Around ${esc(LOCAL)}</h3><div class="sh-map" data-map="local" data-i="${i}"></div></div>
       <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
@@ -108,11 +141,11 @@ function sheetFor(i) {
   <section class="sh-page sh-back">
     ${head}
     <h2>${esc(c.nickname)}: help name it</h2>
-    ${es.length ? `<h3>🌿 What it does for the ecosystem</h3>
+    ${es.length ? `<h3>🌿 What it does for the ecosystem <span class="sh-note">(predicted from its genes, EcoSSDB)</span></h3>
       <div class="sh-es">${es.map(x => { const info = SI[x.code] || {};
         const pt = (c.esPoints || {})[x.code];  // narratives.js: this microbe's own point in the category
         return `<div><span class="sh-note">${x.icon} ${esc(info.title || x.short_name)}</span><b class="sh-es-h">${esc(pt ? pt[0] : info.title || x.short_name)}</b><p>${esc(pt ? pt[1] : info.front || x.desc)}</p><p class="sh-note">${x.gene_count} gene${x.gene_count === 1 ? '' : 's'} linked to this</p></div>`; }).join('')}</div>
-      <p class="sh-note">Predicted from its genes (EcoSSDB).</p>` : ''}
+` : ''}
     <h3>✍️ What are we naming?</h3>
     <p>${need.genus
       ? `It needs a <b>new genus and species</b>: two new words. The genus (first word) starts with a capital letter; the species (second word) is all lowercase.`
@@ -122,11 +155,19 @@ function sheetFor(i) {
       <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${otherDialect(h.e) ? '‡' : ''}${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>
       <p class="sh-note">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` ‡ ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}, not ${esc(HOME_DIALECT)}.` : ''}</p>` : ''}
     <div class="sh-lines"><div></div><div></div></div>
-    <div class="sh-work">
-      ${need.genus ? `${line(`Genus word (${esc(LANG)})`)}${line('It means')}` : `<div class="sh-fill"><b>Genus</b><span class="sh-fixed"><i>${esc(need.genusName)}</i></span></div>`}
-      ${line(`Species word (${esc(LANG)})`)}${line('It means')}
-      ${line('Our name', 1)}
-      ${line('Why we chose it', 2)}
+    <div class="sh-split">
+      <div class="sh-work">
+        <h4>✍️ Our name</h4>
+        ${need.genus ? line('Genus') : `<div class="sh-fill"><b>Genus</b><span class="sh-fixed"><i>${esc(need.genusName)}</i></span></div>`}
+        ${line('Species')}
+        ${line('Syllabics')}
+        ${line('Meanings')}
+        ${line('Why', 2)}
+      </div>
+      ${(window.IQ_CONTENT?.principles || []).length ? `<div class="sh-iq">
+        <h4>🧭 Which IQ principles does it match?</h4>
+        ${IQ_CONTENT.principles.map(p => `<div><span class="sh-box"></span><span><b>${esc(p.iu)}</b> ${esc(p.en)}</span></div>`).join('')}
+      </div>` : ''}
     </div>
     <p class="sh-note sh-url">More about this microbe, and a tool to build the Latin name: ${esc(site)}</p>
   </section>`;
