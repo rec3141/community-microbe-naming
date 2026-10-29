@@ -1,10 +1,9 @@
 // Printable two-sided Letter sheet per microbe (index.html#N/sheet, or #all/sheet for every microbe).
-// Front: meet the microbe. Back: want to know more, and a worksheet to help name it.
-// Shared by every community; uses the page's own helpers (lineageOf, namingNeed, whereFound,
-// suggestWords, GUILDS, img) and data, so it always matches the site.
+// Front: meet the microbe (family tree, genome, maps, story). Back: what it does for the ecosystem,
+// and a worksheet to help name it. Shared by every community; uses the page's own helpers
+// (lineageOf, namingNeed, suggestWords, GUILDS, img) and data, so it always matches the site.
 (function () {
 'use strict';
-const SEASON = m => m >= 3 && m <= 5 ? 'spring' : m >= 6 && m <= 8 ? 'summer' : m >= 9 && m <= 11 ? 'fall' : 'winter';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 // where and when it was found locally: site -> months, most abundant site first
@@ -19,42 +18,60 @@ function foundRows(c) {
 
 function sheetFor(i) {
   const c = C[i], need = namingNeed(c), L = lineageOf(c), g = GUILDS[c.guild], m = D.meta[c.id] || {};
-  const where = foundRows(c), gen = !need.genus && (window.GENERA || {})[need.genusName];
+  const where = [...foundRows(c), ...(c.isolated ? [`grown in the lab from ${esc(c.isolated.site)} water (${esc(c.isolated.season || '')})`] : [])];
+  const gen = !need.genus && (window.GENERA || {})[need.genusName];
   const words = (typeof suggestWords === 'function' && DICT_SHOWN.length ? suggestWords(c) : []).slice(0, 8);
+  const SI = window.SERVICE_INFO || {}, es = (D.ecossdb[c.id] || []).slice().sort((a, b) => b.weighted_score - a.weighted_score).slice(0, 4);
   const site = `${location.origin}${location.pathname}#${i + 1}`;
   const head = `<div class="sh-head"><span>${esc(CM.brand || CM.placeName || '')} · ${esc(CM.nativeName || '')}</span><span>Microbe ${i + 1} of ${C.length}</span></div>`;
-  const tree = L.map(x => `<tr><th>${x.rank}</th><td>${x.ph ? '<span class="sh-new">no name yet</span>' : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`).join('');
+  // ranks with no Latin name show the code name scientists use for now (e.g. TMED14, sp028352435)
+  const tree = L.map(x => { const code = x.ph && !/^\(no name/.test(x.name) ? x.name : '';
+    return `<tr><th>${x.rank}</th><td>${x.ph ? `${code ? `<span class="sh-code">${esc(code)}</span> ` : ''}<span class="sh-new">no name yet</span>` : `<i>${esc(x.name.replace(/_[A-Z]+\b/g, ''))}</i>`}</td></tr>`; }).join('');
+  const rr = c.rrna || '';
+  const asm = [
+    ['Genome', `${fmt((m.size || 0) / 1e6, 2)} million DNA letters`],
+    ['Complete', `${fmt(m.completeness)}% (contamination ${fmt(m.contamination, 2)}%)`],
+    ['Pieces', `${m.n_contigs ?? '—'} contigs${m.n50 ? `, N50 ${fmt(m.n50 / 1e3, 0)} kbp` : ''}`],
+    ['Genes', `${(m.n_genes || 0).toLocaleString('en-CA')}${m.hypo_pct != null ? `, ${fmt(m.hypo_pct, 0)}% unknown` : ''}`],
+    ['GC', m.gc != null ? `${fmt(m.gc * 100, 1)}%` : '—'],
+    ...(rr ? [['rRNA', esc(rr)]] : []),
+  ].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('');
   const line = (label, n = 1) => `<div class="sh-fill"><b>${label}</b>${'<span></span>'.repeat(n)}</div>`;
   return `
-  <section class="sh-page sh-front ${c.habitat}">
+  <section class="sh-page sh-front ${c.habitat}" id="sheet-${i + 1}">
     ${head}
-    <h1>${esc(c.nickname)}</h1>
-    <div class="sh-pills">
-      <span>${c.habitat === 'marine' ? '🌊 Sea microbe' : '💧 Lake microbe'}</span>
-      ${c.isolated ? '<span>🧫 Grown in the lab</span>' : ''}
-      ${g ? `<span>${g.icon} ${esc(g.name)}</span>` : ''}
-      <span>✍️ ${esc(need.label)}</span>
+    <div class="sh-title">
+      <img src="${img(i)}" alt="">
+      <div><h1>${esc(c.nickname)}</h1>
+        <div class="sh-pills">
+          <span>${c.habitat === 'marine' ? '🌊 Sea microbe' : '💧 Lake microbe'}</span>
+          ${c.isolated ? '<span>🔬 Grown in the lab</span>' : ''}
+          ${g ? `<span>${g.icon} ${esc(g.name)}</span>` : ''}
+          <span>✍️ ${esc(need.label)}</span>
+        </div>
+        ${g ? `<p class="sh-guild">${g.icon} <b>${esc(g.name)}</b>: ${esc(g.short)}</p>` : ''}</div>
     </div>
     <div class="sh-top">
-      <img src="${img(i)}" alt="">
-      <div>
-        <h3>🧬 Family tree</h3>
-        <table class="sh-tree">${tree}</table>
-      </div>
+      <div><h3>🧬 Family tree</h3><table class="sh-tree">${tree}</table></div>
+      <div><h3>🧩 Its genome</h3><table class="sh-tree sh-asm">${asm}</table>
+        <p class="sh-note">ID <code>${esc(c.id)}</code></p></div>
     </div>
-    ${c.cardFact ? `<p class="sh-fact">⭐ ${esc(c.cardFact)}</p>` : ''}
+    <div class="sh-maps">
+      <div><h3>📍 Around ${esc(LOCAL)}</h3><div class="sh-map" data-map="local" data-i="${i}"></div></div>
+      <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
+    </div>
+    <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}.</p>
+    <p class="sh-note">Bigger dots: more of its cells per litre. Grey dots: sampled, but not found. Gold ring: ${esc(LOCAL)}.</p>
     <h3>📖 Its story</h3>
     <p class="sh-story">${esc(c.eco || c.story || '')}</p>
-    <div class="sh-cols">
-      ${g ? `<div><h3>${g.icon} How it makes a living</h3><p>${esc(g.text)}</p></div>` : ''}
-      <div><h3>📍 Where we found it</h3><p>${[...where, ...(c.isolated ? [`grown in the lab from ${esc(c.isolated.site)} water (${esc(c.isolated.season || '')})`] : [])].join('; ') || 'Not yet found in our water samples.'}</p>
-        <p class="sh-note">Genome: ${fmt((m.size || 0) / 1e6, 1)} million DNA letters, ${fmt(m.completeness)}% complete.</p></div>
-    </div>
   </section>
   <section class="sh-page sh-back">
     ${head}
     <h2>${esc(c.nickname)}: help name it</h2>
-    ${(c.ecoMore || []).length ? `<h3>🔍 Want to know more?</h3><dl class="sh-qa">${c.ecoMore.map(([q, a]) => `<dt>${esc(q)}</dt><dd>${esc(a)}</dd>`).join('')}</dl>` : ''}
+    ${es.length ? `<h3>🌿 What it does for the ecosystem</h3>
+      <div class="sh-es">${es.map(x => { const info = SI[x.code] || {};
+        return `<div><b>${x.icon} ${esc(info.title || x.short_name)}</b><p>${esc(info.front || x.desc)}</p><p class="sh-note">${x.gene_count} gene${x.gene_count === 1 ? '' : 's'} linked to this</p></div>`; }).join('')}</div>
+      <p class="sh-note">Predicted from its genes (EcoSSDB).</p>` : ''}
     <h3>✍️ What are we naming?</h3>
     <p>${need.genus
       ? `It needs a <b>new genus and species</b>: two new words. The genus (first word) starts with a capital letter; the species (second word) is all lowercase.`
@@ -72,21 +89,63 @@ function sheetFor(i) {
   </section>`;
 }
 
+// small static Leaflet maps: same extents as the Distribution tab, no interaction
+let pending = 0;
+function drawMaps(box, onReady) {
+  const els = [...box.querySelectorAll('.sh-map')];
+  if (!window.L) { els.forEach(e => { e.innerHTML = '<p class="sh-note">The maps need an internet connection.</p>'; }); return onReady(); }
+  pending = els.length;
+  const done = () => { if (--pending <= 0) onReady(); };
+  els.forEach(el => {
+    const c = C[+el.dataset.i], nm = D.northMap[c.id] || {};
+    const map = L.map(el, {zoomControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
+      keyboard: false, touchZoom: false, zoomSnap: 0.25, fadeAnimation: false, zoomAnimation: false, markerZoomAnimation: false});
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap', maxZoom: 18});
+    let fired = false; const once = () => { if (!fired) { fired = true; done(); } };
+    tiles.on('load', once); setTimeout(once, 15000);  // never wait forever for a tile
+    tiles.addTo(map);
+    map.attributionControl.setPosition('topright');  // keep the credit off the southern dots
+    if (el.dataset.map === 'north') {
+      const reg = (nm.regional_stations || []).filter(r => r.lat != null), maxRel = Math.max(...reg.map(r => r.mean_relab), 1e-6);
+      map.fitBounds(L.latLngBounds(reg.map(r => [r.lat, r.lon])), {padding: [8, 8]});
+      reg.forEach(r => { const det = r.detected > 0;
+        L.circleMarker([r.lat, r.lon], {radius: det ? 3 + 12 * Math.sqrt(r.mean_relab / maxRel) : 3, color: r.is_ci ? '#d97706' : '#fff', weight: r.is_ci ? 2.5 : 1,
+          fillColor: det ? (r.is_ci ? '#fbbf24' : c.habitat === 'marine' ? '#0ea5e9' : '#10b981') : '#94a3b8', fillOpacity: .75}).addTo(map); });
+    } else {
+      const loc = nm.ci_local_stations || [], all = D.ciSites?.length ? D.ciSites : loc;
+      map.fitBounds(L.latLngBounds(all.map(s => [s.lat, s.lon])), {padding: [14, 14]});
+      all.filter(a => !loc.some(s => s.name === a.name)).forEach(a =>
+        L.circleMarker([a.lat, a.lon], {radius: 4, color: '#fff', weight: 1, fillColor: '#94a3b8', fillOpacity: .8}).addTo(map));
+      loc.forEach(s => L.circleMarker([s.lat, s.lon], {radius: 5 + 12 * Math.min(1, Math.sqrt((s.max_relab || 0) / 10)), color: '#fff', weight: 1.5,
+        fillColor: s.type === 'Marine' ? '#0ea5e9' : '#10b981', fillOpacity: .8}).addTo(map));
+    }
+  });
+}
+
 function showSheets(list) {
   document.body.classList.add('sheetmode');
   let box = document.getElementById('sheets');
   if (!box) { box = document.createElement('div'); box.id = 'sheets'; document.body.appendChild(box); }
-  const one = list.length === 1;
+  const one = list.length === 1, i = list[0], n = C.length;
+  const opts = C.map((c, k) => `<option value="${k + 1}"${one && k === i ? ' selected' : ''}>${k + 1}. ${esc(c.nickname)}</option>`).join('');
+  const nav = one
+    ? `<a class="btn" href="#${(i - 1 + n) % n + 1}/sheet" title="Previous microbe">◀</a>
+       <select onchange="location.hash = this.value + '/sheet'">${opts}</select>
+       <a class="btn" href="#${(i + 1) % n + 1}/sheet" title="Next microbe">▶</a>
+       <a class="btn" href="#all/sheet">All ${n}</a>`
+    : `<select onchange="document.getElementById('sheet-' + this.value).scrollIntoView({behavior:'smooth'})"><option value="">Jump to…</option>${opts}</select>`;
   box.innerHTML = `<div class="sh-bar noprint">
-      <button class="btn primary" onclick="window.print()">🖨️ Print</button>
-      ${one ? `<a class="btn" href="#${list[0] + 1}">◀ Back to ${esc(C[list[0]].nickname)}</a>` : `<a class="btn" href="#">◀ Back</a>`}
-      <span class="note">Letter paper, double-sided (flip on long edge). Keep the printer's normal margins.${one ? ` <a href="#all/sheet">Print all ${C.length} microbes</a>` : ''}</span>
+      <a class="btn" href="#${one ? i + 1 : ''}">⌂ ${one ? esc(C[i].nickname) : 'Home'}</a>
+      ${nav}
+      <span class="note">Letter, double-sided (flip on long edge), printer's normal margins.</span>
+      <button class="btn primary sh-print" id="shPrint" disabled onclick="window.print()">⏳ Loading maps…</button>
     </div>` + list.map(sheetFor).join('');
   let ps = document.getElementById('sheetPage');
   if (!ps) { ps = document.createElement('style'); ps.id = 'sheetPage'; document.head.appendChild(ps); }
   ps.textContent = '@page{size:letter portrait}';  // the printer sets the margins
-  document.title = one ? `${C[list[0]].nickname}: printable sheet` : 'Printable microbe sheets';
+  document.title = one ? `${C[i].nickname}: printable sheet` : 'Printable microbe sheets';
   window.scrollTo(0, 0);
+  drawMaps(box, () => { const b = document.getElementById('shPrint'); if (b) { b.disabled = false; b.textContent = '🖨️ Print'; } });
 }
 function route() {
   const h = location.hash.match(/^#(\d+|all)\/sheet$/);
