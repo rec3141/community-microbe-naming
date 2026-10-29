@@ -290,7 +290,7 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-page h2{margin:0 0 2pt;font-size:18pt}
 .sh-page h3{margin:5pt 0 1pt;font-size:12pt;color:#9a6700}
 .sh-page p{margin:0}
-.sh-foot{margin-top:auto;display:flex;justify-content:space-between;gap:10pt;font-size:8.5pt;color:#5b6b80;border-top:1px solid #cbd5e1;padding-top:3pt}  /* page footer, like the header */
+.sh-foot{margin-top:4pt;display:flex;justify-content:space-between;gap:10pt;font-size:8.5pt;color:#5b6b80;border-top:1px solid #cbd5e1;padding-top:3pt}  /* page footer, like the header */
 .sh-head{display:flex;justify-content:space-between;font-size:8.5pt;color:#5b6b80;border-bottom:1px solid #cbd5e1;padding-bottom:3pt}
 .sh-pills{display:flex;gap:6pt;flex-wrap:wrap}
 .sh-pills span{border:1px solid #94a3b8;border-radius:999px;padding:2pt 9pt;font-size:10pt}
@@ -322,7 +322,9 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-wcol{display:flex;flex-direction:column;min-height:0}
 .sh-wcol .sh-words{grid-template-columns:1fr;font-size:10.5pt}
 .sh-wcol .sh-lines{grid-template-columns:1fr;margin:4pt 0 0}
-.sh-work.sh-full{margin-top:4pt;gap:5pt;padding:7pt 12pt}
+.sh-work.sh-full{margin-top:4pt;gap:5pt;padding:7pt 12pt;flex:1 1 auto}  /* fills the page down to the footer */
+.sh-page>.sh-work.sh-full{flex-shrink:1}
+.sh-full .sh-pairs{flex:1}
 .sh-pairs{display:grid;grid-template-columns:1fr 1fr;gap:.25in;align-items:stretch}  /* name fields | notes */
 .sh-pcol{display:flex;flex-direction:column;gap:7pt}
 .sh-notes{display:flex;flex-direction:column;font-size:11pt}
