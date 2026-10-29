@@ -25,18 +25,18 @@ function wrRow(c) {
 }
 // a season icon with a thin dark outline, so the pale 🌨️ / 🌬️ stay visible on white printed cards
 const ssn = k => MC.SEASONS[k] ? `<span class="ssn" title="${MC.SEASONS[k].name}">${MC.SEASONS[k].icon}</span>` : '';
-// cells badge: one randomly coloured pixel per million cells in its biggest local count (seeded by
+// cells badge: one randomly coloured pixel per million cells (minimum 1) in its biggest local count (seeded by
 // the microbe id, so the same card always prints the same pattern)
 const DOT_COLORS = ['#f87171', '#fbbf24', '#34d399', '#38bdf8', '#a78bfa', '#f472b6', '#fb923c', '#a3e635'];
 function cellsBadge(c) {
-  const n = Math.round((c.maxCells || 0) / 1e6), G = 16, R2 = (G / 2) ** 2;
+  const m = Math.round((c.maxCells || 0) / 1e6), n = Math.max(1, m), G = 16, R2 = (G / 2) ** 2;  // at least 1 dot, so no badge is empty
   let h = 2166136261; for (const ch of c.id) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
   const rnd = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296;
   const spots = [];
   for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) if ((x + .5 - G / 2) ** 2 + (y + .5 - G / 2) ** 2 <= R2) spots.push([x, y]);
   for (let i = spots.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [spots[i], spots[j]] = [spots[j], spots[i]]; }
   const px = spots.slice(0, Math.min(n, spots.length)).map(([x, y]) => `<rect x="${x}" y="${y}" width="1" height="1" fill="${DOT_COLORS[Math.floor(rnd() * DOT_COLORS.length)]}"/>`).join('');
-  const t = n ? `About ${c.maxCellsText} cells per litre at most: one dot per million` : 'Fewer than a million cells per litre in any local sample';
+  const t = m ? `About ${c.maxCellsText} cells per litre at most: one dot per million` : 'Fewer than a million cells per litre in any local sample';
   return `<span class="cells" title="${esc(t)}"><svg viewBox="0 0 ${G} ${G}" shape-rendering="crispEdges">${px}</svg></span>`;
 }
 function homeRow(c) {
@@ -71,10 +71,12 @@ function placeFace(p, total) {
     <div class="top"><span class="kindlabel">PLACE</span><span class="nm${nameSize(p.name, 5)}">${esc(p.name)}</span><span class="hp">${ssn(p.season) || S.icon}</span></div>
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
     <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}</div>
-    <div class="pl-rule">${esc(p.text)}</div>
+    <div class="pl-fx">
+      <div class="fx good ${esc(p.season)}" title="${esc(p.text)}"><b>+10 ${ssn(p.season) || S.icon}</b><span>${esc(S.name.toLowerCase())} microbes hit harder here</span></div>
+      <div class="fx bad" title="Wrong water"><b>−10 ${salty ? '💧' : '🌊'}</b><span>${salty ? 'a lake Active (not 🧂) takes 10 each turn' : 'a sea Active takes 10 each turn'}</span></div>
+    </div>
     <div class="pl-homes${p.homes.map(h => h.name).join(', ').length > 280 ? ' long' : ''}"><b>Home microbes (+2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
-    <div class="pl-rule small">Wrong water: a ${salty ? 'lake microbe Active here (unless 🧂)' : 'sea microbe Active here'} takes 10 at the start of your turn.</div>
-    <div class="foot"><span class="home">Sampled here in ${esc(p.months.join(' & '))}</span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
+    <div class="foot"><span class="home"></span>${total ? `<span class="no">${p.num}/${total}</span>` : ''}</div>
   </div></div>`;
 }
 

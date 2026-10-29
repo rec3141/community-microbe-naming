@@ -55,11 +55,16 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
   background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 35%,transparent),transparent 70%);border-radius:1.5mm}
 .tcard .art img{height:27mm;width:27mm;border-radius:50%;object-fit:cover;border:.6mm solid var(--life);background:#000}
 .tcard.freshwater .art img{border-color:var(--fresh)}.tcard.marine .art img{border-color:var(--marine)}
-.tcard .badges{position:absolute;right:0;top:0;height:20.7mm;display:flex;flex-direction:column;flex-wrap:wrap-reverse;align-content:flex-start;gap:.6mm;font-size:9.5pt}  /* 3 badges per column (3 x 6.5 mm + gaps); a 4th starts a new column to the left */
-.tcard .badges.left{right:auto;left:0;flex-wrap:wrap}
-.tcard .badges.left span{filter:drop-shadow(0 0 .25px #0b1726) contrast(1.2) saturate(1.3)}  /* pale 🌨️ / 🌬️ on white paper */
+/* badges fill the picture's height: 3 rows of 8 mm. Right side (genes): rows 1-3 of the outer column,
+   then a 4th beside the top one and a 5th beside the bottom one, where the round cartoon leaves room.
+   Left side: habitat, peak season, cells. */
+.tcard .badges{--b:8mm;position:absolute;right:0;top:0;bottom:0;display:grid;grid-template-columns:repeat(2,var(--b));grid-template-rows:repeat(3,var(--b));align-content:space-between;column-gap:.6mm;font-size:11.5pt}
+.tcard .badges span{grid-column:2;background:rgba(11,23,38,.75);border-radius:50%;width:var(--b);height:var(--b);display:flex;align-items:center;justify-content:center}
+.tcard .badges span:nth-child(1){grid-row:1}.tcard .badges span:nth-child(2){grid-row:2}.tcard .badges span:nth-child(3){grid-row:3}
+.tcard .badges span:nth-child(4){grid-row:1;grid-column:1}.tcard .badges span:nth-child(5){grid-row:3;grid-column:1}.tcard .badges span:nth-child(n+6){grid-row:2;grid-column:1}
+.tcard .badges.left{right:auto;left:0;grid-template-columns:var(--b)}
+.tcard .badges.left span{grid-column:1;filter:drop-shadow(0 0 .25px #0b1726) contrast(1.2) saturate(1.3)}  /* pale 🌨️ / 🌬️ on white paper */
 .tcard .badges .cells svg{width:80%;height:80%;border-radius:50%;background:#0b1726}
-.tcard .badges span{background:rgba(11,23,38,.75);border-radius:50%;width:6.5mm;height:6.5mm;display:flex;align-items:center;justify-content:center}
 .tcard .abil{background:rgba(251,191,36,.12);border:.2mm solid rgba(251,191,36,.5);border-radius:1.2mm;padding:.6mm 1mm;font-size:6.8pt}
 .tcard .abil b{color:var(--gold)}
 .tcard .atks{display:flex;flex-direction:column;gap:.6mm}
@@ -84,8 +89,15 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 .tcard .pl-art b{font-size:18pt}
 .tcard .pl-rule{font-size:7.2pt;font-weight:600;background:rgba(0,0,0,.25);border-radius:1mm;padding:.8mm 1mm}
 .tcard .pl-rule.small{font-weight:400;font-size:6.8pt}
-.tcard .pl-homes{font-size:6.8pt;flex:1;min-height:0;overflow:hidden}
-.tcard .pl-homes.long{font-size:6.3pt;line-height:1.1}  /* very long home lists, e.g. the Dock cards */
+.tcard .pl-homes{font-size:7.2pt;flex:1;min-height:0;overflow:hidden}
+.tcard .pl-homes.long{font-size:6.2pt;line-height:1.1}
+/* place effects side by side: the season bonus in the season's colour, wrong water in red (damage) */
+.tcard .pl-fx{display:grid;grid-template-columns:1fr 1fr;gap:1mm;flex:none}
+.tcard .fx{--c:#f87171;--t:#fecaca;border:.4mm solid var(--c);background:color-mix(in srgb,var(--c) 16%,transparent);border-radius:1.4mm;padding:.7mm 1.1mm;display:flex;flex-direction:column;gap:.2mm}
+.tcard .fx.spring{--c:#7dd3fc;--t:#bae6fd}.tcard .fx.fall{--c:#fb923c;--t:#fed7aa}.tcard .fx.summer{--c:#fbbf24;--t:#fde68a}.tcard .fx.winter{--c:#c4b5fd;--t:#ddd6fe}
+.tcard .fx b{font-size:14pt;line-height:1;color:var(--t);display:flex;align-items:center;gap:1mm}
+.tcard .fx span{font-size:7.4pt;line-height:1.15;font-weight:600}
+.ink .tcard .fx{--t:color-mix(in srgb,var(--c) 55%,#000)}  /* very long home lists, e.g. the Dock cards */
 .tcard .pl-homes small{color:#93a9c3;font-size:6.2pt}
 /* events */
 .tcard .ev-art{aspect-ratio:16/9;flex:none;display:flex;align-items:center;justify-content:center;font-size:30pt;border-radius:1.5mm;
