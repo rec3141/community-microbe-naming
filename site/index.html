@@ -20,7 +20,7 @@ header.top{position:sticky;top:0;z-index:1000;background:rgba(11,23,38,.96);back
 .brand{font-weight:700;font-size:1.05rem;cursor:pointer;white-space:nowrap}
 .brand small{color:var(--muted);font-weight:400;margin-left:6px}
 .selector{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
-.selector select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:420px}
+.selector select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 10px;width:15em}  /* fixed, so ◀ ▶ stay put */
 .btn{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
 .btn:hover{border-color:var(--marine)}
 .btn.primary{background:var(--marine);color:#04223a;border-color:var(--marine);font-weight:600}
@@ -301,10 +301,11 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-code{font-family:ui-monospace,Menlo,monospace;font-size:9.5pt}
 .sh-maps{display:grid;grid-template-columns:1fr 1.7in;gap:.2in}
 .sh-map{height:2in;border:1px solid #cbd5e1;border-radius:4pt;background:#e2e8f0}
-.sh-map .leaflet-control-attribution{font-size:6pt;padding:0 3px}
+.sh-credit{font-size:7pt;color:#64748b;margin-top:-3pt!important;text-align:left}  /* OSM credit, under the maps' lower left */
 .sh-es{display:grid;grid-template-columns:1fr 1fr;gap:5pt .2in;font-size:9pt;line-height:1.3}
 .sh-es p{margin:1pt 0 0}
-.sh-bar select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:260px}
+.sh-bar select{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:15em;flex:none}  /* fixed, so ◀ ▶ stay put */
+.sh-bar .sh-name{width:12em;flex:none;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .sh-bar .sh-print{margin-left:auto}
 .sh-tree{border-collapse:collapse;width:100%;font-size:10pt;line-height:1.25}
 .sh-tree th{text-align:left;font-weight:600;color:#5b6b80;padding:1pt 10pt 1pt 0;width:1%;white-space:nowrap}

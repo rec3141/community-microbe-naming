@@ -60,6 +60,7 @@ function sheetFor(i) {
       <div><h3>📍 Around ${esc(LOCAL)}</h3><div class="sh-map" data-map="local" data-i="${i}"></div></div>
       <div><h3>🌍 The North</h3><div class="sh-map" data-map="north" data-i="${i}"></div></div>
     </div>
+    <p class="sh-credit">Maps © OpenStreetMap contributors · Leaflet</p>
     <p class="sh-where"><b>📅 Found:</b> ${where.join('; ') || 'not yet in our water samples'}.</p>
     <p class="sh-note">Bigger dots: more of its cells per litre. Grey dots: sampled, but not found. Gold ring: ${esc(LOCAL)}.</p>
     <h3>📖 Its story</h3>
@@ -99,12 +100,12 @@ function drawMaps(box, onReady) {
   els.forEach(el => {
     const c = C[+el.dataset.i], nm = D.northMap[c.id] || {};
     const map = L.map(el, {zoomControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false,
-      keyboard: false, touchZoom: false, zoomSnap: 0.25, fadeAnimation: false, zoomAnimation: false, markerZoomAnimation: false});
+      keyboard: false, touchZoom: false, attributionControl: false, zoomSnap: 0.25,  // credit is printed under the maps
+      fadeAnimation: false, zoomAnimation: false, markerZoomAnimation: false});
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap', maxZoom: 18});
     let fired = false; const once = () => { if (!fired) { fired = true; done(); } };
     tiles.on('load', once); setTimeout(once, 15000);  // never wait forever for a tile
     tiles.addTo(map);
-    map.attributionControl.setPosition('topright');  // keep the credit off the southern dots
     if (el.dataset.map === 'north') {
       const reg = (nm.regional_stations || []).filter(r => r.lat != null), maxRel = Math.max(...reg.map(r => r.mean_relab), 1e-6);
       map.fitBounds(L.latLngBounds(reg.map(r => [r.lat, r.lon])), {padding: [8, 8]});
@@ -129,13 +130,13 @@ function showSheets(list) {
   const one = list.length === 1, i = list[0], n = C.length;
   const opts = C.map((c, k) => `<option value="${k + 1}"${one && k === i ? ' selected' : ''}>${k + 1}. ${esc(c.nickname)}</option>`).join('');
   const nav = one
-    ? `<a class="btn" href="#${(i - 1 + n) % n + 1}/sheet" title="Previous microbe">◀</a>
-       <select onchange="location.hash = this.value + '/sheet'">${opts}</select>
+    ? `<select onchange="location.hash = this.value + '/sheet'">${opts}</select>
+       <a class="btn" href="#${(i - 1 + n) % n + 1}/sheet" title="Previous microbe">◀</a>
        <a class="btn" href="#${(i + 1) % n + 1}/sheet" title="Next microbe">▶</a>
        <a class="btn" href="#all/sheet">All ${n}</a>`
     : `<select onchange="document.getElementById('sheet-' + this.value).scrollIntoView({behavior:'smooth'})"><option value="">Jump to…</option>${opts}</select>`;
   box.innerHTML = `<div class="sh-bar noprint">
-      <a class="btn" href="#${one ? i + 1 : ''}">⌂ ${one ? esc(C[i].nickname) : 'Home'}</a>
+      <a class="btn sh-name" href="#${one ? i + 1 : ''}" title="Back to the microbe page">⌂ ${one ? esc(C[i].nickname) : 'Home'}</a>
       ${nav}
       <span class="note">Letter, double-sided (flip on long edge), printer's normal margins.</span>
       <button class="btn primary sh-print" id="shPrint" disabled onclick="window.print()">⏳ Loading maps…</button>
