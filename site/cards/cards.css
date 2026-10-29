@@ -55,8 +55,8 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
   background:radial-gradient(circle at 50% 45%,color-mix(in srgb,var(--life) 35%,transparent),transparent 70%);border-radius:1.5mm}
 .tcard .art img{height:22mm;width:22mm;border-radius:50%;object-fit:cover;border:.6mm solid var(--life);background:#000}
 .tcard.freshwater .art img{border-color:var(--fresh)}.tcard.marine .art img{border-color:var(--marine)}
-.tcard .badges{position:absolute;right:0;top:0;display:flex;flex-direction:column;gap:.4mm;font-size:7.6pt}
-.tcard .badges span{background:rgba(11,23,38,.75);border-radius:50%;width:4.6mm;height:4.6mm;display:flex;align-items:center;justify-content:center}
+.tcard .badges{position:absolute;right:0;top:0;height:20.7mm;display:flex;flex-direction:column;flex-wrap:wrap-reverse;align-content:flex-start;gap:.6mm;font-size:9.5pt}  /* 3 badges per column (3 x 6.5 mm + gaps); a 4th starts a new column to the left */
+.tcard .badges span{background:rgba(11,23,38,.75);border-radius:50%;width:6.5mm;height:6.5mm;display:flex;align-items:center;justify-content:center}
 .tcard .abil{background:rgba(251,191,36,.12);border:.2mm solid rgba(251,191,36,.5);border-radius:1.2mm;padding:.6mm 1mm;font-size:6.8pt}
 .tcard .abil b{color:var(--gold)}
 .tcard .atks{display:flex;flex-direction:column;gap:.6mm}
@@ -76,8 +76,6 @@ details.full summary{cursor:pointer;color:var(--marine);margin:10px 0}
 /* places */
 .tcard .pl-art,.tcard .ev-art{position:relative;overflow:hidden}
 .tcard .art-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
-.tcard .season-chip{position:absolute;right:1mm;top:1mm;font-style:normal;font-size:9pt;background:rgba(11,23,38,.7);border-radius:50%;width:6mm;height:6mm;display:none;align-items:center;justify-content:center;z-index:2}
-.tcard .art-img~.season-chip{display:flex}
 .tcard .pl-art{aspect-ratio:600/335;flex:none;border-radius:1.5mm;display:flex;align-items:center;justify-content:center;gap:3mm;font-size:24pt;
   background:linear-gradient(180deg,color-mix(in srgb,var(--life) 45%,#0b1726),#0b1726)}
 .tcard .pl-art b{font-size:18pt}

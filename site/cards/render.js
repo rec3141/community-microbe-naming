@@ -38,7 +38,7 @@ function microbeFace(c, total) {
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
     <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span>${peak}<span class="hp"><small>HP</small>${c.hp}</span></div>
-    <div class="sub"><span>${L.icon} ${esc(L.name)}</span><span>${H.icon} ${H.name}</span><span>${esc(c.envelopeName)}</span></div>
+    <div class="sub"><span>${L.icon} ${esc(L.name)}</span><span>${H.icon} ${H.name}</span><span>${esc(c.className || c.envelopeName)}</span></div>
     <div class="art"><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
     ${c.ability ? `<div class="abil"><b>✦ ${esc(c.ability.name)}</b> ${esc(c.ability.text)}</div>` : ''}
     <div class="atks">${c.attacks.map(attack).join('')}</div>
@@ -55,7 +55,7 @@ function placeFace(p, total) {
   <div class="frame">
     <div class="top"><span class="kindlabel">PLACE</span><span class="nm${nameSize(p.name, 5)}">${esc(p.name)}</span><span class="hp">${ssn(p.season) || S.icon}</span></div>
     <div class="sub"><span>${S.name} · ${esc(p.months.join(', '))}</span><span>${salty ? '🌊 Salt water' : '💧 Fresh water'}</span></div>
-    <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}<i class="season-chip">${S.icon}</i></div>
+    <div class="pl-art"><span>${salty ? '🌊' : '💧'}</span><b>${S.icon}</b>${artImg(p.art)}</div>
     <div class="pl-rule">${esc(p.text)}</div>
     <div class="pl-homes${p.homes.map(h => h.name).join(', ').length > 280 ? ' long' : ''}"><b>Home microbes (+2 nutrients when fed):</b> ${p.homes.map(h => esc(h.name)).join(', ') || '—'}</div>
     <div class="pl-rule small">Wrong water: a ${salty ? 'lake microbe Active here (unless 🧂)' : 'sea microbe Active here'} takes 10 at the start of your turn.</div>

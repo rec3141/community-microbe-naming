@@ -307,6 +307,8 @@ function microbeCard(c, nar, D, num) {
   const card = {
     type: 'microbe', id: f.id, num, name: f.n.nickname || f.id, habitat: c.habitat, img: c.img || null,
     lifestyle: life, envelope: env, envelopeName: E.name,
+    // GTDB class, shown on the card face; the long proteobacteria names use the usual Greek short form
+    className: (f.lineage.c || '').replace(/_[A-Z]+$/, '').replace(/^(Alpha|Beta|Gamma|Delta)proteobacteria$/, (m, g) => ({Alpha: 'α', Beta: 'β', Gamma: 'γ', Delta: 'δ'})[g] + '-Proteobacteria'),
     hp: TUNE.hpBase + TUNE.hpPerSpread * spread + (big ? TUNE.hpBigGenome : 0),
     weak: E.weak, resist: E.resist, immune: E.immune,
     retreat: move ? 0 : ability && ability.key === 'hold' ? 2 : 1,
@@ -342,6 +344,7 @@ function statNotes(f, card, spread, b, big, move) {
     ['HP ' + card.hp, `${TUNE.hpBase}, +${TUNE.hpPerSpread} if found in at least ${pc(TUNE.spreadLocal[0])} of local samples (${f.localDet} of ${f.localN}: ${f.localFrac >= TUNE.spreadLocal[0] ? 'yes' : 'no'}), +${TUNE.hpPerSpread} if found in at least ${pc(TUNE.spreadRegion[0])} of other northern samples (${f.regionDet} of ${f.regionN}: ${f.regionFrac >= TUNE.spreadRegion[0] ? 'yes' : 'no'}), +${TUNE.hpBigGenome} if its genome is ${TUNE.bigGenomeMbp} Mbp or more (${card.genomeMbp} Mbp: ${big ? 'yes' : 'no'}). Microbes found in many places are hard to wipe out.`],
     ['Damage', `Bloom tier ${b} of 3: up to ${f.maxCellsText} cells per litre in one local sample. Microbes that reach big numbers hit harder.`],
     ['Type', `${LIFESTYLES[card.lifestyle].name}: ${LIFESTYLES[card.lifestyle].text}`],
+    ...(f.lineage.c ? [['Class', `${(f.lineage.c || '').replace(/_[A-Z]+$/, '')}, a class in the phylum ${f.phylum} (GTDB). A class is the rank above order and below phylum.`]] : []),
     ['Cell wall', `${ENVELOPES[card.envelope].name}. ${ENVELOPES[card.envelope].text}`],
     ['Retreat ' + card.retreat, move ? `It can ${move === 'glide' ? 'glide' : 'swim'}, so moving costs nothing.` : card.retreat === 2 ? 'It holds on tight to particles, so moving costs more.' : 'It drifts with the water.'],
   ];
