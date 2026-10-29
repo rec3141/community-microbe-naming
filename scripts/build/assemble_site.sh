@@ -12,7 +12,7 @@ ID=${1:?usage: assemble_site.sh <community-id> [dictionary.js]}
 SRC=$ROOT/communities/$ID; OUT=$ROOT/dist/$ID
 [ -f "$SRC/community.js" ] || { echo "[ERROR] $SRC/community.js not found" >&2; exit 1; }
 rm -rf "$OUT"; mkdir -p "$OUT/api"
-cp "$ROOT"/site/{index.html,serve.py,naming_api.py,taxon_names.js,iq_tab.js} "$OUT/"
+cp "$ROOT"/site/{index.html,serve.py,naming_api.py,taxon_names.js,iq_tab.js,sheet.js} "$OUT/"
 cp "$ROOT"/site/api/{lib.php,protologue.php,status.php,.htaccess} "$OUT/api/"
 cp "$SRC/api/prompt.json" "$OUT/api/prompt.json"
 for f in community.js candidates.js narratives.js site_data.js; do
