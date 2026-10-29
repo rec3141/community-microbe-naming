@@ -169,16 +169,17 @@ function sheetFor(i) {
       </div>` : ''}
     </div>
       <div class="sh-work sh-full">
-        <h4>✍️ Our name</h4>
         <div class="sh-pairs">
-          ${pair('Name', need.genus ? '' : `<i>${esc(need.genusName)}</i>`)}
-          ${pair(esc(LANG))}
-          ${pair(esc(CM.languageNative || 'Syllabics'))}
-          ${pair('Meaning')}
+          <div class="sh-pcol">
+            ${pair('Name', need.genus ? '' : `<i>${esc(need.genusName)}</i>`)}
+            ${pair(esc(LANG))}
+            ${pair(esc(CM.languageNative || 'Syllabics'))}
+            ${pair('Meaning')}
+          </div>
+          <div class="sh-notes"><b>Notes:</b><div></div></div>
         </div>
-        ${line('Notes:', 2)}
       </div>
-    <p class="sh-note sh-url">More about this microbe, and a tool to build the Latin name: ${esc(site)}</p>
+    <div class="sh-foot"><span>More about this microbe, and a tool to build the Latin name</span><span>${esc(site)}</span></div>
   </section>`;
 }
 

@@ -290,6 +290,7 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-page h2{margin:0 0 2pt;font-size:18pt}
 .sh-page h3{margin:5pt 0 1pt;font-size:12pt;color:#9a6700}
 .sh-page p{margin:0}
+.sh-foot{margin-top:auto;display:flex;justify-content:space-between;gap:10pt;font-size:8.5pt;color:#5b6b80;border-top:1px solid #cbd5e1;padding-top:3pt}  /* page footer, like the header */
 .sh-head{display:flex;justify-content:space-between;font-size:8.5pt;color:#5b6b80;border-bottom:1px solid #cbd5e1;padding-bottom:3pt}
 .sh-pills{display:flex;gap:6pt;flex-wrap:wrap}
 .sh-pills span{border:1px solid #94a3b8;border-radius:999px;padding:2pt 9pt;font-size:10pt}
@@ -319,16 +320,19 @@ body.sheetmode>*:not(#sheets){display:none!important}
 .sh-phylo text{font:8px system-ui,sans-serif;fill:#334155}.sh-phylo text.tg{font-weight:700;fill:#b45309;font-size:8.5px}.sh-phylo text.ty{fill:#10233a;font-weight:600}.sh-phylo text.sc{font-size:7px;fill:#64748b}
 .sh-split{display:grid;grid-template-columns:1fr 1fr;gap:.2in;align-items:stretch}  /* words | IQ, at full height */
 .sh-wcol{display:flex;flex-direction:column;min-height:0}
-.sh-wcol .sh-words{grid-template-columns:1fr}
+.sh-wcol .sh-words{grid-template-columns:1fr;font-size:10.5pt}
 .sh-wcol .sh-lines{grid-template-columns:1fr;margin:4pt 0 0}
 .sh-work.sh-full{margin-top:4pt;gap:5pt;padding:7pt 12pt}
-.sh-pairs{display:grid;grid-template-columns:1fr 1fr;gap:5pt .25in}  /* two fields per row across the full width */
+.sh-pairs{display:grid;grid-template-columns:1fr 1fr;gap:.25in;align-items:stretch}  /* name fields | notes */
+.sh-pcol{display:flex;flex-direction:column;gap:7pt}
+.sh-notes{display:flex;flex-direction:column;font-size:11pt}
+.sh-notes>div{flex:1;min-height:40pt;background:repeating-linear-gradient(to bottom,transparent 0 20pt,#64748b 20pt 21pt)}  /* ruled lines down the whole box */
 .sh-work.sh-full .sh-fill.sh-pair span:not(.sh-fixed){flex:1 1 0}
 .sh-split h4{margin:0 0 4pt;font-size:11pt}
-.sh-iq{border:1.5px solid #10233a;border-radius:8pt;padding:7pt 9pt;display:flex;flex-direction:column;gap:1.5pt;font-size:8pt;line-height:1.15}
+.sh-iq{border:1.5px solid #10233a;border-radius:8pt;padding:7pt 9pt;display:flex;flex-direction:column;gap:1.5pt;font-size:9pt;line-height:1.15}
 .sh-iq>div{display:flex;gap:6pt;align-items:flex-start}
 .sh-iq .sh-syl{color:#5b6b80}
-.sh-box{flex:none;width:9pt;height:9pt;border:1.2px solid #10233a;border-radius:2pt;margin-top:1pt}
+.sh-box{flex:none;width:9.5pt;height:9.5pt;border:1.2px solid #10233a;border-radius:2pt;margin-top:1pt}
 .sh-cite{font-size:7.5pt!important;line-height:1.25}  /* glossary credit under the heading */
 .sh-credit{font-size:7pt;color:#64748b;margin-top:-3pt!important;text-align:left}  /* OSM credit, under the maps' lower left */
 .sh-es{display:grid;grid-template-columns:1fr 1fr;gap:4pt .2in;font-size:8.5pt;line-height:1.25}
