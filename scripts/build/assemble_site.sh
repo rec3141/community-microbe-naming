@@ -33,4 +33,7 @@ find "$SRC" -maxdepth 1 -name '*.html' -exec cp {} "$OUT/" \;
 DICT=${2:-$SRC/dictionary.js}
 if [ -f "$DICT" ]; then cp "$DICT" "$OUT/dictionary.js"
 else echo "[WARN] no dictionary: word search will be empty" >&2; echo "window.DICTIONARY = [];" > "$OUT/dictionary.js"; fi
+# ranked word suggestions from scripts/build/suggest_words.py, kept beside the private dictionary
+PICKS=$(dirname "$DICT")/word_picks_$ID.js
+if [ -f "$PICKS" ]; then cp "$PICKS" "$OUT/word_picks.js"; else echo "window.WORD_PICKS = null;" > "$OUT/word_picks.js"; fi
 echo "[INFO] assembled $OUT ($(du -sh "$OUT" | cut -f1)); preview: cd $OUT && python3 serve.py 8080 127.0.0.1"

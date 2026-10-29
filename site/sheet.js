@@ -37,15 +37,25 @@ function wordPlan() {
   if (WORD_PLAN) return WORD_PLAN;
   const uses = new Map(), MAX_USES = 4, key = h => (h.e.roman || '').toLowerCase();  // count by spelling: some words have several entries
   WORD_PLAN = C.map(c => {
-    const cands = typeof suggestWords === 'function' && DICT_SHOWN.length ? suggestWords(c) : [];
+    const cands = typeof suggestWords === 'function' && DICT_SHOWN.length ? suggestWords(c, 80) : [];
     const seen = new Set(), pick = cands.filter(h => (uses.get(key(h)) || 0) < MAX_USES)
       .map(h => ({h, v: h.score / (1 + 1.5 * (uses.get(key(h)) || 0))}))
       .sort((a, b) => b.v - a.v).filter(x => !seen.has(key(x.h)) && seen.add(key(x.h))).slice(0, 8).map(x => x.h);
+    // never short-change a sheet: top up from its own ranked list, even past the cap
+    for (const h of cands) { if (pick.length >= 8) break; if (!pick.some(x => key(x) === key(h))) pick.push(h); }
     pick.forEach(h => uses.set(key(h), (uses.get(key(h)) || 0) + 1));
     return pick;
   });
   return WORD_PLAN;
 }
+
+// glossary credit for print: community.js dictionaryCreditHtml with links written out as text
+const dictCredit = () => { const h = CM.dictionaryCreditHtml || '', urls = [...h.matchAll(/href="https?:\/\/([^"]+)"/g)].map(m => m[1]);
+  return h.replace(/<[^>]+>/g, '').replace(/\.?\s*$/, urls.length ? ` (${urls.join(', ')}).` : '.'); };
+// the community's own dialect (CM.dialect, default: the first word of the credit's dialect) vs. words from others
+const HOME_DIALECT = CM.dialect || ((CM.dictionaryCreditHtml || '').match(/(\w+) dialect/) || [])[1] || '';
+const dialectOf = e => (e.dialect || '').replace(/\s*\(.*$/, '') || (e.source || '').replace(/^.*\(|\)$/g, '');
+const otherDialect = e => HOME_DIALECT && !new RegExp(HOME_DIALECT, 'i').test(e.dialect || e.source || '');
 
 function sheetFor(i) {
   const c = C[i], need = namingNeed(c), L = lineageOf(c), g = GUILDS[c.guild], m = D.meta[c.id] || {};
@@ -109,7 +119,8 @@ function sheetFor(i) {
       : `It belongs to the genus <i>${esc(need.genusName)}</i>${gen ? `, which means “${esc(gen.gloss)}”` : ''}. It needs a new <b>species</b> name: the second word, all lowercase.`}
       A good name often says where it lives, what it does or what it looks like.</p>
     ${words.length ? `<h3>💡 ${esc(LANG)} words that might fit</h3>
-      <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>` : ''}
+      <div class="sh-words">${words.map(h => `<div title="${esc([...h.why].join(' · '))}"><b>${esc(h.e.roman)}</b>${otherDialect(h.e) ? '‡' : ''}${h.e.syllabics ? ` ${esc(h.e.syllabics)}` : ''}<span>${esc(h.e.english)}</span></div>`).join('')}</div>
+      <p class="sh-note">${dictCredit()}${words.some(h => otherDialect(h.e)) ? ` ‡ ${esc([...new Set(words.filter(h => otherDialect(h.e)).map(h => dialectOf(h.e)))].join(', '))}, not ${esc(HOME_DIALECT)}.` : ''}</p>` : ''}
     <div class="sh-lines"><div></div><div></div></div>
     <div class="sh-work">
       ${need.genus ? `${line(`Genus word (${esc(LANG)})`)}${line('It means')}` : `<div class="sh-fill"><b>Genus</b><span class="sh-fixed"><i>${esc(need.genusName)}</i></span></div>`}
@@ -119,6 +130,25 @@ function sheetFor(i) {
     </div>
     <p class="sh-note sh-url">More about this microbe, and a tool to build the Latin name: ${esc(site)}</p>
   </section>`;
+}
+
+// place names on the North map (community.js mapLabels overrides); the local map labels every site
+const NORTH_LABELS = CM.mapLabels || [
+  {name: 'Resolute', lat: 74.70, lon: -94.83}, {name: 'Chesterfield Inlet', lat: 63.34, lon: -90.70},
+  {name: 'Churchill', lat: 58.77, lon: -94.17}, {name: 'Manitoba', lat: 54.0, lon: -98.0, area: true}];
+// a label goes right of its dot, else left, above or below: the first side where it fits inside the map
+const OFFSET = {right: [5, 0], left: [-5, 0], top: [0, -5], bottom: [0, 5], center: [0, 0]};
+function label(map, lat, lon, text, cls = '') {
+  let dir = 'center';
+  if (!cls) {
+    const pt = map.latLngToContainerPoint([lat, lon]), size = map.getSize();
+    const w = text.length * 5.6 + 10, h = 14;  // about 7.5 pt bold
+    const fits = {right: pt.x + 5 + w < size.x, left: pt.x - 5 - w > 0,
+      top: pt.x - w / 2 > 0 && pt.x + w / 2 < size.x && pt.y - 5 - h > 0, bottom: pt.x - w / 2 > 0 && pt.x + w / 2 < size.x && pt.y + 5 + h < size.y};
+    dir = ['right', 'left', 'top', 'bottom'].find(d => fits[d]) || 'right';
+  }
+  L.tooltip({permanent: true, direction: dir, offset: OFFSET[dir], className: 'sh-lbl ' + cls, opacity: 1})
+    .setLatLng([lat, lon]).setContent(esc(text)).addTo(map);
 }
 
 // small static Leaflet maps: same extents as the Distribution tab, no interaction
@@ -143,6 +173,7 @@ function drawMaps(box, onReady) {
       reg.forEach(r => { const det = r.detected > 0;
         L.circleMarker([r.lat, r.lon], {radius: det ? 3 + 12 * Math.sqrt(r.mean_relab / maxRel) : 3, color: r.is_ci ? '#d97706' : '#fff', weight: r.is_ci ? 2.5 : 1,
           fillColor: det ? (r.is_ci ? '#fbbf24' : c.habitat === 'marine' ? '#0ea5e9' : '#10b981') : '#94a3b8', fillOpacity: .75}).addTo(map); });
+      NORTH_LABELS.forEach(p => label(map, p.lat, p.lon, p.name, p.area ? 'area' : ''));
     } else {
       const loc = nm.ci_local_stations || [], all = D.ciSites?.length ? D.ciSites : loc;
       map.fitBounds(L.latLngBounds(all.map(s => [s.lat, s.lon])), {padding: [14, 14]});
@@ -150,6 +181,7 @@ function drawMaps(box, onReady) {
         L.circleMarker([a.lat, a.lon], {radius: 4, color: '#fff', weight: 1, fillColor: '#94a3b8', fillOpacity: .8}).addTo(map));
       loc.forEach(s => L.circleMarker([s.lat, s.lon], {radius: 5 + 12 * Math.min(1, Math.sqrt((s.max_relab || 0) / 10)), color: '#fff', weight: 1.5,
         fillColor: s.type === 'Marine' ? '#0ea5e9' : '#10b981', fillOpacity: .8}).addTo(map));
+      all.forEach(a => label(map, a.lat, a.lon, a.name));  // every sampling site by name
     }
   });
 }

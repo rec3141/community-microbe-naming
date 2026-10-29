@@ -68,7 +68,9 @@ communities/<id>/
   README.md               what is withheld and where it lives
 scripts/build/            extract_site_data.py, build_site_data.py, make_taxon_names.py,
                           make_pathway_steps.py, add_microbe.py, assemble_site.sh, deploy.sh,
-                          card_sim.js (card game balance check), export_mpc.py (print-ready card PNGs)
+                          card_sim.js (card game balance check), export_mpc.py (print-ready card PNGs),
+                          suggest_words.py (Claude-ranked dictionary words per microbe; output kept
+                          beside the private dictionary as word_picks_<id>.js)
 scripts/hpc/              env.sh (cluster paths) + Slurm jobs: map_to_ref.sh, genome_to_site.sh,
                           cand_abund.*, cand_identity.*, ci_specific.py, ci_*_qc.sh, qc_summary.py,
                           shape_genes.py, genome_site_inputs.* (stand-alone genomes), site_ani.sh, canthyd.sh,
