@@ -88,15 +88,16 @@ function buildSheets() {
   const cards = ALL.filter(c => want[c.type]);
   const backs = $('pBacks').checked;
   let html = '';
-  if ($('pRules').checked) {
-    const [W, H] = paper, m = 12;
-    html += `<div class="sheet rulesheet" style="width:${W}mm;height:${H}mm"><div class="rbox" style="left:${m}mm;top:${m}mm;width:${W - 2 * m}mm;height:${H - 2 * m}mm">
-      <h2>${R.esc(RU.GAME_NAME)}: quick rules</h2>${RU.QUICK}<p style="font-size:8.5pt;color:#3c5470">Every card's numbers come from real DNA data from the ${R.esc(CM.placeName || '')} samples. Full rules and the science behind each card: cards.html on the workshop site.</p></div></div>`;
-  }
   for (let i = 0; i < cards.length; i += 9) {
     const page = cards.slice(i, i + 9);
     html += sheetFor(page.map(c => R.face(c, TOTAL)), paper, false);
     if (backs) html += sheetFor(page.map(c => R.back(c.type, brand, RU.GAME_NAME)), paper, true);
+  }
+  // rules after the cards, so double-sided printing keeps each card page with its backs
+  if ($('pRules').checked) {
+    const [W, H] = paper, m = 12;
+    html += `<div class="sheet rulesheet" style="width:${W}mm;height:${H}mm"><div class="rbox" style="left:${m}mm;top:${m}mm;width:${W - 2 * m}mm;height:${H - 2 * m}mm">
+      <h2>${R.esc(RU.GAME_NAME)}: quick rules</h2>${RU.QUICK}<p style="font-size:8.5pt;color:#3c5470">Every card's numbers come from real DNA data from the ${R.esc(CM.placeName || '')} samples. Full rules and the science behind each card: cards.html on the workshop site.</p></div></div>`;
   }
   if ($('pTokens').checked) {
     const [W, H] = paper; let t = '';
