@@ -25,6 +25,20 @@ function wrRow(c) {
 }
 // a season icon with a thin dark outline, so the pale 🌨️ / 🌬️ stay visible on white printed cards
 const ssn = k => MC.SEASONS[k] ? `<span class="ssn" title="${MC.SEASONS[k].name}">${MC.SEASONS[k].icon}</span>` : '';
+// cells badge: one randomly coloured pixel per million cells in its biggest local count (seeded by
+// the microbe id, so the same card always prints the same pattern)
+const DOT_COLORS = ['#f87171', '#fbbf24', '#34d399', '#38bdf8', '#a78bfa', '#f472b6', '#fb923c', '#a3e635'];
+function cellsBadge(c) {
+  const n = Math.round((c.maxCells || 0) / 1e6), G = 16, R2 = (G / 2) ** 2;
+  let h = 2166136261; for (const ch of c.id) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+  const rnd = () => ((h = Math.imul(h ^ (h >>> 15), 2246822507) ^ Math.imul(h ^ (h >>> 13), 3266489909)) >>> 0) / 4294967296;
+  const spots = [];
+  for (let y = 0; y < G; y++) for (let x = 0; x < G; x++) if ((x + .5 - G / 2) ** 2 + (y + .5 - G / 2) ** 2 <= R2) spots.push([x, y]);
+  for (let i = spots.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [spots[i], spots[j]] = [spots[j], spots[i]]; }
+  const px = spots.slice(0, Math.min(n, spots.length)).map(([x, y]) => `<rect x="${x}" y="${y}" width="1" height="1" fill="${DOT_COLORS[Math.floor(rnd() * DOT_COLORS.length)]}"/>`).join('');
+  const t = n ? `About ${c.maxCellsText} cells per litre at most: one dot per million` : 'Fewer than a million cells per litre in any local sample';
+  return `<span class="cells" title="${esc(t)}"><svg viewBox="0 0 ${G} ${G}" shape-rendering="crispEdges">${px}</svg></span>`;
+}
 function homeRow(c) {
   // each site stays on one line with its seasons; lines break only between sites
   const parts = c.home.map(h => `<span class="hs">${esc(h.site)} ${h.seasons.map(ssn).join('')}${h.lab ? ' (grown in the lab)' : ''}</span>`);
@@ -34,17 +48,17 @@ function homeRow(c) {
 function microbeFace(c, total) {
   const L = MC.LIFESTYLES[c.lifestyle], H = HAB[c.habitat] || {name: c.habitat, icon: ''};
   // left of the cartoon: where it lives and when it peaks (badges on the right are its genes)
-  const left = `<span title="${esc(H.name)} microbe">${H.icon}</span>` + (c.peak ? `<span title="Peaks in ${esc(MC.SEASONS[c.peak].name.toLowerCase())}">${MC.SEASONS[c.peak].icon}</span>` : '');
+  const left = `<span title="${esc(H.name)} microbe">${H.icon}</span>` + (c.peak ? `<span title="Peaks in ${esc(MC.SEASONS[c.peak].name.toLowerCase())}">${MC.SEASONS[c.peak].icon}</span>` : '') + cellsBadge(c);
   const attack = a => `<div class="atk"><div class="atk-h">${dots(a.cost)}<b>${esc(a.name)}</b>${kindTag(a.kind)}<span class="dmg">${a.dmg}</span></div>${a.text ? `<div class="atk-t">${esc(a.text)}</div>` : ''}</div>`;
   return `<div class="tcard microbe ${c.habitat} life-${c.lifestyle}" style="--life:${L.color}" data-id="${esc(c.id)}">
   <div class="frame">
     <div class="top"><span class="nm${nameSize(c.name)}">${esc(c.name)}</span><span class="hp"><small>HP</small>${c.hp}</span></div>
     <div class="sub"><span>${esc(c.className || c.envelopeName)}</span><span>${L.icon} ${esc(L.name)}</span></div>
     <div class="art"><div class="badges left">${left}</div><img src="${imgSrc(c)}" alt="" loading="lazy"><div class="badges">${c.badges.map(b => `<span title="${esc(MC.BADGES[b].name)}">${MC.BADGES[b].icon}</span>`).join('')}</div></div>
-    ${c.ability ? `<div class="abil"><b>✦ ${esc(c.ability.name)}</b> ${esc(c.ability.text)}</div>` : ''}
     <div class="atks">${c.attacks.map(attack).join('')}</div>
     ${wrRow(c)}
     <div class="sci">${esc(c.science)}</div>
+    ${c.ability ? `<div class="abil"><b>✦ ${esc(c.ability.name)}</b> ${esc(c.ability.text)}</div>` : ''}
     <div class="foot"><span class="home">${homeRow(c)}</span>${total ? `<span class="no">${c.num}/${total}</span>` : ''}</div>
   </div></div>`;
 }

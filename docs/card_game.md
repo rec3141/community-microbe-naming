@@ -253,8 +253,10 @@ they cannot use Gram-positive bacteria or archaea as prey. Many natural antibiot
   marked "(grown in the lab)".
 - **Peak season**: the season of its biggest dated count, else the season its isolate was
   collected. Hunters were only found in undated samples, so they have no peak season.
-- **Science line**: the first sentence of its big attack's explanation (or its type's), plus its
-  biggest count with place and month.
+- **Science line**: the first sentence of its big attack's explanation (or its type's).
+- **Cells badge** (left of the picture, under habitat and peak season): one randomly coloured dot
+  per million cells in its biggest local count (seeded by the microbe id, so it prints the same
+  every time); an empty disc means under a million.
 
 ### Places and events
 

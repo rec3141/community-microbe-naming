@@ -290,9 +290,7 @@ function scienceLine(f, life, card) {
     oil: f.canthyd.length ? `Its genome has ${f.canthyd.join(' and ')}, a gene for breaking down oil.` : null,
     sun: 'A rhodopsin pump lets it catch energy from light.',
   }[life] || card.attacks[1].why.split('. ')[0].replace(/\.$/, '') + '.';
-  const top = f.found.slice().sort((a, b) => b.cells - a.cells)[0];
-  const when = top && top.month ? MONTHS[top.month - 1] : 'date not recorded';
-  return top ? `${lead} Most seen: about ${f.maxCellsText} cells per litre (${top.site}, ${when}).` : lead;
+  return lead;  // its biggest count is drawn as the cells badge instead (one dot per million cells)
 }
 
 function microbeCard(c, nar, D, num) {
@@ -333,6 +331,7 @@ function microbeCard(c, nar, D, num) {
   const dated = f.found.filter(r => r.season).sort((a, b) => b.cells - a.cells);
   card.peak = dated.length ? dated[0].season : iso && iso.season || null;
   card.science = scienceLine(f, life, card);
+  card.maxCells = Math.round(f.maxCells); card.maxCellsText = f.maxCellsText;
   card.stats = statNotes(f, card, spread, b, big, move);
   return card;
 }
