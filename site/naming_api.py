@@ -57,6 +57,9 @@ def prompt_for(n):
         lines.append("The spelling was edited by hand; base the etymology on the proposed name exactly as written.")
     if n.get("higher_taxa"):
         lines.append(f"New higher taxa formed from the genus: {g(n, 'higher_taxa')}")
+    if n.get("notes"):
+        lines.append("Notes from the workshop about this name (use them for the meanings, word origins and dialect; "
+                     f"they take priority over your own guesses):\n{g(n, 'notes')[:1500]}")
     return "\n".join(lines)
 
 

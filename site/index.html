@@ -230,6 +230,9 @@ label .lbl-note{text-transform:none;letter-spacing:0;font-size:.75rem;opacity:.7
 .saved-item .proto{margin:6px 0 4px}
 .saved-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
 .saved-edit{margin:4px 0 2px}
+ul.alts{margin:4px 0 6px;padding-left:18px}
+ul.alts li{margin:3px 0}
+ul.alts .btn{padding:1px 8px;font-size:.8rem;margin-left:4px}
 .saved-edit label{display:block;margin:6px 0 2px}
 .saved-edit textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.88rem;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.2);color:inherit;resize:vertical}
 .more{margin-top:12px;display:flex;flex-direction:column;gap:6px}
@@ -1446,8 +1449,13 @@ async function draftName(rec){
   if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
   return j;
 }
-const protoHTML = p => `
+// valid alternatives when the drafted name would not be valid; use(k) is the onclick for button k
+const altHTML = (p, use) => p.valid === false || p.alternatives?.length ? `
+  <h5>${p.valid === false ? 'Not valid as written. Valid alternatives' : 'Alternatives'}</h5>
+  ${p.alternatives?.length ? `<ul class="alts">${p.alternatives.map((a,k)=>`<li><i>${esc(a.name)}</i> <span class="note">${esc(a.why)}</span>${use?` <button class="btn" onclick="${use(k)}">Use</button>`:''}</li>`).join('')}</ul>` : '<p class="note">None given; draft again.</p>'}` : '';
+const protoHTML = (p, use) => `
   <h5>Etymology</h5><p>${esc(p.etymology)}</p>
+  ${altHTML(p, use)}
   ${p.checks?.length?`<h5>Notes</h5><ul>${p.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:''}
   ${p.suggested_name && p.suggested_name.split(' ').slice(0,2).join(' ') !== p.forName ? `<h5>Suggested spelling</h5><p class="sugg"><i>${esc(p.suggested_name)}</i></p>`:''}`;
 function renderProto(){
@@ -1456,7 +1464,7 @@ function renderProto(){
   if (!P){ el.innerHTML = ''; return; }
   if (P.busy){ el.innerHTML = `<div class="proto busy">✨ Drafting the etymology for <i>${esc(P.forName)}</i>…</div>`; return; }
   if (P.error){ el.innerHTML = `<div class="proto err">Could not draft: ${esc(P.error)}</div>`; return; }
-  el.innerHTML = `<div class="proto">${P.forName!==now?`<p class="note" style="margin-bottom:6px">Drafted for <i>${esc(P.forName)}</i>. The name has changed since, so draft again.</p>`:''}${protoHTML(P)}</div>`;
+  el.innerHTML = `<div class="proto">${P.forName!==now?`<p class="note" style="margin-bottom:6px">Drafted for <i>${esc(P.forName)}</i>. The name has changed since, so draft again.</p>`:''}${protoHTML(P, k=>`useAlt(st().proto.alternatives[${k}].name)`)}</div>`;
 }
 async function draftCurrent(){
   const n = currentName();
@@ -1468,7 +1476,14 @@ async function draftCurrent(){
   renderProto();
 }
 
-const PROTO_KEYS = ['etymology','checks','suggested_name'];
+const PROTO_KEYS = ['etymology','checks','suggested_name','valid','alternatives'];
+// put an alternative spelling into the name builder (as a hand edit of each part)
+function useAlt(name){
+  const [g, e] = String(name).trim().split(/\s+/), S = st();
+  if (namingNeed(C[cur]).genus && g) S.gEdit = cap(g.replace(/[^A-Za-z]/g,'').toLowerCase());
+  if (e) S.sEdit = e.replace(/[^A-Za-z]/g,'').toLowerCase();
+  renderNaming(document.getElementById('tab-naming'));
+}
 const storeNames = () => localStorage.setItem('ci_names', JSON.stringify(savedNames));
 function saveName(){
   const n = currentName(), S = st();
@@ -1485,7 +1500,7 @@ function editSaved(i, k, v){ const s = savedNames[i]; if (!s) return; s[k] = v; 
 function loadSaved(i){
   const s = savedNames[i], ci = C.findIndex(c=>c.id===s?.org); if (ci<0) return;
   const S = nbState[s.org] = builderOf(s);
-  if (s.etymology) S.proto = {etymology:s.etymology, checks:s.checks||[], suggested_name:s.suggested_name||'', forName:s.name};
+  if (s.etymology) S.proto = {etymology:s.etymology, checks:s.checks||[], suggested_name:s.suggested_name||'', valid:s.valid, alternatives:s.alternatives||[], forName:s.name};
   curTab = 'naming'; openOrganism(ci);
 }
 // builder state of a saved name; names saved before the state was stored are rebuilt from their fields
@@ -1502,13 +1517,15 @@ function renderSaved(){
     <div class="saved-row" style="border:none;padding:0"><div><i style="color:var(--gold)">${esc(s.name)}</i> ${esc(s.rank)} <span style="color:var(--muted)">· ${esc(s.nickname)}</span></div>
       <div style="display:flex;gap:6px"><button class="btn" title="Open this name in the name builder" onclick="loadSaved(${i})">↩️</button><button class="btn api-btn" title="Draft etymology" onclick="draftSaved(${i})">✨</button><button class="btn" title="Delete" onclick="delName(${i})">✕</button></div></div>
     ${draftBusy.has(s.when) ? '<div class="proto busy">✨ Drafting…</div>'
-      : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>` : ''}
+      : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>`
+      : s.valid === false ? '<div class="note" style="color:var(--pink)">⚠️ Not valid as written: see the alternatives below.</div>' : ''}
     <details class="saved-edit"${openSaved.has(s.when)?' open':''} ontoggle="openSaved[this.open?'add':'delete']('${esc(s.when)}')">
       <summary class="note">Etymology and notes${s.etymology_edited?' · edited':''}</summary>
       <label class="note">Etymology</label>
       <textarea rows="4" placeholder="Draft one with ✨, or write it here" oninput="editSaved(${i},'etymology',this.value)">${esc(s.etymology||'')}</textarea>
       ${s.checks?.length?`<div class="proto"><h5>Notes from the draft</h5><ul>${s.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
       ${s.suggested_name && s.suggested_name.split(' ').slice(0,2).join(' ') !== s.name ? `<p class="note">Suggested spelling: <i>${esc(s.suggested_name)}</i></p>`:''}
+      ${altHTML(s, k=>`loadSaved(${i});useAlt(savedNames[${i}].alternatives[${k}].name)`) ? `<div class="proto">${altHTML(s, k=>`loadSaved(${i});useAlt(savedNames[${i}].alternatives[${k}].name)`)}</div>` : ''}
       <label class="note">Notes</label>
       <textarea rows="2" placeholder="Who suggested it, what it means to them, things to check" oninput="editSaved(${i},'notes',this.value)">${esc(s.notes||'')}</textarea>
     </details>
@@ -1517,9 +1534,10 @@ function renderSaved(){
 }
 async function draftSaved(i){
   const s = savedNames[i]; if (!s || draftBusy.has(s.when)) return;
+  if (s.etymology_edited && !confirm('Replace the edited etymology with a new draft? (The notes are kept and used for the draft.)')) return;
   draftBusy.add(s.when); delete s.draft_error; renderSaved();
   if (!s.genus_word && !s.genus_etym){ s.genus_name = s.name.split(' ')[0]; s.genus_etym = genusEtym(s.genus_name); }
-  try { Object.assign(s, await draftName(s), {etymology_edited:''}); }
+  try { Object.assign(s, {valid:undefined, alternatives:[]}, await draftName(s), {etymology_edited:''}); }
   catch(e){ s.draft_error = e.message; }
   draftBusy.delete(s.when); storeNames(); renderSaved();
 }
@@ -1536,8 +1554,9 @@ async function draftAll(){
 }
 function exportNames(){
   const cols = [['org','organism'],['nickname'],['name','proposed_name'],['rank'],['gender'],['genus_word'],['genus_syl'],['genus_meaning'],['genus_ending'],['genus_ending_meaning'],
-    ['species_word'],['species_syl'],['species_meaning'],['species_ending'],['species_ending_meaning'],['higher_taxa'],['edited'],['etymology'],['etymology_edited'],['checks'],['suggested_name'],['notes'],['when','saved']];
-  const rows = [cols.map(c=>c[1]||c[0])].concat(savedNames.map(s=>cols.map(([k])=>Array.isArray(s[k])?s[k].join('; '):s[k])));
+    ['species_word'],['species_syl'],['species_meaning'],['species_ending'],['species_ending_meaning'],['higher_taxa'],['edited'],['etymology'],['etymology_edited'],['checks'],['suggested_name'],['valid'],['alternatives'],['notes'],['when','saved']];
+  const cell = v => Array.isArray(v) ? v.map(x => x && typeof x === 'object' ? `${x.name} (${x.why})` : x).join('; ') : v;
+  const rows = [cols.map(c=>c[1]||c[0])].concat(savedNames.map(s=>cols.map(([k])=>cell(s[k]))));
   const csv = rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = `${CM.id||'community'}_proposed_names.csv`; a.click();
 }
