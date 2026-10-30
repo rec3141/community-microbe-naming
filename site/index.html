@@ -1106,7 +1106,7 @@ function epithet(stem, style, gender){
 const nbState = {};
 function st(){
   const c = C[cur];
-  return nbState[c.id] ||= {gWord:'', gMean:'', gEnd:'bacter', gGender:'m', sWord:'', sMean:'', sStyle:'ensis', gEdit:'', sEdit:''};
+  return nbState[c.id] ||= {gWord:'', gMean:'', gEnd:'', gGender:'m', sWord:'', sMean:'', sStyle:'ensis', gEdit:'', sEdit:''};
 }
 const sylFor = w => { const n = norm(w.trim()); if (!n) return ''; const e = DICT.find(x => norm(x.roman) === n); return e ? e.syllabics : ''; };
 let savedNames = JSON.parse(localStorage.getItem('ci_names')||'[]');
@@ -1571,16 +1571,17 @@ async function exportWord(){
   const {Document, Packer, Paragraph, TextRun, HeadingLevel} = D;
   const P = (runs, o={}) => new Paragraph({children: [].concat(runs).map(x => typeof x === 'string' ? new TextRun(x) : x), spacing: {after: 80}, ...o});
   const T = (text, o={}) => new TextRun({text: String(text ?? ''), ...o});
-  const H = (text, level) => new Paragraph({heading: level, children: [].concat(text).map(x => typeof x === 'string' ? new TextRun(x) : x), spacing: {before: 200, after: 80}});
+  const H = (text, level, o={}) => new Paragraph({heading: level, children: [].concat(text).map(x => typeof x === 'string' ? new TextRun(x) : x), spacing: {before: 200, after: 80}, ...o});
   const part = (label, word, syl, mean, end, endMean) => word ? P([T(label + ': ', {bold: true}), T(`${LANG} `), T(word, {bold: true}),
     syl ? T(` (${syl})`) : T(''), mean ? T(`, "${mean}"`) : T(''), end ? T(` + -${end}`, {italics: true}) : T(''), end && endMean ? T(` (${endMean})`) : T('')]) : null;
   const body = [
     new Paragraph({heading: HeadingLevel.TITLE, children: [T(`${CM.placeName || ''} microbe naming workshop: proposed names`)]}),
     P([T(`${savedNames.length} name${savedNames.length > 1 ? 's' : ''} · ${new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'})}`, {color: '555555'})]),
   ];
-  savedNames.forEach(s => {
+  savedNames.forEach((s, k) => {
     const [g, e] = (s.name || '').split(' ');
-    body.push(H([T(g, {italics: true}), T(' '), T(e, {italics: true}), T(`  ${s.rank || ''}`, {italics: false})], HeadingLevel.HEADING_1));
+    // each name after the first starts on a new page
+    body.push(H([T(g, {italics: true}), T(' '), T(e, {italics: true}), T(`  ${s.rank || ''}`, {italics: false})], HeadingLevel.HEADING_1, {pageBreakBefore: k > 0}));
     body.push(P([T('Microbe: ', {bold: true}), T(`${s.nickname || ''} (${s.org || ''})`)]));
     const gl = s.genus_word ? part('Genus', s.genus_word, s.genus_syl, s.genus_meaning, s.genus_ending, s.genus_ending_meaning)
       : P([T('Genus: ', {bold: true}), T(s.genus_name || g, {italics: true}), T(String(s.rank || '').includes('gen. nov.') ? ' (new, typed in directly)' : ' (already named)')]);
