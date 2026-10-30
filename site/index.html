@@ -1175,6 +1175,7 @@ function renderNaming(p){
       <button class="btn primary" onclick="saveName()">💾 Save this name</button>
       <button class="btn api-btn" onclick="draftCurrent()">✨ Draft etymology</button>
       <button class="btn" onclick="exportNames()">⬇️ Download saved names (CSV)</button>
+      <button class="btn" onclick="exportWord()">📄 Download saved names (Word)</button>
     </div>
     <div id="nbProto"></div>
   </div>
@@ -1188,7 +1189,7 @@ function renderNaming(p){
   </div>
 
   <div class="card"><h3>🗂️ Saved names</h3>
-    <div class="saved-tools"><button class="btn api-btn" onclick="draftAll()">✨ Draft etymologies for all saved names</button><span class="note" id="draftAllMsg"></span></div>
+    <div class="saved-tools"><button class="btn api-btn" onclick="draftAll()">✨ Draft etymologies for all saved names</button><button class="btn" onclick="exportNames()">⬇️ CSV</button><button class="btn" onclick="exportWord()">📄 Word</button><span class="note" id="draftAllMsg"></span></div>
     <div id="savedList"></div></div>`;
   buildCats(); dictSearch(); updateName(); renderSaved(); renderProto(); apiButtons();
 }
@@ -1551,6 +1552,62 @@ async function draftAll(){
   await Promise.all([worker(), worker(), worker()]);
   const failed = savedNames.filter(s=>s.draft_error).length;
   msg.textContent = `Drafted ${total - failed} of ${total}${failed?`; ${failed} failed (use ✨ to retry)`:''}.`;
+}
+/* saved names as a Word document: one section per name, with the etymology, notes and any
+   valid alternatives. The docx library loads from the CDN on first use. */
+let docxLib = null;
+function loadDocx(){
+  return docxLib ||= new Promise((ok, fail) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js';
+    sc.onload = () => ok(window.docx); sc.onerror = () => { docxLib = null; fail(new Error('Could not load the Word library')); };
+    document.head.appendChild(sc);
+  });
+}
+async function exportWord(){
+  if (!savedNames.length) return alert('No names saved yet.');
+  let D;
+  try { D = await loadDocx(); } catch(e){ return alert(e.message + '. Check the internet connection, or use the CSV.'); }
+  const {Document, Packer, Paragraph, TextRun, HeadingLevel} = D;
+  const P = (runs, o={}) => new Paragraph({children: [].concat(runs).map(x => typeof x === 'string' ? new TextRun(x) : x), spacing: {after: 80}, ...o});
+  const T = (text, o={}) => new TextRun({text: String(text ?? ''), ...o});
+  const H = (text, level) => new Paragraph({heading: level, children: [].concat(text).map(x => typeof x === 'string' ? new TextRun(x) : x), spacing: {before: 200, after: 80}});
+  const part = (label, word, syl, mean, end, endMean) => word ? P([T(label + ': ', {bold: true}), T(`${LANG} `), T(word, {bold: true}),
+    syl ? T(` (${syl})`) : T(''), mean ? T(`, "${mean}"`) : T(''), end ? T(` + -${end}`, {italics: true}) : T(''), end && endMean ? T(` (${endMean})`) : T('')]) : null;
+  const body = [
+    new Paragraph({heading: HeadingLevel.TITLE, children: [T(`${CM.placeName || ''} microbe naming workshop: proposed names`)]}),
+    P([T(`${savedNames.length} name${savedNames.length > 1 ? 's' : ''} · ${new Date().toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: 'numeric'})}`, {color: '555555'})]),
+  ];
+  savedNames.forEach(s => {
+    const [g, e] = (s.name || '').split(' ');
+    body.push(H([T(g, {italics: true}), T(' '), T(e, {italics: true}), T(`  ${s.rank || ''}`, {italics: false})], HeadingLevel.HEADING_1));
+    body.push(P([T('Microbe: ', {bold: true}), T(`${s.nickname || ''} (${s.org || ''})`)]));
+    const gl = s.genus_word ? part('Genus', s.genus_word, s.genus_syl, s.genus_meaning, s.genus_ending, s.genus_ending_meaning)
+      : P([T('Genus: ', {bold: true}), T(s.genus_name || g, {italics: true}), T(String(s.rank || '').includes('gen. nov.') ? ' (new, typed in directly)' : ' (already named)')]);
+    [gl, part('Species', s.species_word, s.species_syl, s.species_meaning, s.species_ending, s.species_ending_meaning)].filter(Boolean).forEach(x => body.push(x));
+    if (s.higher_taxa) body.push(P([T('New higher taxa: ', {bold: true}), T(s.higher_taxa)]));
+    body.push(H(`Etymology${s.etymology_edited ? ' (edited)' : ''}`, HeadingLevel.HEADING_2));
+    String(s.etymology || 'Not drafted yet.').split('\n').filter(x => x.trim()).forEach(l => body.push(P(T(l))));
+    if (s.valid === false || s.alternatives?.length){
+      body.push(H(s.valid === false ? 'Not valid as written. Valid alternatives' : 'Alternatives', HeadingLevel.HEADING_2));
+      (s.alternatives || []).forEach(a => body.push(P([T(a.name, {italics: true}), T(` – ${a.why}`)], {bullet: {level: 0}})));
+    }
+    if (s.checks?.length){
+      body.push(H('Notes from the draft', HeadingLevel.HEADING_2));
+      s.checks.forEach(c => body.push(P(T(c), {bullet: {level: 0}})));
+    }
+    if (s.notes){
+      body.push(H('Workshop notes', HeadingLevel.HEADING_2));
+      String(s.notes).split('\n').filter(x => x.trim()).forEach(l => body.push(P(T(l))));
+    }
+  });
+  const doc = new Document({
+    creator: CM.brand || 'Microbe naming workshop', title: 'Proposed names',
+    styles: {default: {document: {run: {font: 'Arial', size: 22}}}},
+    sections: [{children: body}],
+  });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(await Packer.toBlob(doc));
+  a.download = `${CM.id||'community'}_proposed_names.docx`; a.click();
 }
 function exportNames(){
   const cols = [['org','organism'],['nickname'],['name','proposed_name'],['rank'],['gender'],['genus_word'],['genus_syl'],['genus_meaning'],['genus_ending'],['genus_ending_meaning'],
