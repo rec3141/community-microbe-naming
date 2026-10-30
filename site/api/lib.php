@@ -65,7 +65,7 @@ function build_prompt($n) {
     if ($g('genus_word') !== '')
         $L[] = "Genus built from $lang '" . $g('genus_word') . "'" . $syl('genus_syl') . ", meaning '" . $g('genus_meaning') . "'" . $end('genus');
     elseif (str_contains($g('rank', 40), 'gen. nov.'))
-        $L[] = "Genus $genus is new. It was typed in directly, so no $lang word or meaning was given: work out its etymology from the name as written (as $lang where it looks like a $lang word), and say in a check what is unknown.";
+        $L[] = "Genus $genus is new; no source word is recorded for it. Work out its etymology from the name as written (as $lang where it looks like a $lang word).";
     else {
         $L[] = 'Genus already named' . ($g('genus_name', 80) !== '' ? ': ' . $g('genus_name', 80) : '') . '; only the species is new.';
         if ($g('genus_etym', 600) !== '') $L[] = 'Published etymology of the genus: ' . $g('genus_etym', 600);

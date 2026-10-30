@@ -45,8 +45,8 @@ def prompt_for(n):
     if n.get("genus_word"):
         lines.append(f"Genus built from {LANG} '{g(n, 'genus_word')}'{syl('genus_syl')}, meaning '{g(n, 'genus_meaning')}'{end('genus')}")
     elif "gen. nov." in g(n, "rank"):
-        lines.append(f"Genus {g(n, 'name').split(' ')[0]} is new. It was typed in directly, so no {LANG} word or meaning was given: "
-                     f"work out its etymology from the name as written (as {LANG} where it looks like a {LANG} word), and say in a check what is unknown.")
+        lines.append(f"Genus {g(n, 'name').split(' ')[0]} is new; no source word is recorded for it. "
+                     f"Work out its etymology from the name as written (as {LANG} where it looks like a {LANG} word).")
     else:
         genus = g(n, 'genus_name')
         lines.append(f"Genus already named{': ' + genus if genus else ''}; only the species is new.")
