@@ -1172,7 +1172,7 @@ function renderNaming(p){
       </div>
     </div>
     <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-      <button class="btn primary" onclick="saveName()">💾 Save this name</button>
+      <span id="saveBtns" style="display:contents"></span>
       <button class="btn api-btn" onclick="draftCurrent()">✨ Draft etymology</button>
       <button class="btn" onclick="exportNames()">⬇️ Download saved names (CSV)</button>
       <button class="btn" onclick="exportWord()">📄 Download saved names (Word)</button>
@@ -1191,7 +1191,7 @@ function renderNaming(p){
   <div class="card"><h3>🗂️ Saved names</h3>
     <div class="saved-tools"><button class="btn api-btn" onclick="draftAll()">✨ Draft etymologies for all saved names</button><button class="btn" onclick="exportNames()">⬇️ CSV</button><button class="btn" onclick="exportWord()">📄 Word</button><span class="note" id="draftAllMsg"></span></div>
     <div id="savedList"></div></div>`;
-  buildCats(); dictSearch(); updateName(); renderSaved(); renderProto(); apiButtons();
+  buildCats(); dictSearch(); updateName(); renderSaved(); renderProto(); saveButtons(); apiButtons();
 }
 let dCat = 'Suggested';
 function buildCats(){
@@ -1486,21 +1486,44 @@ function useAlt(name){
   renderNaming(document.getElementById('tab-naming'));
 }
 const storeNames = () => localStorage.setItem('ci_names', JSON.stringify(savedNames));
-function saveName(){
+// Save updates the saved name the builder was opened from (↩️), or an identical name for this
+// microbe, keeping its notes; asNew always adds another saved name.
+function saveName(asNew){
   const n = currentName(), S = st();
   if (n.sEmpty || n.gEmpty) return alert(n.gEmpty ? 'Choose a word for the genus first.' : 'Choose a word for the species first.');
   const rec = nameRecord();
   if (S.proto?.etymology && S.proto.forName === rec.name) PROTO_KEYS.forEach(k=>rec[k]=S.proto[k]);
-  savedNames.push(rec); storeNames(); renderSaved();
+  let j = asNew ? -1 : savedNames.findIndex(x => x.when === S.loadedFrom);
+  if (j < 0 && !asNew) j = savedNames.findIndex(x => x.org === rec.org && x.name === rec.name);
+  if (j >= 0){
+    const old = savedNames[j];
+    rec.notes = old.notes;
+    if (old.name === rec.name){
+      if (!rec.etymology) PROTO_KEYS.forEach(k=>rec[k]=old[k]);
+      if (rec.etymology === old.etymology) rec.etymology_edited = old.etymology_edited;
+    }
+    rec.when = old.when; rec.updated = new Date().toISOString();
+    savedNames[j] = rec;
+  } else savedNames.push(rec);
+  S.loadedFrom = rec.when;
+  storeNames(); renderSaved(); saveButtons();
 }
-function delName(i){ savedNames.splice(i,1); storeNames(); renderSaved(); }
+// the save button says whether it will update a saved name or add one
+function saveButtons(){
+  const el = document.getElementById('saveBtns'); if (!el) return;
+  const S = st(), from = savedNames.find(x => x.when === S.loadedFrom);
+  el.innerHTML = from
+    ? `<button class="btn primary" onclick="saveName()">💾 Update saved name</button><button class="btn" onclick="saveName(true)" title="Keep the saved one and add this as another name">➕ Save as a new name</button>`
+    : `<button class="btn primary" onclick="saveName()">💾 Save this name</button>`;
+}
+function delName(i){ savedNames.splice(i,1); storeNames(); renderSaved(); saveButtons(); }
 const draftBusy = new Set(), openSaved = new Set();
 // edits typed into a saved name's box are kept as they are typed
 function editSaved(i, k, v){ const s = savedNames[i]; if (!s) return; s[k] = v; if (k==='etymology') s.etymology_edited = 'yes'; storeNames(); }
 // put a saved name back into the name builder on its microbe's Naming tab
 function loadSaved(i){
   const s = savedNames[i], ci = C.findIndex(c=>c.id===s?.org); if (ci<0) return;
-  const S = nbState[s.org] = builderOf(s);
+  const S = nbState[s.org] = {...builderOf(s), loadedFrom: s.when};
   if (s.etymology) S.proto = {etymology:s.etymology, checks:s.checks||[], suggested_name:s.suggested_name||'', valid:s.valid, alternatives:s.alternatives||[], forName:s.name};
   curTab = 'naming'; openOrganism(ci);
 }
@@ -1521,14 +1544,14 @@ function renderSaved(){
       : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>`
       : s.valid === false ? '<div class="note" style="color:var(--pink)">⚠️ Not valid as written: see the alternatives below.</div>' : ''}
     <details class="saved-edit"${openSaved.has(s.when)?' open':''} ontoggle="openSaved[this.open?'add':'delete']('${esc(s.when)}')">
-      <summary class="note">Etymology and notes${s.etymology_edited?' · edited':''}</summary>
+      <summary class="note">Notes and etymology${s.etymology_edited?' · edited':''}</summary>
+      <label class="note">Notes</label>
+      <textarea rows="2" placeholder="Who suggested it, what it means to them, things to check" oninput="editSaved(${i},'notes',this.value)">${esc(s.notes||'')}</textarea>
       <label class="note">Etymology</label>
       <textarea rows="4" placeholder="Draft one with ✨, or write it here" oninput="editSaved(${i},'etymology',this.value)">${esc(s.etymology||'')}</textarea>
       ${s.checks?.length?`<div class="proto"><h5>Notes from the draft</h5><ul>${s.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
       ${s.suggested_name && s.suggested_name.split(' ').slice(0,2).join(' ') !== s.name ? `<p class="note">Suggested spelling: <i>${esc(s.suggested_name)}</i></p>`:''}
       ${altHTML(s, k=>`loadSaved(${i});useAlt(savedNames[${i}].alternatives[${k}].name)`) ? `<div class="proto">${altHTML(s, k=>`loadSaved(${i});useAlt(savedNames[${i}].alternatives[${k}].name)`)}</div>` : ''}
-      <label class="note">Notes</label>
-      <textarea rows="2" placeholder="Who suggested it, what it means to them, things to check" oninput="editSaved(${i},'notes',this.value)">${esc(s.notes||'')}</textarea>
     </details>
   </div>`).join('') : '<p class="note">No names saved yet.</p>';
   apiButtons();
@@ -1587,6 +1610,10 @@ async function exportWord(){
       : P([T('Genus: ', {bold: true}), T(s.genus_name || g, {italics: true}), T(String(s.rank || '').includes('gen. nov.') ? ' (new, typed in directly)' : ' (already named)')]);
     [gl, part('Species', s.species_word, s.species_syl, s.species_meaning, s.species_ending, s.species_ending_meaning)].filter(Boolean).forEach(x => body.push(x));
     if (s.higher_taxa) body.push(P([T('New higher taxa: ', {bold: true}), T(s.higher_taxa)]));
+    if (s.notes){
+      body.push(H('Workshop notes', HeadingLevel.HEADING_2));
+      String(s.notes).split('\n').filter(x => x.trim()).forEach(l => body.push(P(T(l))));
+    }
     body.push(H(`Etymology${s.etymology_edited ? ' (edited)' : ''}`, HeadingLevel.HEADING_2));
     String(s.etymology || 'Not drafted yet.').split('\n').filter(x => x.trim()).forEach(l => body.push(P(T(l))));
     if (s.valid === false || s.alternatives?.length){
@@ -1596,10 +1623,6 @@ async function exportWord(){
     if (s.checks?.length){
       body.push(H('Notes from the draft', HeadingLevel.HEADING_2));
       s.checks.forEach(c => body.push(P(T(c), {bullet: {level: 0}})));
-    }
-    if (s.notes){
-      body.push(H('Workshop notes', HeadingLevel.HEADING_2));
-      String(s.notes).split('\n').filter(x => x.trim()).forEach(l => body.push(P(T(l))));
     }
   });
   const doc = new Document({
