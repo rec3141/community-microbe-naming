@@ -73,6 +73,7 @@ function build_prompt($n) {
     $L[] = "Species epithet built from $lang '" . $g('species_word') . "'" . $syl('species_syl') . ", meaning '" . $g('species_meaning') . "'" . $end('species');
     if ($g('edited') !== '') $L[] = 'The spelling was edited by hand; base the etymology on the proposed name exactly as written.';
     if ($g('higher_taxa') !== '') $L[] = 'New higher taxa formed from the genus: ' . $g('higher_taxa');
+    if ($g('context', 8000) !== '') $L[] = "About this microbe (its 2-page workshop sheet, for context: use it to understand what the name refers to and to choose glosses; don't add facts about the microbe to the etymology):\n" . $g('context', 8000);
     if ($g('notes', 1500) !== '') $L[] = "Notes from the workshop about this name (use them for the meanings, word origins and dialect; they take priority over your own guesses):\n" . $g('notes', 1500);
     return implode("\n", $L);
 }

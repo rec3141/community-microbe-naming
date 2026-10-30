@@ -1444,9 +1444,19 @@ function apiButtons(){
     b.title = apiOK === false ? 'Needs the site to be served by serve.py, with ANTHROPIC_API_KEY in .env' : apiModel ? `Drafted by ${apiModel}` : '';
   });
 }
+// only the fields build_prompt() reads: old drafts, alternatives and builder state stay in the browser
+const DRAFT_FIELDS = ['name','rank','gender','genus_word','genus_syl','genus_meaning','genus_ending','genus_ending_meaning',
+  'species_word','species_syl','species_meaning','species_ending','species_ending_meaning','edited','higher_taxa','genus_name','genus_etym','notes'];
 async function draftName(rec){
-  const r = await fetch('api/protologue', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(rec)});
-  const j = await r.json().catch(()=>({error:`HTTP ${r.status}`}));
+  const body = Object.fromEntries(DRAFT_FIELDS.filter(k => rec[k]).map(k => [k, rec[k]]));
+  // the microbe's 2-page sheet as text (sheet.js), so the draft knows what the microbe is like
+  const ci = C.findIndex(c => c.id === rec.org);
+  if (ci >= 0 && window.sheetText) body.context = sheetText(ci).slice(0, 8000);
+  const r = await fetch('api/protologue', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)});
+  // 418 is the web host's firewall (DreamHost "Extra Web Security"), which answers before the API is reached
+  const j = await r.json().catch(()=>({error: r.status === 418
+    ? "The web host's firewall blocked this request, probably because of something in the notes. Try rewording the notes and draft again."
+    : `HTTP ${r.status}`}));
   if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
   return j;
 }

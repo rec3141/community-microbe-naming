@@ -273,6 +273,17 @@ function route() {
   if (h) return showSheets(h[1] === 'all' ? C.map((c, i) => i) : [+h[1] - 1]);
   if (document.body.classList.contains('sheetmode')) location.reload();  // leaving the sheet: back to the normal page
 }
+// the sheet as plain text (no maps, pictures or blank worksheet), sent with an etymology draft
+// so the model knows what the microbe is like
+window.sheetText = function (i) {
+  if (!C[i]) return '';
+  const box = document.createElement('div');
+  box.innerHTML = sheetFor(i);
+  box.querySelectorAll('svg, img, .sh-maps, .sh-top > div:nth-child(2), .sh-credit, .sh-work, .sh-lines, .sh-foot, .sh-head, .sh-iq').forEach(e => e.remove());
+  box.querySelectorAll('h1, h2, h3, h4, p, tr, .sh-pills > span, .sh-gtiles > div, .sh-es > div, .sh-words > div').forEach(e => e.append('\n'));
+  box.querySelectorAll('td, .sh-words span, .sh-gtiles span, .sh-es p, .sh-es b').forEach(e => e.prepend(' '));
+  return box.textContent.split('\n').map(l => l.replace(/\s+/g, ' ').trim()).filter(Boolean).join('\n');
+};
 window.addEventListener('hashchange', route);
 route();
 })();

@@ -5,7 +5,7 @@ set_time_limit(150);
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') send_json(405, ['error' => 'POST only']);
 $key = config()['ANTHROPIC_API_KEY'] ?? '';
 if ($key === '') send_json(503, ['error' => 'API key not configured']);
-$raw = file_get_contents('php://input', false, null, 0, 20000);
+$raw = file_get_contents('php://input', false, null, 0, 60000);  // room for the sheet text (context)
 $n = json_decode($raw, true);
 if (!is_array($n) || clean($n['name'] ?? '') === '') send_json(400, ['error' => 'missing name']);
 if (!take_quota()) send_json(429, ['error' => "Today's drafting limit has been reached. Try again tomorrow."]);
