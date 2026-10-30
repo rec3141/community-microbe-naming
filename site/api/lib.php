@@ -61,10 +61,15 @@ function build_prompt($n) {
     $L = ['Proposed name: ' . $g('name', 80) . ' ' . $g('rank', 40),
           'Genus gender: ' . (GENDER[$g('gender')] ?? ($g('gender') ?: 'unknown'))];
     $end = fn($k) => $g($k . '_ending') !== '' ? ', + ending -' . $g($k . '_ending') . ' (' . $g($k . '_ending_meaning') . ')' : ', used without an ending';
+    $genus = explode(' ', $g('name', 80))[0];
     if ($g('genus_word') !== '')
         $L[] = "Genus built from $lang '" . $g('genus_word') . "'" . $syl('genus_syl') . ", meaning '" . $g('genus_meaning') . "'" . $end('genus');
-    else
-        $L[] = 'Genus already validly named; only the species is new.';
+    elseif (str_contains($g('rank', 40), 'gen. nov.'))
+        $L[] = "Genus $genus is new. It was typed in directly, so no $lang word or meaning was given: work out its etymology from the name as written (as $lang where it looks like a $lang word), and say in a check what is unknown.";
+    else {
+        $L[] = 'Genus already named' . ($g('genus_name', 80) !== '' ? ': ' . $g('genus_name', 80) : '') . '; only the species is new.';
+        if ($g('genus_etym', 600) !== '') $L[] = 'Published etymology of the genus: ' . $g('genus_etym', 600);
+    }
     $L[] = "Species epithet built from $lang '" . $g('species_word') . "'" . $syl('species_syl') . ", meaning '" . $g('species_meaning') . "'" . $end('species');
     if ($g('edited') !== '') $L[] = 'The spelling was edited by hand; base the etymology on the proposed name exactly as written.';
     if ($g('higher_taxa') !== '') $L[] = 'New higher taxa formed from the genus: ' . $g('higher_taxa');

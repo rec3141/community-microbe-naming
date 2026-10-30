@@ -229,6 +229,9 @@ label .lbl-note{text-transform:none;letter-spacing:0;font-size:.75rem;opacity:.7
 .saved-item{border-bottom:1px solid var(--line);padding:6px 0}
 .saved-item .proto{margin:6px 0 4px}
 .saved-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.saved-edit{margin:4px 0 2px}
+.saved-edit label{display:block;margin:6px 0 2px}
+.saved-edit textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.88rem;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:rgba(0,0,0,.2);color:inherit;resize:vertical}
 .more{margin-top:12px;display:flex;flex-direction:column;gap:6px}
 .more details{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:0 12px}
 .more summary{cursor:pointer;padding:9px 0;font-weight:600;font-size:.93rem;list-style:none}
@@ -1420,8 +1423,12 @@ function nameRecord(){
     species_word:S.sWord, species_syl:sylFor(S.sWord), species_meaning:S.sMean,
     species_ending:sSty&&!S.sEdit?sufOf(sSty, n.gender):'', species_ending_meaning:sSty&&!S.sEdit?sSty.d:'', edited:n.edited?'yes':'',
     higher_taxa:[n.family&&`${n.family} fam. nov.`, n.order&&`${n.order} ord. nov.`].filter(Boolean).join('; '),
+    genus_name: need.genus?'':need.genusName, genus_etym: need.genus?'':genusEtym(need.genusName),
+    builder:{gWord:S.gWord, gMean:S.gMean, gEnd:S.gEnd, gGender:S.gGender, sWord:S.sWord, sMean:S.sMean, sStyle:S.sStyle, gEdit:S.gEdit, sEdit:S.sEdit},
     when:new Date().toISOString()};
 }
+// published etymology of an existing genus (narratives.js GENERA), sent along so the draft covers the genus too
+const genusEtym = name => ((window.GENERA||{})[name]||{}).etym || '';
 
 /* drafting etymology + description through serve.py (the API key stays on the server) */
 let apiOK = null, apiModel = '';
@@ -1471,22 +1478,48 @@ function saveName(){
   savedNames.push(rec); storeNames(); renderSaved();
 }
 function delName(i){ savedNames.splice(i,1); storeNames(); renderSaved(); }
-const draftBusy = new Set();
+const draftBusy = new Set(), openSaved = new Set();
+// edits typed into a saved name's box are kept as they are typed
+function editSaved(i, k, v){ const s = savedNames[i]; if (!s) return; s[k] = v; if (k==='etymology') s.etymology_edited = 'yes'; storeNames(); }
+// put a saved name back into the name builder on its microbe's Naming tab
+function loadSaved(i){
+  const s = savedNames[i], ci = C.findIndex(c=>c.id===s?.org); if (ci<0) return;
+  const S = nbState[s.org] = builderOf(s);
+  if (s.etymology) S.proto = {etymology:s.etymology, checks:s.checks||[], suggested_name:s.suggested_name||'', forName:s.name};
+  curTab = 'naming'; openOrganism(ci);
+}
+// builder state of a saved name; names saved before the state was stored are rebuilt from their fields
+function builderOf(s){
+  if (s.builder) return {...s.builder};
+  const [g, e] = (s.name||'').split(' '), sty = SPECIES_STYLES.find(x=>sufOf(x, s.gender)===s.species_ending);
+  return {gWord:s.genus_word||'', gMean:s.genus_meaning||'', gEnd:s.genus_ending||'', gGender:s.gender||'m',
+    sWord:s.species_word||'', sMean:s.species_meaning||'', sStyle:sty?sty.k:'',
+    gEdit: s.edited && s.genus_word ? g : '', sEdit: s.edited ? e : ''};
+}
 function renderSaved(){
   const el = document.getElementById('savedList'); if (!el) return;
   el.innerHTML = savedNames.length ? savedNames.map((s,i)=>`<div class="saved-item">
     <div class="saved-row" style="border:none;padding:0"><div><i style="color:var(--gold)">${esc(s.name)}</i> ${esc(s.rank)} <span style="color:var(--muted)">· ${esc(s.nickname)}</span></div>
-      <div style="display:flex;gap:6px"><button class="btn api-btn" title="Draft etymology" onclick="draftSaved(${i})">✨</button><button class="btn" onclick="delName(${i})">✕</button></div></div>
+      <div style="display:flex;gap:6px"><button class="btn" title="Open this name in the name builder" onclick="loadSaved(${i})">↩️</button><button class="btn api-btn" title="Draft etymology" onclick="draftSaved(${i})">✨</button><button class="btn" title="Delete" onclick="delName(${i})">✕</button></div></div>
     ${draftBusy.has(s.when) ? '<div class="proto busy">✨ Drafting…</div>'
-      : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>`
-      : s.etymology ? `<details><summary class="note">Etymology</summary><div class="proto">${protoHTML({...s, forName:s.name})}</div></details>` : ''}
+      : s.draft_error ? `<div class="proto err">Could not draft: ${esc(s.draft_error)}</div>` : ''}
+    <details class="saved-edit"${openSaved.has(s.when)?' open':''} ontoggle="openSaved[this.open?'add':'delete']('${esc(s.when)}')">
+      <summary class="note">Etymology and notes${s.etymology_edited?' · edited':''}</summary>
+      <label class="note">Etymology</label>
+      <textarea rows="4" placeholder="Draft one with ✨, or write it here" oninput="editSaved(${i},'etymology',this.value)">${esc(s.etymology||'')}</textarea>
+      ${s.checks?.length?`<div class="proto"><h5>Notes from the draft</h5><ul>${s.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+      ${s.suggested_name && s.suggested_name.split(' ').slice(0,2).join(' ') !== s.name ? `<p class="note">Suggested spelling: <i>${esc(s.suggested_name)}</i></p>`:''}
+      <label class="note">Notes</label>
+      <textarea rows="2" placeholder="Who suggested it, what it means to them, things to check" oninput="editSaved(${i},'notes',this.value)">${esc(s.notes||'')}</textarea>
+    </details>
   </div>`).join('') : '<p class="note">No names saved yet.</p>';
   apiButtons();
 }
 async function draftSaved(i){
   const s = savedNames[i]; if (!s || draftBusy.has(s.when)) return;
   draftBusy.add(s.when); delete s.draft_error; renderSaved();
-  try { Object.assign(s, await draftName(s)); }
+  if (!s.genus_word && !s.genus_etym){ s.genus_name = s.name.split(' ')[0]; s.genus_etym = genusEtym(s.genus_name); }
+  try { Object.assign(s, await draftName(s), {etymology_edited:''}); }
   catch(e){ s.draft_error = e.message; }
   draftBusy.delete(s.when); storeNames(); renderSaved();
 }
@@ -1503,7 +1536,7 @@ async function draftAll(){
 }
 function exportNames(){
   const cols = [['org','organism'],['nickname'],['name','proposed_name'],['rank'],['gender'],['genus_word'],['genus_syl'],['genus_meaning'],['genus_ending'],['genus_ending_meaning'],
-    ['species_word'],['species_syl'],['species_meaning'],['species_ending'],['species_ending_meaning'],['higher_taxa'],['edited'],['etymology'],['checks'],['suggested_name'],['when','saved']];
+    ['species_word'],['species_syl'],['species_meaning'],['species_ending'],['species_ending_meaning'],['higher_taxa'],['edited'],['etymology'],['etymology_edited'],['checks'],['suggested_name'],['notes'],['when','saved']];
   const rows = [cols.map(c=>c[1]||c[0])].concat(savedNames.map(s=>cols.map(([k])=>Array.isArray(s[k])?s[k].join('; '):s[k])));
   const csv = rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿'+csv],{type:'text/csv'})); a.download = `${CM.id||'community'}_proposed_names.csv`; a.click();

@@ -44,8 +44,14 @@ def prompt_for(n):
     end = lambda k: f", + ending -{g(n, k + '_ending')} ({g(n, k + '_ending_meaning')})" if n.get(k + "_ending") else ", used without an ending"
     if n.get("genus_word"):
         lines.append(f"Genus built from {LANG} '{g(n, 'genus_word')}'{syl('genus_syl')}, meaning '{g(n, 'genus_meaning')}'{end('genus')}")
+    elif "gen. nov." in g(n, "rank"):
+        lines.append(f"Genus {g(n, 'name').split(' ')[0]} is new. It was typed in directly, so no {LANG} word or meaning was given: "
+                     f"work out its etymology from the name as written (as {LANG} where it looks like a {LANG} word), and say in a check what is unknown.")
     else:
-        lines.append("Genus already validly named; only the species is new.")
+        genus = g(n, 'genus_name')
+        lines.append(f"Genus already named{': ' + genus if genus else ''}; only the species is new.")
+        if n.get("genus_etym"):
+            lines.append(f"Published etymology of the genus: {g(n, 'genus_etym')}")
     lines.append(f"Species epithet built from {LANG} '{g(n, 'species_word')}'{syl('species_syl')}, meaning '{g(n, 'species_meaning')}'{end('species')}")
     if n.get("edited"):
         lines.append("The spelling was edited by hand; base the etymology on the proposed name exactly as written.")
@@ -71,13 +77,14 @@ def protologue(n, timeout=120):
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"API error {e.code}: {e.read().decode(errors='replace')[:400]}") from None
     for block in res.get("content", []):
-        if block.get("type") == "tool_use" and block.get("name") == "protologue":
+        # only a finished answer counts: a reply cut off at max_tokens leaves the fields half filled
+        if block.get("type") == "tool_use" and block.get("name") == "protologue" and str(block["input"].get("etymology", "")).strip():
             return block["input"]
     text = "".join(b.get("text", "") for b in res.get("content", []) if b.get("type") == "text")
     try:  # fallback: the same fields as a JSON object in the text
         return json.loads(text[text.index("{"):text.rindex("}") + 1])
     except ValueError:
-        raise RuntimeError("API returned no protologue") from None
+        raise RuntimeError("The draft was cut off. Try again." if res.get("stop_reason") == "max_tokens" else "API returned no protologue") from None
 
 
 def main():
