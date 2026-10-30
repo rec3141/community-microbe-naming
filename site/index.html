@@ -1106,7 +1106,7 @@ function epithet(stem, style, gender){
 const nbState = {};
 function st(){
   const c = C[cur];
-  return nbState[c.id] ||= {gWord:'', gMean:'', gEnd:'', gGender:'m', sWord:'', sMean:'', sStyle:'ensis', gEdit:'', sEdit:''};
+  return nbState[c.id] ||= {gWord:'', gMean:'', gEnd:'', gGender:'m', sWord:'', sMean:'', sStyle:'', gEdit:'', sEdit:''};
 }
 const sylFor = w => { const n = norm(w.trim()); if (!n) return ''; const e = DICT.find(x => norm(x.roman) === n); return e ? e.syllabics : ''; };
 let savedNames = JSON.parse(localStorage.getItem('ci_names')||'[]');
