@@ -18,4 +18,5 @@ window.COMMUNITY = {
   dictionaryCreditHtml: 'Swampy Cree (N-dialect) words from the <a href="https://resources.atlas-ling.ca/media/Manual-Mushkegowuk-FINAL-text-only-BW-v2.pdf" target="_blank">Moose and Swampy Cree Conversation Manual</a> (Algonquian Linguistic Atlas and Omushkego Education, Mushkegowuk Council, 2016). Spellings are from James Bay; Split Lake spellings can differ.',
   shapeGenes: {},
   knownGenusGender: {},
+  minCompleteness: 75,              // the user's choice for Split Lake (2026-11-11); SeqCode type genomes need 90
 };

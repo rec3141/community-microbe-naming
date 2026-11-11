@@ -491,6 +491,7 @@ const CM = window.COMMUNITY || {}, C = window.CANDIDATES, D = window.EXTRA_SITE_
       DICT = window.DICTIONARY || window.INUKTITUT_DICTIONARY || [];
 const LANG = CM.language || 'local-language', LOCAL = CM.localLabel || CM.placeName || 'local';
 const HAS_SCRIPT = !!CM.scriptName;  // a separate writing system (e.g. syllabics) next to roman spelling
+const MIN_COMPLETENESS = CM.minCompleteness ?? 90;  // % completeness that earns the quality tick
 // plain-language nicknames and stories (narratives.js) take precedence over candidates.js
 C.forEach(c => Object.assign(c, (window.NARRATIVES || {})[c.id] || {}));
 let cur = 0, curTab = 'story', maps = [];
@@ -1136,7 +1137,7 @@ function renderNaming(p){
   <div class="card"><h3>✍️ What we're naming</h3>
     <div class="pill gold" style="font-size:.95rem">${esc(need.label)}</div>
     <div class="chk-strip" style="margin-top:10px">
-      ${chk(m.completeness>=90, `${fmt(m.completeness)}% complete`)}
+      ${chk(m.completeness>=MIN_COMPLETENESS, `${fmt(m.completeness)}% complete`)}
       ${chk(m.contamination<=5, `${fmt(m.contamination,2)}% contamination`)}
       ${chk(/16S/.test(rr), '16S rRNA')}
       ${chk(/23S/.test(rr), '23S rRNA')}

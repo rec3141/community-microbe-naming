@@ -20,4 +20,5 @@ window.COMMUNITY = {
   dictionaryCreditHtml: 'Words from <a href="https://example.org" target="_blank">Example dictionary</a>.',
   shapeGenes: {},                   // MAG id -> rod-shape genes found ('mreBCD rodA pbp2'); scripts/hpc/shape_genes.py
   knownGenusGender: {},             // genus -> 'm'|'f'|'n' for existing genera not described in narratives.js GENERA
+  minCompleteness: 90,              // % completeness for the quality tick on the Naming tab (and the roster rule)
 };
