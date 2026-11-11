@@ -19,4 +19,5 @@ window.COMMUNITY = {
   shapeGenes: {},
   knownGenusGender: {},
   minCompleteness: 75,              // the user's choice for Split Lake (2026-11-11); SeqCode type genomes need 90
+  maxContamination: null,           // no limit for now (2026-11-11); SeqCode type genomes need <= 5
 };

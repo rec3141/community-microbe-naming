@@ -37,7 +37,7 @@ For a quick job without Nextflow, use `genome_to_site.sh`.
 ## 1. Pick candidate microbes
 
 What makes a good candidate:
-- **Quality**: completeness ≥ 90% (or the community's `minCompleteness` in community.js; Split Lake uses 75%) and contamination ≤ 5%, ideally with a 16S, 23S
+- **Quality**: completeness ≥ 90% (or the community's `minCompleteness` in community.js; Split Lake uses 75%) and contamination ≤ 5% (`maxContamination`; Split Lake: no limit), ideally with a 16S, 23S
   and 5S rRNA and 18–20 of the 20 tRNA amino acids. SeqCode registration needs high quality.
 - **Unnamed**: no Latin species name in GTDB. A placeholder genus (`UBA845`) or a lettered
   split (`Thioglobus_A`) decides whether the genus is new too. Lettered genera count as named.

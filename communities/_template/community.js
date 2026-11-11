@@ -21,4 +21,5 @@ window.COMMUNITY = {
   shapeGenes: {},                   // MAG id -> rod-shape genes found ('mreBCD rodA pbp2'); scripts/hpc/shape_genes.py
   knownGenusGender: {},             // genus -> 'm'|'f'|'n' for existing genera not described in narratives.js GENERA
   minCompleteness: 90,              // % completeness for the quality tick on the Naming tab (and the roster rule)
+  maxContamination: 5,              // % contamination for the same tick; null = no limit (the value is shown without a tick)
 };
