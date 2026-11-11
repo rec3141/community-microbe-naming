@@ -54,7 +54,7 @@ have no Latin name yet.
 | id (suggested) | Community | Language | Samples | Notes |
 |---|---|---|---|---|
 | `igluligaarjuk` | Chesterfield Inlet, NU | Inuktitut (Aivilingmiutut) | inlet + three lakes, 2025 | done; live |
-| (Cree) | Split Lake area, MB (Nelson River) | Cree | Split Lake samples | freshwater only; regional station "Nelson River / Split & Assean Lakes (Northern MB)" already exists |
+| `split-lake` | Split Lake, MB (Tataskweyak Cree Nation) | Swampy Cree (N-dialect) | Aug 2024 survey + Feb 2026 community monitoring | started 2026-11; freshwater only; own station split out ahead of the regional Nelson River rule |
 | (Anishinaabe) | Lake Winnipeg, MB | Anishinaabemowin | Lake Winnipeg samples | freshwater only; stations "Lake Winnipeg North/South Basin" already exist |
 
 For these communities, ask the user for the folder id, the community's preferred names and
